@@ -28,5 +28,33 @@
 	 * Although scripts in the WordPress core, Plugins and Themes may be
 	 * practising this, we should strive to set a better example in our own work.
 	 */
+	jQuery(document).ready(function ($) {
 
+		$('#wb_ads_rotator_condition').selectize({
+			placeholder: "-- choose a condition --",
+			plugins: ['remove_button'],
+		});
+
+		$('#wb_ads_rotator_to_whom').selectize({
+			placeholder: "-- choose a condition --",
+			plugins: ['remove_button'],
+		});
+
+		jQuery(document).ready(function ($) {
+			wp.codeEditor.initialize($('#wb-ad-rotator-content-plain'), cm_settings);
+		});
+
+		$(document).on("click", "#wb-ad-rotator-parameters-php", function (e) {
+			if ($(this).is(":checked")) {
+				$(".wb_ads_rotator-wrapper #wb-ad-rotator-parameters-php-warning").show(200);
+			} else {
+				$(".wb_ads_rotator-wrapper #wb-ad-rotator-parameters-php-warning").hide(200);
+			}
+		});
+
+		
+
+		
+		
+	});
 })( jQuery );

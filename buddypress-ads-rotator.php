@@ -76,6 +76,5 @@ function run_buddypress_ads_rotator() {
 
 	$plugin = new Buddypress_Ads_Rotator();
 	$plugin->run();
-
 }
 run_buddypress_ads_rotator();

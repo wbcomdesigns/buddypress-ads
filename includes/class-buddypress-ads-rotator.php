@@ -72,12 +72,41 @@ class Buddypress_Ads_Rotator {
 			$this->version = '1.0.0';
 		}
 		$this->plugin_name = 'buddypress-ads-rotator';
-
+		$this->define_constants();
 		$this->load_dependencies();
 		$this->set_locale();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
 
+	}
+
+	/**
+	 * Define plugin constants that are use entire plugin.
+	 *
+	 * @since    1.0.0
+	 * @access   public
+	 */
+	public function define_constants() {
+		$this->define( 'BUDDYPRESS_ADS_ROTATOR_FILE', __FILE__ );
+		$this->define( 'BUDDYPRESS_ADS_ROTATOR_URL', plugin_dir_url( dirname( __FILE__ ) ) );
+		$this->define( 'BUDDYPRESS_ADS_ROTATOR_PATH', plugin_dir_path( dirname( __FILE__ ) ) );
+		$this->define( 'BUDDYPRESS_ADS_ROTATOR_DIR', trailingslashit( dirname( __FILE__ ) ) );
+	}
+
+	/**
+	 * Define constant if not already defined
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string      $name Name.
+	 * @param string|bool $value Value.
+	 *
+	 * @return void
+	 */
+	private function define( $name, $value ) {
+		if ( ! defined( $name ) ) {
+			define( $name, $value );
+		}
 	}
 
 	/**
@@ -155,6 +184,9 @@ class Buddypress_Ads_Rotator {
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
+		$this->loader->add_action( 'init', $plugin_admin, 'wb_ads_rotator_add_cpt' );
+		$this->loader->add_action( 'add_meta_boxes', $plugin_admin, 'wb_ads_rotator_add_metaboxes' );
+		$this->loader->add_action( 'save_post', $plugin_admin, 'wb_ads_rotator_save_post_meta' );
 
 	}
 

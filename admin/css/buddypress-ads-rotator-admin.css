@@ -2,3 +2,48 @@
  * All of the CSS for your admin-specific functionality should be
  * included in this file.
  */
+ .wb_ads_rotator-panel .wb_ads_rotator-wrapper {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -ms-flex-flow: row wrap;
+    flex-flow: row wrap;
+    margin: 20px 0;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.wb_ads_rotator-panel .wb_ads_rotator-wrapper {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -ms-flex-flow: row wrap;
+    flex-flow: row wrap;
+    margin: 20px 0;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.wb_ads_rotator-panel .wb_ads_rotator-wrapper:last-child {
+    padding-bottom: 0;
+    border: 0;
+}
+
+.wb_ads_rotator-panel .wb_ads_rotator-wrapper .wb_ads_rotator-label {
+    color: #5F5F5F;
+    font-weight: 700;
+    line-height: 19px;
+    width: 20%;
+}
+
+.wb_ads_rotator-panel .wb_ads_rotator-wrapper .wb_ads_rotator-input {
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+}
