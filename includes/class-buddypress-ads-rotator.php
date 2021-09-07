@@ -187,7 +187,12 @@ class Buddypress_Ads_Rotator {
 		$this->loader->add_action( 'init', $plugin_admin, 'wb_ads_rotator_add_cpt' );
 		$this->loader->add_action( 'add_meta_boxes', $plugin_admin, 'wb_ads_rotator_add_metaboxes' );
 		$this->loader->add_action( 'save_post', $plugin_admin, 'wb_ads_rotator_save_post_meta' );
+		$this->loader->add_action( 'wp_ajax_wb_ads_rotator_image', $plugin_admin, 'wb_ads_rotator_image' );
 
+		$this->loader->add_filter( 'manage_wb-ads_posts_columns', $plugin_admin, 'wb_ads_rotator_add_disable_admin_columns', 10, 1 );
+		$this->loader->add_action( 'manage_wb-ads_posts_custom_column', $plugin_admin, 'wb_ads_rotator_add_disable_column_content', 10, 2 );
+		$this->loader->add_action( 'transition_post_status', $plugin_admin, 'wb_ads_rotator_update_default_value_on_ads_publish', 10, 3 );
+		$this->loader->add_action( 'wp_ajax_wb_ads_rotator_enable', $plugin_admin, 'wb_ads_rotator_ajax_enable_callback' );
 	}
 
 	/**
