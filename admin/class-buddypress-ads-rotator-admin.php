@@ -546,7 +546,7 @@ class Buddypress_Ads_Rotator_Admin {
 				<div class="wb_ads_rotator-input">
 					<select id="wb_ads_rotator_condition" name="wb_ads_rotator[condition]">
 						<option value=""<?php isset( $wb_ads_rotator_values['condition'] ) && selected( $wb_ads_rotator_values['condition'], '' ); ?>><?php esc_html_e( '-- choose a condition --', 'buddypress-ads-rotator' ); ?></option>
-						<option value="before_activity_entery" <?php isset( $wb_ads_rotator_values['condition'] ) && selected( $wb_ads_rotator_values['condition'], 'before_activity_entery' ); ?>><?php esc_html_e( 'before activity entry', 'buddypress-ads-rotator' ); ?></option>
+						<option value="before_activity_entry" <?php isset( $wb_ads_rotator_values['condition'] ) && selected( $wb_ads_rotator_values['condition'], 'before_activity_entry' ); ?>><?php esc_html_e( 'before activity entry', 'buddypress-ads-rotator' ); ?></option>
 						<option value="activity_entry_content" <?php isset( $wb_ads_rotator_values['condition'] ) && selected( $wb_ads_rotator_values['condition'], 'activity_entry_content' ); ?>><?php esc_html_e( 'activity entry content', 'buddypress-ads-rotator' ); ?></option>
 						<option value="after_activity_entry" <?php isset( $wb_ads_rotator_values['condition'] ) && selected( $wb_ads_rotator_values['condition'], 'after_activity_entry' ); ?>><?php esc_html_e( 'after activity entry', 'buddypress-ads-rotator' ); ?></option>
 						<option value="before_activity_entry_comments" <?php isset( $wb_ads_rotator_values['condition'] ) && selected( $wb_ads_rotator_values['condition'], 'before_activity_entry_comments' ); ?>><?php esc_html_e( 'before activity entry comments', 'buddypress-ads-rotator' ); ?></option>

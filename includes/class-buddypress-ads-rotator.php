@@ -219,7 +219,7 @@ class Buddypress_Ads_Rotator {
 		$wb_ads_rotator_get_values        = get_post_meta( $wb_gets_ads_id, 'wb_ads_rotator_values', true );
 		$wb_ads_rotator_display_condition = isset( $wb_ads_rotator_get_values['condition'] ) ? $wb_ads_rotator_get_values['condition'] : '';
 		switch ( $wb_ads_rotator_display_condition ) {
-			case 'before_activity_entery':
+			case 'before_activity_entry':
 				$this->loader->add_action( 'bp_before_activity_entry', $plugin_public, 'wb_ads_rotator_display_ads' );
 				break;
 			case 'activity_entry_content':
