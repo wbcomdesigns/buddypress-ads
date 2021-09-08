@@ -45,25 +45,20 @@
 			plugins: ['remove_button'],
 		});
 		
-		wp.codeEditor.initialize($('#wb-ad-rotator-content-plain'), cm_settings);
-		
-		
-		$(document).on("click", "#wb-ad-rotator-allow-php", function (e) {
-			var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
-				lineNumbers: true,
-				matchBrackets: true,
-				mode: "text/x-csrc"
-			});
-
-				var text = editor.mirror.getCode();
-				alert(text);
-			
-			if ($(this).is(":checked")) {
-				$(".wb_ads_rotator-wrapper #wb-ad-rotator-allow-php-warning").show(200);
-			} else {
-				$(".wb_ads_rotator-wrapper #wb-ad-rotator-allow-php-warning").hide(200);
-			}
+		$("#wb-ad-rotator-container-id").keyup(function () {
+			var Text = $(this).val();
+			Text = Text.toLowerCase();
+			Text = Text.replace(/[^a-zA-Z0-9]+/g, '-');
+			$("#wb-ad-rotator-container-id").val(Text);
 		});
+
+		$("#wb-ad-rotator-container-class").keyup(function () {
+			var Text = $(this).val();
+			Text = Text.toLowerCase();
+			Text = Text.replace(/[^a-zA-Z0-9]+/g, '-');
+			$("#wb-ad-rotator-container-class").val(Text);
+		});
+
 		$(document).on("click", "#wb-ad-rotator-allow-shortcode", function (e) {
 			if ($(this).is(":checked")) {
 				$(".wb_ads_rotator-wrapper #wb-ad-rotator-allow-shortcode-warning").show(200);
@@ -71,6 +66,36 @@
 				$(".wb_ads_rotator-wrapper #wb-ad-rotator-allow-shortcode-warning").hide(200);
 			}
 		});
+
+		$(document).on("click", "#wb-ad-rotator-allow-php", function (e) {
+			if ($(this).is(":checked")) {
+				$(".wb_ads_rotator-wrapper #wb-ad-rotator-allow-php-warning").show(200);
+			} else {
+				$(".wb_ads_rotator-wrapper #wb-ad-rotator-allow-php-warning").hide(200);
+			}
+		});
+		
+		function myFunction() {
+			//var text = wp.codeEditor.getValue();
+			var text = jQuery("#wb-ad-rotator-content-plain").val();
+			
+			return text;
+		}
+		var texts = myFunction();
+		var enabled_php = jQuery('#wb-ad-rotator-allow-php').prop('checked');
+		var enabled_sc = jQuery('#wb-ad-rotator-allow-shortcode').prop('checked');
+		if (enabled_php && ! /\<\?php/.test(texts) ) {
+			console.log(texts);
+			$(".wb_ads_rotator-wrapper #wb-ad-rotator-allow-php-warning").show(200);
+			} else {
+			$(".wb_ads_rotator-wrapper #wb-ad-rotator-allow-php-warning").hide(200);
+			}
+		if (enabled_sc && ! /\[[^\]]+\]/.test(texts)) {
+			$(".wb_ads_rotator-wrapper #wb-ad-rotator-allow-shortcode-warning").show(200);
+			} else {
+			$(".wb_ads_rotator-wrapper #wb-ad-rotator-allow-shortcode-warning").hide(200);
+			}
+			
 
 		$(document).ready(function () {
 			$('input[type="radio"]').click(function () {
@@ -164,7 +189,7 @@
 			file_frame.open()
 		})
 		
-		
+		wp.codeEditor.initialize($('#wb-ad-rotator-content-plain'), cm_settings);
 		
 	});
 })( jQuery );

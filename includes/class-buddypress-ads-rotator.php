@@ -150,6 +150,12 @@ class Buddypress_Ads_Rotator {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-buddypress-ads-rotator-public.php';
 
+		/**
+		 * The class responsible for defining all actions that occur in the public-facing
+		 * side of the site.
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/buddypress-ads-rotator-genral-functions.php';
+
 		$this->loader = new Buddypress_Ads_Rotator_Loader();
 
 	}
@@ -208,6 +214,36 @@ class Buddypress_Ads_Rotator {
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
+
+		$wb_gets_ads_id                   = wb_ads_rotator_gets_ads_id();
+		$wb_ads_rotator_get_values        = get_post_meta( $wb_gets_ads_id, 'wb_ads_rotator_values', true );
+		$wb_ads_rotator_display_condition = isset( $wb_ads_rotator_get_values['condition'] ) ? $wb_ads_rotator_get_values['condition'] : '';
+		switch ( $wb_ads_rotator_display_condition ) {
+			case 'before_activity_entery':
+				$this->loader->add_action( 'bp_before_activity_entry', $plugin_public, 'wb_ads_rotator_display_ads' );
+				break;
+			case 'activity_entry_content':
+				$this->loader->add_action( 'bp_activity_entry_content', $plugin_public, 'wb_ads_rotator_display_ads' );
+				break;
+			case 'after_activity_entry':
+				$this->loader->add_action( 'bp_after_activity_entry', $plugin_public, 'wb_ads_rotator_display_ads' );
+				break;
+			case 'before_activity_entry_comments':
+				$this->loader->add_action( 'bp_before_activity_entry_comments', $plugin_public, 'wb_ads_rotator_display_ads' );
+				break;
+			case 'activity_entry_comments':
+				$this->loader->add_action( 'bp_activity_entry_comments', $plugin_public, 'wb_ads_rotator_display_ads' );
+				break;
+			case 'after_activity_entry_comments':
+				$this->loader->add_action( 'bp_after_activity_entry_comments', $plugin_public, 'wb_ads_rotator_display_ads' );
+				break;
+			case 'directory_group_item':
+				$this->loader->add_action( 'bp_directory_groups_item', $plugin_public, 'wb_ads_rotator_display_ads' );
+				break;
+			case 'directory_members_item':
+				$this->loader->add_action( 'bp_directory_members_item', $plugin_public, 'wb_ads_rotator_display_ads', 10, 0 );
+				break;
+		}
 
 	}
 

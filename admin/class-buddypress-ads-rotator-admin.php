@@ -282,7 +282,7 @@ class Buddypress_Ads_Rotator_Admin {
 			>
 				<div class="wb_ads_rotator-input">
 					<?php esc_html_e( 'Insert plain text or code into this field.', 'buddypress-ads-rotator' ); ?>
-					<?php echo '<textarea id="wb-ad-rotator-content-plain" name="wb_ads_rotator[plain_text_and_code]">' . esc_textarea( $wb_ads_rotator_plain_text ) . '</textarea>'; ?>
+					<?php echo '<textarea id="wb-ad-rotator-content-plain" name="wb_ads_rotator[plain_text_and_code]" onkeyup="myFunction();">' . esc_textarea( $wb_ads_rotator_plain_text ) . '</textarea>'; ?>
 				</div>
 			</div>
 			<div class="wb_ads_rotator-wrapper rich-content"
@@ -361,11 +361,6 @@ class Buddypress_Ads_Rotator_Admin {
 					<input type="checkbox" id="wb-ad-rotator-allow-php" name="wb_ads_rotator[allow_php]" value="yes" <?php esc_attr( isset( $wb_ads_rotator_values['allow_php'] ) ? checked( $wb_ads_rotator_values['allow_php'], 'yes' ) : '' ); ?>>
 					<?php esc_html_e( 'Execute PHP code (wrapped in <?php ?>)', 'buddypress-ads-rotator' ); ?>
 					<div class="wb-ad-rotator-error-message" id="wb-ad-rotator-allow-php-warning" 
-						<?php
-						if ( true != isset( $wb_ads_rotator_values['allow_php'] ) ) {
-							echo 'style="display:none"';
-						}
-						?>
 						>
 							<?php esc_html_e( 'No PHP tag detected in your code.', 'buddypress-ads-rotator' ); ?>
 							<?php esc_html_e( 'Uncheck this checkbox for improved performance.', 'buddypress-ads-rotator' ); ?>
@@ -507,7 +502,7 @@ class Buddypress_Ads_Rotator_Admin {
 					<?php esc_html_e( 'Container ID', 'buddypress-ads-rotator' ); ?>
 				</div>
 				<div class="wb_ads_rotator-input">
-					<input type="text" id="wb-ad-rotator-parameters-php" name="wb_ads_rotator[container_id]" value="<?php echo esc_attr( $wb_ads_rotator_container_id ); ?>"  />
+					<input type="text" id="wb-ad-rotator-container-id" name="wb_ads_rotator[container_id]" value="<?php echo esc_attr( $wb_ads_rotator_container_id ); ?>"  />
 					<p>
 						<?php esc_html_e( 'Specify the id of the ad container. Leave blank for random or no id.  An id-like string with only letters in lower case, numbers, and hyphens.', 'buddypress-ads-rotator' ); ?>
 					</p>
@@ -518,7 +513,7 @@ class Buddypress_Ads_Rotator_Admin {
 					<?php esc_html_e( 'Container Classes', 'buddypress-ads-rotator' ); ?>
 				</div>
 				<div class="wb_ads_rotator-input">
-					<input type="text" id="wb-ad-rotator-parameters-php" name="wb_ads_rotator[container_classes]" value="<?php echo esc_attr( $wb_ads_rotator_container_class ); ?>"  />
+					<input type="text" id="wb-ad-rotator-container-class" name="wb_ads_rotator[container_classes]" value="<?php echo esc_attr( $wb_ads_rotator_container_class ); ?>"  />
 				<p>
 					<?php esc_html_e( 'Specify one or more classes for the container. Separate multiple classes with a space.', 'buddypress-ads-rotator' ); ?>
 				</p>
@@ -572,6 +567,7 @@ class Buddypress_Ads_Rotator_Admin {
 		</div>
 		<?php
 	}
+
 	/**
 	 * WB Ads Metabox callback function.
 	 *
@@ -594,6 +590,7 @@ class Buddypress_Ads_Rotator_Admin {
 				<div class="wb_ads_rotator-input">
 					<select id="wb_ads_rotator_to_whom_device" name="wb_ads_rotator[to_whom][logged_in_visitor]">
 						<option value=""<?php isset( $wb_ads_rotator_values['to_whom']['logged_in_visitor'] ) && selected( $wb_ads_rotator_values['to_whom']['logged_in_visitor'], '' ); ?>><?php esc_html_e( '-- choose a condition --', 'buddypress-ads-rotator' ); ?></option>
+						<option value="both_visitor"<?php isset( $wb_ads_rotator_values['to_whom']['logged_in_visitor'] ) && selected( $wb_ads_rotator_values['to_whom']['logged_in_visitor'], 'both_visitor' ); ?>><?php esc_html_e( 'Both Logged-in and Logged-out Visitor', 'buddypress-ads-rotator' ); ?></option>
 						<option value="login_in"<?php isset( $wb_ads_rotator_values['to_whom']['logged_in_visitor'] ) && selected( $wb_ads_rotator_values['to_whom']['logged_in_visitor'], 'login_in' ); ?>><?php esc_html_e( 'Logged-in Visitor', 'buddypress-ads-rotator' ); ?></option>
 						<option value="logout_out"<?php isset( $wb_ads_rotator_values['to_whom']['logged_in_visitor'] ) && selected( $wb_ads_rotator_values['to_whom']['logged_in_visitor'], 'logout_out' ); ?>><?php esc_html_e( 'Logged-out Visitor', 'buddypress-ads-rotator' ); ?></option>
 					</select>				
@@ -710,9 +707,10 @@ class Buddypress_Ads_Rotator_Admin {
 	 */
 	public function wb_ads_rotator_update_default_value_on_ads_publish( $new_status, $old_status, $post ) {
 
-		$notice_id = $post->ID;
-		if ( 'publish' === $new_status && 'wb-ads' === $_POST['post_type'] ) {
-			update_post_meta( $notice_id, 'wb_ads_enable', 'enable' );
+		$wb_ads_id = $post->ID;
+		$post_type = $post->post_type;
+		if ( 'publish' === $new_status && 'wb-ads' === $post_type ) {
+			update_post_meta( $wb_ads_id, 'wb_ads_enable', 'enable' );
 		}
 	}
 
@@ -724,11 +722,11 @@ class Buddypress_Ads_Rotator_Admin {
 	public function wb_ads_rotator_ajax_enable_callback() {
 		$action       = $_POST['action'];
 		$action_value = $_POST['visible'];
-		$notice_id    = $_POST['datanotice'];
+		$wb_ads_id    = $_POST['datanotice'];
 		if ( 'wb_ads_rotator_enable' === $action && 'enable' === $action_value ) {
-			update_post_meta( $notice_id, 'wb_ads_enable', 'enable' );
+			update_post_meta( $wb_ads_id, 'wb_ads_enable', 'enable' );
 		} elseif ( 'wb_ads_rotator_enable' === $action && 'disable' === $action_value ) {
-			update_post_meta( $notice_id, 'wb_ads_enable', 'disable' );
+			update_post_meta( $wb_ads_id, 'wb_ads_enable', 'disable' );
 		}
 		die;
 	}

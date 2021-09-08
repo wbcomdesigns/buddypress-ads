@@ -99,4 +99,234 @@ class Buddypress_Ads_Rotator_Public {
 
 	}
 
+	/**
+	 * Display Ads on buddypress.
+	 */
+	public function wb_ads_rotator_display_ads() {
+		global $post;
+		$args = array(
+			'post_type' => 'wb-ads',
+			'fields'    => 'ids',
+		);
+
+		$wb_ads_rotator_get_ads = get_posts( $args );
+		foreach ( $wb_ads_rotator_get_ads as $wb_ads_rotator_get_ad ) {
+			$wb_ads_rotator_type = get_post_meta( $wb_ads_rotator_get_ad, 'wb_ads_rotator_values', true );
+			switch ( $wb_ads_rotator_type['ads_type'] ) {
+				case 'plain-text-and-code':
+					$this->wb_ads_rotator_display_plain_text_and_code_ads( $wb_ads_rotator_get_ad );
+					break;
+				case 'rich-content':
+					$this->wb_ads_rotator_display_rich_content_ads( $wb_ads_rotator_get_ad );
+					break;
+				case 'image-ad':
+					$this->wb_ads_rotator_display_image_ads( $wb_ads_rotator_get_ad );
+					break;
+			}
+		}
+
+	}
+
+	/**
+	 * Display plain text and code type ads.
+	 *
+	 * @param int $wb_ads_rotator_get_ad Get Ads ID.
+	 */
+	public function wb_ads_rotator_display_plain_text_and_code_ads( $wb_ads_rotator_get_ad ) {
+		$wb_ads_rotator_get_values = get_post_meta( $wb_ads_rotator_get_ad, 'wb_ads_rotator_values', true );
+		$wb_ads_rotator_enable     = get_post_meta( $wb_ads_rotator_get_ad, 'wb_ads_enable', true );
+
+		if ( 'disable' === $wb_ads_rotator_enable ) {
+			return;
+		}
+		switch ( $wb_ads_rotator_get_values['ads_position'] ) {
+			case 'default':
+				$wb_ads_position = 'initial';
+				break;
+			case 'left':
+				$wb_ads_position = 'left';
+				break;
+			case 'center':
+				$wb_ads_position = 'center';
+				break;
+			case 'right':
+				$wb_ads_position = 'right';
+				break;
+		}
+
+		$wb_ads_rotator_get_plain_text  = isset( $wb_ads_rotator_get_values['plain_text_and_code'] ) ? $wb_ads_rotator_get_values['plain_text_and_code'] : '';
+		$wb_ads_rotator_container_class = isset( $wb_ads_rotator_get_values['container_classes'] ) ? $wb_ads_rotator_get_values['container_classes'] : '';
+		$wb_ads_rotator_container_id    = isset( $wb_ads_rotator_get_values['container_id'] ) ? $wb_ads_rotator_get_values['container_id'] : '';
+		$wb_ads_visitor_view            = isset( $wb_ads_rotator_get_values['to_whom']['logged_in_visitor'] ) ? $wb_ads_rotator_get_values['to_whom']['logged_in_visitor'] : '';
+		$wb_ads_visitor_device          = isset( $wb_ads_rotator_get_values['to_whom']['device'] ) ? $wb_ads_rotator_get_values['to_whom']['device'] : '';
+		$wb_ads_rotator_margin_top      = isset( $wb_ads_rotator_get_values['margin']['top'] ) ? $wb_ads_rotator_get_values['margin']['top'] : '';
+		$wb_ads_rotator_margin_right    = isset( $wb_ads_rotator_get_values['margin']['right'] ) ? $wb_ads_rotator_get_values['margin']['right'] : '';
+		$wb_ads_rotator_margin_bottom   = isset( $wb_ads_rotator_get_values['margin']['bottom'] ) ? $wb_ads_rotator_get_values['margin']['bottom'] : '';
+		$wb_ads_rotator_margin_left     = isset( $wb_ads_rotator_get_values['margin']['left'] ) ? $wb_ads_rotator_get_values['margin']['left'] : '';
+		$wb_ads_rotator_clearfix        = isset( $wb_ads_rotator_get_values['clearfix'] ) ? $wb_ads_rotator_get_values['clearfix'] : '';
+
+		if ( empty( $wb_ads_rotator_container_id ) ) {
+			$wb_ads_rotator_container_id = 'wb_ads_rotator_' . $wb_ads_rotator_get_ad;
+		}
+		if ( ! is_user_logged_in() && 'login_in' === $wb_ads_visitor_view ) {
+			return;
+		} elseif ( is_user_logged_in() && 'logout_out' === $wb_ads_visitor_view ) {
+			return;
+		} elseif ( 'both_visitor' === $wb_ads_visitor_view ) {
+
+		}
+		if ( 'desktop' === $wb_ads_visitor_device ) {
+			if ( wp_is_mobile() ) {
+				return;
+			}
+		} elseif ( 'mobile' === $wb_ads_visitor_device ) {
+			if ( ! wp_is_mobile() ) {
+				return;
+			}
+		}
+		echo '<div class="wb-ads-rotator plain-text-and-code-ads ' . esc_attr( $wb_ads_rotator_container_class ) . '" style=" text-align:' . esc_attr( $wb_ads_position ) . '; margin-top:' . esc_attr( $wb_ads_rotator_margin_top ) . 'px; margin-right:' . esc_attr( $wb_ads_rotator_margin_right ) . 'px; margin-bottom:' . esc_attr( $wb_ads_rotator_margin_bottom ) . 'px;margin-left:' . esc_attr( $wb_ads_rotator_margin_left ) . 'px; " id=" ' . esc_attr( $wb_ads_rotator_container_id ) . ' ">';
+		echo wp_kses_post( apply_filters( 'wb_ads_rotator_plain_text_code_ads_content', $wb_ads_rotator_get_plain_text ) );
+		echo '</div>';
+		if ( 'yes' === $wb_ads_rotator_clearfix ) {
+			echo '<br style="clear: both; display: block; float: none;">';
+		}
+
+	}
+
+	/**
+	 * Display rich content type ads.
+	 *
+	 * @param int $wb_ads_rotator_get_ad Get Ads ID.
+	 */
+	public function wb_ads_rotator_display_rich_content_ads( $wb_ads_rotator_get_ad ) {
+		$wb_ads_rotator_get_values = get_post_meta( $wb_ads_rotator_get_ad, 'wb_ads_rotator_values', true );
+		$wb_ads_rotator_enable     = get_post_meta( $wb_ads_rotator_get_ad, 'wb_ads_enable', true );
+		if ( 'disable' === $wb_ads_rotator_enable ) {
+			return;
+		}
+
+		switch ( $wb_ads_rotator_get_values['ads_position'] ) {
+			case 'default':
+				$wb_ads_position = 'initial';
+				break;
+			case 'left':
+				$wb_ads_position = 'left';
+				break;
+			case 'center':
+				$wb_ads_position = 'center';
+				break;
+			case 'right':
+				$wb_ads_position = 'right';
+				break;
+		}
+
+		$wb_ads_rotator_get_rich_content = isset( $wb_ads_rotator_get_values['rich_content'] ) ? $wb_ads_rotator_get_values['rich_content'] : '';
+		$wb_ads_rotator_container_class  = isset( $wb_ads_rotator_get_values['container_classes'] ) ? $wb_ads_rotator_get_values['container_classes'] : '';
+		$wb_ads_rotator_container_id     = isset( $wb_ads_rotator_get_values['container_id'] ) ? $wb_ads_rotator_get_values['container_id'] : '';
+		$wb_ads_visitor_view             = isset( $wb_ads_rotator_get_values['to_whom']['logged_in_visitor'] ) ? $wb_ads_rotator_get_values['to_whom']['logged_in_visitor'] : '';
+		$wb_ads_visitor_device           = isset( $wb_ads_rotator_get_values['to_whom']['device'] ) ? $wb_ads_rotator_get_values['to_whom']['device'] : '';
+		$wb_ads_rotator_margin_top       = isset( $wb_ads_rotator_get_values['margin']['top'] ) ? $wb_ads_rotator_get_values['margin']['top'] : '';
+		$wb_ads_rotator_margin_right     = isset( $wb_ads_rotator_get_values['margin']['right'] ) ? $wb_ads_rotator_get_values['margin']['right'] : '';
+		$wb_ads_rotator_margin_bottom    = isset( $wb_ads_rotator_get_values['margin']['bottom'] ) ? $wb_ads_rotator_get_values['margin']['bottom'] : '';
+		$wb_ads_rotator_margin_left      = isset( $wb_ads_rotator_get_values['margin']['left'] ) ? $wb_ads_rotator_get_values['margin']['left'] : '';
+		$wb_ads_rotator_clearfix         = isset( $wb_ads_rotator_get_values['clearfix'] ) ? $wb_ads_rotator_get_values['clearfix'] : '';
+
+		if ( empty( $wb_ads_rotator_container_id ) ) {
+			$wb_ads_rotator_container_id = 'wb_ads_rotator_' . $wb_ads_rotator_get_ad;
+		}
+		if ( ! is_user_logged_in() && 'login_in' === $wb_ads_visitor_view ) {
+			return;
+		} elseif ( is_user_logged_in() && 'logout_out' === $wb_ads_visitor_view ) {
+			return;
+		} elseif ( 'both_visitor' === $wb_ads_visitor_view ) {
+
+		}
+		if ( 'desktop' === $wb_ads_visitor_device ) {
+			if ( wp_is_mobile() ) {
+				return;
+			}
+		} elseif ( 'mobile' === $wb_ads_visitor_device ) {
+			if ( ! wp_is_mobile() ) {
+				return;
+			}
+		}
+		echo '<div class="wb-ads-rotator rich-content-ads ' . esc_attr( $wb_ads_rotator_container_class ) . '" style=" text-align:' . esc_attr( $wb_ads_position ) . ';margin-top:' . esc_attr( $wb_ads_rotator_margin_top ) . 'px; margin-right:' . esc_attr( $wb_ads_rotator_margin_right ) . 'px; margin-bottom:' . esc_attr( $wb_ads_rotator_margin_bottom ) . 'px;margin-left:' . esc_attr( $wb_ads_rotator_margin_left ) . 'px; " id=" ' . esc_attr( $wb_ads_rotator_container_id ) . ' ">';
+		echo wp_kses_post( apply_filters( 'wb_ads_rotator_rich_content_ads_content', $wb_ads_rotator_get_rich_content ) );
+		echo '</div>';
+		if ( 'yes' === $wb_ads_rotator_clearfix ) {
+			echo '<br style="clear: both; display: block; float: none;">';
+		}
+	}
+
+	/**
+	 * Display image ad type ads.
+	 *
+	 * @param int $wb_ads_rotator_get_ad Get Ads ID.
+	 */
+	public function wb_ads_rotator_display_image_ads( $wb_ads_rotator_get_ad ) {
+		$wb_ads_rotator_get_values = get_post_meta( $wb_ads_rotator_get_ad, 'wb_ads_rotator_values', true );
+		$wb_ads_rotator_enable     = get_post_meta( $wb_ads_rotator_get_ad, 'wb_ads_enable', true );
+		if ( 'disable' === $wb_ads_rotator_enable ) {
+			return;
+		}
+
+		switch ( $wb_ads_rotator_get_values['ads_position'] ) {
+			case 'default':
+				$wb_ads_position = 'initial';
+				break;
+			case 'left':
+				$wb_ads_position = '-webkit-left';
+				break;
+			case 'center':
+				$wb_ads_position = '-webkit-center';
+				break;
+			case 'right':
+				$wb_ads_position = '-webkit-right';
+				break;
+		}
+
+		$wb_ads_rotator_get_image_id    = isset( $wb_ads_rotator_get_values['ads_image'] ) ? $wb_ads_rotator_get_values['ads_image'] : '';
+		$wb_ads_rotator_get_image_link  = isset( $wb_ads_rotator_get_values['image_link'] ) ? $wb_ads_rotator_get_values['image_link'] : '';
+		$wb_ads_rotator_container_class = isset( $wb_ads_rotator_get_values['container_classes'] ) ? $wb_ads_rotator_get_values['container_classes'] : '';
+		$wb_ads_rotator_container_id    = isset( $wb_ads_rotator_get_values['container_id'] ) ? $wb_ads_rotator_get_values['container_id'] : '';
+		$wb_ads_visitor_view            = isset( $wb_ads_rotator_get_values['to_whom']['logged_in_visitor'] ) ? $wb_ads_rotator_get_values['to_whom']['logged_in_visitor'] : '';
+		$wb_ads_visitor_device          = isset( $wb_ads_rotator_get_values['to_whom']['device'] ) ? $wb_ads_rotator_get_values['to_whom']['device'] : '';
+		$wb_ads_rotator_image_width     = isset( $wb_ads_rotator_get_values['size']['width'] ) ? $wb_ads_rotator_get_values['size']['width'] : '';
+		$wb_ads_rotator_image_height    = isset( $wb_ads_rotator_get_values['size']['height'] ) ? $wb_ads_rotator_get_values['size']['height'] : '';
+		$wb_ads_rotator_margin_top      = isset( $wb_ads_rotator_get_values['margin']['top'] ) ? $wb_ads_rotator_get_values['margin']['top'] : '';
+		$wb_ads_rotator_margin_right    = isset( $wb_ads_rotator_get_values['margin']['right'] ) ? $wb_ads_rotator_get_values['margin']['right'] : '';
+		$wb_ads_rotator_margin_bottom   = isset( $wb_ads_rotator_get_values['margin']['bottom'] ) ? $wb_ads_rotator_get_values['margin']['bottom'] : '';
+		$wb_ads_rotator_margin_left     = isset( $wb_ads_rotator_get_values['margin']['left'] ) ? $wb_ads_rotator_get_values['margin']['left'] : '';
+		$wb_ads_rotator_clearfix        = isset( $wb_ads_rotator_get_values['clearfix'] ) ? $wb_ads_rotator_get_values['clearfix'] : '';
+
+		$wb_ads_rotator_get_ads_img_src = wp_get_attachment_url( $wb_ads_rotator_get_image_id );
+		if ( empty( $wb_ads_rotator_container_id ) ) {
+			$wb_ads_rotator_container_id = 'wb_ads_rotator_' . $wb_ads_rotator_get_ad;
+		}
+		if ( ! is_user_logged_in() && 'login_in' === $wb_ads_visitor_view ) {
+			return;
+		} elseif ( is_user_logged_in() && 'logout_out' === $wb_ads_visitor_view ) {
+			return;
+		} elseif ( 'both_visitor' === $wb_ads_visitor_view ) {
+
+		}
+		if ( 'desktop' === $wb_ads_visitor_device ) {
+			if ( wp_is_mobile() ) {
+				return;
+			}
+		} elseif ( 'mobile' === $wb_ads_visitor_device ) {
+			if ( ! wp_is_mobile() ) {
+				return;
+			}
+		}
+		echo '<div class="wb-ads-rotator image-ads ' . esc_attr( $wb_ads_rotator_container_class ) . '" style=" text-align:' . esc_attr( $wb_ads_position ) . ';margin-top:' . esc_attr( $wb_ads_rotator_margin_top ) . 'px; margin-right:' . esc_attr( $wb_ads_rotator_margin_right ) . 'px; margin-bottom:' . esc_attr( $wb_ads_rotator_margin_bottom ) . 'px;margin-left:' . esc_attr( $wb_ads_rotator_margin_left ) . 'px; " id=" ' . esc_attr( $wb_ads_rotator_container_id ) . ' ">';
+		echo '<a href="' . esc_url( $wb_ads_rotator_get_image_link ) . '" target="blank">';
+		echo '<img src=" ' . esc_url( $wb_ads_rotator_get_ads_img_src ) . '" width="' . esc_attr( $wb_ads_rotator_image_width ) . '" height="' . esc_attr( $wb_ads_rotator_image_height ) . '">';
+		echo '</a>';
+		echo '</div>';
+		if ( 'yes' === $wb_ads_rotator_clearfix ) {
+			echo '<br style="clear: both; display: block; float: none;">';
+		}
+	}
+
 }
