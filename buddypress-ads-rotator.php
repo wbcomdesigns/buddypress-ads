@@ -64,6 +64,47 @@ register_deactivation_hook( __FILE__, 'deactivate_buddypress_ads_rotator' );
 require plugin_dir_path( __FILE__ ) . 'includes/class-buddypress-ads-rotator.php';
 
 /**
+ * This Function checks the required plugin.
+ */
+function wb_ads_rotator_check_required_plugin() {
+
+	if ( ! class_exists( 'BuddyPress' ) ) {
+		add_action( 'admin_notices', 'wb_ads_rotator_admin_notice' );
+		add_action( 'admin_init', 'wb_ads_rotator_existing_checkin_plugin' );
+	} else {
+		register_activation_hook( __FILE__, 'activate_buddypress_ads_rotator' );
+	}
+}
+add_action( 'plugins_loaded', 'wb_ads_rotator_check_required_plugin' );
+/**
+ * Display required plugin admin notice.
+ */
+function wb_ads_rotator_admin_notice() {
+	$wb_ads_rotator_plugin = __( 'WB Ads Rotator for Buddypress', 'buddypress-ads-rotator' );
+	$buddypress_plugin     = __( 'BuddyPress', 'buddypress-ads-rotator' );
+	echo '<div class="error"><p>'
+	/* translators: %1$s: WB Ads Rotator for Buddypress ;  %2$s: BuddyPress*/
+	. sprintf( esc_html__( '%1$s is ineffective as it requires %2$s to be installed and active.', 'buddypress-ads-rotator' ), '<strong>' . esc_attr( $wb_ads_rotator_plugin ) . '</strong>', '<strong>' . esc_attr( $buddypress_plugin ) . '</strong>' )
+	. '</p></div>';
+	if ( null !== filter_input( INPUT_GET, 'activate' ) ) {
+		$activate = filter_input( INPUT_GET, 'activate' );
+		unset( $activate );
+	}
+}
+
+/**
+ * Function to remove wb ads rotator plugin if already exist.
+ *
+ * @since 1.0.0
+ */
+function wb_ads_rotator_existing_checkin_plugin() {
+	$wb_ads_rotator_plugin = plugin_dir_path( __DIR__ ) . 'buddypress-ads-rotator/buddypress-ads-rotator';
+	// Check to see if plugin is already active.
+	if ( is_plugin_active( plugin_basename( __FILE__ ) ) ) {
+		deactivate_plugins( plugin_basename( __FILE__ ) );
+	}
+}
+/**
  * Begins execution of the plugin.
  *
  * Since everything within the plugin is registered via hooks,
