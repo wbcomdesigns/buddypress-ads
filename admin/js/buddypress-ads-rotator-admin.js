@@ -30,8 +30,13 @@
 	 */
 	jQuery(document).ready(function ($) {
 
-		$('#wb_ads_rotator_condition').selectize({
-			placeholder: "-- choose a condition --",
+		$('#wb_ads_rotator_activity_type').selectize({
+			placeholder: "-- choose a activity type --",
+			plugins: ['remove_button'],
+		});
+
+		$('#wb_ads_rotator_activity_position').selectize({
+			placeholder: "-- choose a activity position --",
 			plugins: ['remove_button'],
 		});
 

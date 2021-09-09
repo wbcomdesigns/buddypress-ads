@@ -103,7 +103,7 @@ class Buddypress_Ads_Rotator_Public {
 	 * Display Ads on buddypress.
 	 */
 	public function wb_ads_rotator_display_ads() {
-		global $post;
+		global $activities_template;
 		$args = array(
 			'post_type' => 'wb-ads',
 			'fields'    => 'ids',
@@ -111,17 +111,101 @@ class Buddypress_Ads_Rotator_Public {
 
 		$wb_ads_rotator_get_ads = get_posts( $args );
 		foreach ( $wb_ads_rotator_get_ads as $wb_ads_rotator_get_ad ) {
-			$wb_ads_rotator_type = get_post_meta( $wb_ads_rotator_get_ad, 'wb_ads_rotator_values', true );
-			switch ( $wb_ads_rotator_type['ads_type'] ) {
-				case 'plain-text-and-code':
-					$this->wb_ads_rotator_display_plain_text_and_code_ads( $wb_ads_rotator_get_ad );
-					break;
-				case 'rich-content':
-					$this->wb_ads_rotator_display_rich_content_ads( $wb_ads_rotator_get_ad );
-					break;
-				case 'image-ad':
-					$this->wb_ads_rotator_display_image_ads( $wb_ads_rotator_get_ad );
-					break;
+			$wb_ads_rotator_type            = get_post_meta( $wb_ads_rotator_get_ad, 'wb_ads_rotator_values', true );
+			$wb_ads_rotator_enject_position = isset( $wb_ads_rotator_type['enject_after'] ) ? $wb_ads_rotator_type['enject_after'] : '';
+			$wb_ads_rotator_enject_repeat   = isset( $wb_ads_rotator_type['repeat_position'] ) ? $wb_ads_rotator_type['repeat_position'] : '';
+			$wb_ads_rotator_activity_type   = isset( $wb_ads_rotator_type['activity_type'] ) ? $wb_ads_rotator_type['activity_type'] : '';
+
+			if ( 'sidewide_activity' === $wb_ads_rotator_activity_type ) {
+				if ( ! function_exists( 'bp_is_activity_directory' ) || bp_is_activity_directory() ) {
+					if ( 'yes' !== $wb_ads_rotator_enject_repeat ) {
+						if ( $activities_template->current_activity == $wb_ads_rotator_enject_position ) {
+							switch ( $wb_ads_rotator_type['ads_type'] ) {
+								case 'plain-text-and-code':
+									$this->wb_ads_rotator_display_plain_text_and_code_ads( $wb_ads_rotator_get_ad );
+									break;
+								case 'rich-content':
+									$this->wb_ads_rotator_display_rich_content_ads( $wb_ads_rotator_get_ad );
+									break;
+								case 'image-ad':
+									$this->wb_ads_rotator_display_image_ads( $wb_ads_rotator_get_ad );
+									break;
+							}
+						}
+					} else {
+						switch ( $wb_ads_rotator_type['ads_type'] ) {
+							case 'plain-text-and-code':
+								$this->wb_ads_rotator_display_plain_text_and_code_ads( $wb_ads_rotator_get_ad );
+								break;
+							case 'rich-content':
+								$this->wb_ads_rotator_display_rich_content_ads( $wb_ads_rotator_get_ad );
+								break;
+							case 'image-ad':
+								$this->wb_ads_rotator_display_image_ads( $wb_ads_rotator_get_ad );
+								break;
+						}
+					}
+				}
+			} elseif ( 'group_activity' === $wb_ads_rotator_activity_type ) {
+				if ( ! function_exists( 'bp_is_group_activity' ) || bp_is_group_activity() ) {
+					if ( 'yes' !== $wb_ads_rotator_enject_repeat ) {
+						if ( $activities_template->current_activity == $wb_ads_rotator_enject_position ) {
+							switch ( $wb_ads_rotator_type['ads_type'] ) {
+								case 'plain-text-and-code':
+									$this->wb_ads_rotator_display_plain_text_and_code_ads( $wb_ads_rotator_get_ad );
+									break;
+								case 'rich-content':
+									$this->wb_ads_rotator_display_rich_content_ads( $wb_ads_rotator_get_ad );
+									break;
+								case 'image-ad':
+									$this->wb_ads_rotator_display_image_ads( $wb_ads_rotator_get_ad );
+									break;
+							}
+						}
+					} else {
+						switch ( $wb_ads_rotator_type['ads_type'] ) {
+							case 'plain-text-and-code':
+								$this->wb_ads_rotator_display_plain_text_and_code_ads( $wb_ads_rotator_get_ad );
+								break;
+							case 'rich-content':
+								$this->wb_ads_rotator_display_rich_content_ads( $wb_ads_rotator_get_ad );
+								break;
+							case 'image-ad':
+								$this->wb_ads_rotator_display_image_ads( $wb_ads_rotator_get_ad );
+								break;
+						}
+					}
+				}
+			} elseif ( 'members_activity' === $wb_ads_rotator_activity_type ) {
+				if ( ! function_exists( 'bp_is_user_activity' ) || bp_is_user_activity() ) {
+					if ( 'yes' !== $wb_ads_rotator_enject_repeat ) {
+						if ( $activities_template->current_activity == $wb_ads_rotator_enject_position ) {
+							switch ( $wb_ads_rotator_type['ads_type'] ) {
+								case 'plain-text-and-code':
+									$this->wb_ads_rotator_display_plain_text_and_code_ads( $wb_ads_rotator_get_ad );
+									break;
+								case 'rich-content':
+									$this->wb_ads_rotator_display_rich_content_ads( $wb_ads_rotator_get_ad );
+									break;
+								case 'image-ad':
+									$this->wb_ads_rotator_display_image_ads( $wb_ads_rotator_get_ad );
+									break;
+							}
+						}
+					} else {
+						switch ( $wb_ads_rotator_type['ads_type'] ) {
+							case 'plain-text-and-code':
+								$this->wb_ads_rotator_display_plain_text_and_code_ads( $wb_ads_rotator_get_ad );
+								break;
+							case 'rich-content':
+								$this->wb_ads_rotator_display_rich_content_ads( $wb_ads_rotator_get_ad );
+								break;
+							case 'image-ad':
+								$this->wb_ads_rotator_display_image_ads( $wb_ads_rotator_get_ad );
+								break;
+						}
+					}
+				}
 			}
 		}
 
@@ -133,6 +217,7 @@ class Buddypress_Ads_Rotator_Public {
 	 * @param int $wb_ads_rotator_get_ad Get Ads ID.
 	 */
 	public function wb_ads_rotator_display_plain_text_and_code_ads( $wb_ads_rotator_get_ad ) {
+
 		$wb_ads_rotator_get_values = get_post_meta( $wb_ads_rotator_get_ad, 'wb_ads_rotator_values', true );
 		$wb_ads_rotator_enable     = get_post_meta( $wb_ads_rotator_get_ad, 'wb_ads_enable', true );
 
