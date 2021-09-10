@@ -14,7 +14,7 @@
  * @wordpress-plugin
  * Plugin Name:       WB Ads Rotator for Buddypress
  * Plugin URI:        https://wbcomdesigns.com
- * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
+ * Description:       This Plugin Provide integration of Ads with Buddypress.
  * Version:           1.0.0
  * Author:            WB COM
  * Author URI:        https://wbcomdesigns.com
