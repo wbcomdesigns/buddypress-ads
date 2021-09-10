@@ -803,7 +803,16 @@ class Buddypress_Ads_Rotator_Admin {
 	 * @param  array $columns Get the Columns.
 	 */
 	public function wb_ads_rotator_add_disable_admin_columns( $columns ) {
-		return array_merge( $columns, array( 'disable-ads' => __( 'Disable Ads', 'buddypress-ads-rotator' ) ) );
+		unset( $columns['date'] );
+		return array_merge(
+			$columns,
+			array(
+				'ads-id'      => __( 'Ads ID', 'buddypress-ads-rotator' ),
+				'ads-type'    => __( 'Ads Type', 'buddypress-ads-rotator' ),
+				'disable-ads' => __( 'Disable Ads', 'buddypress-ads-rotator' ),
+				'date'        => __( 'Date', 'buddypress-ads-rotator' ),
+			)
+		);
 	}
 
 	/**
@@ -813,19 +822,37 @@ class Buddypress_Ads_Rotator_Admin {
 	 * @param  int    $post_id Get a Ads ID.
 	 */
 	public function wb_ads_rotator_add_disable_column_content( $column_key, $post_id ) {
-		if ( 'disable-ads' === $column_key ) {
-			$wb_ads_rotator_enable = get_post_meta( $post_id, 'wb_ads_enable', true );
-			if ( 'enable' === $wb_ads_rotator_enable ) {
-				echo '<label class="wb-ads-rotator-switch">
+
+		switch ( $column_key ) {
+			case 'ads-id':
+				echo '<strong>' . esc_html( $post_id ) . '</strong>';
+				break;
+			case 'ads-type':
+				$wb_ads_data = get_post_meta( $post_id, 'wb_ads_rotator_values', true );
+				$wb_ads_type = isset( $wb_ads_data['ads_type'] ) ? $wb_ads_data['ads_type'] : '';
+				if ( 'rich-content' === $wb_ads_type ) {
+					echo '<strong>' . esc_html( 'Rich Content' ) . '</strong>';
+				} elseif ( 'plain-text-and-code' === $wb_ads_type ) {
+					echo '<strong>' . esc_html( 'Plain Text and Code' ) . '</strong>';
+				} elseif ( 'image-ad' === $wb_ads_type ) {
+					echo '<strong>' . esc_html( 'Image Ads' ) . '</strong>';
+				}
+				break;
+			case 'disable-ads':
+				$wb_ads_rotator_enable = get_post_meta( $post_id, 'wb_ads_enable', true );
+				if ( 'enable' === $wb_ads_rotator_enable ) {
+					echo '<label class="wb-ads-rotator-switch">
 				<input type="checkbox" class="wb_ads_enable" data-ads-visible="disable" data-ads="' . esc_attr( $post_id ) . '" checked>
 				<span class="wb-ads-rotator-slider wb-ads-rotator-round"></span>
 				</label>';
-			} else {
-				echo '<label class="wb-ads-rotator-switch">
+				} else {
+					echo '<label class="wb-ads-rotator-switch">
 				<input type="checkbox" class="wb_ads_enable" data-ads-visible="enable" data-ads="' . esc_attr( $post_id ) . '">
 				<span class="wb-ads-rotator-slider wb-ads-rotator-round"></span>
 				</label>';
-			}
+				}
+				break;
+
 		}
 	}
 
