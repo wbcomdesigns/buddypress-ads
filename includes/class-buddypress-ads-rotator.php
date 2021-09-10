@@ -229,23 +229,23 @@ class Buddypress_Ads_Rotator {
 		$wb_ads_rotator_display_positions = isset( $wb_ads_rotator_get_values['activity_position'] ) ? $wb_ads_rotator_get_values['activity_position'] : '';
 
 		switch ( $wb_ads_rotator_display_positions ) {
-			case 'before_activity_entry':
+			case 'bp_before_activity_entry':
 				$this->loader->add_action( 'bp_before_activity_entry', $plugin_public, 'wb_ads_rotator_display_ads' );
 
 				break;
-			case 'activity_entry_content':
+			case 'bp_activity_entry_content':
 				$this->loader->add_action( 'bp_activity_entry_content', $plugin_public, 'wb_ads_rotator_display_ads' );
 				break;
-			case 'after_activity_entry':
+			case 'bp_after_activity_entry':
 				$this->loader->add_action( 'bp_after_activity_entry', $plugin_public, 'wb_ads_rotator_display_ads' );
 				break;
-			case 'before_activity_entry_comments':
+			case 'bp_before_activity_entry_comments':
 				$this->loader->add_action( 'bp_before_activity_entry_comments', $plugin_public, 'wb_ads_rotator_display_ads' );
 				break;
-			case 'activity_entry_comments':
+			case 'bp_activity_entry_comments':
 				$this->loader->add_action( 'bp_activity_entry_comments', $plugin_public, 'wb_ads_rotator_display_ads' );
 				break;
-			case 'after_activity_entry_comments':
+			case 'bp_after_activity_entry_comments':
 				$this->loader->add_action( 'bp_after_activity_entry_comments', $plugin_public, 'wb_ads_rotator_display_ads' );
 				break;
 		}

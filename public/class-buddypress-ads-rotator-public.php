@@ -111,11 +111,11 @@ class Buddypress_Ads_Rotator_Public {
 
 		$wb_ads_rotator_get_ads = get_posts( $args );
 		foreach ( $wb_ads_rotator_get_ads as $wb_ads_rotator_get_ad ) {
-			$wb_ads_rotator_type            = get_post_meta( $wb_ads_rotator_get_ad, 'wb_ads_rotator_values', true );
-			$wb_ads_rotator_enject_position = isset( $wb_ads_rotator_type['enject_after'] ) ? $wb_ads_rotator_type['enject_after'] : '';
-			$wb_ads_rotator_enject_repeat   = isset( $wb_ads_rotator_type['repeat_position'] ) ? $wb_ads_rotator_type['repeat_position'] : '';
-			$wb_ads_rotator_activity_type   = isset( $wb_ads_rotator_type['activity_type'] ) ? $wb_ads_rotator_type['activity_type'] : '';
-
+			$wb_ads_rotator_type              = get_post_meta( $wb_ads_rotator_get_ad, 'wb_ads_rotator_values', true );
+			$wb_ads_rotator_enject_position   = isset( $wb_ads_rotator_type['enject_after'] ) ? $wb_ads_rotator_type['enject_after'] : '';
+			$wb_ads_rotator_enject_repeat     = isset( $wb_ads_rotator_type['repeat_position'] ) ? $wb_ads_rotator_type['repeat_position'] : '';
+			$wb_ads_rotator_activity_type     = isset( $wb_ads_rotator_type['activity_type'] ) ? $wb_ads_rotator_type['activity_type'] : '';
+			$wb_ads_rotator_activity_position = isset( $wb_ads_rotator_type['activity_position'] ) ? $wb_ads_rotator_type['activity_position'] : '';
 			if ( 'sidewide_activity' === $wb_ads_rotator_activity_type ) {
 				if ( ! function_exists( 'bp_is_activity_directory' ) || bp_is_activity_directory() ) {
 					if ( 'yes' !== $wb_ads_rotator_enject_repeat ) {
@@ -133,6 +133,10 @@ class Buddypress_Ads_Rotator_Public {
 							}
 						}
 					} else {
+						$did_action = did_action( $wb_ads_rotator_activity_position );
+						if ( $did_action !== $wb_ads_rotator_enject_position && 0 !== $did_action % $wb_ads_rotator_enject_position ) {
+							continue;
+						}
 						switch ( $wb_ads_rotator_type['ads_type'] ) {
 							case 'plain-text-and-code':
 								$this->wb_ads_rotator_display_plain_text_and_code_ads( $wb_ads_rotator_get_ad );
@@ -163,6 +167,10 @@ class Buddypress_Ads_Rotator_Public {
 							}
 						}
 					} else {
+						$did_action = did_action( $wb_ads_rotator_activity_position );
+						if ( $did_action !== $wb_ads_rotator_enject_position && 0 !== $did_action % $wb_ads_rotator_enject_position ) {
+							continue;
+						}
 						switch ( $wb_ads_rotator_type['ads_type'] ) {
 							case 'plain-text-and-code':
 								$this->wb_ads_rotator_display_plain_text_and_code_ads( $wb_ads_rotator_get_ad );
@@ -193,6 +201,10 @@ class Buddypress_Ads_Rotator_Public {
 							}
 						}
 					} else {
+						$did_action = did_action( $wb_ads_rotator_activity_position );
+						if ( $did_action !== $wb_ads_rotator_enject_position && 0 !== $did_action % $wb_ads_rotator_enject_position ) {
+							continue;
+						}
 						switch ( $wb_ads_rotator_type['ads_type'] ) {
 							case 'plain-text-and-code':
 								$this->wb_ads_rotator_display_plain_text_and_code_ads( $wb_ads_rotator_get_ad );
