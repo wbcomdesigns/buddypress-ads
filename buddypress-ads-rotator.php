@@ -104,6 +104,22 @@ function wb_ads_rotator_existing_checkin_plugin() {
 		deactivate_plugins( plugin_basename( __FILE__ ) );
 	}
 }
+
+/**
+ * Redirect to plugin settings page after activated.
+ *
+ * @since  1.0.0
+ */
+function bpcp_activation_redirect_settings( $plugin ) {
+
+	if ( $plugin == plugin_basename( __FILE__ ) && class_exists( 'BuddyPress' ) ) {
+		wp_redirect( admin_url( 'admin.php?page=buddypress-ads-rotator-settings' ) );
+		exit;
+	}
+}
+add_action( 'activated_plugin', 'bpcp_activation_redirect_settings' );
+
+
 /**
  * Begins execution of the plugin.
  *

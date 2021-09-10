@@ -113,46 +113,143 @@ class Buddypress_Ads_Rotator_Admin {
 	}
 
 	/**
+	 * Actions performed on loading admin_menu.
+	 *
+	 * @since    1.0.0
+	 * @access   public
+	 * @author   Wbcom Designs
+	 */
+	public function wb_ads_rotator_add_submenu_page_admin_settings() {
+		if ( empty( $GLOBALS['admin_page_hooks']['wbcomplugins'] ) && class_exists( 'BuddyPress' ) ) {
+			add_menu_page( esc_html__( 'WB Plugins', 'buddypress-ads-rotator' ), esc_html__( 'WB Plugins', 'buddypress-ads-rotator' ), 'manage_options', 'wbcomplugins', array( $this, 'buddypress_ads_rotator_admin_options_page' ), 'dashicons-lightbulb', 59 );
+			add_submenu_page( 'wbcomplugins', esc_html__( 'Welcome', 'buddypress-ads-rotator' ), esc_html__( 'Welcome', 'buddypress-ads-rotator' ), 'manage_options', 'wbcomplugins' );
+
+		}
+		add_submenu_page( 'wbcomplugins', esc_html__( 'WB Ads Rotator for Buddypress', 'buddypress-ads-rotator' ), esc_html__( 'WB Ads Rotator for Buddypress', 'buddypress-ads-rotator' ), 'manage_options', 'buddypress-ads-rotator-settings', array( $this, 'buddypress_ads_rotator_admin_options_page' ) );
+	}
+
+	/**
+	 * Actions performed to create a submenu page content.
+	 *
+	 * @since    1.0.0
+	 * @access public
+	 */
+	public function buddypress_ads_rotator_admin_options_page() {
+		global $allowedposttags;
+		$tab = filter_input( INPUT_GET, 'tab' ) ? filter_input( INPUT_GET, 'tab' ) : 'buddypress-ads-rotator-welcome';
+		?>
+	<div class="wrap">
+		<hr class="wp-header-end">
+		<div class="wbcom-wrap">
+			<div class="bupr-header">
+				<?php echo do_shortcode( '[wbcom_admin_setting_header]' ); ?>
+				<h1 class="wbcom-plugin-heading">
+					<?php esc_html_e( 'WB Ads Rotator for Buddypress Settings', 'buddypress-ads-rotator' ); ?>
+				</h1>
+			</div>
+			<div class="wbcom-admin-settings-page">
+				<?php
+				settings_errors();
+				$this->wb_ads_rotator_plugin_settings_tabs();
+				settings_fields( $tab );
+				do_settings_sections( $tab );
+				?>
+			</div>
+		</div>
+	</div>
+		<?php
+	}
+
+	/**
+	 * Actions performed to create tabs on the sub menu page.
+	 */
+	public function wb_ads_rotator_plugin_settings_tabs() {
+		$current_tab = filter_input( INPUT_GET, 'tab' ) ? filter_input( INPUT_GET, 'tab' ) : 'buddypress-ads-rotator-welcome';
+		// xprofile setup tab.
+		echo '<div class="wbcom-tabs-section"><div class="nav-tab-wrapper"><div class="wb-responsive-menu"><span>' . esc_html( 'Menu' ) . '</span><input class="wb-toggle-btn" type="checkbox" id="wb-toggle-btn"><label class="wb-toggle-icon" for="wb-toggle-btn"><span class="wb-icon-bars"></span></label></div><ul>';
+		foreach ( $this->plugin_settings_tabs as $tab_key => $tab_caption ) {
+			$active = $current_tab === $tab_key ? 'nav-tab-active' : '';
+			echo '<li><a class="nav-tab ' . esc_attr( $active ) . '" id="' . esc_attr( $tab_key ) . '-tab" href="?page=buddypress-ads-rotator-settings' . '&tab=' . esc_attr( $tab_key ) . '">' . esc_attr( $tab_caption ) . '</a></li>';
+		}
+		echo '</div></ul></div>';
+	}
+
+	/**
+	 * Actions performed on loading plugin settings
+	 *
+	 * @since    1.0.9
+	 * @access   public
+	 * @author   Wbcom Designs
+	 */
+	public function wb_ads_rotator_init_plugin_settings() {
+
+		$this->plugin_settings_tabs['buddypress-ads-rotator-welcome'] = esc_html__( 'Welcome', 'buddypress-ads-rotator' );
+		register_setting( 'wb_ads_rotator_admin_welcome_options', 'wb_ads_rotator_admin_welcome_options' );
+		add_settings_section( 'buddypress-ads-rotator-welcome', ' ', array( $this, 'wb_ads_rotator_admin_welcome_content' ), 'buddypress-ads-rotator-welcome' );
+
+		$this->plugin_settings_tabs['buddypress-ads-rotator-faq'] = esc_html__( 'Faq', 'buddypress-ads-rotator' );
+		register_setting( 'buddypress-ads-rotator_admin_faq_options', 'buddypress-ads-rotator_admin_faq_option' );
+		add_settings_section( 'buddypress-ads-rotator-faq', ' ', array( $this, 'wb_ads_rotator_admin_faq_content' ), 'buddypress-ads-rotator-faq' );
+
+	}
+
+	/**
+	 * Include WB Ads Rotator for Buddypress admin welcome setting tab content file.
+	 */
+	public function wb_ads_rotator_admin_welcome_content() {
+		include 'partials/buddypress-ads-rotator-admin-welcome-display.php.php';
+	}
+
+	/**
+	 * Include WB Ads Rotator for Buddypress admin genral setting tab content file.
+	 */
+	public function wb_ads_rotator_admin_faq_content() {
+		include 'partials/buddypress-ads-rotator-admin-faq-display.php';
+	}
+
+
+	/**
 	 * This Function added the WB Ads CPT.
 	 *
 	 * @since    1.0.0
 	 */
 	public function wb_ads_rotator_add_cpt() {
+		if ( class_exists( 'BuddyPress' ) ) {
+			$labels = array(
+				'name'               => _x( 'WB Ads', 'Post type general name', 'buddypress-ads-rotator' ),
+				'singular_name'      => _x( 'WB Ads', 'Post type singular name', 'buddypress-ads-rotator' ),
+				'menu_name'          => _x( 'WB Ads', 'Admin Menu text', 'buddypress-ads-rotator' ),
+				'name_admin_bar'     => _x( 'WB Ads', 'Add New on Toolbar', 'buddypress-ads-rotator' ),
+				'add_new'            => __( 'Add New WB Ads', 'buddypress-ads-rotator' ),
+				'add_new_item'       => __( 'Add New WB Ads', 'buddypress-ads-rotator' ),
+				'new_item'           => __( 'New WB Ads', 'buddypress-ads-rotator' ),
+				'edit_item'          => __( 'Edit WB Ads', 'buddypress-ads-rotator' ),
+				'view_item'          => __( 'View WB Ads', 'buddypress-ads-rotator' ),
+				'all_items'          => __( 'All WB Ads', 'buddypress-ads-rotator' ),
+				'search_items'       => __( 'Search WB Ads', 'buddypress-ads-rotator' ),
+				'parent_item_colon'  => __( 'Parent WB Ads:', 'buddypress-ads-rotator' ),
+				'not_found'          => __( 'No WB Ads found.', 'buddypress-ads-rotator' ),
+				'not_found_in_trash' => __( 'No WB Ads found in Trash.', 'buddypress-ads-rotator' ),
+			);
 
-		$labels = array(
-			'name'               => _x( 'WB Ads', 'Post type general name', 'buddypress-ads-rotator' ),
-			'singular_name'      => _x( 'WB Ads', 'Post type singular name', 'buddypress-ads-rotator' ),
-			'menu_name'          => _x( 'WB Ads', 'Admin Menu text', 'buddypress-ads-rotator' ),
-			'name_admin_bar'     => _x( 'WB Ads', 'Add New on Toolbar', 'buddypress-ads-rotator' ),
-			'add_new'            => __( 'Add New WB Ads', 'buddypress-ads-rotator' ),
-			'add_new_item'       => __( 'Add New WB Ads', 'buddypress-ads-rotator' ),
-			'new_item'           => __( 'New WB Ads', 'buddypress-ads-rotator' ),
-			'edit_item'          => __( 'Edit WB Ads', 'buddypress-ads-rotator' ),
-			'view_item'          => __( 'View WB Ads', 'buddypress-ads-rotator' ),
-			'all_items'          => __( 'All WB Ads', 'buddypress-ads-rotator' ),
-			'search_items'       => __( 'Search WB Ads', 'buddypress-ads-rotator' ),
-			'parent_item_colon'  => __( 'Parent WB Ads:', 'buddypress-ads-rotator' ),
-			'not_found'          => __( 'No WB Ads found.', 'buddypress-ads-rotator' ),
-			'not_found_in_trash' => __( 'No WB Ads found in Trash.', 'buddypress-ads-rotator' ),
-		);
-
-		$args = array(
-			'labels'             => $labels,
-			'public'             => false,
-			'publicly_queryable' => false,
-			'show_ui'            => true,
-			'show_in_menu'       => true,
-			'query_var'          => true,
-			'rewrite'            => array( 'slug' => 'wb-ads' ),
-			'capability_type'    => 'page',
-			'has_archive'        => false,
-			'hierarchical'       => false,
-			'menu_position'      => null,
-			'show_in_rest'       => true,
-			'menu_icon'          => __( 'dashicons-chart-line', 'buddypress-ads-rotator' ),
-			'supports'           => array( 'title' ),
-		);
-		register_post_type( 'wb-ads', $args );
+			$args = array(
+				'labels'             => $labels,
+				'public'             => false,
+				'publicly_queryable' => false,
+				'show_ui'            => true,
+				'show_in_menu'       => true,
+				'query_var'          => true,
+				'rewrite'            => array( 'slug' => 'wb-ads' ),
+				'capability_type'    => 'page',
+				'has_archive'        => false,
+				'hierarchical'       => false,
+				'menu_position'      => null,
+				'show_in_rest'       => true,
+				'menu_icon'          => __( 'dashicons-chart-line', 'buddypress-ads-rotator' ),
+				'supports'           => array( 'title' ),
+			);
+			register_post_type( 'wb-ads', $args );
+		}
 	}
 
 	/**

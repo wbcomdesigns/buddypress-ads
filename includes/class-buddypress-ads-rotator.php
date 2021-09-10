@@ -156,6 +156,11 @@ class Buddypress_Ads_Rotator {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/buddypress-ads-rotator-genral-functions.php';
 
+		/**
+		* The class responsible add wrapper of admin settings.
+		*/
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/wbcom/wbcom-admin-settings.php';
+
 		$this->loader = new Buddypress_Ads_Rotator_Loader();
 
 	}
@@ -190,6 +195,10 @@ class Buddypress_Ads_Rotator {
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
+
+		$this->loader->add_action( 'admin_menu', $plugin_admin, 'wb_ads_rotator_add_submenu_page_admin_settings' );
+		$this->loader->add_action( 'admin_init', $plugin_admin, 'wb_ads_rotator_init_plugin_settings' );
+
 		$this->loader->add_action( 'init', $plugin_admin, 'wb_ads_rotator_add_cpt' );
 		$this->loader->add_action( 'add_meta_boxes', $plugin_admin, 'wb_ads_rotator_add_metaboxes' );
 		$this->loader->add_action( 'save_post', $plugin_admin, 'wb_ads_rotator_save_post_meta' );
