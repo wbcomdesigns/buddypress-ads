@@ -271,9 +271,8 @@ class Buddypress_Ads_Rotator_Public {
 			return;
 		} elseif ( is_user_logged_in() && 'logout_out' === $wb_ads_visitor_view ) {
 			return;
-		} elseif ( 'both_visitor' === $wb_ads_visitor_view ) {
-
 		}
+
 		if ( 'desktop' === $wb_ads_visitor_device ) {
 			if ( wp_is_mobile() ) {
 				return;
@@ -350,9 +349,8 @@ class Buddypress_Ads_Rotator_Public {
 			return;
 		} elseif ( is_user_logged_in() && 'logout_out' === $wb_ads_visitor_view ) {
 			return;
-		} elseif ( 'both_visitor' === $wb_ads_visitor_view ) {
-
 		}
+
 		if ( 'desktop' === $wb_ads_visitor_device ) {
 			if ( wp_is_mobile() ) {
 				return;
@@ -419,9 +417,8 @@ class Buddypress_Ads_Rotator_Public {
 			return;
 		} elseif ( is_user_logged_in() && 'logout_out' === $wb_ads_visitor_view ) {
 			return;
-		} elseif ( 'both_visitor' === $wb_ads_visitor_view ) {
-
 		}
+
 		if ( 'desktop' === $wb_ads_visitor_device ) {
 			if ( wp_is_mobile() ) {
 				return;
