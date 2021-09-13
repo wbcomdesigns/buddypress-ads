@@ -507,11 +507,13 @@ class Buddypress_Ads_Rotator_Admin {
 					</label>
 				</div>
 			</div>
-			<div class="wb_ads_rotator-wrapper rich-content" <?php
+			<div class="wb_ads_rotator-wrapper rich-content" 
+			<?php
 			if ( 'rich-content' !== $wb_ads_rotator_type ) {
 				echo 'style="display:none"';
 			}
-			?>>
+			?>
+			>
 				<div class="wb_ads_rotator-label">
 					<?php esc_html_e( 'Rich Content Font Size', 'buddypress-ads-rotator' ); ?>
 				</div>
@@ -523,11 +525,13 @@ class Buddypress_Ads_Rotator_Admin {
 					<label>
 				</div>
 			</div>
-			<div class="wb_ads_rotator-wrapper rich-content"  <?php
+			<div class="wb_ads_rotator-wrapper rich-content"  
+			<?php
 			if ( 'rich-content' !== $wb_ads_rotator_type ) {
 				echo 'style="display:none"';
 			}
-			?>>
+			?>
+			>
 				<div class="wb_ads_rotator-label">
 					<?php esc_html_e( 'Rich Content Background Color', 'buddypress-ads-rotator' ); ?>
 				</div>
@@ -538,17 +542,19 @@ class Buddypress_Ads_Rotator_Admin {
 					<label>
 				</div>
 			</div>
-			<div class="wb_ads_rotator-wrapper rich-content" <?php
+			<div class="wb_ads_rotator-wrapper rich-content" 
+			<?php
 			if ( 'rich-content' !== $wb_ads_rotator_type ) {
 				echo 'style="display:none"';
 			}
-			?>>
+			?>
+			>
 				<div class="wb_ads_rotator-label">
 					<?php esc_html_e( 'Rich Content Text Color', 'buddypress-ads-rotator' ); ?>
 				</div>
 				<div class="wb_ads_rotator-input">
 					<label>
-						<input type="color" name="wb_ads_rotator[text_color]" value="<?php echo esc_attr( $wb_ads_rotator_txt_color); ?>"/>
+						<input type="color" name="wb_ads_rotator[text_color]" value="<?php echo esc_attr( $wb_ads_rotator_txt_color ); ?>"/>
 					</label>
 					<label>
 				</div>
