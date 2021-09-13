@@ -12,7 +12,7 @@
  * @package           Buddypress_Ads_Rotator
  *
  * @wordpress-plugin
- * Plugin Name:       WB Ads Rotator for Buddypress
+ * Plugin Name:       Wbcom Designs - Ads Rotator for Buddypress
  * Plugin URI:        https://wbcomdesigns.com
  * Description:       This Plugin Provide integration of Ads with Buddypress.
  * Version:           1.0.0
