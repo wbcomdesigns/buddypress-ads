@@ -49,8 +49,9 @@
 }
 
 #wb-ads-preview-image img {
-    max-width: 100%;
-    height: auto;
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
 }
 
 .wb-ads-rotator-switch {
@@ -183,4 +184,26 @@ button.wb-ads-accordion.active::after {
 
 .wb-ads-tab-content .form-table td {
     padding: 0;
+}
+
+/*Ads CPT UI*/
+.wb_ads_rotator-panel .CodeMirror-wrap pre {
+  padding-left: 35px;
+}
+.wb_ads_rotator-wrapper.select-ads-image.image-ad {
+  align-items: center;
+  gap: 30px;
+}
+input#wb_ads_rotator_select_image {
+  padding: 3px 20px;
+  margin-right: 10px;
+}
+.wb_ads_rotator-panel .wb_ads_rotator-wrapper.select-ads-image.image-ad  .wb_ads_rotator-label{
+  width:40%;
+}
+.wb_ads_rotator-wrapper.select-ads-image.image-ad .wb_ads_rotator-input input.wb_ads_rotator_image {
+  width: 95%;
+}
+.wb_ads_rotator-input label {
+  margin-right: 20px;
 }
