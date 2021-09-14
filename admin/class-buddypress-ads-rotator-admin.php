@@ -491,17 +491,17 @@ class Buddypress_Ads_Rotator_Admin {
 					<?php esc_html_e( 'Size', 'buddypress-ads-rotator' ); ?>
 				</div>
 				<div class="wb_ads_rotator-input wb-ads-rotator-ads-size">
-					<span>
-						<?php esc_html_e( 'Width', 'buddypress-ads-rotator' ); ?>
-					</span>
 					<label>
+						<span>
+							<?php esc_html_e( 'Width', 'buddypress-ads-rotator' ); ?>
+						</span>
 						<input type="number" name="wb_ads_rotator[size][width]" value="<?php echo esc_attr( $wb_ads_rotator_width ); ?>"/>
 						<?php esc_html_e( 'px', 'buddypress-ads-rotator' ); ?>
 					</label>
-					<span>
-							<?php esc_html_e( 'Heigh', 'buddypress-ads-rotator' ); ?>
-					</span>
 					<label>
+						<span>
+								<?php esc_html_e( 'Heigh', 'buddypress-ads-rotator' ); ?>
+						</span>
 						<input type="number" name="wb_ads_rotator[size][height]" value="<?php echo esc_attr( $wb_ads_rotator_height ); ?>"/>
 						<?php esc_html_e( 'px', 'buddypress-ads-rotator' ); ?>
 					</label>
