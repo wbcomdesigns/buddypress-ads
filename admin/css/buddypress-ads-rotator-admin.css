@@ -207,3 +207,34 @@ input#wb_ads_rotator_select_image {
 .wb_ads_rotator-input label {
   margin-right: 20px;
 }
+.wb-bp-ads-size span {
+    display: block;
+    margin-bottom: 5px;
+}
+.wb_ads_rotator-input.wb-ads-rotator-ads-size {
+    display: flex;
+}
+.wb_ads_rotator-input label span {
+    display: block;
+    margin-bottom: 5px;
+}
+.wb_ads_rotator-input .wb_ads_margin {
+    width: 100%;
+    display: flex;
+    clear: both;
+}
+p.wb_ads_margin_disc{
+    display: block;
+    margin-bottom: 0;
+    clear: both;
+    width: 100%;
+}
+.wb_ads_bg_color input[type="color"],
+.wb_ads_text_color input[type="color"] {
+    padding: 0;
+    border-radius: 0;
+    height: 40px;
+    width: 40px;
+    border: none !important;
+    cursor: pointer;
+}

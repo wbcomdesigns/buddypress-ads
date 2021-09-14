@@ -491,20 +491,24 @@ class Buddypress_Ads_Rotator_Admin {
 					<?php esc_html_e( 'Size', 'buddypress-ads-rotator' ); ?>
 				</div>
 				<div class="wb_ads_rotator-input wb-ads-rotator-ads-size">
-					<label>
+					<div class="wb-bp-ads-size">
 						<span>
 							<?php esc_html_e( 'Width', 'buddypress-ads-rotator' ); ?>
 						</span>
-						<input type="number" name="wb_ads_rotator[size][width]" value="<?php echo esc_attr( $wb_ads_rotator_width ); ?>"/>
-						<?php esc_html_e( 'px', 'buddypress-ads-rotator' ); ?>
-					</label>
-					<label>
+						<label>
+							<input type="number" name="wb_ads_rotator[size][width]" value="<?php echo esc_attr( $wb_ads_rotator_width ); ?>"/>
+							<?php esc_html_e( 'px', 'buddypress-ads-rotator' ); ?>
+						</label>
+					</div>
+					<div class="wb-bp-ads-size">
 						<span>
 								<?php esc_html_e( 'Heigh', 'buddypress-ads-rotator' ); ?>
 						</span>
-						<input type="number" name="wb_ads_rotator[size][height]" value="<?php echo esc_attr( $wb_ads_rotator_height ); ?>"/>
-						<?php esc_html_e( 'px', 'buddypress-ads-rotator' ); ?>
-					</label>
+						<label>
+							<input type="number" name="wb_ads_rotator[size][height]" value="<?php echo esc_attr( $wb_ads_rotator_height ); ?>"/>
+							<?php esc_html_e( 'px', 'buddypress-ads-rotator' ); ?>
+						</label>
+					</div>
 				</div>
 			</div>
 			<div class="wb_ads_rotator-wrapper rich-content" 
@@ -535,7 +539,7 @@ class Buddypress_Ads_Rotator_Admin {
 				<div class="wb_ads_rotator-label">
 					<?php esc_html_e( 'Rich Content Background Color', 'buddypress-ads-rotator' ); ?>
 				</div>
-				<div class="wb_ads_rotator-input">
+				<div class="wb_ads_rotator-input wb_ads_bg_color">
 					<label>
 						<input type="color" name="wb_ads_rotator[bg_color]" value="<?php echo esc_attr( $wb_ads_rotator_bg_color ); ?>"/>
 					</label>
@@ -552,7 +556,7 @@ class Buddypress_Ads_Rotator_Admin {
 				<div class="wb_ads_rotator-label">
 					<?php esc_html_e( 'Rich Content Text Color', 'buddypress-ads-rotator' ); ?>
 				</div>
-				<div class="wb_ads_rotator-input">
+				<div class="wb_ads_rotator-input wb_ads_text_color">
 					<label>
 						<input type="color" name="wb_ads_rotator[text_color]" value="<?php echo esc_attr( $wb_ads_rotator_txt_color ); ?>"/>
 					</label>
@@ -619,30 +623,32 @@ class Buddypress_Ads_Rotator_Admin {
 					<?php esc_html_e( 'Margin', 'buddypress-ads-rotator' ); ?>
 				</div>
 				<div class="wb_ads_rotator-input">
-					<label>
-						<?php esc_html_e( 'Top', 'buddypress-ads-rotator' ); ?>
-						<input type="number" name="wb_ads_rotator[margin][top]" value="<?php echo esc_attr( $wb_ads_rotator_margin_top ); ?>"/>
-						<?php esc_html_e( 'px', 'buddypress-ads-rotator' ); ?>
-					</label>
-					<label>
-						<?php esc_html_e( 'Right', 'buddypress-ads-rotator' ); ?>
-						<input type="number" name="wb_ads_rotator[margin][right]" value="<?php echo esc_attr( $wb_ads_rotator_margin_right ); ?>"/>
-						<?php esc_html_e( 'px', 'buddypress-ads-rotator' ); ?>
-					</label>
-					<label>
-						<?php esc_html_e( 'Bottom', 'buddypress-ads-rotator' ); ?>
-						<input type="number" name="wb_ads_rotator[margin][bottom]" value="<?php echo esc_attr( $wb_ads_rotator_margin_bottom ); ?>"/>
-						<?php esc_html_e( 'px', 'buddypress-ads-rotator' ); ?>
-					</label>
-					<label>
-						<?php esc_html_e( 'Left', 'buddypress-ads-rotator' ); ?>
-						<input type="number" name="wb_ads_rotator[margin][left]" value="<?php echo esc_attr( $wb_ads_rotator_margin_left ); ?>"/>
-						<?php esc_html_e( 'px', 'buddypress-ads-rotator' ); ?>
-					</label>
-					<p>
-						<?php echo esc_html_e( 'use this to add a margin around the ads', 'buddypress-ads-rotator' ); ?>
-					</p>
-				</div>
+					<div class="wb_ads_margin">
+						<label>
+							<span><?php esc_html_e( 'Top', 'buddypress-ads-rotator' ); ?></span>
+							<input type="number" name="wb_ads_rotator[margin][top]" value="<?php echo esc_attr( $wb_ads_rotator_margin_top ); ?>"/>
+							<?php esc_html_e( 'px', 'buddypress-ads-rotator' ); ?>
+						</label>
+						<label>
+							<span><?php esc_html_e( 'Right', 'buddypress-ads-rotator' ); ?></span>						
+							<input type="number" name="wb_ads_rotator[margin][right]" value="<?php echo esc_attr( $wb_ads_rotator_margin_right ); ?>"/>
+							<?php esc_html_e( 'px', 'buddypress-ads-rotator' ); ?>
+						</label>
+						<label>
+							<span><?php esc_html_e( 'Bottom', 'buddypress-ads-rotator' ); ?></span>
+							<input type="number" name="wb_ads_rotator[margin][bottom]" value="<?php echo esc_attr( $wb_ads_rotator_margin_bottom ); ?>"/>
+							<?php esc_html_e( 'px', 'buddypress-ads-rotator' ); ?>
+						</label>
+						<label>
+							<span><?php esc_html_e( 'Left', 'buddypress-ads-rotator' ); ?></span>
+							<input type="number" name="wb_ads_rotator[margin][left]" value="<?php echo esc_attr( $wb_ads_rotator_margin_left ); ?>"/>
+							<?php esc_html_e( 'px', 'buddypress-ads-rotator' ); ?>
+						</label>
+					</div>
+					<p class="wb_ads_margin_disc">
+					<?php echo esc_html_e( 'use this to add a margin around the ads', 'buddypress-ads-rotator' ); ?>
+				</p>					
+				</div>				
 			</div>
 			<div class="wb_ads_rotator-wrapper">
 				<div class="wb_ads_rotator-label">
