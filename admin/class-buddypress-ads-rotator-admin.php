@@ -502,7 +502,7 @@ class Buddypress_Ads_Rotator_Admin {
 					</div>
 					<div class="wb-bp-ads-size">
 						<span>
-								<?php esc_html_e( 'Heigh', 'buddypress-ads-rotator' ); ?>
+								<?php esc_html_e( 'Height', 'buddypress-ads-rotator' ); ?>
 						</span>
 						<label>
 							<input type="number" name="wb_ads_rotator[size][height]" value="<?php echo esc_attr( $wb_ads_rotator_height ); ?>"/>
