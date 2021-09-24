@@ -729,7 +729,7 @@ class Buddypress_Ads_Rotator_Admin {
 					<?php esc_html_e( 'Position', 'buddypress-ads-rotator' ); ?>
 				</div>
 				<div class="wb_ads_rotator-input">
-					<input type="number" name="wb_ads_rotator[enject_after]" value="<?php echo esc_attr( $wb_ads_rotator_enject_position ); ?>">
+					<input type="number" name="wb_ads_rotator[enject_after]" min="1" value="<?php echo esc_attr( $wb_ads_rotator_enject_position ); ?>">
 					<?php esc_html_e( 'Enter the value to inject after per entry', 'buddypress-ads-rotator' ); ?>
 				</div>
 			</div>
