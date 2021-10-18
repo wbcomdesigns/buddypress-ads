@@ -29,7 +29,7 @@
 	 * practising this, we should strive to set a better example in our own work.
 	 */
 	jQuery(document).ready(function ($) {
-
+		
 		/*faq tab accordion*/
 		var wb_ads_elmt = document.getElementsByClassName("wb-ads-accordion");
 		var k;
@@ -96,27 +96,7 @@
 			}
 		});
 		
-		function myFunction() {
-			//var text = wp.codeEditor.getValue();
-			var text = jQuery("#wb-ad-rotator-content-plain").val();
-			
-			return text;
-		}
-		var texts = myFunction();
-		var enabled_php = jQuery('#wb-ad-rotator-allow-php').prop('checked');
-		var enabled_sc = jQuery('#wb-ad-rotator-allow-shortcode').prop('checked');
-		if (enabled_php && ! /\<\?php/.test(texts) ) {
-			console.log(texts);
-			$(".wb_ads_rotator-wrapper #wb-ad-rotator-allow-php-warning").show(200);
-			} else {
-			$(".wb_ads_rotator-wrapper #wb-ad-rotator-allow-php-warning").hide(200);
-			}
-		if (enabled_sc && ! /\[[^\]]+\]/.test(texts)) {
-			$(".wb_ads_rotator-wrapper #wb-ad-rotator-allow-shortcode-warning").show(200);
-			} else {
-			$(".wb_ads_rotator-wrapper #wb-ad-rotator-allow-shortcode-warning").hide(200);
-			}
-			
+		
 
 		$(document).ready(function () {
 			$('input[type="radio"]').click(function () {
@@ -210,7 +190,43 @@
 			file_frame.open()
 		})
 		
-		wp.codeEditor.initialize($('#wb-ad-rotator-content-plain'), cm_settings);
+		function myFunction() {
+			var text = jQuery("#wb-ad-rotator-content-plain").val();
+			return text;
+		}
+		var code = wp.codeEditor.initialize($('#wb-ad-rotator-content-plain'), cm_settings);
+		$(document).keyup("#wb-ad-rotator-content-plain", function (e) {
+
+			var x = code.codemirror.getValue()
+			var enabled_php = jQuery('#wb-ad-rotator-allow-php').prop('checked');
+			var enabled_sc = jQuery('#wb-ad-rotator-allow-shortcode').prop('checked');
+			console.log(x);
+			if (enabled_php && ! /\<\?php/.test(x)) {
+				$(".wb_ads_rotator-wrapper #wb-ad-rotator-allow-php-warning").show(200);
+			} else {
+				$(".wb_ads_rotator-wrapper #wb-ad-rotator-allow-php-warning").hide(200);
+			}
+
+			if (enabled_sc && ! /\[[^\]]+\]/.test(x)) {
+				$(".wb_ads_rotator-wrapper #wb-ad-rotator-allow-shortcode-warning").show(200);
+			} else {
+				$(".wb_ads_rotator-wrapper #wb-ad-rotator-allow-shortcode-warning").hide(200);
+			}
+		});
+		var texts = myFunction();
+		var enabled_php = jQuery('#wb-ad-rotator-allow-php').prop('checked');
+		var enabled_sc = jQuery('#wb-ad-rotator-allow-shortcode').prop('checked');
+		if (enabled_php && ! /\<\?php/.test(texts)) {
+			$(".wb_ads_rotator-wrapper #wb-ad-rotator-allow-php-warning").show(200);
+		} else {
+			$(".wb_ads_rotator-wrapper #wb-ad-rotator-allow-php-warning").hide(200);
+		}
+		if (enabled_sc && ! /\[[^\]]+\]/.test(texts)) {
+			$(".wb_ads_rotator-wrapper #wb-ad-rotator-allow-shortcode-warning").show(200);
+		} else {
+			$(".wb_ads_rotator-wrapper #wb-ad-rotator-allow-shortcode-warning").hide(200);
+		}
+
 		
 	});
 })( jQuery );

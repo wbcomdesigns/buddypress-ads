@@ -378,7 +378,7 @@ class Buddypress_Ads_Rotator_Admin {
 					<strong>
 						<?php esc_html_e( 'Insert plain text or code into this field.', 'buddypress-ads-rotator' ); ?>
 					</strong>
-					<?php echo '<textarea id="wb-ad-rotator-content-plain" name="wb_ads_rotator[plain_text_and_code]" onkeyup="myFunction();">' . esc_textarea( $wb_ads_rotator_plain_text ) . '</textarea>'; ?>
+					<?php echo '<textarea id="wb-ad-rotator-content-plain" name="wb_ads_rotator[plain_text_and_code]" >' . esc_textarea( $wb_ads_rotator_plain_text ) . '</textarea>'; ?>
 				</div>
 			</div>
 			<div class="wb_ads_rotator-wrapper rich-content"
@@ -443,11 +443,6 @@ class Buddypress_Ads_Rotator_Admin {
 				</div>
 			</div>
 			<div class="wb_ads_rotator-wrapper plain-text-and-code" 
-			<?php
-			if ( 'plain-text-and-code' !== $wb_ads_rotator_type ) {
-				echo 'style="display:none"';
-			}
-			?>
 			>
 				<div class="wb_ads_rotator-label">
 					<?php esc_html_e( 'Allow PHP', 'buddypress-ads-rotator' ); ?>
@@ -456,7 +451,7 @@ class Buddypress_Ads_Rotator_Admin {
 					<input type="checkbox" id="wb-ad-rotator-allow-php" name="wb_ads_rotator[allow_php]" value="yes" <?php esc_attr( isset( $wb_ads_rotator_values['allow_php'] ) ? checked( $wb_ads_rotator_values['allow_php'], 'yes' ) : '' ); ?>>
 					<?php esc_html_e( 'Execute PHP code (wrapped in <?php ?>)', 'buddypress-ads-rotator' ); ?>
 					<div class="wb-ad-rotator-error-message" id="wb-ad-rotator-allow-php-warning" 
-						>
+					>
 							<?php esc_html_e( 'No PHP tag detected in your code.', 'buddypress-ads-rotator' ); ?>
 							<?php esc_html_e( 'Uncheck this checkbox for improved performance.', 'buddypress-ads-rotator' ); ?>
 					</div>
