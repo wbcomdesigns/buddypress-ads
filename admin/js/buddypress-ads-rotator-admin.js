@@ -80,24 +80,6 @@
 			$("#wb-ad-rotator-container-class").val(Text);
 		});
 
-		$(document).on("click", "#wb-ad-rotator-allow-shortcode", function (e) {
-			if ($(this).is(":checked")) {
-				$(".wb_ads_rotator-wrapper #wb-ad-rotator-allow-shortcode-warning").show(200);
-			} else {
-				$(".wb_ads_rotator-wrapper #wb-ad-rotator-allow-shortcode-warning").hide(200);
-			}
-		});
-
-		$(document).on("click", "#wb-ad-rotator-allow-php", function (e) {
-			if ($(this).is(":checked")) {
-				$(".wb_ads_rotator-wrapper #wb-ad-rotator-allow-php-warning").show(200);
-			} else {
-				$(".wb_ads_rotator-wrapper #wb-ad-rotator-allow-php-warning").hide(200);
-			}
-		});
-		
-		
-
 		$(document).ready(function () {
 			$('input[type="radio"]').click(function () {
 				var inputValue = $(this).attr("value");
