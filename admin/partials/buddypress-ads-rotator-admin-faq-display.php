@@ -43,7 +43,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					</button>
 					<div class="wb-ads-panel">
 						<p> 
-							<?php esc_html_e( 'You Need to add your Ads from WB Ads CPT.', 'buddypress-ads-rotator' ); ?>     
+							<?php esc_html_e( 'You need to add your Ads from WB Ads CPT.', 'buddypress-ads-rotator' ); ?>     
 						</p>
 					</div>
 				</div>
@@ -67,7 +67,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					</button>
 					<div class="wb-ads-panel">
 						<p> 
-							<?php esc_html_e( 'Yes, You can hide the spepcific ad from the CPT ads listing.', 'buddypress-ads-rotator' ); ?>    
+							<?php esc_html_e( 'Yes, you can hide the spepcific ad from the CPT ads listing.', 'buddypress-ads-rotator' ); ?>    
 						</p>
 					</div>
 				</div>
@@ -79,7 +79,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					</button>
 					<div class="wb-ads-panel">
 						<p> 
-							<?php esc_html_e( 'Yes, You can display and hide the ads for specific device( Mobile and Desktop ) .', 'buddypress-ads-rotator' ); ?>    
+							<?php esc_html_e( 'Yes, you can display and hide the ads for specific device( Mobile and Desktop ) .', 'buddypress-ads-rotator' ); ?>    
 						</p>
 					</div>
 				</div>
@@ -91,7 +91,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					</button>
 					<div class="wb-ads-panel">
 						<p> 
-							<?php esc_html_e( 'Yes, You can display and hide the ads for logged-in visitor or logged-out visitor.', 'buddypress-ads-rotator' ); ?>    
+							<?php esc_html_e( 'Yes, you can display and hide the ads for logged-in visitor or logged-out visitor.', 'buddypress-ads-rotator' ); ?>    
 						</p>
 					</div>
 				</div>
@@ -103,7 +103,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					</button>
 					<div class="wb-ads-panel">
 						<p> 
-							<?php esc_html_e( 'Yes, You can manage the ads layout with following options :-', 'buddypress-ads-rotator' ); ?>    
+							<?php esc_html_e( 'Yes, you can manage the ads layout with following options :-', 'buddypress-ads-rotator' ); ?>    
 						</p>
 						<ul>
 							<li><?php esc_html_e( 'Ads Position ( left,center,right )', 'buddypress-ads-rotator' ); ?></li>
