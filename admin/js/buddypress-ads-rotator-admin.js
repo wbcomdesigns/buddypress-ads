@@ -200,7 +200,6 @@
 			var x = code.codemirror.getValue()
 			var enabled_php = jQuery('#wb-ad-rotator-allow-php').prop('checked');
 			var enabled_sc = jQuery('#wb-ad-rotator-allow-shortcode').prop('checked');
-			console.log(x);
 			if (enabled_php && ! /\<\?php/.test(x)) {
 				$(".wb_ads_rotator-wrapper #wb-ad-rotator-allow-php-warning").show(200);
 			} else {
