@@ -361,8 +361,8 @@ class Buddypress_Ads_Rotator_Admin {
 		$wb_ads_rotator_plain_text = isset( $wb_ads_rotator_values['plain_text_and_code'] ) ? $wb_ads_rotator_values['plain_text_and_code'] : '';
 		$wb_ads_rotator_image_url  = isset( $wb_ads_rotator_values['image_link'] ) ? $wb_ads_rotator_values['image_link'] : '';
 		$wb_ads_rotator_image_id   = isset( $wb_ads_rotator_values['ads_image'] ) ? $wb_ads_rotator_values['ads_image'] : '';
-		$wb_ads_rotator_font_size  = isset( $wb_ads_rotator_values['font_size'] ) ? $wb_ads_rotator_values['font_size'] : '';
-		$wb_ads_rotator_txt_color  = isset( $wb_ads_rotator_values['text_color'] ) ? $wb_ads_rotator_values['text_color'] : '';
+		$wb_ads_rotator_font_size  = isset( $wb_ads_rotator_values['font_size'] ) ? $wb_ads_rotator_values['font_size'] : '#000000';
+		$wb_ads_rotator_txt_color  = isset( $wb_ads_rotator_values['text_color'] ) ? $wb_ads_rotator_values['text_color'] : '#FFFFFF';
 		$wb_ads_rotator_bg_color   = isset( $wb_ads_rotator_values['bg_color'] ) ? $wb_ads_rotator_values['bg_color'] : '';
 		?>
 		<div class="wb_ads_rotator-panel">
