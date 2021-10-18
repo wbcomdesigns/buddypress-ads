@@ -696,7 +696,7 @@ class Buddypress_Ads_Rotator_Admin {
 				<div class="wb_ads_rotator-input">
 					<select id="wb_ads_rotator_activity_type" name="wb_ads_rotator[activity_type]">
 						<option value=""<?php isset( $wb_ads_rotator_values['activity_type'] ) && selected( $wb_ads_rotator_values['activity_type'], '' ); ?>><?php esc_html_e( '-- choose a condition --', 'buddypress-ads-rotator' ); ?></option>
-						<option value="sidewide_activity" <?php isset( $wb_ads_rotator_values['activity_type'] ) && selected( $wb_ads_rotator_values['activity_type'], 'sidewide_activity' ); ?>><?php esc_html_e( 'Sidewide Activity ', 'buddypress-ads-rotator' ); ?></option>
+						<option value="sidewide_activity" <?php isset( $wb_ads_rotator_values['activity_type'] ) && selected( $wb_ads_rotator_values['activity_type'], 'sidewide_activity' ); ?>><?php esc_html_e( 'Sitewide Activity ', 'buddypress-ads-rotator' ); ?></option>
 						<option value="group_activity" <?php isset( $wb_ads_rotator_values['activity_type'] ) && selected( $wb_ads_rotator_values['activity_type'], 'group_activity' ); ?>><?php esc_html_e( 'Group Activity', 'buddypress-ads-rotator' ); ?></option>
 						<option value="members_activity" <?php isset( $wb_ads_rotator_values['activity_type'] ) && selected( $wb_ads_rotator_values['activity_type'], 'members_activity' ); ?>><?php esc_html_e( 'Members Activity', 'buddypress-ads-rotator' ); ?></option>
 					</select>
