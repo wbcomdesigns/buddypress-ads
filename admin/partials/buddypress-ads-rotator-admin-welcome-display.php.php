@@ -18,8 +18,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 <div class="wbcom-tab-content">
 	<div class="wbcom-welcome-main-wrapper">
 		<div class="wbcom-welcome-head">
-			<h2 class="wbcom-welcome-title"><?php esc_html_e( 'WB Ads Rotator for Buddypress', 'buddypress-ads-rotator' ); ?></h2>
-			<p class="wbcom-welcome-description"><?php esc_html_e( 'WB Ads Rotator for Buddypress Plugin will help to integrate WooCommerce with Buddypress.  You can sell your physical or digital products using WooCommerce on your social community website. This plugin allows you to manage your order directly from your profile page.', 'buddypress-ads-rotator' ); ?></p>
+			<h2 class="wbcom-welcome-title"><?php esc_html_e( 'WB Ads Rotator for BuddyPress', 'buddypress-ads-rotator' ); ?></h2>
+			<p class="wbcom-welcome-description">
+			<?php esc_html_e( 'WB Ads Rotator for BuddyPress Plugin will help you to display your Ads on BuddyPress Activity Streams. You can decide the position where you allow to display ads like on Sitewide Activity Stream , Group Activity Stream, Member Activity Stream.', 'buddypress-ads-rotator' ); ?>
+			</p>
 		</div><!-- .wbcom-welcome-head -->
 
 		<div class="wbcom-welcome-content">

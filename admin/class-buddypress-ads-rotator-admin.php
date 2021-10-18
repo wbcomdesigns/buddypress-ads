@@ -144,7 +144,7 @@ class Buddypress_Ads_Rotator_Admin {
 			<div class="bupr-header">
 				<?php echo do_shortcode( '[wbcom_admin_setting_header]' ); ?>
 				<h1 class="wbcom-plugin-heading">
-					<?php esc_html_e( 'WB Ads Rotator for Buddypress Settings', 'buddypress-ads-rotator' ); ?>
+					<?php esc_html_e( 'WB Ads Rotator for BuddyPress Settings', 'buddypress-ads-rotator' ); ?>
 				</h1>
 			</div>
 			<div class="wbcom-admin-settings-page">
@@ -187,7 +187,7 @@ class Buddypress_Ads_Rotator_Admin {
 		register_setting( 'wb_ads_rotator_admin_welcome_options', 'wb_ads_rotator_admin_welcome_options' );
 		add_settings_section( 'buddypress-ads-rotator-welcome', ' ', array( $this, 'wb_ads_rotator_admin_welcome_content' ), 'buddypress-ads-rotator-welcome' );
 
-		$this->plugin_settings_tabs['buddypress-ads-rotator-faq'] = esc_html__( 'Faq', 'buddypress-ads-rotator' );
+		$this->plugin_settings_tabs['buddypress-ads-rotator-faq'] = esc_html__( 'FAQ', 'buddypress-ads-rotator' );
 		register_setting( 'buddypress-ads-rotator_admin_faq_options', 'buddypress-ads-rotator_admin_faq_option' );
 		add_settings_section( 'buddypress-ads-rotator-faq', ' ', array( $this, 'wb_ads_rotator_admin_faq_content' ), 'buddypress-ads-rotator-faq' );
 
