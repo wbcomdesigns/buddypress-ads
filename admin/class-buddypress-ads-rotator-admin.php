@@ -442,6 +442,31 @@ class Buddypress_Ads_Rotator_Admin {
 					<input type="text" name="wb_ads_rotator[image_link]" class="wb_ads_rotator_image" placeholder="http://" value="<?php echo esc_attr( $wb_ads_rotator_image_url ); ?>"/>
 				</div>
 			</div>
+			<div class="wb_ads_rotator-wrapper select-ads-image image-ad" <?php echo 'image-ad' !== $wb_ads_rotator_type ? 'style="display:none"' : '' ?>>
+				<div class="wb_ads_rotator-label">
+					<?php esc_html_e( 'Size', 'buddypress-ads-rotator' ); ?>
+				</div>
+				<div class="wb_ads_rotator-input wb-ads-rotator-ads-size">
+					<div class="wb-bp-ads-size">
+						<span>
+							<?php esc_html_e( 'Width', 'buddypress-ads-rotator' ); ?>
+						</span>
+						<label>
+							<input type="number" name="wb_ads_rotator[size][width]" value="<?php echo esc_attr( $wb_ads_rotator_width ); ?>"/>
+							<?php esc_html_e( 'px', 'buddypress-ads-rotator' ); ?>
+						</label>
+					</div>
+					<div class="wb-bp-ads-size">
+						<span>
+								<?php esc_html_e( 'Height', 'buddypress-ads-rotator' ); ?>
+						</span>
+						<label>
+							<input type="number" name="wb_ads_rotator[size][height]" value="<?php echo esc_attr( $wb_ads_rotator_height ); ?>"/>
+							<?php esc_html_e( 'px', 'buddypress-ads-rotator' ); ?>
+						</label>
+					</div>
+				</div>
+			</div>
 			<div class="wb_ads_rotator-wrapper plain-text-and-code" 
 			>
 				<div class="wb_ads_rotator-label">
@@ -478,31 +503,6 @@ class Buddypress_Ads_Rotator_Admin {
 						?>
 						>
 							<?php esc_html_e( 'No shortcode detected in your code.', 'buddypress-ads-rotator' ); ?><?php esc_html_e( 'Uncheck this checkbox for improved performance.', 'buddypress-ads-rotator' ); ?>
-					</div>
-				</div>
-			</div>
-			<div class="wb_ads_rotator-wrapper">
-				<div class="wb_ads_rotator-label">
-					<?php esc_html_e( 'Size', 'buddypress-ads-rotator' ); ?>
-				</div>
-				<div class="wb_ads_rotator-input wb-ads-rotator-ads-size">
-					<div class="wb-bp-ads-size">
-						<span>
-							<?php esc_html_e( 'Width', 'buddypress-ads-rotator' ); ?>
-						</span>
-						<label>
-							<input type="number" name="wb_ads_rotator[size][width]" value="<?php echo esc_attr( $wb_ads_rotator_width ); ?>"/>
-							<?php esc_html_e( 'px', 'buddypress-ads-rotator' ); ?>
-						</label>
-					</div>
-					<div class="wb-bp-ads-size">
-						<span>
-								<?php esc_html_e( 'Height', 'buddypress-ads-rotator' ); ?>
-						</span>
-						<label>
-							<input type="number" name="wb_ads_rotator[size][height]" value="<?php echo esc_attr( $wb_ads_rotator_height ); ?>"/>
-							<?php esc_html_e( 'px', 'buddypress-ads-rotator' ); ?>
-						</label>
 					</div>
 				</div>
 			</div>
