@@ -16,7 +16,7 @@
  * Plugin URI:        https://wbcomdesigns.com
  * Description:       This Plugin Provide integration of Ads with Buddypress.
  * Version:           1.0.0
- * Author:            WB COM
+ * Author:            Wbcom Designs
  * Author URI:        https://wbcomdesigns.com
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
