@@ -120,12 +120,14 @@ class Buddypress_Ads_Rotator_Admin {
 	 * @author   Wbcom Designs
 	 */
 	public function wb_ads_rotator_add_submenu_page_admin_settings() {
-		if ( empty( $GLOBALS['admin_page_hooks']['wbcomplugins'] ) && class_exists( 'BuddyPress' ) ) {
-			add_menu_page( esc_html__( 'WB Plugins', 'buddypress-ads-rotator' ), esc_html__( 'WB Plugins', 'buddypress-ads-rotator' ), 'manage_options', 'wbcomplugins', array( $this, 'buddypress_ads_rotator_admin_options_page' ), 'dashicons-lightbulb', 59 );
-			add_submenu_page( 'wbcomplugins', esc_html__( 'Welcome', 'buddypress-ads-rotator' ), esc_html__( 'Welcome', 'buddypress-ads-rotator' ), 'manage_options', 'wbcomplugins' );
+		if ( class_exists( 'BuddyPress' ) ) {
+			if ( empty( $GLOBALS['admin_page_hooks']['wbcomplugins'] ) ) {
+				add_menu_page( esc_html__( 'WB Plugins', 'buddypress-ads-rotator' ), esc_html__( 'WB Plugins', 'buddypress-ads-rotator' ), 'manage_options', 'wbcomplugins', array( $this, 'buddypress_ads_rotator_admin_options_page' ), 'dashicons-lightbulb', 59 );
+				add_submenu_page( 'wbcomplugins', esc_html__( 'Welcome', 'buddypress-ads-rotator' ), esc_html__( 'Welcome', 'buddypress-ads-rotator' ), 'manage_options', 'wbcomplugins' );
 
+			}
+			add_submenu_page( 'wbcomplugins', esc_html__( 'WB Ads Rotator for Buddypress', 'buddypress-ads-rotator' ), esc_html__( 'WB Ads Rotator for Buddypress', 'buddypress-ads-rotator' ), 'manage_options', 'buddypress-ads-rotator-settings', array( $this, 'buddypress_ads_rotator_admin_options_page' ) );
 		}
-		add_submenu_page( 'wbcomplugins', esc_html__( 'WB Ads Rotator for Buddypress', 'buddypress-ads-rotator' ), esc_html__( 'WB Ads Rotator for Buddypress', 'buddypress-ads-rotator' ), 'manage_options', 'buddypress-ads-rotator-settings', array( $this, 'buddypress_ads_rotator_admin_options_page' ) );
 	}
 
 	/**
@@ -442,7 +444,7 @@ class Buddypress_Ads_Rotator_Admin {
 					<input type="text" name="wb_ads_rotator[image_link]" class="wb_ads_rotator_image" placeholder="http://" value="<?php echo esc_attr( $wb_ads_rotator_image_url ); ?>"/>
 				</div>
 			</div>
-			<div class="wb_ads_rotator-wrapper select-ads-image image-ad" <?php echo 'image-ad' !== $wb_ads_rotator_type ? 'style="display:none"' : '' ?>>
+			<div class="wb_ads_rotator-wrapper select-ads-image image-ad" <?php echo 'image-ad' !== $wb_ads_rotator_type ? 'style="display:none"' : ''; ?>>
 				<div class="wb_ads_rotator-label">
 					<?php esc_html_e( 'Size', 'buddypress-ads-rotator' ); ?>
 				</div>

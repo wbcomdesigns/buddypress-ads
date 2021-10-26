@@ -16,7 +16,7 @@
  * Plugin URI:        https://wbcomdesigns.com
  * Description:       This Plugin Provide integration of Ads with Buddypress.
  * Version:           1.0.0
- * Author:            WB COM
+ * Author:            Wbcom Designs
  * Author URI:        https://wbcomdesigns.com
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
@@ -80,7 +80,7 @@ add_action( 'plugins_loaded', 'wb_ads_rotator_check_required_plugin' );
  * Display required plugin admin notice.
  */
 function wb_ads_rotator_admin_notice() {
-	$wb_ads_rotator_plugin = __( 'WB Ads Rotator for Buddypress', 'buddypress-ads-rotator' );
+	$wb_ads_rotator_plugin = __( 'WB Ads Rotator for BuddyPress', 'buddypress-ads-rotator' );
 	$buddypress_plugin     = __( 'BuddyPress', 'buddypress-ads-rotator' );
 	echo '<div class="error"><p>'
 	/* translators: %1$s: WB Ads Rotator for Buddypress ;  %2$s: BuddyPress*/
@@ -112,7 +112,7 @@ function wb_ads_rotator_existing_checkin_plugin() {
  */
 function wb_ads_rotator_activation_redirect_settings( $plugin ) {
 
-	if ( $plugin == plugin_basename( __FILE__ ) && class_exists( 'BuddyPress' ) ) {
+	if ( $plugin === plugin_basename( __FILE__ ) && class_exists( 'BuddyPress' ) ) {
 		wp_redirect( admin_url( 'admin.php?page=buddypress-ads-rotator-settings' ) );
 		exit;
 	}
