@@ -237,7 +237,7 @@ class Buddypress_Ads_Rotator_Public {
 			return;
 		}
 		$wb_ads_position = '';
-		switch ( $wb_awb_ads_rotator_position ) {
+		switch ( $wb_ads_rotator_position ) {
 			case 'default':
 				$wb_ads_position = 'initial';
 				break;
