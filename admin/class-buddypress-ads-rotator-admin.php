@@ -296,6 +296,14 @@ class Buddypress_Ads_Rotator_Admin {
 			array( $post_types )
 		);
 
+		add_meta_box(
+			'wb_ads_rotator_shortcode',
+			__( 'Shortcode', 'buddypress-ads-rotator' ),
+			array( $this, 'wb_ads_rotator_render_shortcode_box' ),
+			array( $post_types ),
+			'side',
+		);
+
 	}
 
 	/**
@@ -789,6 +797,32 @@ class Buddypress_Ads_Rotator_Admin {
 						<?php esc_html_e( 'Visitor conditions limit the number of users who can see your ad. There is no need to set visitor conditions if you want all users to see the ad.', 'buddypress-ads-rotator' ); ?>
 					</p>
 				</div>
+			</div>
+			<?php do_action( 'wb_ads_rotator_options_after' ); ?>
+		</div>
+		<?php
+	}
+
+	/**
+	 * WB Ads Metabox callback function.
+	 *
+	 * @param array $post Get a Post Object.
+	 */
+	public function wb_ads_rotator_render_shortcode_box( $post ) {
+		global $post;
+		$post_id               = $post->ID;
+		$post_type             = get_post_type();
+		$wb_ads_rotator_values = get_post_meta( $post_id, 'wb_ads_rotator_values', true );
+		?>
+		<div class="wb_ads_rotator-panel">
+			<?php do_action( 'wb_ads_rotator_options_before' ); ?>
+			<div class="wb_ads_rotator-wrapper">
+				<div class="wb_ads_rotator-input ads-copy" data-code="[ads-shortcode id=<?php echo $post_id; ?>]">
+					<code><?php esc_html_e( '[ads-shortcode id="' . $post_id . '"]', 'buddypress-ads-rotator' ); ?></code>		
+				</div>
+				<p>
+					<?php esc_html_e( 'Copy and Paste this shortcode to display this ad at any where.', 'buddypress-ads-rotator' ); ?>
+				</p>		
 			</div>
 			<?php do_action( 'wb_ads_rotator_options_after' ); ?>
 		</div>

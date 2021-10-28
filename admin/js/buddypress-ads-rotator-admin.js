@@ -1,4 +1,4 @@
-(function( $ ) {
+(function ($) {
 	'use strict';
 
 	/**
@@ -29,7 +29,7 @@
 	 * practising this, we should strive to set a better example in our own work.
 	 */
 	jQuery(document).ready(function ($) {
-		
+
 		/*faq tab accordion*/
 		var wb_ads_elmt = document.getElementsByClassName("wb-ads-accordion");
 		var k;
@@ -65,7 +65,7 @@
 			placeholder: "-- choose a condition --",
 			plugins: ['remove_button'],
 		});
-		
+
 		$("#wb-ad-rotator-container-id").keyup(function () {
 			var Text = $(this).val();
 			Text = Text.toLowerCase();
@@ -83,22 +83,22 @@
 		$(document).ready(function () {
 			$('input[type="radio"]').click(function () {
 				var inputValue = $(this).attr("value");
-				if (inputValue === 'plain-text-and-code' ) {
+				if (inputValue === 'plain-text-and-code') {
 					$('.plain-text-and-code').show(500);
 					$('.rich-content').hide(500);
 					$('.image-ad').hide(500);
-				} 
-				if(inputValue === 'rich-content') {
+				}
+				if (inputValue === 'rich-content') {
 					$('.plain-text-and-code').hide(500);
 					$('.rich-content').show(500);
 					$('.image-ad').hide(500);
-				} 
-				if(inputValue === 'image-ad') {
+				}
+				if (inputValue === 'image-ad') {
 					$('.plain-text-and-code').hide(500);
 					$('.rich-content').hide(500);
 					$('.image-ad').show(500);
 				}
-				
+
 			});
 		});
 		$('.wb_ads_enable').click(function (e) {
@@ -122,56 +122,56 @@
 			'.select-ads-image #wb_ads_rotator_select_image',
 			function (e) {
 
-			e.preventDefault()
+				e.preventDefault()
 
-			var button = $(this)
+				var button = $(this)
 				// WP 3.5+ uploader
 				var file_frame
 				window.formfield = ''
-			// If the media frame already exists, reopen it.
-			if (file_frame) {
-				// file_frame.uploader.uploader.param( 'post_id', set_to_post_id );
-				file_frame.open()
-				return
-			}
+				// If the media frame already exists, reopen it.
+				if (file_frame) {
+					// file_frame.uploader.uploader.param( 'post_id', set_to_post_id );
+					file_frame.open()
+					return
+				}
 
-			// Create the media frame.
-			file_frame = wp.media.frames.file_frame = wp.media({
-				id: 'advads_type_image_wp_media',
-				title: 'Select or Upload Image',
-				button: {
-					text: 'Insert this media'
-				},
-				library: {
-					type: 'image'
-				},
-				multiple: false // only allow one file to be selected
-			})
-
-			// When an image is selected, run a callback.
-			file_frame.on('select', function () {
-
-				var selection = file_frame.state().get('selection')
-				selection.each(function (attachment, index) {
-					attachment = attachment.toJSON()
-					if (0 === index) {
-						// place first attachment in field
-						$('#wb_ads_image_id').val(attachment.id)
-						$('.wb_ads_rotator-input input[name="wb_ads_rotator[size][width]"]').val(attachment.width)
-						$('.wb_ads_rotator-input input[name="wb_ads_rotator[size][height]"]').val(attachment.height)
-						// update image preview
-						var new_image = '<img width="' + attachment.width + '" height="' + attachment.height +
-							'" title="' + attachment.title + '" alt="' + attachment.alt + '" src="' + attachment.url + '"/>'
-						$('#wb-ads-preview-image').html(new_image)
-						$('#wb-ads-image-edit-link').attr('href', attachment.editLink)
-					}
+				// Create the media frame.
+				file_frame = wp.media.frames.file_frame = wp.media({
+					id: 'advads_type_image_wp_media',
+					title: 'Select or Upload Image',
+					button: {
+						text: 'Insert this media'
+					},
+					library: {
+						type: 'image'
+					},
+					multiple: false // only allow one file to be selected
 				})
+
+				// When an image is selected, run a callback.
+				file_frame.on('select', function () {
+
+					var selection = file_frame.state().get('selection')
+					selection.each(function (attachment, index) {
+						attachment = attachment.toJSON()
+						if (0 === index) {
+							// place first attachment in field
+							$('#wb_ads_image_id').val(attachment.id)
+							$('.wb_ads_rotator-input input[name="wb_ads_rotator[size][width]"]').val(attachment.width)
+							$('.wb_ads_rotator-input input[name="wb_ads_rotator[size][height]"]').val(attachment.height)
+							// update image preview
+							var new_image = '<img width="' + attachment.width + '" height="' + attachment.height +
+								'" title="' + attachment.title + '" alt="' + attachment.alt + '" src="' + attachment.url + '"/>'
+							$('#wb-ads-preview-image').html(new_image)
+							$('#wb-ads-image-edit-link').attr('href', attachment.editLink)
+						}
+					})
+				})
+
+				// Finally, open the modal
+				file_frame.open()
 			})
 
-			// Finally, open the modal
-			file_frame.open()
-		})
-		
 		function myFunction() {
 			var text = jQuery("#wb-ad-rotator-content-plain").val();
 			return text;
@@ -208,6 +208,23 @@
 			$(".wb_ads_rotator-wrapper #wb-ad-rotator-allow-shortcode-warning").hide(200);
 		}
 
-		
+		$(document).on('click', ".ads-copy", function (e) {
+			e.preventDefault();
+			var copyText = $(this).data('code');
+			document.addEventListener('copy', function (e) {
+				e.clipboardData.setData('text/plain', copyText);
+				e.preventDefault();
+			}, true);
+
+			document.execCommand('copy');
+			var tooltip = $(this).next();
+			tooltip.removeClass('tooltip-hide');
+			setTimeout(function () {
+				tooltip.addClass('tooltip-hide');
+			}, 500);
+
+
+		});
+
 	});
-})( jQuery );
+})(jQuery);

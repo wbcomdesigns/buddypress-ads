@@ -441,4 +441,59 @@ class Buddypress_Ads_Rotator_Public {
 		}
 	}
 
+	/**
+	 * Display Shortcode Ads.
+	 *
+	 * @since 1.0.0
+	 * @param array|string $atts User defined attributes for this shortcode instance.
+	 */
+	public function wb_ads_rotator_shortcode_ads( $atts ) {
+		// Attributes.
+		$atts = shortcode_atts(
+			array(
+				'ads_id' => null,
+			),
+			$atts,
+			'wb-ads'
+		);
+
+		$wb_ads_display = '';
+		if ( empty( $atts['ads_id'] ) ) {
+			$wb_ads_display .= __( 'Please Enter the ads_id parameter value', 'buddypress-ads-rotator' );
+			return $wb_ads_display;
+		}
+		ob_start();
+		$args = array(
+			'post_type'      => 'wb-ads',
+			'posts_per_page' => 1,
+			'publish_status' => 'published',
+			'p'              => $atts['ads_id'],
+		);
+
+		$query = new WP_Query( $args );
+
+		if ( $query->have_posts() ) {
+			while ( $query->have_posts() ) :
+
+				$query->the_post();
+				$ads_id        = get_the_ID();
+				$wb_ads_values = get_post_meta( $ads_id, 'wb_ads_rotator_values', true );
+				$wb_ads_type   = isset( $wb_ads_values['ads_type'] ) ? $wb_ads_values['ads_type'] : '';
+				if ( 'rich-content' === $wb_ads_type ) {
+					$wb_ads_display = $this->wb_ads_rotator_display_rich_content_ads( $ads_id );
+				} elseif ( 'plain-text-and-code' === $wb_ads_type ) {
+					$wb_ads_display = $this->wb_ads_rotator_display_plain_text_and_code_ads( $ads_id );
+				} else {
+					$wb_ads_display = $this->wb_ads_rotator_display_image_ads( $ads_id );
+				}
+			endwhile;
+		} else {
+			return __( 'Nothing ads found', 'buddypress-ads-rotator' );
+		}
+
+		wp_reset_postdata();
+		$wb_ads_display = ob_get_clean();
+		return $wb_ads_display;
+	}
+
 }

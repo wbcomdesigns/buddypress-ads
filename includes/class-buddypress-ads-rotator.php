@@ -249,6 +249,7 @@ class Buddypress_Ads_Rotator {
 				$this->loader->add_action( 'bp_after_activity_entry_comments', $plugin_public, 'wb_ads_rotator_display_ads' );
 				break;
 		}
+		$this->loader->add_shortcode( 'ads-shortcode', $plugin_public, 'wb_ads_rotator_shortcode_ads' );
 
 	}
 
