@@ -172,6 +172,23 @@
 				file_frame.open()
 			})
 
+		$(document).on('click', ".shortcode-copy", function (e) {
+			e.preventDefault();
+			var copyText = $(this).data('shortcode');
+			document.addEventListener('copy', function (e) {
+				e.clipboardData.setData('text/plain', copyText);
+				e.preventDefault();
+			}, true);
+
+			document.execCommand('copy');
+			var tooltip = $(this).next();
+			tooltip.removeClass('shortcode-text-hide');
+			setTimeout(function () {
+				tooltip.addClass('shortcode-text-hide');
+			}, 500);
+
+
+		});
 		function myFunction() {
 			var text = jQuery("#wb-ad-rotator-content-plain").val();
 			return text;
@@ -218,13 +235,14 @@
 
 			document.execCommand('copy');
 			var tooltip = $(this).next();
-			tooltip.removeClass('tooltip-hide');
+			tooltip.removeClass('shortcode-text-hide');
 			setTimeout(function () {
-				tooltip.addClass('tooltip-hide');
+				tooltip.addClass('shortcode-text-hide');
 			}, 500);
 
 
 		});
+
 
 	});
 })(jQuery);

@@ -817,13 +817,14 @@ class Buddypress_Ads_Rotator_Admin {
 		<div class="wb_ads_rotator-panel">
 			<?php do_action( 'wb_ads_rotator_options_before' ); ?>
 			<div class="wb_ads_rotator-wrapper">
-				<div class="wb_ads_rotator-input ads-copy" data-code="[ads-shortcode id=<?php echo $post_id; ?>]">
-					<code><?php esc_html_e( '[ads-shortcode id="' . $post_id . '"]', 'buddypress-ads-rotator' ); ?></code>		
+				<div class="wb_ads_rotator-input ads-copy" data-code="[ads-shortcode ads_id=<?php echo esc_attr( $post_id ); ?>]">
+					<code><?php esc_html_e( '[ads-shortcode ads_id=' . esc_attr( $post_id ) . ']', 'buddypress-ads-rotator' ); ?></code>		
 				</div>
-				<p>
-					<?php esc_html_e( 'Copy and Paste this shortcode to display this ad at any where.', 'buddypress-ads-rotator' ); ?>
-				</p>		
+				<span class="ads-shortcode-text shortcode-text-hide"><?php echo esc_attr__( 'Shortcode Copied!', 'buddypress-ads-rotator' ); ?></span>		
 			</div>
+			<p>
+					<?php esc_html_e( 'Copy and Paste this shortcode to display this ad at any where.', 'buddypress-ads-rotator' ); ?>
+				</p>
 			<?php do_action( 'wb_ads_rotator_options_after' ); ?>
 		</div>
 		<?php
@@ -886,10 +887,11 @@ class Buddypress_Ads_Rotator_Admin {
 		return array_merge(
 			$columns,
 			array(
-				'ads-id'      => __( 'Ads ID', 'buddypress-ads-rotator' ),
-				'ads-type'    => __( 'Ads Type', 'buddypress-ads-rotator' ),
-				'disable-ads' => __( 'Disable Ads', 'buddypress-ads-rotator' ),
-				'date'        => __( 'Date', 'buddypress-ads-rotator' ),
+				'ads-id'        => __( 'Ads ID', 'buddypress-ads-rotator' ),
+				'ads-type'      => __( 'Ads Type', 'buddypress-ads-rotator' ),
+				'disable-ads'   => __( 'Disable Ads', 'buddypress-ads-rotator' ),
+				'ads-shortcode' => __( 'Shortcode', 'buddypress-ads-rotator' ),
+				'date'          => __( 'Date', 'buddypress-ads-rotator' ),
 			)
 		);
 	}
@@ -931,6 +933,10 @@ class Buddypress_Ads_Rotator_Admin {
 				</label>';
 				}
 				break;
+			case 'ads-shortcode':
+					echo '<div class="wb_ads_rotator-input wb-ads-shortcode-text shortcode-copy" data-shortcode="[ads-shortcode ads_id=' . esc_attr( $post_id ) . ']">
+					<code> ' . esc_html__( '[ads-shortcode ads_id=' . $post_id . ']', 'buddypress-ads-rotator' ) . '</code>		
+					</div><span class="ads-shortcode-text shortcode-text-hide">' . esc_attr__( 'Shortcode Copied!', 'buddypress-ads-rotator' ) . '</span>';
 
 		}
 	}
