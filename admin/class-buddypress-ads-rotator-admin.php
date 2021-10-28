@@ -889,7 +889,7 @@ class Buddypress_Ads_Rotator_Admin {
 			array(
 				'ads-id'        => __( 'Ads ID', 'buddypress-ads-rotator' ),
 				'ads-type'      => __( 'Ads Type', 'buddypress-ads-rotator' ),
-				'disable-ads'   => __( 'Disable Ads', 'buddypress-ads-rotator' ),
+				'disable-ads'   => __( 'Enable/Disable Ads', 'buddypress-ads-rotator' ),
 				'ads-shortcode' => __( 'Shortcode', 'buddypress-ads-rotator' ),
 				'date'          => __( 'Date', 'buddypress-ads-rotator' ),
 			)
