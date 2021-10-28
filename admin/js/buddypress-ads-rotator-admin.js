@@ -193,7 +193,9 @@
 			var text = jQuery("#wb-ad-rotator-content-plain").val();
 			return text;
 		}
-		var code = wp.codeEditor.initialize($('#wb-ad-rotator-content-plain'), cm_settings);
+		if (jQuery("#wb-ad-rotator-content-plain").length) {
+			var code = wp.codeEditor.initialize($('#wb-ad-rotator-content-plain'), cm_settings);
+		}
 		$(document).keyup("#wb-ad-rotator-content-plain", function (e) {
 
 			var x = code.codemirror.getValue()
