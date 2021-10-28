@@ -232,11 +232,12 @@ class Buddypress_Ads_Rotator_Public {
 
 		$wb_ads_rotator_get_values = get_post_meta( $wb_ads_rotator_get_ad, 'wb_ads_rotator_values', true );
 		$wb_ads_rotator_enable     = get_post_meta( $wb_ads_rotator_get_ad, 'wb_ads_enable', true );
-
+		$wb_ads_rotator_position   = isset( $wb_ads_rotator_get_values['ads_position'] ) ? $wb_ads_rotator_get_values['ads_position'] : '';
 		if ( 'disable' === $wb_ads_rotator_enable ) {
 			return;
 		}
-		switch ( $wb_ads_rotator_get_values['ads_position'] ) {
+		$wb_ads_position = '';
+		switch ( $wb_awb_ads_rotator_position ) {
 			case 'default':
 				$wb_ads_position = 'initial';
 				break;
@@ -312,11 +313,12 @@ class Buddypress_Ads_Rotator_Public {
 	public function wb_ads_rotator_display_rich_content_ads( $wb_ads_rotator_get_ad ) {
 		$wb_ads_rotator_get_values = get_post_meta( $wb_ads_rotator_get_ad, 'wb_ads_rotator_values', true );
 		$wb_ads_rotator_enable     = get_post_meta( $wb_ads_rotator_get_ad, 'wb_ads_enable', true );
+		$wb_ads_rotator_position   = isset( $wb_ads_rotator_get_values['ads_position'] ) ? $wb_ads_rotator_get_values['ads_position'] : '';
 		if ( 'disable' === $wb_ads_rotator_enable ) {
 			return;
 		}
-
-		switch ( $wb_ads_rotator_get_values['ads_position'] ) {
+		$wb_ads_position = '';
+		switch ( $wb_ads_rotator_position ) {
 			case 'default':
 				$wb_ads_position = 'initial';
 				break;
