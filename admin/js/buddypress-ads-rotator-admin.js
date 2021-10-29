@@ -108,9 +108,9 @@
 				action: 'wb_ads_rotator_enable',
 				visible: datanoticevisible,
 				datanotice: datanotice,
+				nonce: ajax.nonce,
 			};
 			$.post(ajaxurl, data, function (response) {
-				console.log(data);
 				location.reload();
 			});
 		});

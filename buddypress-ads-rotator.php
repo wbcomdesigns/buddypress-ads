@@ -109,11 +109,13 @@ function wb_ads_rotator_existing_checkin_plugin() {
  * Redirect to plugin settings page after activated.
  *
  * @since  1.0.0
+ *
+ * @param string $plugin Path to the plugin file relative to the plugins directory.
  */
 function wb_ads_rotator_activation_redirect_settings( $plugin ) {
 
-	if ( $plugin === plugin_basename( __FILE__ ) && class_exists( 'BuddyPress' ) ) {
-		wp_redirect( admin_url( 'admin.php?page=buddypress-ads-rotator-settings' ) );
+	if ( plugin_basename( __FILE__ ) === $plugin && class_exists( 'BuddyPress' ) ) {
+		wp_safe_redirect( admin_url( 'admin.php?page=buddypress-ads-rotator-settings' ) );
 		exit;
 	}
 }

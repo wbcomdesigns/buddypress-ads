@@ -101,7 +101,8 @@ class Buddypress_Ads_Rotator_Admin {
 			$this->plugin_name,
 			'ajax',
 			array(
-				'url' => admin_url( 'admin-ajax.php' ),
+				'url'   => admin_url( 'admin-ajax.php' ),
+				'nonce' => wp_create_nonce( 'ajax-nonce' ),
 			)
 		);
 		wp_enqueue_script( 'wb_ads_rotator-selectize-min', plugin_dir_url( __FILE__ ) . 'js/selectize.min.js', array( 'jquery' ), $this->version, false );
@@ -842,10 +843,8 @@ class Buddypress_Ads_Rotator_Admin {
 			return $post_id;
 		}
 
-		$wb_ads_rotator_metabox_nonce = $_POST['wb_ads_rotator_render_add_meta_box_nonce'];
-
 		// Verify that the nonce is valid.
-		if ( ! wp_verify_nonce( $wb_ads_rotator_metabox_nonce, 'wb_ads_rotator_render_add_meta_box' ) ) {
+		if ( ! wp_verify_nonce( wp_unslash( $_POST['wb_ads_rotator_render_add_meta_box_nonce'] ), 'wb_ads_rotator_render_add_meta_box' ) ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 			return $post_id;
 		}
 		// Bail if we're doing an auto save .
@@ -857,7 +856,7 @@ class Buddypress_Ads_Rotator_Admin {
 			return;
 		}
 		if ( ! empty( $_POST['wb_ads_rotator'] ) ) {
-			update_post_meta( $post_id, 'wb_ads_rotator_values', $_POST['wb_ads_rotator'] );
+			update_post_meta( $post_id, 'wb_ads_rotator_values', wp_unslash( $_POST['wb_ads_rotator'] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 		}
 		do_action( 'wb_ads_rotator_admin_save_options' );
 	}
@@ -866,6 +865,13 @@ class Buddypress_Ads_Rotator_Admin {
 	 * Get a selected ads media.
 	 */
 	public function wb_ads_rotator_image() {
+		// Check if our nonce is set.
+		if ( ! isset( $_GET['nonce'] ) ) {
+			return $post_id;
+		}
+		if ( ! wp_verify_nonce( wp_unslash( $_GET['nonce'] ), 'ajax-nonce' ) ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+			die( 'Busted!' );
+		}
 		if ( isset( $_GET['id'] ) ) {
 			$image = wp_get_attachment_image( filter_input( INPUT_GET, 'id', FILTER_VALIDATE_INT ), 'medium', false, array( 'id' => 'wb-ads-preview-images' ) );
 			$data  = array(
@@ -959,13 +965,18 @@ class Buddypress_Ads_Rotator_Admin {
 
 	/**
 	 * This Function is handle the ajax callback.
-	 *
-	 * @return void
 	 */
 	public function wb_ads_rotator_ajax_enable_callback() {
-		$action       = $_POST['action'];
-		$action_value = $_POST['visible'];
-		$wb_ads_id    = $_POST['datanotice'];
+		// Check if our nonce is set.
+		if ( ! isset( $_POST['nonce'] ) ) {
+			return $post_id;
+		}
+		if ( ! wp_verify_nonce( wp_unslash( $_POST['nonce'] ), 'ajax-nonce' ) ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+			die( 'Busted!' );
+		}
+		$action       = isset( $_POST['action'] ) ? wp_unslash( $_POST['action'] ) : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		$action_value = isset( $_POST['visible'] ) ? wp_unslash( $_POST['visible'] ) : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		$wb_ads_id    = isset( $_POST['datanotice'] ) ? wp_unslash( $_POST['datanotice'] ) : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 		if ( 'wb_ads_rotator_enable' === $action && 'enable' === $action_value ) {
 			update_post_meta( $wb_ads_id, 'wb_ads_enable', 'enable' );
 		} elseif ( 'wb_ads_rotator_enable' === $action && 'disable' === $action_value ) {
