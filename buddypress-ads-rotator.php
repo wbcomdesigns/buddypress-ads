@@ -14,8 +14,7 @@
  * @wordpress-plugin
  * Plugin Name:       Wbcom Designs - Ads Rotator for Buddypress
  * Plugin URI:        https://wbcomdesigns.com
- * Description:       BuddyPress Ads
-Integrate your BuddyPress community to provide a smooth customer experience and increase site engagement. Display Ads at the different BuddyPress locations like activity page, Group Page, and member page. The position of the displayed ads can also be chosen according to the requirement.
+ * Description:       Integrate your BuddyPress community to provide a smooth customer experience and increase site engagement.
  * Version:           1.0.0
  * Author:            Wbcom Designs
  * Author URI:        https://wbcomdesigns.com
