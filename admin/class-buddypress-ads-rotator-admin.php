@@ -145,22 +145,22 @@ class Buddypress_Ads_Rotator_Admin {
 		<hr class="wp-header-end">
 		<div class="wbcom-wrap">
 			<div class="bupr-header">
-				<?php echo do_shortcode( '[wbcom_admin_setting_header]' ); ?>
+			<?php echo do_shortcode( '[wbcom_admin_setting_header]' ); ?>
 				<h1 class="wbcom-plugin-heading">
-					<?php esc_html_e( 'BuddyPress Ads Settings', 'buddypress-ads-rotator' ); ?>
+				<?php esc_html_e( 'BuddyPress Ads Settings', 'buddypress-ads-rotator' ); ?>
 				</h1>
 			</div>
 			<div class="wbcom-admin-settings-page">
-				<?php
-				settings_errors();
-				$this->wb_ads_rotator_plugin_settings_tabs();
-				settings_fields( $tab );
-				do_settings_sections( $tab );
-				?>
+			<?php
+			settings_errors();
+			$this->wb_ads_rotator_plugin_settings_tabs();
+			settings_fields( $tab );
+			do_settings_sections( $tab );
+			?>
 			</div>
 		</div>
 	</div>
-		<?php
+			<?php
 	}
 
 	/**
@@ -321,35 +321,35 @@ class Buddypress_Ads_Rotator_Admin {
 		$wb_ads_rotator_values = get_post_meta( $post_id, 'wb_ads_rotator_values', true );
 		?>
 		<div class="wb_ads_rotator-panel">
-			<?php do_action( 'wb_ads_rotator_options_before' ); ?>
+		<?php do_action( 'wb_ads_rotator_options_before' ); ?>
 			<div class="wb_ads_rotator-wrapper">
 				<div class="wb_ads_rotator-label">
-					<?php esc_html_e( 'Plain Text and Code', 'buddypress-ads-rotator' ); ?>
+				<?php esc_html_e( 'Plain Text and Code', 'buddypress-ads-rotator' ); ?>
 				</div>
 				<div class="wb_ads_rotator-input">
-					<input type="radio" name="wb_ads_rotator[ads_type]" class="wb-ads_types" id="wb_ads_rotator_type" value="plain-text-and-code" <?php ( isset( $wb_ads_rotator_values['ads_type'] ) ) ? checked( $wb_ads_rotator_values['ads_type'], 'plain-text-and-code' ) : ''; ?>/>
-					<?php esc_html_e( 'Any ad network, Amazon, customized AdSense codes, shortcodes, and code like JavaScript, HTML or PHP.', 'buddypress-ads-rotator' ); ?>
+					<input type="radio" name="wb_ads_rotator[ads_type]" class="wb-ads_types" id="wb_ads_rotator_type" value="plain-text-and-code" <?php echo ( isset( $wb_ads_rotator_values['ads_type'] ) ) ? checked( $wb_ads_rotator_values['ads_type'], 'plain-text-and-code' ) : 'checked'; ?>/>
+				<?php esc_html_e( 'Any ad network, Amazon, customized AdSense codes, shortcodes, and code like JavaScript, HTML or PHP.', 'buddypress-ads-rotator' ); ?>
 				</div>
 			</div>
 			<div class="wb_ads_rotator-wrapper">
 				<div class="wb_ads_rotator-label">
-					<?php esc_html_e( 'Rich Content', 'buddypress-ads-rotator' ); ?>
+				<?php esc_html_e( 'Rich Content', 'buddypress-ads-rotator' ); ?>
 				</div>
 				<div class="wb_ads_rotator-input">
 					<input type="radio" name="wb_ads_rotator[ads_type]" class="wb-ads_types" id="wb_ads_rotator_type" value="rich-content" <?php ( isset( $wb_ads_rotator_values['ads_type'] ) ) ? checked( $wb_ads_rotator_values['ads_type'], 'rich-content' ) : ''; ?>/>
-					<?php esc_html_e( 'The full content editor from WordPress with all features like shortcodes, image upload or styling, but also simple text/html mode for scripts and code.', 'buddypress-ads-rotator' ); ?>
+				<?php esc_html_e( 'The full content editor from WordPress with all features like shortcodes, image upload or styling, but also simple text/html mode for scripts and code.', 'buddypress-ads-rotator' ); ?>
 				</div>
 			</div>
 			<div class="wb_ads_rotator-wrapper">
 				<div class="wb_ads_rotator-label">
-					<?php esc_html_e( 'Image Ad', 'buddypress-ads-rotator' ); ?>
+				<?php esc_html_e( 'Image Ad', 'buddypress-ads-rotator' ); ?>
 				</div>
 				<div class="wb_ads_rotator-input">
 					<input type="radio" name="wb_ads_rotator[ads_type]" class="wb-ads_types" id="wb_ads_rotator_type" value="image-ad" <?php ( isset( $wb_ads_rotator_values['ads_type'] ) ) ? checked( $wb_ads_rotator_values['ads_type'], 'image-ad' ) : ''; ?>/>
-					<?php esc_html_e( 'Ads in various image formats.', 'buddypress-ads-rotator' ); ?>
+				<?php esc_html_e( 'Ads in various image formats.', 'buddypress-ads-rotator' ); ?>
 				</div>
 			</div>
-			<?php do_action( 'wb_ads_rotator_options_after' ); ?>
+		<?php do_action( 'wb_ads_rotator_options_after' ); ?>
 		</div>
 		<?php
 	}
@@ -366,7 +366,7 @@ class Buddypress_Ads_Rotator_Admin {
 		$post_id                   = $post->ID;
 		$post_type                 = get_post_type();
 		$wb_ads_rotator_values     = get_post_meta( $post_id, 'wb_ads_rotator_values', true );
-		$wb_ads_rotator_type       = isset( $wb_ads_rotator_values['ads_type'] ) ? $wb_ads_rotator_values['ads_type'] : '';
+		$wb_ads_rotator_type       = isset( $wb_ads_rotator_values['ads_type'] ) ? $wb_ads_rotator_values['ads_type'] : 'plain-text-and-code';
 		$wb_ads_rotator_width      = isset( $wb_ads_rotator_values['size']['width'] ) ? $wb_ads_rotator_values['size']['width'] : '';
 		$wb_ads_rotator_height     = isset( $wb_ads_rotator_values['size']['height'] ) ? $wb_ads_rotator_values['size']['height'] : '';
 		$wb_ads_rotator_plain_text = isset( $wb_ads_rotator_values['plain_text_and_code'] ) ? $wb_ads_rotator_values['plain_text_and_code'] : '';
@@ -377,19 +377,19 @@ class Buddypress_Ads_Rotator_Admin {
 		$wb_ads_rotator_bg_color   = isset( $wb_ads_rotator_values['bg_color'] ) ? $wb_ads_rotator_values['bg_color'] : '';
 		?>
 		<div class="wb_ads_rotator-panel">
-			<?php do_action( 'wb_ads_rotator_options_before' ); ?>
+		<?php do_action( 'wb_ads_rotator_options_before' ); ?>
 			<div class="wb_ads_rotator-wrapper plain-text-and-code" 
-			<?php
-			if ( 'plain-text-and-code' !== $wb_ads_rotator_type ) {
-				echo 'style="display:none"';
-			}
-			?>
+		<?php
+		if ( 'plain-text-and-code' !== $wb_ads_rotator_type ) {
+			echo 'style="display:none"';
+		}
+		?>
 			>
 				<div class="wb_ads_rotator-input">
 					<strong>
-						<?php esc_html_e( 'Insert plain text or code into this field.', 'buddypress-ads-rotator' ); ?>
+					<?php esc_html_e( 'Insert plain text or code into this field.', 'buddypress-ads-rotator' ); ?>
 					</strong>
-					<?php echo '<textarea id="wb-ad-rotator-content-plain" name="wb_ads_rotator[plain_text_and_code]" >' . esc_textarea( $wb_ads_rotator_plain_text ) . '</textarea>'; ?>
+				<?php echo '<textarea id="wb-ad-rotator-content-plain" name="wb_ads_rotator[plain_text_and_code]" >' . esc_textarea( $wb_ads_rotator_plain_text ) . '</textarea>'; ?>
 				</div>
 			</div>
 			<div class="wb_ads_rotator-wrapper rich-content"
@@ -400,38 +400,38 @@ class Buddypress_Ads_Rotator_Admin {
 			?>
 			>
 				<div class="wb_ads_rotator-input">
-					<?php
-					$wb_ads_rotator_content = '';
-					if ( isset( $wb_ads_rotator_values['rich_content'] ) ) {
-						$wb_ads_rotator_content = $wb_ads_rotator_values['rich_content'];
-					}
-					$editor_id      = 'wb_ads_rotator_editor';
-					$editor_setting = array(
-						'textarea_name' => 'wb_ads_rotator[rich_content]',
-						'textarea_rows' => get_option( 'default_post_edit_rows', 10 ),
-					);
-					wp_editor( $wb_ads_rotator_content, $editor_id, $editor_setting );
-					?>
+				<?php
+				$wb_ads_rotator_content = '';
+				if ( isset( $wb_ads_rotator_values['rich_content'] ) ) {
+					$wb_ads_rotator_content = $wb_ads_rotator_values['rich_content'];
+				}
+				$editor_id      = 'wb_ads_rotator_editor';
+				$editor_setting = array(
+					'textarea_name' => 'wb_ads_rotator[rich_content]',
+					'textarea_rows' => get_option( 'default_post_edit_rows', 10 ),
+				);
+				wp_editor( $wb_ads_rotator_content, $editor_id, $editor_setting );
+				?>
 				</div>
 			</div>
 			<div class="wb_ads_rotator-wrapper select-ads-image image-ad" 
-			<?php
-			if ( 'image-ad' !== $wb_ads_rotator_type ) {
-				echo 'style="display:none"';
-			}
-			?>
+				<?php
+				if ( 'image-ad' !== $wb_ads_rotator_type ) {
+					echo 'style="display:none"';
+				}
+				?>
 			>
 				<div class="wb_ads_rotator-label">
 					<div id="wb-ads-preview-image">
-						<?php
-						$image_id = get_option( 'wb_ads_image_id' );
-						if ( intval( $wb_ads_rotator_image_id ) > 0 ) {
-							$image = wp_get_attachment_image( $wb_ads_rotator_image_id, 'medium', false, array( 'id' => 'wb-ads-preview-images' ) );
-						} else {
-							$image = '<img id="wb-ads-preview-images" src="' . esc_url( plugin_dir_url( __FILE__ ) . 'images/wb-ads-placeholder-image.jpg' ) . '" />';
-						}
-						echo wp_kses_post( $image );
-						?>
+					<?php
+					$image_id = get_option( 'wb_ads_image_id' );
+					if ( intval( $wb_ads_rotator_image_id ) > 0 ) {
+						$image = wp_get_attachment_image( $wb_ads_rotator_image_id, 'medium', false, array( 'id' => 'wb-ads-preview-images' ) );
+					} else {
+						$image = '<img id="wb-ads-preview-images" src="' . esc_url( plugin_dir_url( __FILE__ ) . 'images/wb-ads-placeholder-image.jpg' ) . '" />';
+					}
+					echo wp_kses_post( $image );
+					?>
 					</div>
 					<input type="hidden" name="wb_ads_rotator[ads_image]" id="wb_ads_image_id" value="<?php echo esc_attr( $wb_ads_rotator_image_id ); ?>" class="regular-text" />
 				</div>
@@ -440,14 +440,14 @@ class Buddypress_Ads_Rotator_Admin {
 				</div>
 			</div>
 			<div class="wb_ads_rotator-wrapper select-ads-image image-ad" 
-			<?php
-			if ( 'image-ad' !== $wb_ads_rotator_type ) {
-				echo 'style="display:none"';
-			}
-			?>
+				<?php
+				if ( 'image-ad' !== $wb_ads_rotator_type ) {
+					echo 'style="display:none"';
+				}
+				?>
 			>
 				<div class="wb_ads_rotator-label">
-					<?php esc_html_e( 'URL', 'buddypress-ads-rotator' ); ?>
+				<?php esc_html_e( 'URL', 'buddypress-ads-rotator' ); ?>
 				</div>
 				<div class="wb_ads_rotator-input">
 					<input type="text" name="wb_ads_rotator[image_link]" class="wb_ads_rotator_image" placeholder="http://" value="<?php echo esc_attr( $wb_ads_rotator_image_url ); ?>"/>
@@ -455,25 +455,25 @@ class Buddypress_Ads_Rotator_Admin {
 			</div>
 			<div class="wb_ads_rotator-wrapper select-ads-image image-ad" <?php echo 'image-ad' !== $wb_ads_rotator_type ? 'style="display:none"' : ''; ?>>
 				<div class="wb_ads_rotator-label">
-					<?php esc_html_e( 'Size', 'buddypress-ads-rotator' ); ?>
+				<?php esc_html_e( 'Size', 'buddypress-ads-rotator' ); ?>
 				</div>
 				<div class="wb_ads_rotator-input wb-ads-rotator-ads-size">
 					<div class="wb-bp-ads-size">
 						<span>
-							<?php esc_html_e( 'Width', 'buddypress-ads-rotator' ); ?>
+						<?php esc_html_e( 'Width', 'buddypress-ads-rotator' ); ?>
 						</span>
 						<label>
 							<input type="number" name="wb_ads_rotator[size][width]" value="<?php echo esc_attr( $wb_ads_rotator_width ); ?>"/>
-							<?php esc_html_e( 'px', 'buddypress-ads-rotator' ); ?>
+						<?php esc_html_e( 'px', 'buddypress-ads-rotator' ); ?>
 						</label>
 					</div>
 					<div class="wb-bp-ads-size">
 						<span>
-								<?php esc_html_e( 'Height', 'buddypress-ads-rotator' ); ?>
+							<?php esc_html_e( 'Height', 'buddypress-ads-rotator' ); ?>
 						</span>
 						<label>
 							<input type="number" name="wb_ads_rotator[size][height]" value="<?php echo esc_attr( $wb_ads_rotator_height ); ?>"/>
-							<?php esc_html_e( 'px', 'buddypress-ads-rotator' ); ?>
+						<?php esc_html_e( 'px', 'buddypress-ads-rotator' ); ?>
 						</label>
 					</div>
 				</div>
@@ -481,15 +481,15 @@ class Buddypress_Ads_Rotator_Admin {
 			<div class="wb_ads_rotator-wrapper plain-text-and-code" 
 			>
 				<div class="wb_ads_rotator-label">
-					<?php esc_html_e( 'Allow PHP', 'buddypress-ads-rotator' ); ?>
+				<?php esc_html_e( 'Allow PHP', 'buddypress-ads-rotator' ); ?>
 				</div>
 				<div class="wb_ads_rotator-input">
 					<input type="checkbox" id="wb-ad-rotator-allow-php" name="wb_ads_rotator[allow_php]" value="yes" <?php esc_attr( isset( $wb_ads_rotator_values['allow_php'] ) ? checked( $wb_ads_rotator_values['allow_php'], 'yes' ) : '' ); ?>>
-					<?php esc_html_e( 'Execute PHP code (wrapped in <?php ?>)', 'buddypress-ads-rotator' ); ?>
+				<?php esc_html_e( 'Execute PHP code (wrapped in <?php ?>)', 'buddypress-ads-rotator' ); ?>
 					<div class="wb-ad-rotator-error-message" id="wb-ad-rotator-allow-php-warning" 
 					>
-							<?php esc_html_e( 'No PHP tag detected in your code.', 'buddypress-ads-rotator' ); ?>
-							<?php esc_html_e( 'Uncheck this checkbox for improved performance.', 'buddypress-ads-rotator' ); ?>
+						<?php esc_html_e( 'No PHP tag detected in your code.', 'buddypress-ads-rotator' ); ?>
+						<?php esc_html_e( 'Uncheck this checkbox for improved performance.', 'buddypress-ads-rotator' ); ?>
 					</div>
 				</div>
 			</div>
@@ -501,36 +501,36 @@ class Buddypress_Ads_Rotator_Admin {
 			?>
 			>
 				<div class="wb_ads_rotator-label">
-					<?php esc_html_e( 'Allow Shortcodes', 'buddypress-ads-rotator' ); ?>
+				<?php esc_html_e( 'Allow Shortcodes', 'buddypress-ads-rotator' ); ?>
 				</div>
 				<div class="wb_ads_rotator-input">
 					<input type="checkbox" id="wb-ad-rotator-allow-shortcode" name="wb_ads_rotator[allow_shortcode]" value="yes"  <?php esc_attr( isset( $wb_ads_rotator_values['allow_shortcode'] ) ? checked( $wb_ads_rotator_values['allow_shortcode'], 'yes' ) : '' ); ?>/>
-					<?php esc_html_e( 'Execute shortcodes', 'buddypress-ads-rotator' ); ?>
+				<?php esc_html_e( 'Execute shortcodes', 'buddypress-ads-rotator' ); ?>
 					<div class="wb-ad-rotator-error-message" id="wb-ad-rotator-allow-shortcode-warning"
-						<?php
-						if ( true != isset( $wb_ads_rotator_values['allow_shortcode'] ) ) {
-							echo 'style="display:none"';
-						}
-						?>
+					<?php
+					if ( true != isset( $wb_ads_rotator_values['allow_shortcode'] ) ) {
+						echo 'style="display:none"';
+					}
+					?>
 						>
-							<?php esc_html_e( 'No shortcode detected in your code.', 'buddypress-ads-rotator' ); ?><?php esc_html_e( 'Uncheck this checkbox for improved performance.', 'buddypress-ads-rotator' ); ?>
+						<?php esc_html_e( 'No shortcode detected in your code.', 'buddypress-ads-rotator' ); ?><?php esc_html_e( 'Uncheck this checkbox for improved performance.', 'buddypress-ads-rotator' ); ?>
 					</div>
 				</div>
 			</div>
 			<div class="wb_ads_rotator-wrapper rich-content" 
-			<?php
-			if ( 'rich-content' !== $wb_ads_rotator_type ) {
-				echo 'style="display:none"';
-			}
-			?>
+				<?php
+				if ( 'rich-content' !== $wb_ads_rotator_type ) {
+					echo 'style="display:none"';
+				}
+				?>
 			>
 				<div class="wb_ads_rotator-label">
-					<?php esc_html_e( 'Rich Content Font Size', 'buddypress-ads-rotator' ); ?>
+				<?php esc_html_e( 'Rich Content Font Size', 'buddypress-ads-rotator' ); ?>
 				</div>
 				<div class="wb_ads_rotator-input">
 					<label>
 						<input type="number" name="wb_ads_rotator[font_size]" value="<?php echo esc_attr( $wb_ads_rotator_font_size ); ?>"/>
-						<?php esc_html_e( 'px', 'buddypress-ads-rotator' ); ?>
+					<?php esc_html_e( 'px', 'buddypress-ads-rotator' ); ?>
 					</label>
 					<label>
 				</div>
@@ -543,7 +543,7 @@ class Buddypress_Ads_Rotator_Admin {
 			?>
 			>
 				<div class="wb_ads_rotator-label">
-					<?php esc_html_e( 'Rich Content Background Color', 'buddypress-ads-rotator' ); ?>
+				<?php esc_html_e( 'Rich Content Background Color', 'buddypress-ads-rotator' ); ?>
 				</div>
 				<div class="wb_ads_rotator-input wb_ads_bg_color">
 					<label>
@@ -560,7 +560,7 @@ class Buddypress_Ads_Rotator_Admin {
 			?>
 			>
 				<div class="wb_ads_rotator-label">
-					<?php esc_html_e( 'Rich Content Text Color', 'buddypress-ads-rotator' ); ?>
+				<?php esc_html_e( 'Rich Content Text Color', 'buddypress-ads-rotator' ); ?>
 				</div>
 				<div class="wb_ads_rotator-input wb_ads_text_color">
 					<label>
@@ -571,7 +571,7 @@ class Buddypress_Ads_Rotator_Admin {
 			</div>
 			<?php do_action( 'wb_ads_rotator_options_after' ); ?>
 		</div>
-		<?php
+			<?php
 	}
 
 	/**
@@ -586,28 +586,28 @@ class Buddypress_Ads_Rotator_Admin {
 		$post_id                        = $post->ID;
 		$post_type                      = get_post_type();
 		$wb_ads_rotator_values          = get_post_meta( $post_id, 'wb_ads_rotator_values', true );
-		$wb_ads_rotator_margin_top      = isset( $wb_ads_rotator_values['margin']['top'] ) ? $wb_ads_rotator_values['margin']['top'] : '';
-		$wb_ads_rotator_margin_right    = isset( $wb_ads_rotator_values['margin']['right'] ) ? $wb_ads_rotator_values['margin']['right'] : '';
-		$wb_ads_rotator_margin_bottom   = isset( $wb_ads_rotator_values['margin']['bottom'] ) ? $wb_ads_rotator_values['margin']['bottom'] : '';
-		$wb_ads_rotator_margin_left     = isset( $wb_ads_rotator_values['margin']['left'] ) ? $wb_ads_rotator_values['margin']['left'] : '';
-		$wb_ads_rotator_container_id    = isset( $wb_ads_rotator_values['container_id'] ) ? $wb_ads_rotator_values['container_id'] : '';
-		$wb_ads_rotator_container_class = isset( $wb_ads_rotator_values['container_classes'] ) ? $wb_ads_rotator_values['container_classes'] : '';
+		$wb_ads_rotator_margin_top      = isset( $wb_ads_rotator_values['margin']['top'] ) ? $wb_ads_rotator_values['margin']['top'] : '10';
+		$wb_ads_rotator_margin_right    = isset( $wb_ads_rotator_values['margin']['right'] ) ? $wb_ads_rotator_values['margin']['right'] : '20';
+		$wb_ads_rotator_margin_bottom   = isset( $wb_ads_rotator_values['margin']['bottom'] ) ? $wb_ads_rotator_values['margin']['bottom'] : '30';
+		$wb_ads_rotator_margin_left     = isset( $wb_ads_rotator_values['margin']['left'] ) ? $wb_ads_rotator_values['margin']['left'] : '40';
+		$wb_ads_rotator_container_id    = isset( $wb_ads_rotator_values['container_id'] ) ? $wb_ads_rotator_values['container_id'] : 'banner_id';
+		$wb_ads_rotator_container_class = isset( $wb_ads_rotator_values['container_classes'] ) ? $wb_ads_rotator_values['container_classes'] : 'banner_class';
 
 		?>
 		<div class="wb_ads_rotator-panel">
-			<?php do_action( 'wb_ads_rotator_options_before' ); ?>
+		<?php do_action( 'wb_ads_rotator_options_before' ); ?>
 			<div class="wb_ads_rotator-wrapper">
 				<div class="wb_ads_rotator-input">
-					<?php esc_html_e( 'Everything connected to the ads layout and output.', 'buddypress-ads-rotator' ); ?>
+				<?php esc_html_e( 'Everything connected to the ads layout and output.', 'buddypress-ads-rotator' ); ?>
 				</div>
 			</div>
 			<div class="wb_ads_rotator-wrapper">
 				<div class="wb_ads_rotator-label">
-					<?php esc_html_e( 'Position', 'buddypress-ads-rotator' ); ?>
+				<?php esc_html_e( 'Position', 'buddypress-ads-rotator' ); ?>
 				</div>
 				<div class="wb_ads_rotator-input">
 					<label title="left">
-						<input type="radio" name="wb_ads_rotator[ads_position]" value="left" <?php ( isset( $wb_ads_rotator_values['ads_position'] ) ) ? checked( $wb_ads_rotator_values['ads_position'], 'left' ) : ''; ?>/>
+						<input type="radio" name="wb_ads_rotator[ads_position]" value="left" <?php echo ( isset( $wb_ads_rotator_values['ads_position'] ) ) ? checked( $wb_ads_rotator_values['ads_position'], 'left' ) : 'checked'; ?>/>
 						<img src="<?php echo esc_url( plugin_dir_url( __FILE__ ) . 'images/output-left.png' ); ?>" width="60" height="40">
 					</label>
 					<label title="center">
@@ -620,61 +620,61 @@ class Buddypress_Ads_Rotator_Admin {
 					</label>
 					<p>
 						<input type="checkbox" name="wb_ads_rotator[clearfix]" value="yes" <?php ( isset( $wb_ads_rotator_values['clearfix'] ) ) ? checked( $wb_ads_rotator_values['clearfix'], 'yes' ) : ''; ?>/>
-						<?php esc_html_e( 'Check this if you don’t want the following elements to float around the ad. (adds a clearfix)', 'buddypress-ads-rotator' ); ?>
+					<?php esc_html_e( 'Check this if you don’t want the following elements to float around the ad. (adds a clearfix)', 'buddypress-ads-rotator' ); ?>
 					</p>
 				</div>
 			</div>
 			<div class="wb_ads_rotator-wrapper">
 				<div class="wb_ads_rotator-label">
-					<?php esc_html_e( 'Margin', 'buddypress-ads-rotator' ); ?>
+				<?php esc_html_e( 'Margin', 'buddypress-ads-rotator' ); ?>
 				</div>
 				<div class="wb_ads_rotator-input">
 					<div class="wb_ads_margin">
 						<label>
 							<span><?php esc_html_e( 'Top', 'buddypress-ads-rotator' ); ?></span>
 							<input type="number" name="wb_ads_rotator[margin][top]" value="<?php echo esc_attr( $wb_ads_rotator_margin_top ); ?>"/>
-							<?php esc_html_e( 'px', 'buddypress-ads-rotator' ); ?>
+						<?php esc_html_e( 'px', 'buddypress-ads-rotator' ); ?>
 						</label>
 						<label>
 							<span><?php esc_html_e( 'Right', 'buddypress-ads-rotator' ); ?></span>						
 							<input type="number" name="wb_ads_rotator[margin][right]" value="<?php echo esc_attr( $wb_ads_rotator_margin_right ); ?>"/>
-							<?php esc_html_e( 'px', 'buddypress-ads-rotator' ); ?>
+						<?php esc_html_e( 'px', 'buddypress-ads-rotator' ); ?>
 						</label>
 						<label>
 							<span><?php esc_html_e( 'Bottom', 'buddypress-ads-rotator' ); ?></span>
 							<input type="number" name="wb_ads_rotator[margin][bottom]" value="<?php echo esc_attr( $wb_ads_rotator_margin_bottom ); ?>"/>
-							<?php esc_html_e( 'px', 'buddypress-ads-rotator' ); ?>
+						<?php esc_html_e( 'px', 'buddypress-ads-rotator' ); ?>
 						</label>
 						<label>
 							<span><?php esc_html_e( 'Left', 'buddypress-ads-rotator' ); ?></span>
 							<input type="number" name="wb_ads_rotator[margin][left]" value="<?php echo esc_attr( $wb_ads_rotator_margin_left ); ?>"/>
-							<?php esc_html_e( 'px', 'buddypress-ads-rotator' ); ?>
+						<?php esc_html_e( 'px', 'buddypress-ads-rotator' ); ?>
 						</label>
 					</div>
 					<p class="wb_ads_margin_disc">
-					<?php echo esc_html_e( 'use this to add a margin around the ads', 'buddypress-ads-rotator' ); ?>
+				<?php echo esc_html_e( 'use this to add a margin around the ads', 'buddypress-ads-rotator' ); ?>
 				</p>					
 				</div>				
 			</div>
 			<div class="wb_ads_rotator-wrapper">
 				<div class="wb_ads_rotator-label">
-					<?php esc_html_e( 'Container ID', 'buddypress-ads-rotator' ); ?>
+				<?php esc_html_e( 'Container ID', 'buddypress-ads-rotator' ); ?>
 				</div>
 				<div class="wb_ads_rotator-input">
 					<input type="text" id="wb-ad-rotator-container-id" name="wb_ads_rotator[container_id]" value="<?php echo esc_attr( $wb_ads_rotator_container_id ); ?>"  />
-					<?php esc_html_e( 'Specify the id of the ad container. Leave blank for random or no id.  An id-like string with only letters in lower case, numbers, and hyphens.', 'buddypress-ads-rotator' ); ?>
+				<?php esc_html_e( 'Specify the id of the ad container. Leave blank for random or no id.  An id-like string with only letters in lower case, numbers, and hyphens.', 'buddypress-ads-rotator' ); ?>
 				</div>
 			</div>
 			<div class="wb_ads_rotator-wrapper">
 				<div class="wb_ads_rotator-label">
-					<?php esc_html_e( 'Container Classes', 'buddypress-ads-rotator' ); ?>
+				<?php esc_html_e( 'Container Classes', 'buddypress-ads-rotator' ); ?>
 				</div>
 				<div class="wb_ads_rotator-input">
 					<input type="text" id="wb-ad-rotator-container-class" name="wb_ads_rotator[container_classes]" value="<?php echo esc_attr( $wb_ads_rotator_container_class ); ?>"  />
-					<?php esc_html_e( 'Specify one or more classes for the container. Separate multiple classes with a space.', 'buddypress-ads-rotator' ); ?>
+				<?php esc_html_e( 'Specify one or more classes for the container. Separate multiple classes with a space.', 'buddypress-ads-rotator' ); ?>
 				</div>
 			</div>
-			<?php do_action( 'wb_ads_rotator_options_after' ); ?>
+		<?php do_action( 'wb_ads_rotator_options_after' ); ?>
 		</div>
 		<?php
 	}
@@ -691,36 +691,34 @@ class Buddypress_Ads_Rotator_Admin {
 		$post_id                        = $post->ID;
 		$post_type                      = get_post_type();
 		$wb_ads_rotator_values          = get_post_meta( $post_id, 'wb_ads_rotator_values', true );
-		$wb_ads_rotator_enject_position = isset( $wb_ads_rotator_values['enject_after'] ) ? $wb_ads_rotator_values['enject_after'] : '';
+		$wb_ads_rotator_enject_position = isset( $wb_ads_rotator_values['enject_after'] ) ? $wb_ads_rotator_values['enject_after'] : '3';
 		?>
 		<div class="wb_ads_rotator-panel">
-			<?php do_action( 'wb_ads_rotator_options_before' ); ?>
+		<?php do_action( 'wb_ads_rotator_options_before' ); ?>
 			<div class="wb_ads_rotator-wrapper">
 				<div class="wb_ads_rotator-label">
-					<?php esc_html_e( 'Activity Type', 'buddypress-ads-rotator' ); ?>
+				<?php esc_html_e( 'Activity Type', 'buddypress-ads-rotator' ); ?>
 				</div>
 				<div class="wb_ads_rotator-input">
 					<select id="wb_ads_rotator_activity_type" name="wb_ads_rotator[activity_type]">
-						<option value=""<?php isset( $wb_ads_rotator_values['activity_type'] ) && selected( $wb_ads_rotator_values['activity_type'], '' ); ?>><?php esc_html_e( '-- choose a condition --', 'buddypress-ads-rotator' ); ?></option>
 						<option value="sidewide_activity" <?php isset( $wb_ads_rotator_values['activity_type'] ) && selected( $wb_ads_rotator_values['activity_type'], 'sidewide_activity' ); ?>><?php esc_html_e( 'Sitewide Activity ', 'buddypress-ads-rotator' ); ?></option>
 						<option value="group_activity" <?php isset( $wb_ads_rotator_values['activity_type'] ) && selected( $wb_ads_rotator_values['activity_type'], 'group_activity' ); ?>><?php esc_html_e( 'Group Activity', 'buddypress-ads-rotator' ); ?></option>
 						<option value="members_activity" <?php isset( $wb_ads_rotator_values['activity_type'] ) && selected( $wb_ads_rotator_values['activity_type'], 'members_activity' ); ?>><?php esc_html_e( 'Members Activity', 'buddypress-ads-rotator' ); ?></option>
 					</select>
 					<p>
-						<?php esc_html_e( 'A page with this ad on it must match all of the following conditions.', 'buddypress-ads-rotator' ); ?>
+					<?php esc_html_e( 'A page with this ad on it must match all of the following conditions.', 'buddypress-ads-rotator' ); ?>
 					</p>
 					<p>
-						<?php esc_html_e( 'If you want to display the ad everywhere, dont do anything here.', 'buddypress-ads-rotator' ); ?>
+					<?php esc_html_e( 'If you want to display the ad everywhere, dont do anything here.', 'buddypress-ads-rotator' ); ?>
 					</p>
 				</div>
 			</div>
 			<div class="wb_ads_rotator-wrapper">
 				<div class="wb_ads_rotator-label">
-					<?php esc_html_e( 'Activity Positions', 'buddypress-ads-rotator' ); ?>
+				<?php esc_html_e( 'Activity Positions', 'buddypress-ads-rotator' ); ?>
 				</div>
 				<div class="wb_ads_rotator-input">
 					<select id="wb_ads_rotator_activity_position" name="wb_ads_rotator[activity_position]">
-						<option value=""<?php isset( $wb_ads_rotator_values['activity_position'] ) && selected( $wb_ads_rotator_values['activity_position'], '' ); ?>><?php esc_html_e( '-- choose a condition --', 'buddypress-ads-rotator' ); ?></option>
 						<option value="bp_before_activity_entry" <?php isset( $wb_ads_rotator_values['activity_position'] ) && selected( $wb_ads_rotator_values['activity_position'], 'bp_before_activity_entry' ); ?>><?php esc_html_e( 'before activity entry', 'buddypress-ads-rotator' ); ?></option>
 						<option value="bp_activity_entry_content" <?php isset( $wb_ads_rotator_values['activity_position'] ) && selected( $wb_ads_rotator_values['activity_position'], 'bp_activity_entry_content' ); ?>><?php esc_html_e( 'activity entry content', 'buddypress-ads-rotator' ); ?></option>
 						<option value="bp_after_activity_entry" <?php isset( $wb_ads_rotator_values['activity_position'] ) && selected( $wb_ads_rotator_values['activity_position'], 'bp_after_activity_entry' ); ?>><?php esc_html_e( 'after activity entry', 'buddypress-ads-rotator' ); ?></option>
@@ -732,23 +730,23 @@ class Buddypress_Ads_Rotator_Admin {
 			</div>
 			<div class="wb_ads_rotator-wrapper">
 				<div class="wb_ads_rotator-label">
-					<?php esc_html_e( 'Position', 'buddypress-ads-rotator' ); ?>
+				<?php esc_html_e( 'Position', 'buddypress-ads-rotator' ); ?>
 				</div>
 				<div class="wb_ads_rotator-input">
 					<input type="number" name="wb_ads_rotator[enject_after]" min="1" value="<?php echo esc_attr( $wb_ads_rotator_enject_position ); ?>">
-					<?php esc_html_e( 'Enter the value to inject after per entry', 'buddypress-ads-rotator' ); ?>
+				<?php esc_html_e( 'Enter the value to inject after per entry', 'buddypress-ads-rotator' ); ?>
 				</div>
 			</div>
 			<div class="wb_ads_rotator-wrapper">
 				<div class="wb_ads_rotator-label">
-					<?php esc_html_e( 'Repeat Position', 'buddypress-ads-rotator' ); ?>
+				<?php esc_html_e( 'Repeat Position', 'buddypress-ads-rotator' ); ?>
 				</div>
 				<div class="wb_ads_rotator-input">
 					<input type="checkbox" name="wb_ads_rotator[repeat_position]" value="yes" <?php esc_attr( isset( $wb_ads_rotator_values['repeat_position'] ) ? checked( $wb_ads_rotator_values['repeat_position'], 'yes' ) : '' ); ?>>
-					<?php esc_html_e( 'Enable this option if you want to repeat inject position', 'buddypress-ads-rotator' ); ?>
+				<?php esc_html_e( 'Enable this option if you want to repeat inject position', 'buddypress-ads-rotator' ); ?>
 				</div>
 			</div>
-			<?php do_action( 'wb_ads_rotator_options_after' ); ?>
+		<?php do_action( 'wb_ads_rotator_options_after' ); ?>
 		</div>
 		<?php
 	}
@@ -767,39 +765,38 @@ class Buddypress_Ads_Rotator_Admin {
 		$wb_ads_rotator_values = get_post_meta( $post_id, 'wb_ads_rotator_values', true );
 		?>
 		<div class="wb_ads_rotator-panel">
-			<?php do_action( 'wb_ads_rotator_options_before' ); ?>
+		<?php do_action( 'wb_ads_rotator_options_before' ); ?>
 			<div class="wb_ads_rotator-wrapper">
 				<div class="wb_ads_rotator-label">
-					<?php esc_html_e( 'Logged-In Visitor', 'buddypress-ads-rotator' ); ?>
+				<?php esc_html_e( 'Logged-In Visitor', 'buddypress-ads-rotator' ); ?>
 				</div>
 				<div class="wb_ads_rotator-input">
 					<select id="wb_ads_rotator_to_whom_device" name="wb_ads_rotator[to_whom][logged_in_visitor]">
-						<option value=""<?php isset( $wb_ads_rotator_values['to_whom']['logged_in_visitor'] ) && selected( $wb_ads_rotator_values['to_whom']['logged_in_visitor'], '' ); ?>><?php esc_html_e( '-- choose a condition --', 'buddypress-ads-rotator' ); ?></option>
 						<option value="both_visitor"<?php isset( $wb_ads_rotator_values['to_whom']['logged_in_visitor'] ) && selected( $wb_ads_rotator_values['to_whom']['logged_in_visitor'], 'both_visitor' ); ?>><?php esc_html_e( 'Both Logged-in and Logged-out Visitor', 'buddypress-ads-rotator' ); ?></option>
 						<option value="login_in"<?php isset( $wb_ads_rotator_values['to_whom']['logged_in_visitor'] ) && selected( $wb_ads_rotator_values['to_whom']['logged_in_visitor'], 'login_in' ); ?>><?php esc_html_e( 'Logged-in Visitor', 'buddypress-ads-rotator' ); ?></option>
 						<option value="logout_out"<?php isset( $wb_ads_rotator_values['to_whom']['logged_in_visitor'] ) && selected( $wb_ads_rotator_values['to_whom']['logged_in_visitor'], 'logout_out' ); ?>><?php esc_html_e( 'Logged-out Visitor', 'buddypress-ads-rotator' ); ?></option>
 					</select>				
 					<p>
-						<?php esc_html_e( 'Visitor conditions limit the number of users who can see your ad. There is no need to set visitor conditions if you want all users to see the ad.', 'buddypress-ads-rotator' ); ?>
+					<?php esc_html_e( 'Visitor conditions limit the number of users who can see your ad. There is no need to set visitor conditions if you want all users to see the ad.', 'buddypress-ads-rotator' ); ?>
 					</p>
 				</div>
 			</div>
 			<div class="wb_ads_rotator-wrapper">
 				<div class="wb_ads_rotator-label">
-					<?php esc_html_e( 'Device', 'buddypress-ads-rotator' ); ?>
+				<?php esc_html_e( 'Device', 'buddypress-ads-rotator' ); ?>
 				</div>
 				<div class="wb_ads_rotator-input">
 					<select id="wb_ads_rotator_to_whom_visitor" name="wb_ads_rotator[to_whom][device]">
-						<option value=""<?php isset( $wb_ads_rotator_values['to_whom']['device'] ) && selected( $wb_ads_rotator_values['to_whom']['device'], '' ); ?>><?php esc_html_e( '-- choose a condition --', 'buddypress-ads-rotator' ); ?></option>
+						<option value="both-device"<?php isset( $wb_ads_rotator_values['to_whom']['device'] ) && selected( $wb_ads_rotator_values['to_whom']['device'], 'both_devices' ); ?>><?php esc_html_e( 'Both Mobile and Desktop Devices', 'buddypress-ads-rotator' ); ?></option>
 						<option value="mobile"<?php isset( $wb_ads_rotator_values['to_whom']['device'] ) && selected( $wb_ads_rotator_values['to_whom']['device'], 'mobile' ); ?>><?php esc_html_e( 'Mobile(Including Tablets)', 'buddypress-ads-rotator' ); ?></option>
 						<option value="desktop"<?php isset( $wb_ads_rotator_values['to_whom']['device'] ) && selected( $wb_ads_rotator_values['to_whom']['device'], 'desktop' ); ?>><?php esc_html_e( 'Desktop', 'buddypress-ads-rotator' ); ?></option>
 					</select>				
 					<p>
-						<?php esc_html_e( 'Visitor conditions limit the number of users who can see your ad. There is no need to set visitor conditions if you want all users to see the ad.', 'buddypress-ads-rotator' ); ?>
+					<?php esc_html_e( 'Visitor conditions limit the number of users who can see your ad. There is no need to set visitor conditions if you want all users to see the ad.', 'buddypress-ads-rotator' ); ?>
 					</p>
 				</div>
 			</div>
-			<?php do_action( 'wb_ads_rotator_options_after' ); ?>
+		<?php do_action( 'wb_ads_rotator_options_after' ); ?>
 		</div>
 		<?php
 	}
@@ -816,7 +813,7 @@ class Buddypress_Ads_Rotator_Admin {
 		$wb_ads_rotator_values = get_post_meta( $post_id, 'wb_ads_rotator_values', true );
 		?>
 		<div class="wb_ads_rotator-panel">
-			<?php do_action( 'wb_ads_rotator_options_before' ); ?>
+		<?php do_action( 'wb_ads_rotator_options_before' ); ?>
 			<div class="wb_ads_rotator-wrapper">
 				<div class="wb_ads_rotator-input ads-copy" data-code="[ads-shortcode ads_id=<?php echo esc_attr( $post_id ); ?>]">
 					<code><?php esc_html_e( '[ads-shortcode ads_id=' . esc_attr( $post_id ) . ']', 'buddypress-ads-rotator' ); ?></code>		
@@ -824,9 +821,9 @@ class Buddypress_Ads_Rotator_Admin {
 				<span class="ads-shortcode-text shortcode-text-hide"><?php echo esc_attr__( 'Shortcode Copied!', 'buddypress-ads-rotator' ); ?></span>		
 			</div>
 			<p>
-					<?php esc_html_e( 'Copy and Paste this shortcode to display this ad at any where.', 'buddypress-ads-rotator' ); ?>
-				</p>
-			<?php do_action( 'wb_ads_rotator_options_after' ); ?>
+			<?php esc_html_e( 'Copy and Paste this shortcode to display this ad at any where.', 'buddypress-ads-rotator' ); ?>
+			</p>
+		<?php do_action( 'wb_ads_rotator_options_after' ); ?>
 		</div>
 		<?php
 	}
@@ -851,7 +848,7 @@ class Buddypress_Ads_Rotator_Admin {
 		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
 			return;
 		}
-					// if our current user can't edit this post, bail.
+				// if our current user can't edit this post, bail.
 		if ( ! current_user_can( 'edit_posts' ) ) {
 			return;
 		}
@@ -940,7 +937,7 @@ class Buddypress_Ads_Rotator_Admin {
 				}
 				break;
 			case 'ads-shortcode':
-					echo '<div class="wb_ads_rotator-input wb-ads-shortcode-text shortcode-copy" data-shortcode="[ads-shortcode ads_id=' . esc_attr( $post_id ) . ']">
+				echo '<div class="wb_ads_rotator-input wb-ads-shortcode-text shortcode-copy" data-shortcode="[ads-shortcode ads_id=' . esc_attr( $post_id ) . ']">
 					<code> ' . esc_html__( '[ads-shortcode ads_id=' . $post_id . ']', 'buddypress-ads-rotator' ) . '</code>		
 					</div><span class="ads-shortcode-text shortcode-text-hide">' . esc_attr__( 'Shortcode Copied!', 'buddypress-ads-rotator' ) . '</span>';
 
@@ -962,7 +959,6 @@ class Buddypress_Ads_Rotator_Admin {
 			update_post_meta( $wb_ads_id, 'wb_ads_enable', 'enable' );
 		}
 	}
-
 	/**
 	 * This Function is handle the ajax callback.
 	 */
