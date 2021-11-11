@@ -36,11 +36,11 @@ msgstr ""
 #: admin/class-buddypress-ads-rotator-admin.php:128
 #: admin/partials/buddypress-ads-rotator-admin-welcome-display.php.php:21
 #: buddypress-ads-rotator.php:83
-msgid "WB Ads Rotator for Buddypress"
+msgid "BuddyPress Ads"
 msgstr ""
 
 #: admin/class-buddypress-ads-rotator-admin.php:147
-msgid "WB Ads Rotator for Buddypress Settings"
+msgid "BuddyPress Ads Settings"
 msgstr ""
 
 #: admin/class-buddypress-ads-rotator-admin.php:190
@@ -473,7 +473,7 @@ msgstr ""
 
 #: admin/partials/buddypress-ads-rotator-admin-welcome-display.php.php:22
 msgid ""
-"WB Ads Rotator for Buddypress Plugin will help to integrate WooCommerce "
+"BuddyPress Ads Plugin will help to integrate WooCommerce "
 "with Buddypress.  You can sell your physical or digital products using "
 "WooCommerce on your social community website. This plugin allows you to "
 "manage your order directly from your profile page."
@@ -496,7 +496,7 @@ msgstr ""
 
 #: admin/partials/buddypress-ads-rotator-admin-welcome-display.php.php:40
 msgid ""
-"We have prepared an extensive guide on WB Ads Rotator for Buddypress to "
+"We have prepared an extensive guide on BuddyPress Ads to "
 "learn all aspects of the plugin. You will find most of your answers here."
 msgstr ""
 
@@ -1061,7 +1061,7 @@ msgid "BuddyPress"
 msgstr ""
 
 #: buddypress-ads-rotator.php:87
-#. translators: %1$s: WB Ads Rotator for Buddypress ;  %2$s: BuddyPress
+#. translators: %1$s: BuddyPress Ads ;  %2$s: BuddyPress
 msgid "%1$s is ineffective as it requires %2$s to be installed and active."
 msgstr ""
 

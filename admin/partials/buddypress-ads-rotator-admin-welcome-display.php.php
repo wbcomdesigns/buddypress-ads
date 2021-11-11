@@ -18,9 +18,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 <div class="wbcom-tab-content">
 	<div class="wbcom-welcome-main-wrapper">
 		<div class="wbcom-welcome-head">
-			<h2 class="wbcom-welcome-title"><?php esc_html_e( 'WB Ads Rotator for BuddyPress', 'buddypress-ads-rotator' ); ?></h2>
+			<h2 class="wbcom-welcome-title"><?php esc_html_e( 'BuddyPress Ads', 'buddypress-ads-rotator' ); ?></h2>
 			<p class="wbcom-welcome-description">
-			<?php esc_html_e( 'WB Ads Rotator for BuddyPress Plugin will help you to display your Ads on BuddyPress Activity Streams. You can decide the position where you allow to display ads like on Sitewide Activity Stream , Group Activity Stream, Member Activity Stream.', 'buddypress-ads-rotator' ); ?>
+			<?php esc_html_e( 'BuddyPress Ads Plugin will help you to display your Ads on BuddyPress Activity Streams. You can decide the position where you allow to display ads like on Sitewide Activity Stream , Group Activity Stream, Member Activity Stream.', 'buddypress-ads-rotator' ); ?>
 			</p>
 		</div><!-- .wbcom-welcome-head -->
 
@@ -39,7 +39,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 					<div class="col">
 						<h3><span class="dashicons dashicons-book"></span><?php esc_html_e( 'Documentation', 'buddypress-ads-rotator' ); ?></h3>
-						<p><?php esc_html_e( 'We have prepared an extensive guide on WB Ads Rotator for Buddypress to learn all aspects of the plugin. You will find most of your answers here.', 'buddypress-ads-rotator' ); ?></p>
+						<p><?php esc_html_e( 'We have prepared an extensive guide on BuddyPress Ads to learn all aspects of the plugin. You will find most of your answers here.', 'buddypress-ads-rotator' ); ?></p>
 						<a href="<?php echo esc_url( 'https://wbcomdesigns.com/docs/buddypress-paid-addons/buddypress-woocommerce-integration/' ); ?>" class="button button-primary button-welcome-support" target="_blank"><?php esc_html_e( 'Read Documentation', 'buddypress-ads-rotator' ); ?></a>
 					</div>
 

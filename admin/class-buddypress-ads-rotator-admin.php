@@ -127,7 +127,7 @@ class Buddypress_Ads_Rotator_Admin {
 				add_submenu_page( 'wbcomplugins', esc_html__( 'Welcome', 'buddypress-ads-rotator' ), esc_html__( 'Welcome', 'buddypress-ads-rotator' ), 'manage_options', 'wbcomplugins' );
 
 			}
-			add_submenu_page( 'wbcomplugins', esc_html__( 'WB Ads Rotator for Buddypress', 'buddypress-ads-rotator' ), esc_html__( 'WB Ads Rotator for Buddypress', 'buddypress-ads-rotator' ), 'manage_options', 'buddypress-ads-rotator-settings', array( $this, 'buddypress_ads_rotator_admin_options_page' ) );
+			add_submenu_page( 'wbcomplugins', esc_html__( 'BuddyPress Ads', 'buddypress-ads-rotator' ), esc_html__( 'BuddyPress Ads', 'buddypress-ads-rotator' ), 'manage_options', 'buddypress-ads-rotator-settings', array( $this, 'buddypress_ads_rotator_admin_options_page' ) );
 		}
 	}
 
@@ -147,7 +147,7 @@ class Buddypress_Ads_Rotator_Admin {
 			<div class="bupr-header">
 				<?php echo do_shortcode( '[wbcom_admin_setting_header]' ); ?>
 				<h1 class="wbcom-plugin-heading">
-					<?php esc_html_e( 'WB Ads Rotator for BuddyPress Settings', 'buddypress-ads-rotator' ); ?>
+					<?php esc_html_e( 'BuddyPress Ads Settings', 'buddypress-ads-rotator' ); ?>
 				</h1>
 			</div>
 			<div class="wbcom-admin-settings-page">
@@ -197,14 +197,14 @@ class Buddypress_Ads_Rotator_Admin {
 	}
 
 	/**
-	 * Include WB Ads Rotator for Buddypress admin welcome setting tab content file.
+	 * Include BuddyPress Ads admin welcome setting tab content file.
 	 */
 	public function wb_ads_rotator_admin_welcome_content() {
 		include 'partials/buddypress-ads-rotator-admin-welcome-display.php.php';
 	}
 
 	/**
-	 * Include WB Ads Rotator for Buddypress admin genral setting tab content file.
+	 * Include BuddyPress Ads admin genral setting tab content file.
 	 */
 	public function wb_ads_rotator_admin_faq_content() {
 		include 'partials/buddypress-ads-rotator-admin-faq-display.php';
