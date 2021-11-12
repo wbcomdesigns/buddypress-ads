@@ -841,7 +841,7 @@ class Buddypress_Ads_Rotator_Admin {
 		}
 
 		// Verify that the nonce is valid.
-		if ( ! wp_verify_nonce( wp_unslash( $_POST['wb_ads_rotator_render_add_meta_box_nonce'] ), 'wb_ads_rotator_render_add_meta_box' ) ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		if ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['wb_ads_rotator_render_add_meta_box_nonce'] ) ), 'wb_ads_rotator_render_add_meta_box' ) ) {
 			return $post_id;
 		}
 		// Bail if we're doing an auto save .
@@ -853,7 +853,9 @@ class Buddypress_Ads_Rotator_Admin {
 			return;
 		}
 		if ( ! empty( $_POST['wb_ads_rotator'] ) ) {
-			update_post_meta( $post_id, 'wb_ads_rotator_values', wp_unslash( $_POST['wb_ads_rotator'] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+
+			$ads_data = filter_input( INPUT_POST, 'wb_ads_rotator', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
+			update_post_meta( $post_id, 'wb_ads_rotator_values', $ads_data );
 		}
 		do_action( 'wb_ads_rotator_admin_save_options' );
 	}
@@ -866,7 +868,7 @@ class Buddypress_Ads_Rotator_Admin {
 		if ( ! isset( $_GET['nonce'] ) ) {
 			return $post_id;
 		}
-		if ( ! wp_verify_nonce( wp_unslash( $_GET['nonce'] ), 'ajax-nonce' ) ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		if ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['nonce'] ) ), 'ajax-nonce' ) ) {
 			die( 'Busted!' );
 		}
 		if ( isset( $_GET['id'] ) ) {
@@ -967,12 +969,12 @@ class Buddypress_Ads_Rotator_Admin {
 		if ( ! isset( $_POST['nonce'] ) ) {
 			return $post_id;
 		}
-		if ( ! wp_verify_nonce( wp_unslash( $_POST['nonce'] ), 'ajax-nonce' ) ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		if ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'ajax-nonce' ) ) {
 			die( 'Busted!' );
 		}
-		$action       = isset( $_POST['action'] ) ? wp_unslash( $_POST['action'] ) : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-		$action_value = isset( $_POST['visible'] ) ? wp_unslash( $_POST['visible'] ) : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-		$wb_ads_id    = isset( $_POST['datanotice'] ) ? wp_unslash( $_POST['datanotice'] ) : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		$action       = isset( $_POST['action'] ) ? sanitize_text_field( wp_unslash( $_POST['action'] ) ) : '';
+		$action_value = isset( $_POST['visible'] ) ? sanitize_text_field( wp_unslash( $_POST['visible'] ) ) : '';
+		$wb_ads_id    = isset( $_POST['datanotice'] ) ? sanitize_text_field( wp_unslash( $_POST['datanotice'] ) ) : '';
 		if ( 'wb_ads_rotator_enable' === $action && 'enable' === $action_value ) {
 			update_post_meta( $wb_ads_id, 'wb_ads_enable', 'enable' );
 		} elseif ( 'wb_ads_rotator_enable' === $action && 'disable' === $action_value ) {

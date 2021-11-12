@@ -287,11 +287,15 @@ class Buddypress_Ads_Rotator_Public {
 		echo '<div class="wb-ads-rotator plain-text-and-code-ads ' . esc_attr( $wb_ads_rotator_container_class ) . '" style=" text-align:' . esc_attr( $wb_ads_position ) . '; margin-top:' . esc_attr( $wb_ads_rotator_margin_top ) . 'px; margin-right:' . esc_attr( $wb_ads_rotator_margin_right ) . 'px; margin-bottom:' . esc_attr( $wb_ads_rotator_margin_bottom ) . 'px;margin-left:' . esc_attr( $wb_ads_rotator_margin_left ) . 'px; " id="' . esc_attr( $wb_ads_rotator_container_id ) . '">';
 		if ( 'yes' === $wb_ads_rotator_allow_php && 'yes' === $wb_ads_rotator_allow_shortcode ) {
 			ob_start();
-			echo wp_kses_post( apply_filters( 'wb_ads_rotator_plain_text_code_ads_content', eval( '?>' . $wb_ads_rotator_get_plain_text ) ) ); // phpcs:ignore
+			// This code only runs if the "Allow PHP" option for plain text ads was enabled.
+			// phpcs:ignore Squiz.PHP.Eval.Discouraged -- this is specifically eval'd so allow eval here.
+			echo wp_kses_post( apply_filters( 'wb_ads_rotator_plain_text_code_ads_content', eval( '?>' . $wb_ads_rotator_get_plain_text ) ) );
 			$wb_ads_rotator_get_plain_text = ob_get_clean();
 			echo do_shortcode( $wb_ads_rotator_get_plain_text );
 		} elseif ( 'yes' === $wb_ads_rotator_allow_php ) {
-			echo wp_kses_post( apply_filters( 'wb_ads_rotator_plain_text_code_ads_content', eval( '?>' . $wb_ads_rotator_get_plain_text ) ) ); // phpcs:ignore
+			// This code only runs if the "Allow PHP" option for plain text ads was enabled.
+			// phpcs:ignore Squiz.PHP.Eval.Discouraged -- this is specifically eval'd so allow eval here.
+			echo wp_kses_post( apply_filters( 'wb_ads_rotator_plain_text_code_ads_content', eval( '?>' . $wb_ads_rotator_get_plain_text ) ) );
 		} elseif ( 'yes' === $wb_ads_rotator_allow_shortcode ) {
 			echo do_shortcode( $wb_ads_rotator_get_plain_text );
 		} else {
