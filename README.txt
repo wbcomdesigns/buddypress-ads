@@ -1,4 +1,4 @@
-=== BuddyPress Ads ===
+=== Wbcom Designs - BuddyPress Ads ===
 Contributors: vapvarun, wbcomdesigns
 Donate link: https://wbcomdesigns.com
 Tags: BuddyPress
@@ -20,6 +20,9 @@ Integrate your BuddyPress community to provide a smooth customer experience and 
 2. Activate the plugin through the 'Plugins' menu in WordPress
 
 == Changelog ==
+
+= 1.1.0 =
+* Fix- PHPCS Fixes
 
 = 1.0.0 =
 * first version.
