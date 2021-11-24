@@ -1,4 +1,4 @@
-(function( $ ) {
+(function ($) {
 	'use strict';
 
 	/**
@@ -28,5 +28,13 @@
 	 * Although scripts in the WordPress core, Plugins and Themes may be
 	 * practising this, we should strive to set a better example in our own work.
 	 */
+	jQuery(document).ready(function ($) {
+		var innerHtml = $('#rich-ads');
+		var addiframe = innerHtml.find('iframe');
+		setTimeout(function () {
+			$(addiframe).css("height", "100%");
+			jQuery("div.wb-ads-rotator.bp-ads-nouveau").html(addiframe);
+		}, 1000);
 
-})( jQuery );
+	});
+})(jQuery);

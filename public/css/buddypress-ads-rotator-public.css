@@ -2,9 +2,12 @@
  * All of the CSS for your public-facing functionality should be
  * included in this file.
  */
- .wb-ads-rotator.rich-content-ads {
-    padding:10px 15px;
-    color: #fff;
-    border-radius: 0 !important;
-    line-height: normal;
+.wb-ads-rotator.rich-content-ads {
+  padding: 10px 15px;
+  color: #fff;
+  border-radius: 0 !important;
+  line-height: normal;
+}
+#rich-ads {
+  display: none;
 }
