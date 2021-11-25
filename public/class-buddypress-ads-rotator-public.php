@@ -82,7 +82,7 @@ class Buddypress_Ads_Rotator_Public {
 	 * @since    1.0.0
 	 */
 	public function enqueue_scripts() {
-
+		global $post;
 		/**
 		 * This function is provided for demonstration purposes only.
 		 *
@@ -93,10 +93,15 @@ class Buddypress_Ads_Rotator_Public {
 		 * The Buddypress_Ads_Rotator_Loader will then create the relationship
 		 * between the defined hooks and the functions defined in this
 		 * class.
-		 */
-
+		*/
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/buddypress-ads-rotator-public.js', array( 'jquery' ), $this->version, false );
-
+		wp_localize_script(
+			$this->plugin_name,
+			'bp_ads_check',
+			array(
+				'is_shortcode_page' => has_shortcode( $post->post_content, 'ads-shortcode' ) ? true : false,
+			)
+		);
 	}
 
 	/**
@@ -303,6 +308,7 @@ class Buddypress_Ads_Rotator_Public {
 	 * @param int $wb_ads_rotator_get_ad Get Ads ID.
 	 */
 	public function wb_ads_rotator_display_rich_content_ads( $wb_ads_rotator_get_ad ) {
+		global $post;
 		$wb_ads_rotator_get_values = get_post_meta( $wb_ads_rotator_get_ad, 'wb_ads_rotator_values', true );
 		$wb_ads_rotator_enable     = get_post_meta( $wb_ads_rotator_get_ad, 'wb_ads_enable', true );
 		$wb_ads_rotator_position   = isset( $wb_ads_rotator_get_values['ads_position'] ) ? $wb_ads_rotator_get_values['ads_position'] : '';
@@ -370,7 +376,7 @@ class Buddypress_Ads_Rotator_Public {
 		} else {
 			echo '<div class="wb-ads-rotator rich-content-ads ' . esc_attr( $wb_ads_rotator_container_class ) . '" style="background-color:' . esc_attr( $wb_ads_rotator_bg_color ) . ';color:' . esc_attr( $wb_ads_rotator_txt_color ) . ';font-size:' . esc_attr( $wb_ads_rotator_font_size ) . 'px;text-align:' . esc_attr( $wb_ads_position ) . ';margin-top:' . esc_attr( $wb_ads_rotator_margin_top ) . 'px; margin-right:' . esc_attr( $wb_ads_rotator_margin_right ) . 'px; margin-bottom:' . esc_attr( $wb_ads_rotator_margin_bottom ) . 'px;margin-left:' . esc_attr( $wb_ads_rotator_margin_left ) . 'px; " id="' . esc_attr( $wb_ads_rotator_container_id ) . '">';
 		}
-			echo wp_kses( apply_filters( 'wb_ads_rotator_rich_content_ads_content', $wb_ads_rotator_get_rich_content ), $allowedposttags );
+		echo wp_kses( apply_filters( 'wb_ads_rotator_rich_content_ads_content', $wb_ads_rotator_get_rich_content ), $allowedposttags );
 
 		echo '</div>';
 		if ( 'yes' === $wb_ads_rotator_clearfix ) {

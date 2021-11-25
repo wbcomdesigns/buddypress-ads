@@ -31,10 +31,12 @@
 	jQuery(document).ready(function ($) {
 		var innerHtml = $('#rich-ads');
 		var addiframe = innerHtml.find('iframe');
-		setTimeout(function () {
-			$(addiframe).css("height", "100%");
-			jQuery("div.wb-ads-rotator.bp-ads-nouveau").html(addiframe);
-		}, 1000);
-
+		var ishshortcodepage = bp_ads_check.is_shortcode_page;
+		if (!ishshortcodepage) {
+			setTimeout(function () {
+				$(addiframe).css("height", "100%");
+				jQuery("div.wb-ads-rotator.bp-ads-nouveau").html(addiframe);
+			}, 1000);
+		}
 	});
 })(jQuery);
