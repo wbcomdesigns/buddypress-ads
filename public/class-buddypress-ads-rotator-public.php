@@ -287,12 +287,29 @@ class Buddypress_Ads_Rotator_Public {
 				return;
 			}
 		}
-
-		echo '<div class="wb-ads-rotator plain-text-and-code-ads ' . esc_attr( $wb_ads_rotator_container_class ) . '" style=" text-align:' . esc_attr( $wb_ads_position ) . '; margin-top:' . esc_attr( $wb_ads_rotator_margin_top ) . 'px; margin-right:' . esc_attr( $wb_ads_rotator_margin_right ) . 'px; margin-bottom:' . esc_attr( $wb_ads_rotator_margin_bottom ) . 'px;margin-left:' . esc_attr( $wb_ads_rotator_margin_left ) . 'px; " id="' . esc_attr( $wb_ads_rotator_container_id ) . '">';
+		$allowed_atts              = array(
+			'type'              => array(),
+			'id'                => array(),
+			'src'               => array(),
+			'width'             => array(),
+			'height'            => array(),
+			'scrolling'         => array(),
+			'frameborder'       => array(),
+			'allowtransparency' => array(),
+			'allow'             => array(),
+			'allowfullscreen'   => array(),
+		);
+		$allowedposttags['script'] = $allowed_atts;
+		$allowedposttags['iframe'] = $allowed_atts;
+		if ( 'nouveau' === bp_get_theme_compat_id() ) {
+			echo '<div class="wb-ads-rotator bp-ads-nouveau plain-text-and-code-ads ' . esc_attr( $wb_ads_rotator_container_class ) . '" style=" text-align:' . esc_attr( $wb_ads_position ) . '; margin-top:' . esc_attr( $wb_ads_rotator_margin_top ) . 'px; margin-right:' . esc_attr( $wb_ads_rotator_margin_right ) . 'px; margin-bottom:' . esc_attr( $wb_ads_rotator_margin_bottom ) . 'px;margin-left:' . esc_attr( $wb_ads_rotator_margin_left ) . 'px; " id="' . esc_attr( $wb_ads_rotator_container_id ) . '">';
+		} else {
+			echo '<div class="wb-ads-rotator plain-text-and-code-ads ' . esc_attr( $wb_ads_rotator_container_class ) . '" style=" text-align:' . esc_attr( $wb_ads_position ) . '; margin-top:' . esc_attr( $wb_ads_rotator_margin_top ) . 'px; margin-right:' . esc_attr( $wb_ads_rotator_margin_right ) . 'px; margin-bottom:' . esc_attr( $wb_ads_rotator_margin_bottom ) . 'px;margin-left:' . esc_attr( $wb_ads_rotator_margin_left ) . 'px; " id="' . esc_attr( $wb_ads_rotator_container_id ) . '">';
+		}
 		if ( 'yes' === $wb_ads_rotator_allow_shortcode ) {
 			echo do_shortcode( $wb_ads_rotator_get_plain_text );
 		} else {
-			echo wp_kses_post( apply_filters( 'wb_ads_rotator_plain_text_code_ads_content', $wb_ads_rotator_get_plain_text ) );
+			echo wp_kses( apply_filters( 'wb_ads_rotator_plain_text_code_ads_content', $wb_ads_rotator_get_plain_text ), $allowedposttags );
 		}
 
 		echo '</div>';
@@ -364,9 +381,16 @@ class Buddypress_Ads_Rotator_Public {
 			}
 		}
 		$allowed_atts              = array(
-			'type' => array(),
-			'id'   => array(),
-			'src'  => array(),
+			'type'              => array(),
+			'id'                => array(),
+			'src'               => array(),
+			'scrolling'         => array(),
+			'width'             => array(),
+			'height'            => array(),
+			'frameborder'       => array(),
+			'allowtransparency' => array(),
+			'allow'             => array(),
+			'allowfullscreen'   => array(),
 		);
 		$allowedposttags['script'] = $allowed_atts;
 		$allowedposttags['iframe'] = $allowed_atts;
@@ -527,7 +551,15 @@ class Buddypress_Ads_Rotator_Public {
 			$wb_ads_rotator_get_ads = get_posts( $args );
 			echo '<div id="rich-ads">';
 			foreach ( $wb_ads_rotator_get_ads as $wb_ads_rotator_get_ad ) {
-				$this->wb_ads_rotator_display_rich_content_ads( $wb_ads_rotator_get_ad );
+				$wb_ads_rotator_type = get_post_meta( $wb_ads_rotator_get_ad, 'wb_ads_rotator_values', true );
+				switch ( $wb_ads_rotator_type['ads_type'] ) {
+					case 'plain-text-and-code':
+						$this->wb_ads_rotator_display_plain_text_and_code_ads( $wb_ads_rotator_get_ad );
+						break;
+					case 'rich-content':
+						$this->wb_ads_rotator_display_rich_content_ads( $wb_ads_rotator_get_ad );
+						break;
+				}
 			}
 			echo '</div>';
 		}
