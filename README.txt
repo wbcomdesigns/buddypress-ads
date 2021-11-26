@@ -21,7 +21,7 @@ Integrate your BuddyPress community to provide a smooth customer experience and 
 
 == Changelog ==
 
-= 1.3.0 =
+= 1.2.0 =
 * Fix- js and iframe support
 
 = 1.1.0 =
