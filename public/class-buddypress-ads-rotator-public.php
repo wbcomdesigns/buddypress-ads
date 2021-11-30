@@ -119,9 +119,9 @@ class Buddypress_Ads_Rotator_Public {
 			$wb_ads_rotator_type              = get_post_meta( $wb_ads_rotator_get_ad, 'wb_ads_rotator_values', true );
 			$wb_ads_rotator_enject_position   = isset( $wb_ads_rotator_type['enject_after'] ) ? $wb_ads_rotator_type['enject_after'] : '';
 			$wb_ads_rotator_enject_repeat     = isset( $wb_ads_rotator_type['repeat_position'] ) ? $wb_ads_rotator_type['repeat_position'] : '';
-			$wb_ads_rotator_activity_type     = isset( $wb_ads_rotator_type['activity_type'] ) ? $wb_ads_rotator_type['activity_type'] : '';
+			$wb_ads_rotator_activity_type     = isset( $wb_ads_rotator_type['activity_type'] ) ? $wb_ads_rotator_type['activity_type'] : array();
 			$wb_ads_rotator_activity_position = isset( $wb_ads_rotator_type['activity_position'] ) ? $wb_ads_rotator_type['activity_position'] : '';
-			if ( 'sidewide_activity' === $wb_ads_rotator_activity_type ) {
+			if ( in_array( 'sidewide_activity', $wb_ads_rotator_activity_type, true ) ) {
 				if ( ! function_exists( 'bp_is_activity_directory' ) || bp_is_activity_directory() ) {
 					if ( 'yes' !== $wb_ads_rotator_enject_repeat ) {
 						if ( $activities_template->current_activity == $wb_ads_rotator_enject_position ) {
@@ -155,7 +155,8 @@ class Buddypress_Ads_Rotator_Public {
 						}
 					}
 				}
-			} elseif ( 'group_activity' === $wb_ads_rotator_activity_type ) {
+			}
+			if ( in_array( 'group_activity', $wb_ads_rotator_activity_type, true ) ) {
 				if ( ! function_exists( 'bp_is_group_activity' ) || bp_is_group_activity() ) {
 					if ( 'yes' !== $wb_ads_rotator_enject_repeat ) {
 						if ( $activities_template->current_activity == $wb_ads_rotator_enject_position ) {
@@ -189,7 +190,8 @@ class Buddypress_Ads_Rotator_Public {
 						}
 					}
 				}
-			} elseif ( 'members_activity' === $wb_ads_rotator_activity_type ) {
+			}
+			if ( in_array( 'members_activity', $wb_ads_rotator_activity_type, true ) ) {
 				if ( ! function_exists( 'bp_is_user_activity' ) || bp_is_user_activity() ) {
 					if ( 'yes' !== $wb_ads_rotator_enject_repeat ) {
 						if ( $activities_template->current_activity == $wb_ads_rotator_enject_position ) {

@@ -685,10 +685,10 @@ class Buddypress_Ads_Rotator_Admin {
 				<?php esc_html_e( 'Activity Type', 'buddypress-ads-rotator' ); ?>
 				</div>
 				<div class="wb_ads_rotator-input">
-					<select id="wb_ads_rotator_activity_type" name="wb_ads_rotator[activity_type]">
-						<option value="sidewide_activity" <?php isset( $wb_ads_rotator_values['activity_type'] ) && selected( $wb_ads_rotator_values['activity_type'], 'sidewide_activity' ); ?>><?php esc_html_e( 'Sitewide Activity ', 'buddypress-ads-rotator' ); ?></option>
-						<option value="group_activity" <?php isset( $wb_ads_rotator_values['activity_type'] ) && selected( $wb_ads_rotator_values['activity_type'], 'group_activity' ); ?>><?php esc_html_e( 'Group Activity', 'buddypress-ads-rotator' ); ?></option>
-						<option value="members_activity" <?php isset( $wb_ads_rotator_values['activity_type'] ) && selected( $wb_ads_rotator_values['activity_type'], 'members_activity' ); ?>><?php esc_html_e( 'Members Activity', 'buddypress-ads-rotator' ); ?></option>
+					<select id="wb_ads_rotator_activity_type" name="wb_ads_rotator[activity_type][]" multiple>
+						<option value="sidewide_activity" <?php echo ( isset( $wb_ads_rotator_values['activity_type'] ) && in_array( 'sidewide_activity', $wb_ads_rotator_values['activity_type'], true ) ) ? 'selected' : ''; ?>><?php esc_html_e( 'Sitewide Activity ', 'buddypress-ads-rotator' ); ?></option>
+						<option value="group_activity" <?php echo ( isset( $wb_ads_rotator_values['activity_type'] ) && in_array( 'group_activity', $wb_ads_rotator_values['activity_type'], true ) ) ? 'selected' : ''; ?>><?php esc_html_e( 'Group Activity', 'buddypress-ads-rotator' ); ?></option>
+						<option value="members_activity" <?php echo ( isset( $wb_ads_rotator_values['activity_type'] ) && in_array( 'members_activity', $wb_ads_rotator_values['activity_type'], true ) ) ? 'selected' : ''; ?>><?php esc_html_e( 'Members Activity', 'buddypress-ads-rotator' ); ?></option>
 					</select>
 					<p>
 					<?php esc_html_e( 'A page with this ad on it must match all of the following conditions.', 'buddypress-ads-rotator' ); ?>
