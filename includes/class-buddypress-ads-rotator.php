@@ -151,12 +151,6 @@ class Buddypress_Ads_Rotator {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-buddypress-ads-rotator-public.php';
 
 		/**
-		 * The class responsible for defining all actions that occur in the public-facing
-		 * side of the site.
-		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/buddypress-ads-rotator-genral-functions.php';
-
-		/**
 		* The class responsible add wrapper of admin settings.
 		*/
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/wbcom/wbcom-admin-settings.php';
