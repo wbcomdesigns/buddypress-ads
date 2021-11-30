@@ -224,31 +224,13 @@ class Buddypress_Ads_Rotator {
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 
-		$wb_gets_ads_id                   = wb_ads_rotator_gets_ads_id();
-		$wb_ads_rotator_get_values        = get_post_meta( $wb_gets_ads_id, 'wb_ads_rotator_values', true );
-		$wb_ads_rotator_display_positions = isset( $wb_ads_rotator_get_values['activity_position'] ) ? $wb_ads_rotator_get_values['activity_position'] : '';
+		$this->loader->add_action( 'bp_before_activity_entry', $plugin_public, 'wb_ads_display_before_activity_entry' );
+		$this->loader->add_action( 'bp_activity_entry_content', $plugin_public, 'wb_ads_display_activity_entry_content' );
+		$this->loader->add_action( 'bp_after_activity_entry', $plugin_public, 'wb_ads_display_after_activity_entry' );
+		$this->loader->add_action( 'bp_before_activity_entry_comments', $plugin_public, 'wb_ads_display_before_activity_entry_comments' );
+		$this->loader->add_action( 'bp_activity_entry_comments', $plugin_public, 'wb_ads_display_activity_entry_comments' );
+		$this->loader->add_action( 'bp_after_activity_entry_comments', $plugin_public, 'wb_ads_display_after_activity_entry_comments' );
 
-		switch ( $wb_ads_rotator_display_positions ) {
-			case 'bp_before_activity_entry':
-				$this->loader->add_action( 'bp_before_activity_entry', $plugin_public, 'wb_ads_rotator_display_ads' );
-
-				break;
-			case 'bp_activity_entry_content':
-				$this->loader->add_action( 'bp_activity_entry_content', $plugin_public, 'wb_ads_rotator_display_ads' );
-				break;
-			case 'bp_after_activity_entry':
-				$this->loader->add_action( 'bp_after_activity_entry', $plugin_public, 'wb_ads_rotator_display_ads' );
-				break;
-			case 'bp_before_activity_entry_comments':
-				$this->loader->add_action( 'bp_before_activity_entry_comments', $plugin_public, 'wb_ads_rotator_display_ads' );
-				break;
-			case 'bp_activity_entry_comments':
-				$this->loader->add_action( 'bp_activity_entry_comments', $plugin_public, 'wb_ads_rotator_display_ads' );
-				break;
-			case 'bp_after_activity_entry_comments':
-				$this->loader->add_action( 'bp_after_activity_entry_comments', $plugin_public, 'wb_ads_rotator_display_ads' );
-				break;
-		}
 		$this->loader->add_shortcode( 'ads-shortcode', $plugin_public, 'wb_ads_rotator_shortcode_ads' );
 		$this->loader->add_action( 'bp_before_directory_activity_content', $plugin_public, 'wb_ads_rotator_check_ads' );
 		$this->loader->add_action( 'bp_after_member_activity_post_form', $plugin_public, 'wb_ads_rotator_check_ads' );

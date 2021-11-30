@@ -105,17 +105,84 @@ class Buddypress_Ads_Rotator_Public {
 	}
 
 	/**
-	 * Display Ads on buddypress.
+	 * Wb_ads_display_before_activity_entry
+	 *
+	 * @return void
 	 */
-	public function wb_ads_rotator_display_ads() {
-		global $activities_template;
-		$args = array(
-			'post_type' => 'wb-ads',
-			'fields'    => 'ids',
-		);
+	public function wb_ads_display_before_activity_entry() {
+		$this->wb_ads_rotator_display_ads( 'bp_before_activity_entry' );
+	}
 
-		$wb_ads_rotator_get_ads = get_posts( $args );
+	/**
+	 * Wb_ads_display_activity_entry_content
+	 *
+	 * @return void
+	 */
+	public function wb_ads_display_activity_entry_content() {
+		$this->wb_ads_rotator_display_ads( 'bp_activity_entry_content' );
+	}
+
+	/**
+	 * Wb_ads_display_after_activity_entry
+	 *
+	 * @return void
+	 */
+	public function wb_ads_display_after_activity_entry() {
+		$this->wb_ads_rotator_display_ads( 'bp_after_activity_entry' );
+	}
+
+	/**
+	 * Wb_ads_display_before_activity_entry_comments
+	 *
+	 * @return void
+	 */
+	public function wb_ads_display_before_activity_entry_comments() {
+		$this->wb_ads_rotator_display_ads( 'bp_before_activity_entry_comments' );
+	}
+
+	/**
+	 * Wb_ads_display_activity_entry_comments
+	 *
+	 * @return void
+	 */
+	public function wb_ads_display_activity_entry_comments() {
+		$this->wb_ads_rotator_display_ads( 'bp_activity_entry_comments' );
+	}
+
+	/**
+	 * Wb_ads_display_after_activity_entry_comments
+	 *
+	 * @return void
+	 */
+	public function wb_ads_display_after_activity_entry_comments() {
+		$this->wb_ads_rotator_display_ads( 'bp_after_activity_entry_comments' );
+	}
+
+	/**
+	 * Display Ads on buddypress.
+	 *
+	 * @param position $position Ads position.
+	 */
+	public function wb_ads_rotator_display_ads( $position ) {
+		global $activities_template;
+		$args                   = array(
+			'post_type'  => 'wb-ads',
+			'fields'     => 'ids',
+			'meta_query' => array(
+				array(
+					'key'     => 'wb_ads_rotator_values',
+					'value'   => $position,
+					'compare' => 'LIKE',
+				),
+			),
+		);
+		$ads                    = get_posts( $args );
+		$wb_ads_rotator_get_ads = ( count( $ads ) > 0 ) ? $ads : array();
 		foreach ( $wb_ads_rotator_get_ads as $wb_ads_rotator_get_ad ) {
+			$wb_ads_rotator_enable = get_post_meta( $wb_ads_rotator_get_ad, 'wb_ads_enable', true );
+			if ( 'disable' === $wb_ads_rotator_enable ) {
+				continue;
+			}
 			$wb_ads_rotator_type              = get_post_meta( $wb_ads_rotator_get_ad, 'wb_ads_rotator_values', true );
 			$wb_ads_rotator_enject_position   = isset( $wb_ads_rotator_type['enject_after'] ) ? $wb_ads_rotator_type['enject_after'] : '';
 			$wb_ads_rotator_enject_repeat     = isset( $wb_ads_rotator_type['repeat_position'] ) ? $wb_ads_rotator_type['repeat_position'] : '';
