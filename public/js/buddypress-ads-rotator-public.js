@@ -36,7 +36,9 @@
       if (!ishshortcodepage) {
         setTimeout(function () {
           $(addiframe).css("height", "100%");
-          jQuery("div.wb-ads-rotator.bp-ads-nouveau").html(addiframe);
+          jQuery("div.wb-ads-rotator.bp-ads-nouveau.wb-ads-iframe").html(
+            addiframe
+          );
         }, 1000);
       }
     }

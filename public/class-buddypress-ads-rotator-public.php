@@ -370,8 +370,13 @@ class Buddypress_Ads_Rotator_Public {
 		);
 		$allowedposttags['script'] = $allowed_atts;
 		$allowedposttags['iframe'] = $allowed_atts;
+
 		if ( 'nouveau' === bp_get_theme_compat_id() ) {
-			echo '<div class="wb-ads-rotator bp-ads-nouveau plain-text-and-code-ads ' . esc_attr( $wb_ads_rotator_container_class ) . '" style=" text-align:' . esc_attr( $wb_ads_position ) . '; margin-top:' . esc_attr( $wb_ads_rotator_margin_top ) . 'px; margin-right:' . esc_attr( $wb_ads_rotator_margin_right ) . 'px; margin-bottom:' . esc_attr( $wb_ads_rotator_margin_bottom ) . 'px;margin-left:' . esc_attr( $wb_ads_rotator_margin_left ) . 'px; " id="' . esc_attr( $wb_ads_rotator_container_id ) . '">';
+			$is_iframe = '';
+			if ( strpos( $wb_ads_rotator_get_plain_text, '<script' ) !== false || strpos( $wb_ads_rotator_get_plain_text, 'iframe' ) !== false ) {
+				$is_iframe = 'wb-ads-iframe';
+			}
+			echo '<div class="wb-ads-rotator bp-ads-nouveau ' . esc_attr( $is_iframe ) . ' plain-text-and-code-ads ' . esc_attr( $wb_ads_rotator_container_class ) . '" style=" text-align:' . esc_attr( $wb_ads_position ) . '; margin-top:' . esc_attr( $wb_ads_rotator_margin_top ) . 'px; margin-right:' . esc_attr( $wb_ads_rotator_margin_right ) . 'px; margin-bottom:' . esc_attr( $wb_ads_rotator_margin_bottom ) . 'px;margin-left:' . esc_attr( $wb_ads_rotator_margin_left ) . 'px; " id="' . esc_attr( $wb_ads_rotator_container_id ) . '">';
 		} else {
 			echo '<div class="wb-ads-rotator plain-text-and-code-ads ' . esc_attr( $wb_ads_rotator_container_class ) . '" style=" text-align:' . esc_attr( $wb_ads_position ) . '; margin-top:' . esc_attr( $wb_ads_rotator_margin_top ) . 'px; margin-right:' . esc_attr( $wb_ads_rotator_margin_right ) . 'px; margin-bottom:' . esc_attr( $wb_ads_rotator_margin_bottom ) . 'px;margin-left:' . esc_attr( $wb_ads_rotator_margin_left ) . 'px; " id="' . esc_attr( $wb_ads_rotator_container_id ) . '">';
 		}
