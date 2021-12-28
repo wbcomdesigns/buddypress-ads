@@ -59,7 +59,7 @@ class Buddypress_Ads_Rotator_Admin {
 	 * @since    1.0.0
 	 */
 	public function enqueue_styles() {
-
+		$screen = get_current_screen();
 		/**
 		 * This function is provided for demonstration purposes only.
 		 *
@@ -71,10 +71,10 @@ class Buddypress_Ads_Rotator_Admin {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
-
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/buddypress-ads-rotator-admin.css', array(), $this->version, 'all' );
-		wp_enqueue_style( 'wb_ads_rotator-selectize', plugin_dir_url( __FILE__ ) . 'css/selectize.css', array(), $this->version, 'all' );
-
+		if ( isset( $_GET['page'] ) || isset( $screen->post_type ) || ( 'buddypress-ads-rotator-settings' === $_GET['page'] ) || ( 'wb-ads' === $screen->post_type ) ) {
+			wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/buddypress-ads-rotator-admin.css', array(), $this->version, 'all' );
+			wp_enqueue_style( 'wb_ads_rotator-selectize', plugin_dir_url( __FILE__ ) . 'css/selectize.css', array(), $this->version, 'all' );
+		}
 	}
 
 	/**
@@ -83,7 +83,7 @@ class Buddypress_Ads_Rotator_Admin {
 	 * @since    1.0.0
 	 */
 	public function enqueue_scripts() {
-
+		$screen = get_current_screen();
 		/**
 		 * This function is provided for demonstration purposes only.
 		 *
@@ -95,22 +95,23 @@ class Buddypress_Ads_Rotator_Admin {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
+		if ( isset( $_GET['page'] ) || isset( $screen->post_type ) || ( 'buddypress-ads-rotator-settings' === $_GET['page'] ) || ( 'wb-ads' === $screen->post_type ) ) {
+			wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/buddypress-ads-rotator-admin.js', array( 'jquery' ), $this->version, false );
+			wp_localize_script(
+				$this->plugin_name,
+				'ajax',
+				array(
+					'url'   => admin_url( 'admin-ajax.php' ),
+					'nonce' => wp_create_nonce( 'ajax-nonce' ),
+				)
+			);
+			wp_enqueue_script( 'wb_ads_rotator-selectize-min', plugin_dir_url( __FILE__ ) . 'js/selectize.min.js', array( 'jquery' ), $this->version, false );
+			$cm_settings['codeEditor'] = wp_enqueue_code_editor( array( 'type' => 'text/css' ) );
+			wp_localize_script( 'jquery', 'cm_settings', $cm_settings );
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/buddypress-ads-rotator-admin.js', array( 'jquery' ), $this->version, false );
-		wp_localize_script(
-			$this->plugin_name,
-			'ajax',
-			array(
-				'url'   => admin_url( 'admin-ajax.php' ),
-				'nonce' => wp_create_nonce( 'ajax-nonce' ),
-			)
-		);
-		wp_enqueue_script( 'wb_ads_rotator-selectize-min', plugin_dir_url( __FILE__ ) . 'js/selectize.min.js', array( 'jquery' ), $this->version, false );
-		$cm_settings['codeEditor'] = wp_enqueue_code_editor( array( 'type' => 'text/css' ) );
-		wp_localize_script( 'jquery', 'cm_settings', $cm_settings );
-
-		wp_enqueue_script( 'wp-theme-plugin-editor' );
-		wp_enqueue_style( 'wp-codemirror' );
+			wp_enqueue_script( 'wp-theme-plugin-editor' );
+			wp_enqueue_style( 'wp-codemirror' );
+		}
 	}
 
 	/**
@@ -209,7 +210,6 @@ class Buddypress_Ads_Rotator_Admin {
 	public function wb_ads_rotator_admin_faq_content() {
 		include 'partials/buddypress-ads-rotator-admin-faq-display.php';
 	}
-
 
 	/**
 	 * This Function added the WB Ads CPT.
