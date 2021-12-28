@@ -71,7 +71,7 @@ class Buddypress_Ads_Rotator_Admin {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
-		if ( isset( $_GET['page'] ) || ( 'buddypress-ads-rotator-settings' === $_GET['page'] ) || isset( $screen->post_type ) || ( 'wb-ads' === $screen->post_type ) ) {
+		if ( isset( $_GET['page'] ) && ( 'buddypress-ads-rotator-settings' === $_GET['page'] ) || isset( $screen->post_type ) && ( 'wb-ads' === $screen->post_type ) ) {
 			wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/buddypress-ads-rotator-admin.css', array(), $this->version, 'all' );
 			wp_enqueue_style( 'wb_ads_rotator-selectize', plugin_dir_url( __FILE__ ) . 'css/selectize.css', array(), $this->version, 'all' );
 		}
@@ -95,7 +95,7 @@ class Buddypress_Ads_Rotator_Admin {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
-		if ( isset( $_GET['page'] ) || ( 'buddypress-ads-rotator-settings' === $_GET['page'] ) || isset( $screen->post_type ) || ( 'wb-ads' === $screen->post_type ) ) {
+		if ( isset( $_GET['page'] ) && ( 'buddypress-ads-rotator-settings' === $_GET['page'] ) || isset( $screen->post_type ) && ( 'wb-ads' === $screen->post_type ) ) {
 			wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/buddypress-ads-rotator-admin.js', array( 'jquery' ), $this->version, false );
 			wp_localize_script(
 				$this->plugin_name,
