@@ -15,7 +15,7 @@
  * Plugin Name:       Wbcom Designs - BuddyPress Ads
  * Plugin URI:        https://wbcomdesigns.com/downloads/buddypress-ads/
  * Description:       Integrate your BuddyPress community to provide a smooth customer experience and increase site engagement.
- * Version:           1.2.0
+ * Version:           1.3.0
  * Author:            Wbcom Designs
  * Author URI:        https://wbcomdesigns.com
  * License:           GPL-2.0+
