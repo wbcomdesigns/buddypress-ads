@@ -806,7 +806,7 @@ class Buddypress_Ads_Rotator_Admin {
 				<span class="ads-shortcode-text shortcode-text-hide"><?php echo esc_attr__( 'Shortcode Copied!', 'buddypress-ads-rotator' ); ?></span>		
 			</div>
 			<p>
-			<?php esc_html_e( 'Copy and Paste this shortcode to display this ad at any where.', 'buddypress-ads-rotator' ); ?>
+			<?php esc_html_e( 'Copy and Paste this shortcode to display this ad any where.', 'buddypress-ads-rotator' ); ?>
 			</p>
 		<?php do_action( 'wb_ads_rotator_options_after' ); ?>
 		</div>
