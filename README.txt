@@ -4,7 +4,7 @@ Donate link: https://wbcomdesigns.com
 Tags: BuddyPress
 Requires at least: 3.0.1
 Tested up to: 5.8.2
-Stable tag: 1.2.0
+Stable tag: 1.3.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -20,6 +20,13 @@ Integrate your BuddyPress community to provide a smooth customer experience and 
 2. Activate the plugin through the 'Plugins' menu in WordPress
 
 == Changelog ==
+= 1.3.0 =
+* Fix- (#28)Fixed Ads are showing repeatedly
+* Fix- (#29)changed shortcode text
+* Fix- (#27)Fixed google ads script issue with rich content ads
+* Fix- Update Code for CSS and JS Loading
+* Fix- Load Admin CSS and JS on Plugins Settings Pages
+* Fix- Changed Plugin documentation link
 
 = 1.2.0 =
 * Fix- js and iframe support
