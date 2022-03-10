@@ -51,8 +51,6 @@
 							<h3><?php echo esc_html( $plugin_details['name'] ); ?></h3>
 							<div class="wbcom_single_right-wrap">
 								<p class="plugin-description"><?php echo esc_html( $plugin_details['description'] ); ?></p>
-								<input type="hidden" class="plugin-slug" name="plugin-slug" value="<?php echo esc_attr( $plugin_details['slug'] ); ?>">
-								<input type="hidden" class="plugin-action" name="plugin-action" value="<?php echo esc_attr( $plugin_action ); ?>">
 								<div class="activation_button_wrap">
 									<a href="<?php echo esc_url( $plugin_details['wp_url'] ); ?>" class="wb_btn wb_btn_default" target="blank">
 										<i class="fa fa-eye"></i>
