@@ -3,8 +3,8 @@ Contributors: vapvarun, wbcomdesigns
 Donate link: https://wbcomdesigns.com
 Tags: BuddyPress
 Requires at least: 3.0.1
-Tested up to: 5.8.2
-Stable tag: 1.3.0
+Tested up to: 5.9.1
+Stable tag: 1.3.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -20,6 +20,10 @@ Integrate your BuddyPress community to provide a smooth customer experience and 
 2. Activate the plugin through the 'Plugins' menu in WordPress
 
 == Changelog ==
+= 1.3.1 =
+* Fix- Removed install plugin button from wrapper
+* Fix- Fixed warning issue
+
 = 1.3.0 =
 * Fix- (#28)Fixed Ads are showing repeatedly
 * Fix- (#29)changed shortcode text
