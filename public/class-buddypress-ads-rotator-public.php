@@ -471,6 +471,7 @@ class Buddypress_Ads_Rotator_Public {
 		);
 		$allowedposttags['script'] = $allowed_atts;
 		$allowedposttags['iframe'] = $allowed_atts;
+		$allowedposttags['img']    = $allowed_atts;
 
 		if ( 'nouveau' === bp_get_theme_compat_id() ) {
 			echo '<div class="wb-ads-rotator bp-ads-nouveau wb-ads-iframe rich-content-ads ' . esc_attr( $wb_ads_rotator_container_class ) . '" style="background-color:' . esc_attr( $wb_ads_rotator_bg_color ) . ';color:' . esc_attr( $wb_ads_rotator_txt_color ) . ';font-size:' . esc_attr( $wb_ads_rotator_font_size ) . 'px;text-align:' . esc_attr( $wb_ads_position ) . ';margin-top:' . esc_attr( $wb_ads_rotator_margin_top ) . 'px; margin-right:' . esc_attr( $wb_ads_rotator_margin_right ) . 'px; margin-bottom:' . esc_attr( $wb_ads_rotator_margin_bottom ) . 'px;margin-left:' . esc_attr( $wb_ads_rotator_margin_left ) . 'px; " id="' . esc_attr( $wb_ads_rotator_container_id ) . '">';
