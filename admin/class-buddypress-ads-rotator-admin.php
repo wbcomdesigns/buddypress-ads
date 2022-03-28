@@ -693,9 +693,6 @@ class Buddypress_Ads_Rotator_Admin {
 					<p>
 					<?php esc_html_e( 'A page with this ad on it must match all of the following conditions.', 'buddypress-ads-rotator' ); ?>
 					</p>
-					<p>
-					<?php esc_html_e( 'If you want to display the ad everywhere, dont do anything here.', 'buddypress-ads-rotator' ); ?>
-					</p>
 				</div>
 			</div>
 			<div class="wb_ads_rotator-wrapper">
