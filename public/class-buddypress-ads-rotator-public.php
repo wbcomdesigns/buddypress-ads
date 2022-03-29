@@ -373,6 +373,7 @@ class Buddypress_Ads_Rotator_Public {
 		);
 		$allowedposttags['script'] = $allowed_atts;
 		$allowedposttags['iframe'] = $allowed_atts;
+		$allowedposttags['img']    = $allowed_atts;
 
 		if ( 'nouveau' === bp_get_theme_compat_id() ) {
 			$is_iframe = '';
@@ -630,13 +631,26 @@ class Buddypress_Ads_Rotator_Public {
 			echo '<div id="rich-ads">';
 			foreach ( $wb_ads_rotator_get_ads as $wb_ads_rotator_get_ad ) {
 				$wb_ads_rotator_type = get_post_meta( $wb_ads_rotator_get_ad, 'wb_ads_rotator_values', true );
-				switch ( $wb_ads_rotator_type['ads_type'] ) {
-					case 'plain-text-and-code':
-						$this->wb_ads_rotator_display_plain_text_and_code_ads( $wb_ads_rotator_get_ad );
-						break;
-					case 'rich-content':
-						$this->wb_ads_rotator_display_rich_content_ads( $wb_ads_rotator_get_ad );
-						break;
+				$check_ads_position  = $wb_ads_rotator_type['activity_type'];
+				$check               = false;
+				if ( bp_is_activity_directory() && in_array( 'sidewide_activity', $check_ads_position ) ) {
+					$check = true;
+				}
+				if ( bp_is_user_activity() && in_array( 'members_activity', $check_ads_position ) ) {
+					$check = true;
+				}
+				if ( bp_is_group_activity() && in_array( 'group_activity', $check_ads_position ) ) {
+					$check = true;
+				}
+				if ( $check ) {
+					switch ( $wb_ads_rotator_type['ads_type'] ) {
+						case 'plain-text-and-code':
+							$this->wb_ads_rotator_display_plain_text_and_code_ads( $wb_ads_rotator_get_ad );
+							break;
+						case 'rich-content':
+							$this->wb_ads_rotator_display_rich_content_ads( $wb_ads_rotator_get_ad );
+							break;
+					}
 				}
 			}
 			echo '</div>';

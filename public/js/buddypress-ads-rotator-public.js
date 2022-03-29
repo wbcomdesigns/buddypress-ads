@@ -33,11 +33,11 @@
     if (innerHtml.find("iframe").length) {
       var addiframe = innerHtml.find("iframe");
       var ishshortcodepage = bp_ads_check.is_shortcode_page;
-      if (!ishshortcodepage) {
+      if (!ishshortcodepage && addiframe.length) {
         setTimeout(function () {
           $(addiframe).css("height", "100%");
           jQuery("div.wb-ads-rotator.bp-ads-nouveau.wb-ads-iframe").html(
-            addiframe
+            innerHtml[0].innerHTML
           );
         }, 1000);
       }
