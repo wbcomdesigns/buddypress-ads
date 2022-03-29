@@ -1,0 +1,1088 @@
+# Copyright (C) 2022
+# This file is distributed under the same license as the  package.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-03-29 10:08:28+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2022-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Varun Dubey\n"
+"Language-Team: Wbcom Designs\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-Country: United States\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: "
+"__;_e;_x:1,2c;_ex:1,2c;_n:1,2;_nx:1,2,4c;_n_noop:1,2;_nx_noop:1,2,3c;esc_"
+"attr__;esc_html__;esc_attr_e;esc_html_e;esc_attr_x:1,2c;esc_html_x:1,2c;\n"
+"X-Poedit-Basepath: ../\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-Bookmarks: \n"
+"X-Textdomain-Support: yes\n"
+"X-Generator: grunt-wp-i18n 1.0.3\n"
+
+#: admin/class-buddypress-ads-rotator-admin.php:127
+msgid "WB Plugins"
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:128
+#: admin/class-buddypress-ads-rotator-admin.php:190
+msgid "Welcome"
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:131
+#: admin/partials/buddypress-ads-rotator-admin-welcome-display.php.php:21
+#: buddypress-ads-rotator.php:83
+msgid "BuddyPress Ads"
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:151
+msgid "BuddyPress Ads Settings"
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:194
+msgid "FAQ"
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:226
+#: admin/class-buddypress-ads-rotator-admin.php:227
+msgid "Add New WB Ads"
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:228
+msgid "New WB Ads"
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:229
+msgid "Edit WB Ads"
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:230
+msgid "View WB Ads"
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:231
+msgid "All WB Ads"
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:232
+msgid "Search WB Ads"
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:233
+msgid "Parent WB Ads:"
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:234
+msgid "No WB Ads found."
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:235
+msgid "No WB Ads found in Trash."
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:251
+msgid "dashicons-chart-line"
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:267
+msgid "WB Ads Type"
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:274
+msgid "Ads Parameter"
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:281
+msgid "Layout / Output"
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:288
+msgid "Display Conditions"
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:295
+msgid "To Whom"
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:302
+#: admin/class-buddypress-ads-rotator-admin.php:880
+msgid "Shortcode"
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:327
+msgid "Plain Text and Code"
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:331
+msgid ""
+"Any ad network, Amazon, customized AdSense codes, shortcodes, and code like "
+"JavaScript, HTML or PHP."
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:336
+msgid "Rich Content"
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:340
+msgid ""
+"The full content editor from WordPress with all features like shortcodes, "
+"image upload or styling, but also simple text/html mode for scripts and "
+"code."
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:345
+msgid "Image Ad"
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:349
+msgid "Ads in various image formats."
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:390
+msgid "Insert plain text or code into this field."
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:439
+msgid "Choose Image"
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:450
+msgid "URL"
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:458
+msgid "Size"
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:463
+msgid "Width"
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:467
+#: admin/class-buddypress-ads-rotator-admin.php:476
+#: admin/class-buddypress-ads-rotator-admin.php:518
+#: admin/class-buddypress-ads-rotator-admin.php:621
+#: admin/class-buddypress-ads-rotator-admin.php:626
+#: admin/class-buddypress-ads-rotator-admin.php:631
+#: admin/class-buddypress-ads-rotator-admin.php:636
+msgid "px"
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:472
+msgid "Height"
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:489
+msgid "Allow Shortcodes"
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:493
+msgid "Execute shortcodes"
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:501
+msgid "No shortcode detected in your code."
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:501
+msgid "Uncheck this checkbox for improved performance."
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:513
+msgid "Rich Content Font Size"
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:531
+msgid "Rich Content Background Color"
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:548
+msgid "Rich Content Text Color"
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:586
+msgid "Everything connected to the ads layout and output."
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:591
+#: admin/class-buddypress-ads-rotator-admin.php:715
+msgid "Position"
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:608
+msgid ""
+"Check this if you don’t want the following elements to float around the ad. "
+"(adds a clearfix)"
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:614
+msgid "Margin"
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:619
+msgid "Top"
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:624
+msgid "Right"
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:629
+msgid "Bottom"
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:634
+msgid "Left"
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:640
+msgid "use this to add a margin around the ads"
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:646
+msgid "Container ID"
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:650
+msgid ""
+"Specify the id of the ad container. Leave blank for random or no id.  An "
+"id-like string with only letters in lower case, numbers, and hyphens."
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:655
+msgid "Container Classes"
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:659
+msgid ""
+"Specify one or more classes for the container. Separate multiple classes "
+"with a space."
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:685
+msgid "Activity Type"
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:689
+msgid "Sitewide Activity "
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:690
+msgid "Group Activity"
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:691
+msgid "Members Activity"
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:694
+msgid "A page with this ad on it must match all of the following conditions."
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:700
+msgid "Activity Positions"
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:704
+msgid "before activity entry"
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:705
+msgid "activity entry content"
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:706
+msgid "after activity entry"
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:707
+msgid "before activity entry comments"
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:708
+msgid "activity entry comments"
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:709
+msgid "after activity entry comments"
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:719
+msgid "Enter the value to inject after per entry"
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:724
+msgid "Repeat Position"
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:728
+msgid "Enable this option if you want to repeat inject position"
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:753
+msgid "Logged-In Visitor"
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:757
+msgid "Both Logged-in and Logged-out Visitor"
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:758
+msgid "Logged-in Visitor"
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:759
+msgid "Logged-out Visitor"
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:762
+#: admin/class-buddypress-ads-rotator-admin.php:777
+msgid ""
+"Visitor conditions limit the number of users who can see your ad. There is "
+"no need to set visitor conditions if you want all users to see the ad."
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:768
+msgid "Device"
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:772
+msgid "Both Mobile and Desktop Devices"
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:773
+msgid "Mobile(Including Tablets)"
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:774
+msgid "Desktop"
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:803
+#: admin/class-buddypress-ads-rotator-admin.php:926
+msgid "Shortcode Copied!"
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:806
+msgid "Copy and Paste this shortcode to display this ad any where."
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:877
+msgid "Ads ID"
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:878
+msgid "Ads Type"
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:879
+msgid "Enable/Disable Ads"
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:881
+msgid "Date"
+msgstr ""
+
+#: admin/partials/buddypress-ads-rotator-admin-faq-display.php:21
+msgid "FAQ(s) "
+msgstr ""
+
+#: admin/partials/buddypress-ads-rotator-admin-faq-display.php:30
+msgid "Does This plugin requires BuddyPress?"
+msgstr ""
+
+#: admin/partials/buddypress-ads-rotator-admin-faq-display.php:34
+msgid "Yes, It needs you to have BuddyPress installed and activated."
+msgstr ""
+
+#: admin/partials/buddypress-ads-rotator-admin-faq-display.php:42
+msgid "What to do after activated the plugin?"
+msgstr ""
+
+#: admin/partials/buddypress-ads-rotator-admin-faq-display.php:46
+msgid "You need to add your Ads from WB Ads CPT."
+msgstr ""
+
+#: admin/partials/buddypress-ads-rotator-admin-faq-display.php:54
+msgid "Where can we display the Ads?"
+msgstr ""
+
+#: admin/partials/buddypress-ads-rotator-admin-faq-display.php:58
+msgid ""
+"You can display the ads on buddypress Acivity Stream, Group Activity Stream "
+"and Members Activity Stream. and you can manage the activity positions for "
+"particular ads."
+msgstr ""
+
+#: admin/partials/buddypress-ads-rotator-admin-faq-display.php:66
+msgid "Can I hide the spacific Ad?"
+msgstr ""
+
+#: admin/partials/buddypress-ads-rotator-admin-faq-display.php:70
+msgid "Yes, you can hide the spepcific ad from the CPT ads listing."
+msgstr ""
+
+#: admin/partials/buddypress-ads-rotator-admin-faq-display.php:78
+msgid "Can I display and hide ads for mobile and desktop device?"
+msgstr ""
+
+#: admin/partials/buddypress-ads-rotator-admin-faq-display.php:82
+msgid ""
+"Yes, you can display and hide the ads for specific device( Mobile and "
+"Desktop ) ."
+msgstr ""
+
+#: admin/partials/buddypress-ads-rotator-admin-faq-display.php:90
+msgid "Can I display and hide the ads for logged-in visitor or logged-out visitor?"
+msgstr ""
+
+#: admin/partials/buddypress-ads-rotator-admin-faq-display.php:94
+msgid ""
+"Yes, you can display and hide the ads for logged-in visitor or logged-out "
+"visitor."
+msgstr ""
+
+#: admin/partials/buddypress-ads-rotator-admin-faq-display.php:102
+msgid "Can I manage the ads layout?"
+msgstr ""
+
+#: admin/partials/buddypress-ads-rotator-admin-faq-display.php:106
+msgid "Yes, you can manage the ads layout with following options :-"
+msgstr ""
+
+#: admin/partials/buddypress-ads-rotator-admin-faq-display.php:109
+msgid "Ads Position ( left,center,right )"
+msgstr ""
+
+#: admin/partials/buddypress-ads-rotator-admin-faq-display.php:110
+msgid "Margin ( margin-top,margin-right,margin-bottom,margin-left )"
+msgstr ""
+
+#: admin/partials/buddypress-ads-rotator-admin-faq-display.php:111
+msgid "Container ID ( you can add custom ID for ads. )"
+msgstr ""
+
+#: admin/partials/buddypress-ads-rotator-admin-faq-display.php:112
+msgid "Container Classes ( you can add custom Class for ads. )"
+msgstr ""
+
+#: admin/partials/buddypress-ads-rotator-admin-welcome-display.php.php:23
+msgid ""
+"BuddyPress Ads Plugin will help you to display your Ads on BuddyPress "
+"Activity Streams. You can decide the position where you allow to display "
+"ads like on Sitewide Activity Stream , Group Activity Stream, Member "
+"Activity Stream."
+msgstr ""
+
+#: admin/partials/buddypress-ads-rotator-admin-welcome-display.php.php:34
+msgid "Help &amp; Support Resources"
+msgstr ""
+
+#: admin/partials/buddypress-ads-rotator-admin-welcome-display.php.php:35
+msgid ""
+"Here are all the resources you may need to get help from us. Documentation "
+"is usually the best place to start. Should you require help anytime, our "
+"customer care team is available to assist you at the support center."
+msgstr ""
+
+#: admin/partials/buddypress-ads-rotator-admin-welcome-display.php.php:41
+msgid "Documentation"
+msgstr ""
+
+#: admin/partials/buddypress-ads-rotator-admin-welcome-display.php.php:42
+msgid ""
+"We have prepared an extensive guide on BuddyPress Ads to learn all aspects "
+"of the plugin. You will find most of your answers here."
+msgstr ""
+
+#: admin/partials/buddypress-ads-rotator-admin-welcome-display.php.php:43
+msgid "Read Documentation"
+msgstr ""
+
+#: admin/partials/buddypress-ads-rotator-admin-welcome-display.php.php:47
+msgid "Support Center"
+msgstr ""
+
+#: admin/partials/buddypress-ads-rotator-admin-welcome-display.php.php:48
+msgid ""
+"We strive to offer the best customer care via our support center. Once your "
+"theme is activated, you can ask us for help anytime."
+msgstr ""
+
+#: admin/partials/buddypress-ads-rotator-admin-welcome-display.php.php:49
+msgid "Get Support"
+msgstr ""
+
+#: admin/partials/buddypress-ads-rotator-admin-welcome-display.php.php:53
+msgid "Got Feedback?"
+msgstr ""
+
+#: admin/partials/buddypress-ads-rotator-admin-welcome-display.php.php:54
+msgid ""
+"We want to hear about your experience with the plugin. We would also love "
+"to hear any suggestions you may for future updates."
+msgstr ""
+
+#: admin/partials/buddypress-ads-rotator-admin-welcome-display.php.php:55
+msgid "Send Feedback"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:10
+msgid "Paid Addons"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:29
+#: admin/wbcom/templates/wbcom-plugins-page.php:57
+#: admin/wbcom/templates/wbcom-themes-page.php:118
+#: admin/wbcom/templates/wbcom-themes-page.php:139
+msgid "View"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:38
+msgid "Free Addons"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-support-page.php:5
+#: admin/wbcom/wbcom-admin-settings.php:444
+#: admin/wbcom/wbcom-admin-settings.php:445
+#: admin/wbcom/wbcom-admin-settings.php:538
+msgid "Support"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-support-page.php:7
+msgid "Having any question or issue ?"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-support-page.php:9
+msgid ""
+"Our team is here to help you out at anytime. If you have any idea about how "
+"we could improve. You can share access to your site on our helpdesk if it "
+"can help getting faster. There are two ways to in touch with us :"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-support-page.php:21
+msgid "Tickets Support"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-support-page.php:22
+msgid ""
+"Open a ticket on our helpdesk, we don't guarantee a fast response but "
+"within a week. Except if you've purchased one of our product we'll reply "
+"within 24 hours."
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-support-page.php:26
+msgid "Open a ticket"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-support-page.php:41
+#: admin/wbcom/templates/wbcom-support-page.php:46
+msgid "Contact Us"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-support-page.php:42
+msgid ""
+"Create a new thread on our plugin page, participation is open to anyone "
+"from all around the world. We'll be there to help as well but can't "
+"guarantee any delay."
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-themes-page.php:13
+msgid "Reign Theme"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-themes-page.php:15
+msgid "Multiple Member Directory Layout"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-themes-page.php:16
+msgid "Multiple Member Header Layout"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-themes-page.php:17
+msgid "Multiple Group Directory Layout"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-themes-page.php:18
+msgid "Multiple Group Header Layout"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-themes-page.php:19
+msgid "BuddyPress Customization Options"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-themes-page.php:20
+msgid "BuddyPress Extra Widgets"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-themes-page.php:21
+msgid "Inbuilt Social Profile Module"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-themes-page.php:24
+#: admin/wbcom/templates/wbcom-themes-page.php:49
+#: admin/wbcom/templates/wbcom-themes-page.php:72
+#: admin/wbcom/templates/wbcom-themes-page.php:94
+msgid "Purchase"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-themes-page.php:25
+#: admin/wbcom/templates/wbcom-themes-page.php:50
+#: admin/wbcom/templates/wbcom-themes-page.php:73
+#: admin/wbcom/templates/wbcom-themes-page.php:95
+msgid "Preview"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-themes-page.php:38
+msgid "LearnMate Solution"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-themes-page.php:40
+msgid "Add Review to your course"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-themes-page.php:41
+msgid "Course Coming Soon"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-themes-page.php:42
+#: admin/wbcom/templates/wbcom-themes-page.php:68
+msgid "Grid And List Layout"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-themes-page.php:43
+msgid "Learndash/LifterLMS Extra Widgets"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-themes-page.php:44
+msgid "Unparalleled Course Layout"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-themes-page.php:45
+msgid "Awesome Learndash/LifterLMS Pages"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-themes-page.php:46
+msgid "Distraction Free Reading"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-themes-page.php:63
+msgid "StoreMate Solution"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-themes-page.php:65
+msgid "Dokan Extra Widgets"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-themes-page.php:66
+msgid "Unique Single Product Page Customization"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-themes-page.php:67
+msgid "Awesome WooCommerce Pages"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-themes-page.php:69
+msgid "Automated Mega Menu Support"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-themes-page.php:86
+msgid "Jobmate Theme"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-themes-page.php:88
+msgid "Simple live searching and filtering"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-themes-page.php:89
+msgid "Unique Job listing Page"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-themes-page.php:90
+msgid "Awesome Resume list Page"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-themes-page.php:91
+msgid "Outstanding all job maanger pagesLayout"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-themes-page.php:108
+msgid "BuddyX Theme"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-themes-page.php:110
+msgid "Responsive BuddyPress Theme"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-themes-page.php:111
+#: admin/wbcom/templates/wbcom-themes-page.php:134
+msgid "Site Ready In One-Click"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-themes-page.php:112
+msgid "Members and Groups Layout"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-themes-page.php:113
+msgid "WooCommerce Ready"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-themes-page.php:114
+msgid "Supported Muitiple Plugins"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-themes-page.php:115
+#: admin/wbcom/templates/wbcom-themes-page.php:136
+msgid "Suitable for All Devices"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-themes-page.php:131
+msgid "KnowX Theme"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-themes-page.php:133
+msgid "Free WordPress Theme"
+msgstr ""
+
+#: admin/wbcom/templates/wbcom-themes-page.php:135
+msgid "Create Knowledge base"
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:97
+msgid "Custom Font Uploader"
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:99
+msgid ""
+"It also allows you to upload your own custom font to your site and use them "
+"using custom css."
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:105
+msgid "BuddyPress Activity Filter"
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:107
+msgid "Admin can set default and customised activities to be listed on front-end."
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:113
+msgid "BuddyPress Activity Social Share"
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:115
+msgid ""
+"This plugin allows anyone easily share BuddyPress Activites on major social "
+"media (Facebook, Twitter, Google+, Linkedin )."
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:121
+msgid "BuddyPress Create Group Type"
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:123
+msgid "It will help to create group type for BuddyPress Groups."
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:129
+msgid "BuddyPress Member Reviews"
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:131
+msgid ""
+"This plugin allows only site members to add reviews to the buddypress "
+"members on the site and even rate the member’s profile out of 5 points with "
+"multiple review criteria."
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:137
+msgid "BuddyPress Group Reviews"
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:139
+msgid ""
+"This plugin allows the BuddyPress Members to give reviews to the BuddyPress "
+"groups on the site. The review form allows the users to give text review, "
+"even rate the group on the basis of multiple criterias."
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:145
+msgid "BuddyPress Favorite Notification"
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:147
+msgid ""
+"BuddyPress Favorite Notification adds a notification for BuddyPress "
+"activity."
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:153
+msgid "Custom Email Options"
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:155
+msgid "Override default email options of Worpdress."
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:161
+msgid "BuddyPress Checkins"
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:163
+msgid ""
+"This plugin allows BuddyPress members to share their location when they are "
+"posting activities, you can add places where you visited, nearby locations "
+"based on google places."
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:169
+msgid "BuddyPress Job Manager"
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:171
+msgid ""
+"Incorporates BuddyPress with the WP Job Manager plugin by creating specific "
+"tabs in employer’s and candidate’s profiles."
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:177
+msgid "BuddyPress user ToDo List"
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:179
+msgid ""
+"This plugin allows you to create your personal task list with timestamp. "
+"You can mark them complete when you are done with them. It will also send "
+"reminder when you have any overdue task."
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:185
+msgid "Shortcodes for BuddyPress"
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:187
+msgid ""
+"This plugin will add an extended feature to the big name “BuddyPress” that "
+"will generate Shortcode for Listing Activity Streams , Members and Groups "
+"on any post/page in website."
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:193
+msgid "Woo Open Graph"
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:195
+msgid ""
+"This plugin will add an extended feature to the big name “WooCommerce” that "
+"will adds well executed and accurate Open Graph Meta Tags to your site with "
+"title,description and WooCommerce featured image."
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:201
+msgid "BuddyPress Lock"
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:203
+msgid ""
+"This plugin allows the administrator to lock the certain parts of their "
+"site. It help to create private BuddyPress community by locking certain "
+"BuddyPress Components, WordPress Pages, Custom Post Types for public view "
+"without using any membership plugin."
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:209
+msgid "Woo Audio Preview"
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:211
+msgid ""
+"This plugin Allows playing the audio files in sample mode to prevent "
+"unauthorized downloading of the audio files. It helps to display sample "
+"files at single product page."
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:217
+msgid "WordPress System Log"
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:219
+msgid ""
+"This plugin helps administrators of the site see their environment on which "
+"the site is currently running that includes WordPress environment, tha "
+"database it requires, Server Environment and the plugins installed and "
+"activated on the site."
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:225
+msgid "BP Post From Anywhere"
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:227
+msgid ""
+"This plugin will generate shortcode and widgets for post updates section "
+"for activities so you can post update from anywhere, it might be sidebar, "
+"some page or any template file."
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:233
+msgid "Woo Document Preview"
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:235
+msgid ""
+"This will allow you to add document preview at single product page. Which "
+"helps to offer more better idea when you are selling ebooks, pdf or some "
+"documents."
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:241
+msgid "WordPress Media Category"
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:243
+msgid ""
+"This plugin helps administrators of the site categorize their wordpress "
+"media."
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:249
+msgid "Woo Price Quotes"
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:251
+msgid ""
+"This plugin helps in quoting the products that admin wishes to hide its "
+"purchasing details."
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:269
+msgid "BuddyPress Moderation Pro"
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:270
+msgid ""
+"BuddyPress Community Moderation offers a solution for site owners to keep "
+"their communities straight. With community policing strategy, members of "
+"the community have an option for moderation sitewide by attaching flags to "
+"content created within the various components."
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:275
+msgid "BuddyPress Polls"
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:276
+msgid ""
+"Use BuddyPress Polls plugin to create polls inside the activity, let your "
+"user response to your polls. Members can create pools like activities, "
+"easily votes on them."
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:281
+msgid "BuddyPress Resume Manager"
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:282
+msgid ""
+"BuddyPress Resume Manager adds a separate BuddyPress Resume menu at a "
+"user’s BuddyPress Profile Page to display individual member resume. We have "
+"added predefined fields for the resumes and site admin and enable and "
+"disable them."
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:287
+msgid "BuddyPress Profanity"
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:288
+msgid ""
+"Use BuddyPress Profanity plugin to censor content in your community! Easily "
+"Censor all the unwanted words in activities, private messages contents by "
+"specifying a list of keywords to be filtered."
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:293
+msgid "BuddyPress Private Community Pro"
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:294
+msgid ""
+"This plugin offers a lockdown for BuddyPress Component and will ask users "
+"to log in go further to check profile or any other protected details."
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:299
+msgid "BuddyPress Profile Pro"
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:300
+msgid ""
+"This plugin gives you the power to extend BuddyPress Profiles with repeater "
+"fields and groups. You can easily add multiple field groups and display "
+"them at member’s profile."
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:396
+msgid "Activate"
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:397
+msgid "Deactivate"
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:428
+#: admin/wbcom/wbcom-admin-settings.php:429
+#: admin/wbcom/wbcom-admin-settings.php:526
+msgid "Our Plugins"
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:436
+#: admin/wbcom/wbcom-admin-settings.php:437
+#: admin/wbcom/wbcom-admin-settings.php:532
+msgid "Our Themes"
+msgstr ""
+
+#: admin/wbcom/wbcom-admin-settings.php:520
+msgid "Settings"
+msgstr ""
+
+#: buddypress-ads-rotator.php:84
+msgid "BuddyPress"
+msgstr ""
+
+#: buddypress-ads-rotator.php:87
+#. translators: %1$s: BuddyPress Ads ;  %2$s: BuddyPress
+msgid "%1$s is ineffective as it requires %2$s to be installed and active."
+msgstr ""
+
+#: public/class-buddypress-ads-rotator-public.php:582
+msgid "Please Enter the ads_id parameter value"
+msgstr ""
+
+#: public/class-buddypress-ads-rotator-public.php:612
+msgid "Nothing ads found"
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:222
+msgctxt "Post type general name"
+msgid "WB Ads"
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:223
+msgctxt "Post type singular name"
+msgid "WB Ads"
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:224
+msgctxt "Admin Menu text"
+msgid "WB Ads"
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:225
+msgctxt "Add New on Toolbar"
+msgid "WB Ads"
+msgstr ""
