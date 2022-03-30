@@ -3,8 +3,8 @@ Contributors: vapvarun, wbcomdesigns
 Donate link: https://wbcomdesigns.com
 Tags: BuddyPress
 Requires at least: 3.0.1
-Tested up to: 5.9.1
-Stable tag: 1.3.1
+Tested up to: 5.9.2
+Stable tag: 1.3.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -20,6 +20,12 @@ Integrate your BuddyPress community to provide a smooth customer experience and 
 2. Activate the plugin through the 'Plugins' menu in WordPress
 
 == Changelog ==
+
+= 1.3.2 =
+* Fix- (#41)Fixed Google Ad Issue with other ads type
+* Fix- (#34)Fixed when not selected option in activity type, ads not showing
+* Fix- (#30)Fixed when select image in Rich Content, it is not showing frontend
+
 = 1.3.1 =
 * Fix- Removed install plugin button from wrapper
 * Fix- Fixed warning issue
