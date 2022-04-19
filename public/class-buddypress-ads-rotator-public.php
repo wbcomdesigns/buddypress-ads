@@ -387,7 +387,7 @@ class Buddypress_Ads_Rotator_Public {
 		if ( 'yes' === $wb_ads_rotator_allow_shortcode ) {
 			echo do_shortcode( $wb_ads_rotator_get_plain_text );
 		} else {
-			echo wp_kses( apply_filters( 'wb_ads_rotator_plain_text_code_ads_content', $wb_ads_rotator_get_plain_text ), $allowedposttags );
+			echo wp_kses( apply_filters( 'wb_ads_rotator_plain_text_code_ads_content', $wb_ads_rotator_get_plain_text ), $this->wb_ads_allowed_html() );
 		}
 
 		echo '</div>';
@@ -479,7 +479,7 @@ class Buddypress_Ads_Rotator_Public {
 		} else {
 			echo '<div class="wb-ads-rotator rich-content-ads ' . esc_attr( $wb_ads_rotator_container_class ) . '" style="background-color:' . esc_attr( $wb_ads_rotator_bg_color ) . ';color:' . esc_attr( $wb_ads_rotator_txt_color ) . ';font-size:' . esc_attr( $wb_ads_rotator_font_size ) . 'px;text-align:' . esc_attr( $wb_ads_position ) . ';margin-top:' . esc_attr( $wb_ads_rotator_margin_top ) . 'px; margin-right:' . esc_attr( $wb_ads_rotator_margin_right ) . 'px; margin-bottom:' . esc_attr( $wb_ads_rotator_margin_bottom ) . 'px;margin-left:' . esc_attr( $wb_ads_rotator_margin_left ) . 'px; " id="' . esc_attr( $wb_ads_rotator_container_id ) . '">';
 		}
-		echo wp_kses( apply_filters( 'wb_ads_rotator_rich_content_ads_content', $wb_ads_rotator_get_rich_content ), $allowedposttags );
+		echo wp_kses( apply_filters( 'wb_ads_rotator_rich_content_ads_content', $wb_ads_rotator_get_rich_content ), $this->wb_ads_allowed_html() );
 
 		echo '</div>';
 		if ( 'yes' === $wb_ads_rotator_clearfix ) {
@@ -662,4 +662,117 @@ class Buddypress_Ads_Rotator_Public {
 		}
 	}
 
+	/**
+	 * Allowd HTML.
+	 */
+	public function wb_ads_allowed_html() {
+
+		$allowed_tags = array(
+			'a'          => array(
+				'class' => array(),
+				'href'  => array(),
+				'rel'   => array(),
+				'title' => array(),
+			),
+			'abbr'       => array(
+				'title' => array(),
+			),
+			'b'          => array(),
+			'blockquote' => array(
+				'cite' => array(),
+			),
+			'cite'       => array(
+				'title' => array(),
+			),
+			'code'       => array(),
+			'del'        => array(
+				'datetime' => array(),
+				'title'    => array(),
+			),
+			'dd'         => array(),
+			'div'        => array(
+				'class' => array(),
+				'title' => array(),
+				'style' => array(),
+			),
+			'dl'         => array(),
+			'dt'         => array(),
+			'em'         => array(),
+			'h1'         => array(),
+			'h2'         => array(),
+			'h3'         => array(),
+			'h4'         => array(),
+			'h5'         => array(),
+			'h6'         => array(),
+			'i'          => array(),
+			'img'        => array(
+				'alt'    => array(),
+				'class'  => array(),
+				'height' => array(),
+				'src'    => array(),
+				'width'  => array(),
+			),
+			'li'         => array(
+				'class' => array(),
+			),
+			'ol'         => array(
+				'class' => array(),
+			),
+			'p'          => array(
+				'class' => array(),
+			),
+			'q'          => array(
+				'cite'  => array(),
+				'title' => array(),
+			),
+			'span'       => array(
+				'class' => array(),
+				'title' => array(),
+				'style' => array(),
+			),
+			'strike'     => array(),
+			'strong'     => array(),
+			'ul'         => array(
+				'class' => array(),
+			),
+			'script'     => array(
+				'type'              => array(),
+				'id'                => array(),
+				'src'               => array(),
+				'width'             => array(),
+				'height'            => array(),
+				'scrolling'         => array(),
+				'frameborder'       => array(),
+				'allowtransparency' => array(),
+				'allow'             => array(),
+				'allowfullscreen'   => array(),
+			),
+			'iframe'     => array(
+				'type'              => array(),
+				'id'                => array(),
+				'src'               => array(),
+				'width'             => array(),
+				'height'            => array(),
+				'scrolling'         => array(),
+				'frameborder'       => array(),
+				'allowtransparency' => array(),
+				'allow'             => array(),
+				'allowfullscreen'   => array(),
+			),
+			'img'        => array(
+				'type'              => array(),
+				'id'                => array(),
+				'src'               => array(),
+				'width'             => array(),
+				'height'            => array(),
+				'scrolling'         => array(),
+				'frameborder'       => array(),
+				'allowtransparency' => array(),
+				'allow'             => array(),
+				'allowfullscreen'   => array(),
+			),
+		);
+
+		return $allowed_tags;
+	}
 }
