@@ -99,7 +99,7 @@ class Buddypress_Ads_Rotator_Public {
 			$this->plugin_name,
 			'bp_ads_check',
 			array(
-				'is_shortcode_page' => has_shortcode( $post->post_content, 'ads-shortcode' ) ? true : false,
+				'is_shortcode_page' => has_shortcode( isset( $post->post_content ) ? $post->post_content : '', 'ads-shortcode' ) ? true : false,
 			)
 		);
 	}
