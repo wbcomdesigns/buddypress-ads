@@ -436,7 +436,8 @@ class Buddypress_Ads_Rotator_Admin {
 					<input type="hidden" name="wb_ads_rotator[ads_image]" id="wb_ads_image_id" value="<?php echo esc_attr( $wb_ads_rotator_image_id ); ?>" class="regular-text" />
 				</div>
 				<div class="wb_ads_rotator-input">
-					<input type='button' class="button-primary" value="<?php esc_attr_e( 'Choose Image', 'buddypress-ads-rotator' ); ?>" id="wb_ads_rotator_select_image"/>
+					<input type='button' class="button-primary" value="<?php esc_attr_e( 'Remove Image', 'buddypress-ads-rotator' ); ?>" data-img-id="<?php echo esc_attr( $wb_ads_rotator_image_id ); ?>" id="wb_ads_rotator_remove_image"/>
+					<input type='button' class="button-primary" value="<?php esc_attr_e( 'Choose Image', 'buddypress-ads-rotator' ); ?>"  id="wb_ads_rotator_select_image"/>
 				</div>
 			</div>
 			<div class="wb_ads_rotator-wrapper select-ads-image image-ad" 
@@ -463,7 +464,7 @@ class Buddypress_Ads_Rotator_Admin {
 						<?php esc_html_e( 'Width', 'buddypress-ads-rotator' ); ?>
 						</span>
 						<label>
-							<input type="number" name="wb_ads_rotator[size][width]" value="<?php echo esc_attr( $wb_ads_rotator_width ); ?>"/>
+							<input type="number" name="wb_ads_rotator[size][width]" value="<?php echo esc_attr( $wb_ads_rotator_width ); ?>" id="wb_ads_image_width"/>
 						<?php esc_html_e( 'px', 'buddypress-ads-rotator' ); ?>
 						</label>
 					</div>
@@ -472,7 +473,7 @@ class Buddypress_Ads_Rotator_Admin {
 							<?php esc_html_e( 'Height', 'buddypress-ads-rotator' ); ?>
 						</span>
 						<label>
-							<input type="number" name="wb_ads_rotator[size][height]" value="<?php echo esc_attr( $wb_ads_rotator_height ); ?>"/>
+							<input type="number" name="wb_ads_rotator[size][height]" value="<?php echo esc_attr( $wb_ads_rotator_height ); ?>" id="wb_ads_image_height"/>
 						<?php esc_html_e( 'px', 'buddypress-ads-rotator' ); ?>
 						</label>
 					</div>
@@ -963,6 +964,20 @@ class Buddypress_Ads_Rotator_Admin {
 			update_post_meta( $wb_ads_id, 'wb_ads_enable', 'disable' );
 		}
 		die;
+	}
+
+	/**
+	 * Added Remove image button for Image Ads.
+	 *
+	 * @return void
+	 */
+	public function wb_ads_remove_uploaded_image() {
+		$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
+		if ( ! wp_verify_nonce( $nonce, 'ajax-nonce' ) ) {
+			die( 'Busted!' );
+		}
+		$wb_ads_placeholder_img = plugin_dir_url( __FILE__ ) . 'images/wb-ads-placeholder-image.jpg';
+		wp_send_json( $wb_ads_placeholder_img );
 	}
 
 }

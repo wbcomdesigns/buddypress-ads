@@ -112,6 +112,21 @@
         location.reload();
       });
     });
+    $("#wb_ads_rotator_remove_image").click(function (e) {
+      var image_id = $(this).data("img-id");
+      var data = {
+        action: "wb_ads_rotator_remove_image",
+        img_id: image_id,
+        nonce: ajax.nonce,
+      };
+      $.post(ajaxurl, data, function (response) {
+        $("#wb-ads-preview-images").attr("src", response);
+        $(".wb_ads_rotator_image").attr("value", "");
+        $("#wb_ads_image_id").attr("value", "0");
+        $("#wb_ads_image_width").attr("value", "");
+        $("#wb_ads_image_height").attr("value", "");
+      });
+    });
     /**
      * Image ad uploader
      */
@@ -171,9 +186,13 @@
                 attachment.alt +
                 '" src="' +
                 attachment.url +
-                '"/>';
+                '" id="wb-ads-preview-images"/>';
               $("#wb-ads-preview-image").html(new_image);
               $(".wb_ads_rotator_image").attr("value", attachment.url);
+              $("#wb_ads_rotator_remove_image").attr(
+                "data-img-id",
+                attachment.id
+              );
             }
           });
         });

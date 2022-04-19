@@ -199,6 +199,10 @@ input#wb_ads_rotator_select_image {
   padding: 3px 20px;
   margin-right: 10px;
 }
+input#wb_ads_rotator_remove_image {
+  padding: 3px 20px;
+  margin-right: 10px;
+}
 .wb_ads_rotator-panel
   .wb_ads_rotator-wrapper.select-ads-image.image-ad
   .wb_ads_rotator-label {
