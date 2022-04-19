@@ -631,16 +631,18 @@ class Buddypress_Ads_Rotator_Public {
 			echo '<div id="rich-ads">';
 			foreach ( $wb_ads_rotator_get_ads as $wb_ads_rotator_get_ad ) {
 				$wb_ads_rotator_type = get_post_meta( $wb_ads_rotator_get_ad, 'wb_ads_rotator_values', true );
-				$check_ads_position  = $wb_ads_rotator_type['activity_type'];
+				$check_ads_position  = isset( $wb_ads_rotator_type['activity_type'] ) ? $wb_ads_rotator_type['activity_type'] : '';
 				$check               = false;
-				if ( bp_is_activity_directory() && in_array( 'sidewide_activity', $check_ads_position ) ) {
-					$check = true;
-				}
-				if ( bp_is_user_activity() && in_array( 'members_activity', $check_ads_position ) ) {
-					$check = true;
-				}
-				if ( bp_is_group_activity() && in_array( 'group_activity', $check_ads_position ) ) {
-					$check = true;
+				if ( ! empty( $check_ads_position ) ) {
+					if ( bp_is_activity_directory() && in_array( 'sidewide_activity', $check_ads_position ) ) {
+						$check = true;
+					}
+					if ( bp_is_user_activity() && in_array( 'members_activity', $check_ads_position ) ) {
+						$check = true;
+					}
+					if ( bp_is_group_activity() && in_array( 'group_activity', $check_ads_position ) ) {
+						$check = true;
+					}
 				}
 				if ( $check ) {
 					switch ( $wb_ads_rotator_type['ads_type'] ) {
