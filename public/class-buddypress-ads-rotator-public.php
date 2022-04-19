@@ -531,8 +531,11 @@ class Buddypress_Ads_Rotator_Public {
 		$wb_ads_rotator_margin_bottom   = isset( $wb_ads_rotator_get_values['margin']['bottom'] ) ? $wb_ads_rotator_get_values['margin']['bottom'] : '';
 		$wb_ads_rotator_margin_left     = isset( $wb_ads_rotator_get_values['margin']['left'] ) ? $wb_ads_rotator_get_values['margin']['left'] : '';
 		$wb_ads_rotator_clearfix        = isset( $wb_ads_rotator_get_values['clearfix'] ) ? $wb_ads_rotator_get_values['clearfix'] : '';
-
-		$wb_ads_rotator_get_ads_img_src = wp_get_attachment_url( $wb_ads_rotator_get_image_id );
+		if ( ! empty( $wb_ads_rotator_get_image_id ) ) {
+			$wb_ads_rotator_get_ads_img_src = wp_get_attachment_url( $wb_ads_rotator_get_image_id );
+		} else {
+			$wb_ads_rotator_get_ads_img_src = $wb_ads_rotator_get_image_link;
+		}
 		if ( empty( $wb_ads_rotator_container_id ) ) {
 			$wb_ads_rotator_container_id = 'wb_ads_rotator_' . $wb_ads_rotator_get_ad;
 		}
