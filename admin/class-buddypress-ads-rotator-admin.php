@@ -328,7 +328,7 @@ class Buddypress_Ads_Rotator_Admin {
 				</div>
 				<div class="wb_ads_rotator-input">
 					<input type="radio" name="wb_ads_rotator[ads_type]" class="wb-ads_types" id="wb_ads_rotator_type" value="plain-text-and-code" <?php echo ( isset( $wb_ads_rotator_values['ads_type'] ) ) ? checked( $wb_ads_rotator_values['ads_type'], 'plain-text-and-code' ) : 'checked'; ?>/>
-				<?php esc_html_e( 'Any ad network, Amazon, customized AdSense codes, shortcodes, and code like JavaScript, HTML or PHP.', 'buddypress-ads-rotator' ); ?>
+				<?php esc_html_e( 'Any ad network, Amazon, customized AdSense codes, shortcodes, and code like JavaScript or HTML.', 'buddypress-ads-rotator' ); ?>
 				</div>
 			</div>
 			<div class="wb_ads_rotator-wrapper">
@@ -337,7 +337,7 @@ class Buddypress_Ads_Rotator_Admin {
 				</div>
 				<div class="wb_ads_rotator-input">
 					<input type="radio" name="wb_ads_rotator[ads_type]" class="wb-ads_types" id="wb_ads_rotator_type" value="rich-content" <?php ( isset( $wb_ads_rotator_values['ads_type'] ) ) ? checked( $wb_ads_rotator_values['ads_type'], 'rich-content' ) : ''; ?>/>
-				<?php esc_html_e( 'The full content editor from WordPress with all features like shortcodes, image upload or styling, but also simple text/html mode for scripts and code.', 'buddypress-ads-rotator' ); ?>
+				<?php esc_html_e( 'The full content editor from WordPress with all features like shortcodes, image upload or styling, but also simple text/html mode for scripts.', 'buddypress-ads-rotator' ); ?>
 				</div>
 			</div>
 			<div class="wb_ads_rotator-wrapper">
