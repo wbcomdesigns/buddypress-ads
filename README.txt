@@ -3,8 +3,8 @@ Contributors: vapvarun, wbcomdesigns
 Donate link: https://wbcomdesigns.com
 Tags: BuddyPress
 Requires at least: 3.0.1
-Tested up to: 5.9.2
-Stable tag: 1.3.2
+Tested up to: 5.9.3
+Stable tag: 1.4.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -20,6 +20,13 @@ Integrate your BuddyPress community to provide a smooth customer experience and 
 2. Activate the plugin through the 'Plugins' menu in WordPress
 
 == Changelog ==
+= 1.4.0 =
+* Fix- (#48) Fixed HTML is not rendering
+* Fix- (#49) changed admin ads type description
+* Fix- (#43) Added Remove image option for image ads
+* Fix- (#44) Fixed image ads URL setting issue
+* Fix- (#42) Fixed warning issue displayed on the front-end
+* Fix- (#47) Fixed warning issue displaying on single group for logout user
 
 = 1.3.2 =
 * Fix- (#41)Fixed Google Ad Issue with other ads type
