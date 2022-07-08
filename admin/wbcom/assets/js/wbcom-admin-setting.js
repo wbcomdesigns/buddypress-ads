@@ -35,33 +35,17 @@ jQuery(document).ready(function (event) {
   });
 });
 
-(function ($) {
-  "use strict";
-
-  $(document).ready(function () {
-    /**
-     * Responsive Navbar Menu
-     */
-    var wb_panel_tabs = $(".nav-tab-wrapper > ul");
-
-    $(".wb-toggle-btn").change(function (e) {
-      $.initResponsivePanel();
-    });
-
-    ($.initResponsivePanel = function () {
-      if ($(".wb-toggle-btn").is(":checked")) {
-        wb_panel_tabs.slideDown();
+( function( $ ) {
+  'use strict';
+	$( document ).ready( function () {
+    /* Mobile Toggle Menu */
+    jQuery('.wb-responsive-menu').on('click', function(e){
+      e.preventDefault();
+      if( jQuery('.wbcom-admin-settings-page .nav-tab-wrapper ul').hasClass('wbcom-show-mobile-menu') ) {
+        jQuery('.wbcom-admin-settings-page .nav-tab-wrapper ul').removeClass('wbcom-show-mobile-menu');
       } else {
-        wb_panel_tabs.slideUp();
+        jQuery('.wbcom-admin-settings-page .nav-tab-wrapper ul').addClass('wbcom-show-mobile-menu');
       }
-    }),
-      $(window).on("resize", function (e) {
-        e.preventDefault();
-        if ($(window).width() > 768) {
-          wb_panel_tabs.fadeIn(1000);
-        } else {
-          $.initResponsivePanel();
-        }
-      });
-  });
-})(jQuery);
+    });
+    });
+})( jQuery );

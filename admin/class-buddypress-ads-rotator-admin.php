@@ -143,13 +143,22 @@ class Buddypress_Ads_Rotator_Admin {
 		$tab = filter_input( INPUT_GET, 'tab' ) ? filter_input( INPUT_GET, 'tab' ) : 'buddypress-ads-rotator-welcome';
 		?>
 	<div class="wrap">
-		<hr class="wp-header-end">
-		<div class="wbcom-wrap">
+		<div class="wbcom-bb-plugins-offer-wrapper">
+			<div id="wb_admin_logo">
+				<a href="https://wbcomdesigns.com/downloads/buddypress-community-bundle/" target="_blank">
+					<img src="<?php echo esc_url( BUDDYPRESS_ADS_ROTATOR_URL ) . 'admin/wbcom/assets/imgs/wbcom-offer-notice.png'; ?>">
+				</a>
+			</div>
+		</div>
+		<div class="wbcom-wrap wbcom-plugin-wrapper">
 			<div class="bupr-header">
-			<?php echo do_shortcode( '[wbcom_admin_setting_header]' ); ?>
-				<h1 class="wbcom-plugin-heading">
-				<?php esc_html_e( 'BuddyPress Ads Settings', 'buddypress-ads-rotator' ); ?>
-				</h1>
+			<div class="wbcom_admin_header-wrapper">
+	            <div id="wb_admin_plugin_name">
+	                <?php esc_html_e( 'Buddypress Ads', 'buddypress-ads-rotator' ); ?>
+	                <span><?php printf( __( 'Version %s', 'buddypress-ads-rotator' ), BUDDYPRESS_ADS_ROTATOR_VERSION ); ?></span>
+	            </div>
+	            <?php echo do_shortcode('[wbcom_admin_setting_header]'); ?>
+	        </div>
 			</div>
 			<div class="wbcom-admin-settings-page">
 			<?php

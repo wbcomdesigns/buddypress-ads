@@ -2,6 +2,9 @@
  * All of the CSS for your admin-specific functionality should be
  * included in this file.
  */
+.nav-tab-wrapper ul li a#buddypress-ads-rotator-faq-tab:before{
+    content: "\f101";
+}
 .wb_ads_rotator-panel .wb_ads_rotator-wrapper {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -118,64 +121,88 @@ input:checked + .wb-ads-rotator-slider:before {
   color: #dc3232 !important;
 }
 
-/*----------  Faq Style  ----------*/
-.wb-ads-admin-col-12 {
-  float: left;
-  padding: 10px 0;
-  width: 100%;
+
+/*========================================
+FAQ Section
+========================================*/
+#wb-ads-settings-tbl {
+    position: relative;
+    margin:20px 0 0;
+    padding:20px 30px;
+    box-shadow: none;
+    background: #F6F7FE;
+    font-size: 15px;
+    line-height: 2.1em;
+    overflow: hidden;
+    border-radius: 12px;
 }
-.wb-ads-adming-setting {
-  float: left;
-  width: 90%;
+.wb-ads-admin-row .wb-ads-admin-col-12 {
+    align-self: flex-start;
+    width:auto;
+    background: #fff;
+    border-radius: 10px;
+    padding: 13px 25px;
+    padding-right: 40px;
+    margin: 12px 0;
+    border: 1px solid rgba(200, 197, 218, 0.50);
+    box-shadow: 0 15px 36px rgba(32, 53, 85, 0.15);
+    transition: all 0.6s ease 0s;
+}
+.wb-ads-admin-row .wb-ads-admin-col-12:hover{
+    background-color:#2A32EF;
+    border-color:#2A32EF;
 }
 button.wb-ads-accordion {
-  background-color: hsl(0, 0%, 87%);
   border: medium none;
-  border-top-right-radius: 10px;
-  border-top-left-radius: 10px;
-  color: hsl(0, 0%, 27%);
+  color:#333;
   cursor: pointer;
   font-size: 15px;
-  margin: 0 5%;
+  font-weight: 500;
   outline: medium none;
-  padding: 15px 20px;
   text-align: left;
+  padding: 0;
+  background-color: transparent;
   transition: all 0.4s ease 0s;
-  width: 90%;
+  width:100%;
 }
 button.wb-ads-accordion.active,
 button.wb-ads-accordion:hover {
-  background-color: hsl(207, 90%, 54%);
-  color: white;
+  color: #2A32EF;
 }
 div.wb-ads-panel {
-  background-color: white;
-  margin: 0px 5%;
+  margin: 0px;
   max-height: 0;
   overflow: hidden;
-  padding: 0 18px;
+  padding: 0;
   transition: max-height 0.2s ease-out;
+}
+div.wb-ads-panel p {
+    font-size: 15px;
+    margin: 5px 0 0;
 }
 button.wb-ads-accordion::after {
   color: hsl(0, 0%, 47%);
   content: "+";
   float: right;
-  font-size: 13px;
+  font-size: 18px;
   font-weight: bold;
-  margin-left: 5px;
+  line-height: 18px;
+  margin-right: -20px;
 }
-button.wb-ads-accordion::after:hover {
-  color: white;
+button.wb-ads-accordion:hover:after {
+  color: #2A32EF;
 }
 button.wb-ads-accordion.active::after {
   content: "−";
-  color: white;
+  color: #2A32EF;
+  font-size: 18px;
+  font-weight: bold;
 }
-.wb-ads-admin-row {
-  border-top: 1px solid #ddd;
-  clear: both;
-  overflow: hidden;
-  padding-bottom: 5px;
+
+.wb-ads-admin-row .wb-ads-admin-col-12:hover p,
+.wb-ads-admin-row .wb-ads-admin-col-12:hover button.wb-ads-accordion:after,
+.wb-ads-admin-row .wb-ads-admin-col-12:hover button.wb-ads-accordion{
+    color:#fff;
 }
 
 .wb-ads-tab-3-title {

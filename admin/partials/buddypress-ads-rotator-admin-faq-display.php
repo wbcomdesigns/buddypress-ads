@@ -21,7 +21,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<h3><?php esc_html_e( 'FAQ(s) ', 'buddypress-ads-rotator' ); ?></h3>
 		<input type="hidden" class="wb-ads-tab-active" value="support"/>
 	</div>
-
 	<div class="wb-ads-admin-settings-block">
 		<div id="wb-ads-settings-tbl" class="wb-ads-table">
 			<div class="wb-ads-admin-row border">
