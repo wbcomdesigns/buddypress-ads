@@ -1,30 +1,35 @@
 <div class="wrap">
-    <div class="wbcom-bb-plugins-offer-wrapper">
-        <div id="wb_admin_logo">
-            <a href="https://wbcomdesigns.com/downloads/buddypress-community-bundle/" target="_blank">
-                <img src="<?php echo esc_url( BUDDYPRESS_ADS_ROTATOR_URL ) . 'admin/wbcom/assets/imgs/wbcom-offer-notice.png'; ?>">
-            </a>
-        </div>
-    </div>
-    <div class="wbcom-wrap wbcom-plugin-wrapper">    	
+	<div class="wbcom-bb-plugins-offer-wrapper">
+		<div id="wb_admin_logo">
+			<a href="https://wbcomdesigns.com/downloads/buddypress-community-bundle/" target="_blank">
+				<img src="<?php echo esc_url( BUDDYPRESS_ADS_ROTATOR_URL ) . 'admin/wbcom/assets/imgs/wbcom-offer-notice.png'; ?>">
+			</a>
+		</div>
+	</div>
+	<div class="wbcom-wrap wbcom-plugin-wrapper">    	
 		<div class="wbcom_admin_header-wrapper">
-            <div id="wb_admin_plugin_name">
-                <?php esc_html_e( 'Buddypress Ads', 'buddypress-member-blog' ); ?>
-                <span><?php printf( __( 'Version %s', 'buddypress-member-blog' ), BUDDYPRESS_ADS_ROTATOR_VERSION ); ?></span>
-            </div>
-            <?php echo do_shortcode('[wbcom_admin_setting_header]'); ?>
-        </div>
+			<div id="wb_admin_plugin_name">
+				<?php esc_html_e( 'BuddyPress Members Blog', 'buddypress-ads-rotator' ); ?>
+				<span><?php printf( __( 'Version %s', 'buddypress-ads-rotator' ), BUDDYPRESS_ADS_ROTATOR_VERSION ); ?></span>
+			</div>
+			<?php echo do_shortcode( '[wbcom_admin_setting_header]' ); ?>
+		</div>
 		<div class="wbcom-all-addons-plugins-wrap">	
 			<div class="wbcom-bp-addons-plugins-list">
 				<div class="wbcom-bp-addons-plugins-title-section">
 					<ul class="wbcom-addons-plugins-links">
-						<li><a href="#wbcom-paid-extension" class="wbcom-addons-link-active"><?php esc_html_e( 'Paid Extension', 'buddypress-ads-rotator' ); ?></a></li>
-						<li><a href="#wbcom-free-extension"><?php esc_html_e( 'Free Extension', 'buddypress-ads-rotator' ); ?></a></li>
-						<li><a href="#wbcom-learndash-extension"><?php esc_html_e( 'LearnDash Extension', 'buddypress-ads-rotator' ); ?></a></li>
-						<li><a href="#wbcom-themes-list"><?php esc_html_e( 'Our Themes', 'buddypress-ads-rotator' ); ?></a></li>
+						<li><a href="javascript:void(0)" data-link="paid_extension" class="wbcom-addons-link-active"><?php esc_html_e( 'Paid Extension', 'buddypress-ads-rotator' ); ?></a></li>
+						<li><a href="javascript:void(0)" data-link="free_extension"><?php esc_html_e( 'Free Extension', 'buddypress-ads-rotator' ); ?></a></li>
+						<li><a href="javascript:void(0)" data-link="learndash_extension"><?php esc_html_e( 'LearnDash Extension', 'buddypress-ads-rotator' ); ?></a></li>
+						<li><a href="javascript:void(0)" data-link="our_themes"><?php esc_html_e( 'Our Themes', 'buddypress-ads-rotator' ); ?></a></li>
 					</ul>
-					<a href="https://wbcomdesigns.com/plugins/premium-buddypress-add-ons/" class="wbcom-addons-button" target="_blank"><?php esc_html_e( 'View More Extension', 'buddypress-ads-rotator' ); ?></a>
+					<a href="<?php echo esc_url( 'https://wbcomdesigns.com/plugins/' ); ?>" class="wbcom-addons-button" target="_blank"><?php esc_html_e( 'View More Extension', 'buddypress-ads-rotator' ); ?></a>
 				</div>
+				<div id="wbcom_paid_extention" class="wbcom-bp-addons-plugins-list wbcom-bp-free-addon-plugins">
+					<div class="wbcom-bp-addons-plugins-title-section">
+						<h4 class="wbcom-plugin-heading"><?php esc_html_e( 'Paid Extension', 'buddypress-ads-rotator' ); ?></h4>
+						<a href="<?php echo esc_url( 'https://wbcomdesigns.com/plugins/premium-buddypress-add-ons/' ); ?>" class="wbcom-addons-button" target="_blank"><?php esc_html_e( 'View More Extension', 'buddypress-ads-rotator' ); ?></a>
+					</div>
 				<div class="wbcom-addon-plugins-inner-wrapper">
 					<div class="wbcom-addons-plugins-card">
 						<div class="wbcom-addons-image-card">
@@ -164,8 +169,8 @@
 							<h2><?php esc_html_e( 'BuddyPress Friend & Follow Suggestion', 'buddypress-ads-rotator' ); ?></h2>
 							<p><?php esc_html_e( 'BuddyPress Friends and Follow suggestions plugin assists you with improving your BuddyPress or BuddyBoss Platform-based community.', 'buddypress-ads-rotator' ); ?></p>
 							<div class="wbcom-addons-card-button">								
-								<a target="_blank" href="https://wbcomdesigns.com/downloads/buddypress-ads-rotator/" class="wbcom-addons-button"><?php esc_html_e( 'View Details', 'buddypress-ads-rotator' ); ?></a>
-								<a href="https://wbcomdesigns.com/downloads/buddypress-ads-rotator/#pricing-table" class="wbcom-addons-button wbcom-purchase" target="_blank"><?php esc_html_e( 'Get It Now', 'buddypress-ads-rotator' ); ?></a>
+								<a target="_blank" href="https://wbcomdesigns.com/downloads/buddypress-friend-follow-suggestion/" class="wbcom-addons-button"><?php esc_html_e( 'View Details', 'buddypress-ads-rotator' ); ?></a>
+								<a href="https://wbcomdesigns.com/downloads/buddypress-friend-follow-suggestion/#pricing-table" class="wbcom-addons-button wbcom-purchase" target="_blank"><?php esc_html_e( 'Get It Now', 'buddypress-ads-rotator' ); ?></a>
 							</div>
 						</div>		
 					</div>
@@ -188,7 +193,7 @@
 						</div>
 						<div class="wbcom-addons-card-details">
 							<h2><?php esc_html_e( 'Shortcodes for BuddyPress Pro', 'buddypress-ads-rotator' ); ?></h2>
-							<p><?php esc_html_e( 'Add and Customize the BuddyPress components on any of the wordpress pages/posts using elementor widgets', 'buddypress-ads-rotator' ); ?></p>
+							<p><?php esc_html_e( 'Add and Customize the BuddyPress components on any of the WordPress pages/posts using elementor widgets', 'buddypress-ads-rotator' ); ?></p>
 							<div class="wbcom-addons-card-button">								
 								<a target="_blank" href="https://wbcomdesigns.com/downloads/shortcodes-for-buddypress-pro/" class="wbcom-addons-button"><?php esc_html_e( 'View Details', 'buddypress-ads-rotator' ); ?></a>
 								<a href="https://wbcomdesigns.com/downloads/shortcodes-for-buddypress-pro/#pricing-table" class="wbcom-addons-button wbcom-purchase" target="_blank"><?php esc_html_e( 'Get It Now', 'buddypress-ads-rotator' ); ?></a>
@@ -287,6 +292,7 @@
 						</div>		
 					</div>
 				</div>
+			</div>
 			</div>
 
 			<!-- LearnDash Addon -->

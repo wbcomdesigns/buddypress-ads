@@ -153,16 +153,15 @@ class Buddypress_Ads_Rotator_Admin {
 		<div class="wbcom-wrap wbcom-plugin-wrapper">
 			<div class="bupr-header">
 			<div class="wbcom_admin_header-wrapper">
-	            <div id="wb_admin_plugin_name">
-	                <?php esc_html_e( 'Buddypress Ads', 'buddypress-ads-rotator' ); ?>
-	                <span><?php printf( __( 'Version %s', 'buddypress-ads-rotator' ), BUDDYPRESS_ADS_ROTATOR_VERSION ); ?></span>
-	            </div>
-	            <?php echo do_shortcode('[wbcom_admin_setting_header]'); ?>
-	        </div>
+				<div id="wb_admin_plugin_name">
+					<?php esc_html_e( 'Buddypress Ads', 'buddypress-ads-rotator' ); ?>
+					<span><?php printf( __( 'Version %s', 'buddypress-ads-rotator' ), BUDDYPRESS_ADS_ROTATOR_VERSION ); ?></span>
+				</div>
+				<?php echo do_shortcode( '[wbcom_admin_setting_header]' ); ?>
+			</div>
 			</div>
 			<div class="wbcom-admin-settings-page">
 			<?php
-			settings_errors();
 			$this->wb_ads_rotator_plugin_settings_tabs();
 			settings_fields( $tab );
 			do_settings_sections( $tab );
