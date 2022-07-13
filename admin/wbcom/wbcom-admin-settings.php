@@ -313,19 +313,19 @@ if ( ! class_exists( 'Wbcom_Admin_Settings' ) ) {
 						<li class="wb_admin_nav_item <?php echo esc_attr( $settings_active ); ?>">
 							<a href="<?php echo esc_url( get_admin_url() ) . 'admin.php?page=wbcomplugins'; ?>" id="wb_admin_nav_trigger_settings">
 								<i class="fa fa-sliders" aria-hidden="true"></i>
-								<h4><?php esc_html_e( 'Settings', 'buddypress-friend-follow-suggestion' ); ?></h4>
+								<h4><?php esc_html_e( 'Settings', 'buddypress-ads-rotator' ); ?></h4>
 							</a>
 						</li>
 						<li class="wb_admin_nav_item <?php echo esc_attr( $plugin_active ); ?>">
 							<a href="<?php echo esc_url( get_admin_url() ) . 'admin.php?page=wbcom-plugins-page'; ?>" id="wb_admin_nav_trigger_extensions">
 								<i class="fa fa-th" aria-hidden="true"></i>
-								<h4><?php esc_html_e( 'Themes & Extension', 'buddypress-friend-follow-suggestion' ); ?></h4>
+								<h4><?php esc_html_e( 'Themes & Extension', 'buddypress-ads-rotator' ); ?></h4>
 							</a>
 						</li>
 						<li class="wb_admin_nav_item <?php echo esc_attr( $support_active ); ?>">
 							<a href="<?php echo esc_url( get_admin_url() ) . 'admin.php?page=wbcom-support-page'; ?>" id="wb_admin_nav_trigger_support">
 								<i class="fa fa-question-circle" aria-hidden="true"></i>
-								<h4><?php esc_html_e( 'Help & Support', 'buddypress-friend-follow-suggestion' ); ?></h4>
+								<h4><?php esc_html_e( 'Help & Support', 'buddypress-ads-rotator' ); ?></h4>
 							</a>
 						</li>
 						<?php do_action( 'wbcom_add_header_menu' ); ?>
