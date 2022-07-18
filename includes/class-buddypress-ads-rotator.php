@@ -203,6 +203,7 @@ class Buddypress_Ads_Rotator {
 		$this->loader->add_action( 'manage_wb-ads_posts_custom_column', $plugin_admin, 'wb_ads_rotator_add_disable_column_content', 10, 2 );
 		$this->loader->add_action( 'transition_post_status', $plugin_admin, 'wb_ads_rotator_update_default_value_on_ads_publish', 10, 3 );
 		$this->loader->add_action( 'wp_ajax_wb_ads_rotator_enable', $plugin_admin, 'wb_ads_rotator_ajax_enable_callback' );
+		$this->loader->add_action( 'admin_init', $plugin_admin, 'wbcom_hide_all_admin_notices_from_setting_page' );
 	}
 
 	/**
