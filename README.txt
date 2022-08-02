@@ -3,8 +3,8 @@ Contributors: vapvarun, wbcomdesigns
 Donate link: https://wbcomdesigns.com
 Tags: BuddyPress
 Requires at least: 3.0.1
-Tested up to: 5.9.3
-Stable tag: 1.4.0
+Tested up to: 6.0.1
+Stable tag: 1.5.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -20,6 +20,11 @@ Integrate your BuddyPress community to provide a smooth customer experience and 
 2. Activate the plugin through the 'Plugins' menu in WordPress
 
 == Changelog ==
+= 1.5.0 =
+* Fix- Hide admin notices
+* Fix- Fixed string mistakes
+* Fix- Updated admin UI code
+
 = 1.4.0 =
 * Fix- (#48) Fixed HTML is not rendering
 * Fix- (#49) changed admin ads type description
