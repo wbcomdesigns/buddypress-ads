@@ -4,6 +4,10 @@ Wbcom Admin Wrapper Style
 .wbcom-bb-plugins-offer-wrapper {
     margin: 40px 10px -10px;
 }
+.wbcom-wrap .notice.notice-error.is-dismissible.learndash-license-is-dismissible,
+.wbcom-wrap .notice.notice-error {
+    display: none !important;
+}
 
 #wb_admin_logo a {
     display: block;
