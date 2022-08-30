@@ -149,7 +149,6 @@
 
         // Create the media frame.
         file_frame = wp.media.frames.file_frame = wp.media({
-          id: "advads_type_image_wp_media",
           title: "Select or Upload Image",
           button: {
             text: "Insert this media",
