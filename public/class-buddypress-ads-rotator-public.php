@@ -209,7 +209,9 @@ class Buddypress_Ads_Rotator_Public {
 						}
 					} else {
 						$did_action = did_action( $wb_ads_rotator_activity_position );
-						if ( $did_action !== $wb_ads_rotator_enject_position && 0 !== $did_action % $wb_ads_rotator_enject_position ) {
+						if( 1 != $wb_ads_rotator_enject_position && $did_action !== $wb_ads_rotator_enject_position && 0 == $did_action % $wb_ads_rotator_enject_position ){
+							continue;
+						}elseif( 1 != $wb_ads_rotator_enject_position && $did_action !== $wb_ads_rotator_enject_position && 1 !== $did_action % $wb_ads_rotator_enject_position ){
 							continue;
 						}
 						switch ( $wb_ads_rotator_type['ads_type'] ) {
