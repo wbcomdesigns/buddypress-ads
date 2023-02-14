@@ -210,3 +210,9 @@ p.wb_ads_margin_disc {
     top: 22px;
     left: 0px;
 }
+
+.wbcom-wrap .notice,
+.wbcom-wrap .notice-error,
+.wbcom-wrap .learndash-license-is-dismissible {
+    display: none !important;
+}
