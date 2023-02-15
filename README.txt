@@ -3,8 +3,8 @@ Contributors: vapvarun, wbcomdesigns
 Donate link: https://wbcomdesigns.com
 Tags: BuddyPress
 Requires at least: 3.0.1
-Tested up to: 6.0.1
-Stable tag: 1.5.1
+Tested up to: 6.1.1
+Stable tag: 1.5.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -20,6 +20,10 @@ Integrate your BuddyPress community to provide a smooth customer experience and 
 2. Activate the plugin through the 'Plugins' menu in WordPress
 
 == Changelog ==
+= 1.5.2 =
+* Fix- (#59) hide admin notice error
+* Fix- (#51) Fixed first position is wrong
+
 = 1.5.1 =
 * Fix- Fixed BuddyBoss admin notice issue
 * Fix- (#54) Fixed can not create image ad
