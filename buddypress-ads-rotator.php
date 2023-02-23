@@ -115,8 +115,10 @@ function wb_ads_rotator_existing_checkin_plugin() {
 function wb_ads_rotator_activation_redirect_settings( $plugin ) {
 
 	if ( plugin_basename( __FILE__ ) === $plugin && class_exists( 'BuddyPress' ) ) {
-		wp_safe_redirect( admin_url( 'admin.php?page=buddypress-ads-rotator-settings' ) );
-		exit;
+		if ( isset( $_REQUEST['action'] ) && $_REQUEST['action']  == 'activate' && isset( $_REQUEST['plugin'] ) && $_REQUEST['plugin'] == $plugin) {
+			wp_safe_redirect( admin_url( 'admin.php?page=buddypress-ads-rotator-settings' ) );
+			exit;
+		}
 	}
 }
 add_action( 'activated_plugin', 'wb_ads_rotator_activation_redirect_settings' );
