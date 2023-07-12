@@ -235,15 +235,6 @@ if ( ! class_exists( 'Wbcom_Admin_Settings' ) ) {
 				'wbcom-support-page',
 				array( $this, 'wbcom_support_submenu_page_callback' )
 			);
-			
-			add_submenu_page(
-				'wbcomplugins',
-				esc_html__( 'License', 'wp-stories' ),
-				esc_html__( 'License', 'wp-stories' ),
-				'manage_options',
-				'wbcom-license-page',
-				array( $this, 'wbcom_license_submenu_page_callback' )
-			);
 		}
 
 		/**
@@ -275,17 +266,6 @@ if ( ! class_exists( 'Wbcom_Admin_Settings' ) ) {
 		public function wbcom_support_submenu_page_callback() {
 			include 'templates/wbcom-support-page.php';
 		}
-		
-		/**
-		 * Function for include support page.
-		 *
-		 * @since 2.0.0
-		 * @access public
-		 */
-		public function wbcom_license_submenu_page_callback() {
-			include 'templates/wbcom-license-page.php';
-		}
-
 
 		/**
 		 * Shortcode for display top menu header.
@@ -329,12 +309,6 @@ if ( ! class_exists( 'Wbcom_Admin_Settings' ) ) {
 							<a href="<?php echo esc_url( get_admin_url() ) . 'admin.php?page=wbcom-support-page'; ?>" id="wb_admin_nav_trigger_support">
 								<i class="fa fa-question-circle" aria-hidden="true"></i>
 								<h4><?php esc_html_e( 'Help & Support', 'buddypress-ads-rotator' ); ?></h4>
-							</a>
-						</li>
-						<li class="wb_admin_nav_item <?php echo esc_attr( $support_active ); ?>">
-							<a href="<?php echo esc_url( get_admin_url() ) . 'admin.php?page=wbcom-license-page'; ?>" id="wb_admin_nav_trigger_license">
-								<i class="fa fa-question-circle"></i>
-								<h4><?php esc_html_e( 'License', 'wp-stories' ); ?></h4>
 							</a>
 						</li>
 						<?php do_action( 'wbcom_add_header_menu' ); ?>
