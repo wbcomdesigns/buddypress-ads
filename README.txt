@@ -3,7 +3,7 @@ Contributors: vapvarun, wbcomdesigns
 Donate link: https://wbcomdesigns.com
 Tags: BuddyPress
 Requires at least: 3.0.1
-Tested up to: 6.1.1
+Tested up to: 6.3.0
 Stable tag: 1.5.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -29,7 +29,7 @@ Integrate your BuddyPress community to provide a smooth customer experience and 
 
 = 1.5.1 =
 * Fix- Fixed BuddyBoss admin notice issue
-* Fix- (#54) Fixed can not create image ad
+* Fix- (#54) Fixed can not create an image ad
 * Fix- Fixed copy shortcode option UI managed 
 
 = 1.5.0 =
