@@ -12,7 +12,7 @@ Integrate your BuddyPress community to provide a smooth customer experience and 
 
 == Description ==
 
-Integrate your BuddyPress community to provide a smooth customer experience and increase site engagement. Display Ads at the different BuddyPress locations like activity page, Group Page, and member page. The position of the displayed ads can also be chosen according to the requirement.
+To enhance customer satisfaction and encourage more site engagement, consider integrating your BuddyPress community. By displaying ads in various BuddyPress locations such as the activity page, group page, and member page, you can improve the visibility of your site. You can even choose the position of the ads based on your needs.
 
 == Installation ==
 
