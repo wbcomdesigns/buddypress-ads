@@ -171,7 +171,11 @@ class Buddypress_Ads_Rotator_Admin {
 			<div class="wbcom_admin_header-wrapper">
 				<div id="wb_admin_plugin_name">
 					<?php esc_html_e( 'BuddyPress Ads', 'buddypress-ads-rotator' ); ?>
-					<span><?php printf( __( 'Version %s', 'buddypress-ads-rotator' ), BUDDYPRESS_ADS_ROTATOR_VERSION ); ?></span>
+					<span><?php 
+					/* translators: %s: */
+					printf( __( 'Version %s', 'buddypress-ads-rotator' ), BUDDYPRESS_ADS_ROTATOR_VERSION ); //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+					?>
+					</span>
 				</div>
 				<?php echo do_shortcode( '[wbcom_admin_setting_header]' ); ?>
 			</div>
