@@ -41,6 +41,13 @@ class Buddypress_Ads_Rotator_Loader {
 	protected $filters;
 
 	/**
+	 * Register shortcode
+	 *
+	 * @var mixed
+	 */
+	protected $shortcodes;
+
+	/**
 	 * Initialize the collections used to maintain the actions and filters.
 	 *
 	 * @since    1.0.0

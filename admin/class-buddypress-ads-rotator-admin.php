@@ -40,6 +40,13 @@ class Buddypress_Ads_Rotator_Admin {
 	private $version;
 
 	/**
+	 * Plugin tabs settings
+	 *
+	 * @var mixed
+	 */
+	private $plugin_settings_tabs;
+
+	/**
 	 * Initialize the class and set its properties.
 	 *
 	 * @since    1.0.0
