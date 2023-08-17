@@ -12,7 +12,7 @@ Integrate your BuddyPress community to provide a smooth customer experience and 
 
 == Description ==
 
-To enhance customer satisfaction and encourage more site engagement, consider integrating your BuddyPress community. By displaying ads in various BuddyPress locations such as the activity page, group page, and member page, you can improve the visibility of your site. You can even choose the position of the ads based on your needs.
+Do you consider integrating your BuddyPress community to enhance customer satisfaction and encourage more site engagement? You can improve your site's visibility by displaying ads in various BuddyPress locations, such as the activity page, group page, and member page. You can even choose the position of the ads based on your needs.
 
 == Installation ==
 
@@ -20,6 +20,9 @@ To enhance customer satisfaction and encourage more site engagement, consider in
 2. Activate the plugin through the 'Plugins' menu in WordPress
 
 == Changelog ==
+= 1.5.3 =
+* Fix: PHPCS fixes
+
 = 1.5.2 =
 * Fix: PHPCS fixes
 * Fix: (#60) Not processing shortcodes
