@@ -7,6 +7,14 @@
     content: "\f101";
 }
 
+.nav-tab-wrapper ul li a.nav-tab.wb-all-ads:before {
+    content: "\f13d";
+}
+
+.nav-tab-wrapper ul li a.nav-tab.add-new-ads:before {
+    content: "\f133";
+}
+
 .wb_ads_rotator-panel .wb_ads_rotator-wrapper {
     display: -webkit-box;
     display: -ms-flexbox;
