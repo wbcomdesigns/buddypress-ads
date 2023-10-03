@@ -210,6 +210,8 @@ class Buddypress_Ads_Rotator_Admin {
 			$active = $current_tab === $tab_key ? 'nav-tab-active' : '';
 			echo '<li><a class="nav-tab ' . esc_attr( $active ) . '" id="' . esc_attr( $tab_key ) . '-tab" href="?page=buddypress-ads-rotator-settings' . '&tab=' . esc_attr( $tab_key ) . '">' . esc_attr( $tab_caption ) . '</a></li>';
 		}
+		echo '<li><a class="nav-tab ' . esc_attr( $active ) . '" id="' . esc_attr( $tab_key ) . '-tab" href=" '. get_site_url() . '/wp-admin/edit.php?post_type=wb-ads">' . esc_html('All Ads') . '</a></li>';
+		echo '<li><a class="nav-tab ' . esc_attr( $active ) . '" id="' . esc_attr( $tab_key ) . '-tab" href=" '. get_site_url() . '/wp-admin/post-new.php?post_type=wb-ads">' . esc_html('Add New Ads') . '</a></li>';
 		echo '</div></ul></div>';
 	}
 
@@ -611,7 +613,7 @@ class Buddypress_Ads_Rotator_Admin {
 		$wb_ads_rotator_margin_right    = isset( $wb_ads_rotator_values['margin']['right'] ) ? $wb_ads_rotator_values['margin']['right'] : '10';
 		$wb_ads_rotator_margin_bottom   = isset( $wb_ads_rotator_values['margin']['bottom'] ) ? $wb_ads_rotator_values['margin']['bottom'] : '10';
 		$wb_ads_rotator_margin_left     = isset( $wb_ads_rotator_values['margin']['left'] ) ? $wb_ads_rotator_values['margin']['left'] : '10';
-		$wb_ads_rotator_container_id    = isset( $wb_ads_rotator_values['container_id'] ) ? $wb_ads_rotator_values['container_id'] : 'banner_id';
+		$wb_ads_rotator_container_id    = 'banner_'. $post_id;
 		$wb_ads_rotator_container_class = isset( $wb_ads_rotator_values['container_classes'] ) ? $wb_ads_rotator_values['container_classes'] : 'banner_class';
 
 		?>
