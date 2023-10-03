@@ -461,7 +461,7 @@ class Buddypress_Ads_Rotator_Admin {
 					<?php
 					$image_id = get_option( 'wb_ads_image_id' );
 					if ( intval( $wb_ads_rotator_image_id ) > 0 ) {
-						$image = wp_get_attachment_image( $wb_ads_rotator_image_id, 'medium', false, array( 'id' => 'wb-ads-preview-images' ) );
+						$image = wp_get_attachment_image( $wb_ads_rotator_image_id, 'large', false, array( 'id' => 'wb-ads-preview-images' ) );
 					} else {
 						$image = '<img id="wb-ads-preview-images" src="' . esc_url( plugin_dir_url( __FILE__ ) . 'images/wb-ads-placeholder-image.jpg' ) . '" />';
 					}
@@ -608,9 +608,9 @@ class Buddypress_Ads_Rotator_Admin {
 		$post_type                      = get_post_type();
 		$wb_ads_rotator_values          = get_post_meta( $post_id, 'wb_ads_rotator_values', true );
 		$wb_ads_rotator_margin_top      = isset( $wb_ads_rotator_values['margin']['top'] ) ? $wb_ads_rotator_values['margin']['top'] : '10';
-		$wb_ads_rotator_margin_right    = isset( $wb_ads_rotator_values['margin']['right'] ) ? $wb_ads_rotator_values['margin']['right'] : '20';
-		$wb_ads_rotator_margin_bottom   = isset( $wb_ads_rotator_values['margin']['bottom'] ) ? $wb_ads_rotator_values['margin']['bottom'] : '30';
-		$wb_ads_rotator_margin_left     = isset( $wb_ads_rotator_values['margin']['left'] ) ? $wb_ads_rotator_values['margin']['left'] : '40';
+		$wb_ads_rotator_margin_right    = isset( $wb_ads_rotator_values['margin']['right'] ) ? $wb_ads_rotator_values['margin']['right'] : '10';
+		$wb_ads_rotator_margin_bottom   = isset( $wb_ads_rotator_values['margin']['bottom'] ) ? $wb_ads_rotator_values['margin']['bottom'] : '10';
+		$wb_ads_rotator_margin_left     = isset( $wb_ads_rotator_values['margin']['left'] ) ? $wb_ads_rotator_values['margin']['left'] : '10';
 		$wb_ads_rotator_container_id    = isset( $wb_ads_rotator_values['container_id'] ) ? $wb_ads_rotator_values['container_id'] : 'banner_id';
 		$wb_ads_rotator_container_class = isset( $wb_ads_rotator_values['container_classes'] ) ? $wb_ads_rotator_values['container_classes'] : 'banner_class';
 
