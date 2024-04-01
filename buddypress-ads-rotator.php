@@ -123,8 +123,27 @@ function wb_ads_rotator_activation_redirect_settings( $plugin ) {
 			exit;
 		}
 	}
+	if ( $plugin == $_REQUEST['plugin'] && class_exists( 'Buddypress' ) ) {
+		if ( isset( $_REQUEST['action'] ) && $_REQUEST['action']  == 'activate-plugin' && isset( $_REQUEST['plugin'] ) && $_REQUEST['plugin'] == $plugin) { //phpcs:ignore		
+			set_transient( '_wb_ads_rotator_is_new_install', true, 30 );
+		}
+	}
 }
 add_action( 'activated_plugin', 'wb_ads_rotator_activation_redirect_settings' );
+
+/**
+ * Wb_ads_rotator_do_activation_redirect
+ *
+ * @return void
+ */
+function wb_ads_rotator_do_activation_redirect() {
+	if ( get_transient( '_wb_ads_rotator_is_new_install' ) ) {
+		delete_transient( '_wb_ads_rotator_is_new_install' );
+		wp_safe_redirect( admin_url( 'admin.php?page=buddypress-ads-rotator-settings' ) );
+
+	}
+}
+add_action( 'admin_init', 'wb_ads_rotator_do_activation_redirect' );
 
 
 /**
