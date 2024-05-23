@@ -6,7 +6,9 @@
   padding: 10px 15px;
   border-radius: 0 !important;
   line-height: normal;
+  overflow: hidden;
 }
+
 #rich-ads {
   display: none;
 }

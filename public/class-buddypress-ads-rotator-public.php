@@ -531,18 +531,18 @@ class Buddypress_Ads_Rotator_Public {
 				break;
 		}
 
-		$wb_ads_rotator_get_image_id    = isset( $wb_ads_rotator_get_values['ads_image'] ) ? $wb_ads_rotator_get_values['ads_image'] : '';
-		$wb_ads_rotator_get_image_link  = isset( $wb_ads_rotator_get_values['image_link'] ) ? $wb_ads_rotator_get_values['image_link'] : '';
-		$wb_ads_rotator_container_id    = isset( $wb_ads_rotator_get_values['container_id'] ) ? $wb_ads_rotator_get_values['container_id'] : '';
-		$wb_ads_visitor_view            = isset( $wb_ads_rotator_get_values['to_whom']['logged_in_visitor'] ) ? $wb_ads_rotator_get_values['to_whom']['logged_in_visitor'] : '';
-		$wb_ads_visitor_device          = isset( $wb_ads_rotator_get_values['to_whom']['device'] ) ? $wb_ads_rotator_get_values['to_whom']['device'] : '';
-		$wb_ads_rotator_image_width     = isset( $wb_ads_rotator_get_values['size']['width'] ) ? $wb_ads_rotator_get_values['size']['width'] : '';
-		$wb_ads_rotator_image_height    = isset( $wb_ads_rotator_get_values['size']['height'] ) ? $wb_ads_rotator_get_values['size']['height'] : '';
-		$wb_ads_rotator_margin_top      = isset( $wb_ads_rotator_get_values['margin']['top'] ) ? $wb_ads_rotator_get_values['margin']['top'] : '';
-		$wb_ads_rotator_margin_right    = isset( $wb_ads_rotator_get_values['margin']['right'] ) ? $wb_ads_rotator_get_values['margin']['right'] : '';
-		$wb_ads_rotator_margin_bottom   = isset( $wb_ads_rotator_get_values['margin']['bottom'] ) ? $wb_ads_rotator_get_values['margin']['bottom'] : '';
-		$wb_ads_rotator_margin_left     = isset( $wb_ads_rotator_get_values['margin']['left'] ) ? $wb_ads_rotator_get_values['margin']['left'] : '';
-		$wb_ads_rotator_clearfix        = isset( $wb_ads_rotator_get_values['clearfix'] ) ? $wb_ads_rotator_get_values['clearfix'] : '';
+		$wb_ads_rotator_get_image_id   = isset( $wb_ads_rotator_get_values['ads_image'] ) ? $wb_ads_rotator_get_values['ads_image'] : '';
+		$wb_ads_rotator_get_image_link = isset( $wb_ads_rotator_get_values['image_link'] ) ? $wb_ads_rotator_get_values['image_link'] : '';
+		$wb_ads_rotator_container_id   = isset( $wb_ads_rotator_get_values['container_id'] ) ? $wb_ads_rotator_get_values['container_id'] : '';
+		$wb_ads_visitor_view           = isset( $wb_ads_rotator_get_values['to_whom']['logged_in_visitor'] ) ? $wb_ads_rotator_get_values['to_whom']['logged_in_visitor'] : '';
+		$wb_ads_visitor_device         = isset( $wb_ads_rotator_get_values['to_whom']['device'] ) ? $wb_ads_rotator_get_values['to_whom']['device'] : '';
+		$wb_ads_rotator_image_width    = isset( $wb_ads_rotator_get_values['size']['width'] ) ? $wb_ads_rotator_get_values['size']['width'] : '';
+		$wb_ads_rotator_image_height   = isset( $wb_ads_rotator_get_values['size']['height'] ) ? $wb_ads_rotator_get_values['size']['height'] : '';
+		$wb_ads_rotator_margin_top     = isset( $wb_ads_rotator_get_values['margin']['top'] ) ? $wb_ads_rotator_get_values['margin']['top'] : '';
+		$wb_ads_rotator_margin_right   = isset( $wb_ads_rotator_get_values['margin']['right'] ) ? $wb_ads_rotator_get_values['margin']['right'] : '';
+		$wb_ads_rotator_margin_bottom  = isset( $wb_ads_rotator_get_values['margin']['bottom'] ) ? $wb_ads_rotator_get_values['margin']['bottom'] : '';
+		$wb_ads_rotator_margin_left    = isset( $wb_ads_rotator_get_values['margin']['left'] ) ? $wb_ads_rotator_get_values['margin']['left'] : '';
+		$wb_ads_rotator_clearfix       = isset( $wb_ads_rotator_get_values['clearfix'] ) ? $wb_ads_rotator_get_values['clearfix'] : '';
 		if ( ! empty( $wb_ads_rotator_get_image_id ) ) {
 			$wb_ads_rotator_get_ads_img_src = wp_get_attachment_url( $wb_ads_rotator_get_image_id );
 		} else {
@@ -685,67 +685,108 @@ class Buddypress_Ads_Rotator_Public {
 				'href'  => array(),
 				'rel'   => array(),
 				'title' => array(),
+				'style' => array(),
 			),
 			'abbr'       => array(
 				'title' => array(),
+				'style' => array(),
 			),
-			'b'          => array(),
+			'b'          => array(
+				'style' => array(),
+			),
 			'blockquote' => array(
-				'cite' => array(),
+				'cite'  => array(),
+				'style' => array(),
 			),
 			'cite'       => array(
 				'title' => array(),
+				'style' => array(),
 			),
-			'code'       => array(),
+			'code'       => array(
+				'style' => array(),
+			),
 			'del'        => array(
 				'datetime' => array(),
 				'title'    => array(),
+				'style'    => array(),
 			),
-			'dd'         => array(),
+			'dd'         => array(
+				'style' => array(),
+			),
 			'div'        => array(
 				'class' => array(),
 				'title' => array(),
 				'style' => array(),
 			),
-			'dl'         => array(),
-			'dt'         => array(),
-			'em'         => array(),
-			'h1'         => array(),
-			'h2'         => array(),
-			'h3'         => array(),
-			'h4'         => array(),
-			'h5'         => array(),
-			'h6'         => array(),
-			'i'          => array(),
+			'dl'         => array(
+				'style' => array(),
+			),
+			'dt'         => array(
+				'style' => array(),
+			),
+			'em'         => array(
+				'style' => array(),
+			),
+			'h1'         => array(
+				'style' => array(),
+			),
+			'h2'         => array(
+				'style' => array(),
+			),
+			'h3'         => array(
+				'style' => array(),
+			),
+			'h4'         => array(
+				'style' => array(),
+			),
+			'h5'         => array(
+				'style' => array(),
+			),
+			'h6'         => array(
+				'style' => array(),
+			),
+			'i'          => array(
+				'style' => array(),
+			),
 			'img'        => array(
 				'alt'    => array(),
 				'class'  => array(),
 				'height' => array(),
 				'src'    => array(),
 				'width'  => array(),
+				'style'  => array(),
 			),
 			'li'         => array(
 				'class' => array(),
+				'style' => array(),
 			),
 			'ol'         => array(
 				'class' => array(),
+				'style' => array(),
 			),
 			'p'          => array(
 				'class' => array(),
+				'style' => array(),
 			),
 			'q'          => array(
 				'cite'  => array(),
 				'title' => array(),
+				'style' => array(),
 			),
 			'span'       => array(
 				'class' => array(),
 				'title' => array(),
 				'style' => array(),
 			),
-			'strike'     => array(),
-			'strong'     => array(),
+			'strike'     => array(
+				'style' => array(),
+			),
+			'strong'     => array(
+				'style' => array(),
+			),
 			'ul'         => array(
 				'class' => array(),
+				'style' => array(),
 			),
 			'script'     => array(
 				'type'              => array(),
@@ -771,20 +812,14 @@ class Buddypress_Ads_Rotator_Public {
 				'allow'             => array(),
 				'allowfullscreen'   => array(),
 			),
-			'img'        => array(
-				'type'              => array(),
-				'id'                => array(),
-				'src'               => array(),
-				'width'             => array(),
-				'height'            => array(),
-				'scrolling'         => array(),
-				'frameborder'       => array(),
-				'allowtransparency' => array(),
-				'allow'             => array(),
-				'allowfullscreen'   => array(),
+			'style'      => array(
+				'type'   => array(),
+				'media'  => array(),
+				'scoped' => array(),
 			),
 		);
 
 		return $allowed_tags;
 	}
+
 }
