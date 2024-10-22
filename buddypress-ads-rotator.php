@@ -63,8 +63,6 @@ register_deactivation_hook( __FILE__, 'deactivate_buddypress_ads_rotator' );
  */
 require plugin_dir_path( __FILE__ ) . 'includes/class-buddypress-ads-rotator.php';
 
-require_once __DIR__ . '/vendor/autoload.php';
-HardG\BuddyPress120URLPolyfills\Loader::init();
 
 /**
  * This Function checks the required plugin.
