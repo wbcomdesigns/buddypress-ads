@@ -418,13 +418,13 @@ class Buddypress_Ads_Rotator_Public {
 				$wb_ads_position = 'initial';
 				break;
 			case 'left':
-				$wb_ads_position = 'left';
+				$wb_ads_position = '-webkit-left';
 				break;
 			case 'center':
-				$wb_ads_position = 'center';
+				$wb_ads_position = '-webkit-center';
 				break;
 			case 'right':
-				$wb_ads_position = 'right';
+				$wb_ads_position = '-webkit-right';
 				break;
 		}
 
