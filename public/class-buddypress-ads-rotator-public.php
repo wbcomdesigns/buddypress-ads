@@ -303,6 +303,37 @@ class Buddypress_Ads_Rotator_Public {
 
 	}
 
+	public function wb_ads_scripts(){
+		if( bp_is_activity_directory() ||  bp_is_group() || bp_is_user_activity()){
+			global $activities_template;
+			$args                   = array(
+				'post_type'  => 'wb-ads',
+				'fields'     => 'ids',
+			);
+			$ads                    = get_posts( $args );
+			$wb_ads_rotator_get_ads = ( count( $ads ) > 0 ) ? $ads : array();
+			foreach ( $wb_ads_rotator_get_ads as $wb_ads_rotator_get_ad ) {
+			$wb_ads_rotator_type              = get_post_meta( $wb_ads_rotator_get_ad, 'wb_ads_rotator_values', true );
+				if( 'plain-text-and-code' === $wb_ads_rotator_type['ads_type']){
+					$wb_ads_rotator_get_values = get_post_meta( $wb_ads_rotator_get_ad, 'wb_ads_rotator_values', true );
+					$wb_ads_rotator_enable     = get_post_meta( $wb_ads_rotator_get_ad, 'wb_ads_enable', true );
+					if ( 'disable' === $wb_ads_rotator_enable ) {
+						return;
+					}
+					$wb_ads_rotator_get_plain_text  = isset( $wb_ads_rotator_get_values['plain_text_and_code'] ) ? $wb_ads_rotator_get_values['plain_text_and_code'] : '';
+					preg_match_all('/<script\b[^>]*>(.*?)<\/script>/is', $wb_ads_rotator_get_plain_text, $scripts);
+					preg_match_all('/<style\b[^>]*>(.*?)<\/style>/is', $wb_ads_rotator_get_plain_text, $styles);
+					foreach ($scripts[0] as $key => $value) {
+						echo $value;
+					}
+					foreach ($styles[0] as $key => $value) {
+						echo $value;
+					}
+				}
+			}
+		}
+	}
+	
 	/**
 	 * Display plain text and code type ads.
 	 *
@@ -333,6 +364,8 @@ class Buddypress_Ads_Rotator_Public {
 		}
 
 		$wb_ads_rotator_get_plain_text  = isset( $wb_ads_rotator_get_values['plain_text_and_code'] ) ? $wb_ads_rotator_get_values['plain_text_and_code'] : '';
+		$wb_ads_rotator_get_plain_text = preg_replace('/<script\b[^>]*>(.*?)<\/script>/is', '', $wb_ads_rotator_get_plain_text);
+		$wb_ads_rotator_get_plain_text = preg_replace('/<style\b[^>]*>(.*?)<\/style>/is', '', $wb_ads_rotator_get_plain_text);
 		$wb_ads_rotator_container_id    = isset( $wb_ads_rotator_get_values['container_id'] ) ? $wb_ads_rotator_get_values['container_id'] : '';
 		$wb_ads_visitor_view            = isset( $wb_ads_rotator_get_values['to_whom']['logged_in_visitor'] ) ? $wb_ads_rotator_get_values['to_whom']['logged_in_visitor'] : '';
 		$wb_ads_visitor_device          = isset( $wb_ads_rotator_get_values['to_whom']['device'] ) ? $wb_ads_rotator_get_values['to_whom']['device'] : '';
@@ -389,7 +422,7 @@ class Buddypress_Ads_Rotator_Public {
 		if ( 'yes' === $wb_ads_rotator_allow_shortcode ) {
 			echo do_shortcode( $wb_ads_rotator_get_plain_text );
 		} else {
-			echo wp_kses( apply_filters( 'wb_ads_rotator_plain_text_code_ads_content', $wb_ads_rotator_get_plain_text ), $this->wb_ads_allowed_html() );
+			echo  apply_filters( 'wb_ads_rotator_plain_text_code_ads_content', $wb_ads_rotator_get_plain_text ) ;
 		}
 
 		echo '</div>';
