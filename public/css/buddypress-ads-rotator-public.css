@@ -12,3 +12,7 @@
 #rich-ads {
   display: none;
 }
+.adsbygoogle{
+  width: 260px;
+  height: 260px;
+}
