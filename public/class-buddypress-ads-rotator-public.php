@@ -323,11 +323,15 @@ class Buddypress_Ads_Rotator_Public {
 					$wb_ads_rotator_get_plain_text  = isset( $wb_ads_rotator_get_values['plain_text_and_code'] ) ? $wb_ads_rotator_get_values['plain_text_and_code'] : '';
 					preg_match_all('/<script\b[^>]*>(.*?)<\/script>/is', $wb_ads_rotator_get_plain_text, $scripts);
 					preg_match_all('/<style\b[^>]*>(.*?)<\/style>/is', $wb_ads_rotator_get_plain_text, $styles);
-					foreach ($scripts[0] as $key => $value) {
-						echo $value;
+					if( isset( $scripts[0] ) ){
+						foreach ($scripts[0] as $key => $script) {
+							echo $script;	// phpcs:ignore;
+						}
 					}
-					foreach ($styles[0] as $key => $value) {
-						echo $value;
+					if( isset( $styles[0] ) ){
+						foreach ($styles[0] as $key => $style) {
+							echo $style;	// phpcs:ignore;
+						}
 					}
 				}
 			}
@@ -422,7 +426,7 @@ class Buddypress_Ads_Rotator_Public {
 		if ( 'yes' === $wb_ads_rotator_allow_shortcode ) {
 			echo do_shortcode( $wb_ads_rotator_get_plain_text );
 		} else {
-			echo  apply_filters( 'wb_ads_rotator_plain_text_code_ads_content', $wb_ads_rotator_get_plain_text ) ;
+			echo  apply_filters( 'wb_ads_rotator_plain_text_code_ads_content', $wb_ads_rotator_get_plain_text ) ;	// phpcs:ignore.
 		}
 
 		echo '</div>';
