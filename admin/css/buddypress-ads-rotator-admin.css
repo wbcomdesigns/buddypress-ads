@@ -15,6 +15,10 @@
     content: "\f133";
 }
 
+.nav-tab-wrapper ul li a#buddypress-ads-rotator-scripts-tab:before {
+    content: "\f475";
+}
+
 .wb_ads_rotator-panel .wb_ads_rotator-wrapper {
     display: -webkit-box;
     display: -ms-flexbox;
