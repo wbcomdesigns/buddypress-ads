@@ -335,10 +335,10 @@ class Buddypress_Ads_Rotator_Public {
 					}
 				}
 			}
+			$buddypress_ads_options = get_option('buddypress-ads-rotator_admin_scripts_options');
+			$buddypress_ads_header = ( isset( $buddypress_ads_options['header'] ) ) ? $buddypress_ads_options['header'] : '';
+			echo $buddypress_ads_header;	// phpcs:ignore;
 		}
-		$buddypress_ads_options = get_option('buddypress-ads-rotator_admin_scripts_options');
-		$buddypress_ads_header = ( isset( $buddypress_ads_options['header'] ) ) ? $buddypress_ads_options['header'] : '';
-		echo $buddypress_ads_header;	// phpcs:ignore;
 	}
 
 
@@ -349,9 +349,11 @@ class Buddypress_Ads_Rotator_Public {
 	 * @param string $buddypress_ads_footer Get admin footer option.
 	 */
 	public function wb_ads_footer_scripts(){
+		if( bp_is_activity_directory() ||  bp_is_group() || bp_is_user_activity()){
 			$buddypress_ads_options = get_option('buddypress-ads-rotator_admin_scripts_options');
 			$buddypress_ads_footer = ( isset( $buddypress_ads_options['footer'] ) ) ? $buddypress_ads_options['footer'] : '';
 			echo $buddypress_ads_footer;	// phpcs:ignore;
+		}
 	}
 	
 	/**
@@ -359,10 +361,13 @@ class Buddypress_Ads_Rotator_Public {
 	 *
 	 * @param string $buddypress_ads_body Get admin body option.
 	 */
-	public function wb_ads_body_scripts(){
-		$buddypress_ads_options = get_option('buddypress-ads-rotator_admin_scripts_options');
-		$buddypress_ads_body = ( isset( $buddypress_ads_options['body'] ) ) ? $buddypress_ads_options['body'] : '';
-		echo wp_unslash($buddypress_ads_body);	// phpcs:ignore;
+	public function wb_ads_body_scripts( $wb_ads_content ){
+		if( bp_is_activity_directory() ||  bp_is_group() || bp_is_user_activity()){
+			$buddypress_ads_options = get_option('buddypress-ads-rotator_admin_scripts_options');
+			$buddypress_ads_body = ( isset( $buddypress_ads_options['body'] ) ) ? $buddypress_ads_options['body'] : '';
+			echo wp_unslash($buddypress_ads_body);	// phpcs:ignore;
+		}
+		return $wb_ads_content;
 	}
 
 	/**
