@@ -230,6 +230,24 @@
         cm_settings
       );
     }
+    if (jQuery("#wb-ad-rotator-header-scripts").length) {
+      var code = wp.codeEditor.initialize(
+        $("#wb-ad-rotator-header-scripts"),
+        cm_settings
+      );
+    }
+    if (jQuery("#wb-ad-rotator-body-scripts").length) {
+      var code = wp.codeEditor.initialize(
+        $("#wb-ad-rotator-body-scripts"),
+        cm_settings
+      );
+    }
+    if (jQuery("#wb-ad-rotator-footer-scripts").length) {
+      var code = wp.codeEditor.initialize(
+        $("#wb-ad-rotator-footer-scripts"),
+        cm_settings
+      );
+    }
     $(document).keyup("#wb-ad-rotator-content-plain", function (e) {
       var x = code.codemirror.getValue();
       var enabled_php = jQuery("#wb-ad-rotator-allow-php").prop("checked");

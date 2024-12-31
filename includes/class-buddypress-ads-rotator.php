@@ -232,6 +232,8 @@ class Buddypress_Ads_Rotator {
 		$this->loader->add_action( 'bp_after_member_activity_post_form', $plugin_public, 'wb_ads_rotator_check_ads' );
 		$this->loader->add_action( 'bp_after_group_activity_post_form', $plugin_public, 'wb_ads_rotator_check_ads' );
 		$this->loader->add_action( 'wp_head', $plugin_public, 'wb_ads_scripts' );
+		$this->loader->add_action( 'wp_footer', $plugin_public, 'wb_ads_footer_scripts' );
+		$this->loader->add_action( 'wp_body_open', $plugin_public, 'wb_ads_body_scripts' );	
 	}
 
 	/**

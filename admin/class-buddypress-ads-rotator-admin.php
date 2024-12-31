@@ -232,6 +232,10 @@ class Buddypress_Ads_Rotator_Admin {
 		register_setting( 'buddypress-ads-rotator_admin_faq_options', 'buddypress-ads-rotator_admin_faq_option' );
 		add_settings_section( 'buddypress-ads-rotator-faq', ' ', array( $this, 'wb_ads_rotator_admin_faq_content' ), 'buddypress-ads-rotator-faq' );
 
+		$this->plugin_settings_tabs['buddypress-ads-rotator-scripts'] = esc_html__( 'Add Scripts/Styles', 'buddypress-ads-rotator' );
+		register_setting( 'buddypress-ads-rotator_admin_scripts_options', 'buddypress-ads-rotator_admin_scripts_options' );
+		add_settings_section( 'buddypress-ads-rotator-scripts', ' ', array( $this, 'wb_ads_rotator_admin_scripts_content' ), 'buddypress-ads-rotator-scripts' );
+
 	}
 
 	/**
@@ -246,6 +250,13 @@ class Buddypress_Ads_Rotator_Admin {
 	 */
 	public function wb_ads_rotator_admin_faq_content() {
 		include 'partials/buddypress-ads-rotator-admin-faq-display.php';
+	}
+
+	/**
+	 * Include BuddyPress Ads admin genral setting tab content file.
+	 */
+	public function wb_ads_rotator_admin_scripts_content() {
+		include 'partials/buddypress-ads-rotator-admin-scripts-display.php';
 	}
 
 	/**
