@@ -207,8 +207,8 @@ class Buddypress_Ads_Rotator_Admin {
 			$active = $current_tab === $tab_key ? 'nav-tab-active' : '';
 			echo '<li><a class="nav-tab ' . esc_attr( $active ) . '" id="' . esc_attr( $tab_key ) . '-tab" href="?page=buddypress-ads-rotator-settings' . '&tab=' . esc_attr( $tab_key ) . '">' . esc_attr( $tab_caption ) . '</a></li>';
 		}
-		echo '<li><a class="nav-tab wb-all-ads' . esc_attr( $active ) . '" href=" '. esc_url( get_site_url() ) . '/wp-admin/edit.php?post_type=wb-ads">' . esc_html('All Ads') . '</a></li>';
-		echo '<li><a class="nav-tab add-new-ads' . esc_attr( $active ) . '" href=" '.esc_url( get_site_url() ). '/wp-admin/post-new.php?post_type=wb-ads">' . esc_html('Add New Ads') . '</a></li>';
+		echo '<li><a class="nav-tab wb-all-ads" href="' . esc_url( get_site_url() ) . '/wp-admin/edit.php?post_type=wb-ads">' . esc_html( 'All Ads' ) . '</a></li>';
+		echo '<li><a class="nav-tab add-new-ads" href="' . esc_url( get_site_url() ) . '/wp-admin/post-new.php?post_type=wb-ads">' . esc_html( 'Add New Ads' ) . '</a></li>';
 		echo '</div></ul></div>';
 	}
 
