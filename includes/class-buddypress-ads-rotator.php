@@ -151,6 +151,14 @@ class Buddypress_Ads_Rotator {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-buddypress-ads-rotator-public.php';
 
 		/**
+		 * The class responsible for BuddyPress-specific functionality.
+		 * Only loaded when BuddyPress is active.
+		 */
+		if ( class_exists( 'BuddyPress' ) ) {
+			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-buddypress-ads-rotator-bp.php';
+		}
+
+		/**
 		* The class responsible add wrapper of admin settings.
 		*/
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/wbcom/wbcom-admin-settings.php';
@@ -220,20 +228,31 @@ class Buddypress_Ads_Rotator {
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 
-		$this->loader->add_action( 'bp_before_activity_entry', $plugin_public, 'wb_ads_display_before_activity_entry' );
-		$this->loader->add_action( 'bp_activity_entry_content', $plugin_public, 'wb_ads_display_activity_entry_content' );
-		$this->loader->add_action( 'bp_after_activity_entry', $plugin_public, 'wb_ads_display_after_activity_entry' );
-		$this->loader->add_action( 'bp_before_activity_entry_comments', $plugin_public, 'wb_ads_display_before_activity_entry_comments' );
-		$this->loader->add_action( 'bp_activity_entry_comments', $plugin_public, 'wb_ads_display_activity_entry_comments' );
-		$this->loader->add_action( 'bp_after_activity_entry_comments', $plugin_public, 'wb_ads_display_after_activity_entry_comments' );
-
+		// Register shortcode - works everywhere.
 		$this->loader->add_shortcode( 'ads-shortcode', $plugin_public, 'wb_ads_rotator_shortcode_ads' );
-		$this->loader->add_action( 'bp_before_directory_activity_content', $plugin_public, 'wb_ads_rotator_check_ads' );
-		$this->loader->add_action( 'bp_after_member_activity_post_form', $plugin_public, 'wb_ads_rotator_check_ads' );
-		$this->loader->add_action( 'bp_after_group_activity_post_form', $plugin_public, 'wb_ads_rotator_check_ads' );
-		$this->loader->add_action( 'wp_head', $plugin_public, 'wb_ads_scripts' );
-		$this->loader->add_action( 'wp_footer', $plugin_public, 'wb_ads_footer_scripts' );
-		$this->loader->add_filter( 'the_content', $plugin_public, 'wb_ads_body_scripts' );		
+
+		// WordPress native ad positions - always available.
+		$this->loader->add_filter( 'the_content', $plugin_public, 'wb_ads_display_in_content' );
+		$this->loader->add_action( 'wp_head', $plugin_public, 'wb_ads_display_header' );
+		$this->loader->add_action( 'wp_footer', $plugin_public, 'wb_ads_display_footer' );
+
+		// BuddyPress hooks - only when BuddyPress is active.
+		if ( class_exists( 'BuddyPress' ) ) {
+			$plugin_bp = new Buddypress_Ads_Rotator_BP( $this->get_plugin_name(), $this->get_version(), $plugin_public );
+
+			$this->loader->add_action( 'bp_before_activity_entry', $plugin_bp, 'wb_ads_display_before_activity_entry' );
+			$this->loader->add_action( 'bp_activity_entry_content', $plugin_bp, 'wb_ads_display_activity_entry_content' );
+			$this->loader->add_action( 'bp_after_activity_entry', $plugin_bp, 'wb_ads_display_after_activity_entry' );
+			$this->loader->add_action( 'bp_before_activity_entry_comments', $plugin_bp, 'wb_ads_display_before_activity_entry_comments' );
+			$this->loader->add_action( 'bp_activity_entry_comments', $plugin_bp, 'wb_ads_display_activity_entry_comments' );
+			$this->loader->add_action( 'bp_after_activity_entry_comments', $plugin_bp, 'wb_ads_display_after_activity_entry_comments' );
+			$this->loader->add_action( 'bp_before_directory_activity_content', $plugin_bp, 'wb_ads_rotator_check_ads' );
+			$this->loader->add_action( 'bp_after_member_activity_post_form', $plugin_bp, 'wb_ads_rotator_check_ads' );
+			$this->loader->add_action( 'bp_after_group_activity_post_form', $plugin_bp, 'wb_ads_rotator_check_ads' );
+			$this->loader->add_action( 'wp_head', $plugin_bp, 'wb_ads_scripts' );
+			$this->loader->add_action( 'wp_footer', $plugin_bp, 'wb_ads_footer_scripts' );
+			$this->loader->add_filter( 'the_content', $plugin_bp, 'wb_ads_body_scripts' );
+		}
 	}
 
 	/**

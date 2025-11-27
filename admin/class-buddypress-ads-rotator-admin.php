@@ -145,14 +145,12 @@ class Buddypress_Ads_Rotator_Admin {
 	 * @author   Wbcom Designs
 	 */
 	public function wb_ads_rotator_add_submenu_page_admin_settings() {
-		if ( class_exists( 'BuddyPress' ) ) {
-			if ( empty( $GLOBALS['admin_page_hooks']['wbcomplugins'] ) ) {
-				add_menu_page( esc_html__( 'WB Plugins', 'buddypress-ads-rotator' ), esc_html__( 'WB Plugins', 'buddypress-ads-rotator' ), 'manage_options', 'wbcomplugins', array( $this, 'buddypress_ads_rotator_admin_options_page' ), 'dashicons-lightbulb', 59 );
-				add_submenu_page( 'wbcomplugins', esc_html__( 'Welcome', 'buddypress-ads-rotator' ), esc_html__( 'Welcome', 'buddypress-ads-rotator' ), 'manage_options', 'wbcomplugins' );
+		if ( empty( $GLOBALS['admin_page_hooks']['wbcomplugins'] ) ) {
+			add_menu_page( esc_html__( 'WB Plugins', 'buddypress-ads-rotator' ), esc_html__( 'WB Plugins', 'buddypress-ads-rotator' ), 'manage_options', 'wbcomplugins', array( $this, 'buddypress_ads_rotator_admin_options_page' ), 'dashicons-lightbulb', 59 );
+			add_submenu_page( 'wbcomplugins', esc_html__( 'Welcome', 'buddypress-ads-rotator' ), esc_html__( 'Welcome', 'buddypress-ads-rotator' ), 'manage_options', 'wbcomplugins' );
 
-			}
-			add_submenu_page( 'wbcomplugins', esc_html__( 'BuddyPress Ads', 'buddypress-ads-rotator' ), esc_html__( 'BuddyPress Ads', 'buddypress-ads-rotator' ), 'manage_options', 'buddypress-ads-rotator-settings', array( $this, 'buddypress_ads_rotator_admin_options_page' ) );
 		}
+		add_submenu_page( 'wbcomplugins', esc_html__( 'BuddyPress Ads', 'buddypress-ads-rotator' ), esc_html__( 'BuddyPress Ads', 'buddypress-ads-rotator' ), 'manage_options', 'buddypress-ads-rotator-settings', array( $this, 'buddypress_ads_rotator_admin_options_page' ) );
 	}
 
 	/**
@@ -262,42 +260,40 @@ class Buddypress_Ads_Rotator_Admin {
 	 * @since    1.0.0
 	 */
 	public function wb_ads_rotator_add_cpt() {
-		if ( class_exists( 'BuddyPress' ) ) {
-			$labels = array(
-				'name'               => _x( 'WB Ads', 'Post type general name', 'buddypress-ads-rotator' ),
-				'singular_name'      => _x( 'WB Ads', 'Post type singular name', 'buddypress-ads-rotator' ),
-				'menu_name'          => _x( 'WB Ads', 'Admin Menu text', 'buddypress-ads-rotator' ),
-				'name_admin_bar'     => _x( 'WB Ads', 'Add New on Toolbar', 'buddypress-ads-rotator' ),
-				'add_new'            => __( 'Add New WB Ads', 'buddypress-ads-rotator' ),
-				'add_new_item'       => __( 'Add New WB Ads', 'buddypress-ads-rotator' ),
-				'new_item'           => __( 'New WB Ads', 'buddypress-ads-rotator' ),
-				'edit_item'          => __( 'Edit WB Ads', 'buddypress-ads-rotator' ),
-				'view_item'          => __( 'View WB Ads', 'buddypress-ads-rotator' ),
-				'all_items'          => __( 'All WB Ads', 'buddypress-ads-rotator' ),
-				'search_items'       => __( 'Search WB Ads', 'buddypress-ads-rotator' ),
-				'parent_item_colon'  => __( 'Parent WB Ads:', 'buddypress-ads-rotator' ),
-				'not_found'          => __( 'No WB Ads found.', 'buddypress-ads-rotator' ),
-				'not_found_in_trash' => __( 'No WB Ads found in Trash.', 'buddypress-ads-rotator' ),
-			);
+		$labels = array(
+			'name'               => _x( 'WB Ads', 'Post type general name', 'buddypress-ads-rotator' ),
+			'singular_name'      => _x( 'WB Ads', 'Post type singular name', 'buddypress-ads-rotator' ),
+			'menu_name'          => _x( 'WB Ads', 'Admin Menu text', 'buddypress-ads-rotator' ),
+			'name_admin_bar'     => _x( 'WB Ads', 'Add New on Toolbar', 'buddypress-ads-rotator' ),
+			'add_new'            => __( 'Add New WB Ads', 'buddypress-ads-rotator' ),
+			'add_new_item'       => __( 'Add New WB Ads', 'buddypress-ads-rotator' ),
+			'new_item'           => __( 'New WB Ads', 'buddypress-ads-rotator' ),
+			'edit_item'          => __( 'Edit WB Ads', 'buddypress-ads-rotator' ),
+			'view_item'          => __( 'View WB Ads', 'buddypress-ads-rotator' ),
+			'all_items'          => __( 'All WB Ads', 'buddypress-ads-rotator' ),
+			'search_items'       => __( 'Search WB Ads', 'buddypress-ads-rotator' ),
+			'parent_item_colon'  => __( 'Parent WB Ads:', 'buddypress-ads-rotator' ),
+			'not_found'          => __( 'No WB Ads found.', 'buddypress-ads-rotator' ),
+			'not_found_in_trash' => __( 'No WB Ads found in Trash.', 'buddypress-ads-rotator' ),
+		);
 
-			$args = array(
-				'labels'             => $labels,
-				'public'             => false,
-				'publicly_queryable' => false,
-				'show_ui'            => true,
-				'show_in_menu'       => true,
-				'query_var'          => true,
-				'rewrite'            => array( 'slug' => 'wb-ads' ),
-				'capability_type'    => 'page',
-				'has_archive'        => false,
-				'hierarchical'       => false,
-				'menu_position'      => null,
-				'show_in_rest'       => true,
-				'menu_icon'          => __( 'dashicons-chart-line', 'buddypress-ads-rotator' ),
-				'supports'           => array( 'title' ),
-			);
-			register_post_type( 'wb-ads', $args );
-		}
+		$args = array(
+			'labels'             => $labels,
+			'public'             => false,
+			'publicly_queryable' => false,
+			'show_ui'            => true,
+			'show_in_menu'       => true,
+			'query_var'          => true,
+			'rewrite'            => array( 'slug' => 'wb-ads' ),
+			'capability_type'    => 'page',
+			'has_archive'        => false,
+			'hierarchical'       => false,
+			'menu_position'      => null,
+			'show_in_rest'       => true,
+			'menu_icon'          => __( 'dashicons-chart-line', 'buddypress-ads-rotator' ),
+			'supports'           => array( 'title' ),
+		);
+		register_post_type( 'wb-ads', $args );
 	}
 
 	/**
@@ -704,12 +700,36 @@ class Buddypress_Ads_Rotator_Admin {
 		$post_type                      = get_post_type();
 		$wb_ads_rotator_values          = get_post_meta( $post_id, 'wb_ads_rotator_values', true );
 		$wb_ads_rotator_enject_position = isset( $wb_ads_rotator_values['enject_after'] ) ? $wb_ads_rotator_values['enject_after'] : '3';
+		$is_buddypress_active           = class_exists( 'BuddyPress' );
+		$wp_position                    = isset( $wb_ads_rotator_values['wp_position'] ) ? $wb_ads_rotator_values['wp_position'] : '';
 		?>
 		<div class="wb_ads_rotator-panel">
 		<?php do_action( 'wb_ads_rotator_options_before' ); ?>
+
+			<!-- WordPress Native Positions - Always Available -->
 			<div class="wb_ads_rotator-wrapper">
 				<div class="wb_ads_rotator-label">
-				<?php esc_html_e( 'Activity Type', 'buddypress-ads-rotator' ); ?>
+				<?php esc_html_e( 'WordPress Position', 'buddypress-ads-rotator' ); ?>
+				</div>
+				<div class="wb_ads_rotator-input">
+					<select id="wb_ads_rotator_wp_position" name="wb_ads_rotator[wp_position]">
+						<option value="" <?php selected( $wp_position, '' ); ?>><?php esc_html_e( '— None (Use Shortcode Only) —', 'buddypress-ads-rotator' ); ?></option>
+						<option value="wp_before_content" <?php selected( $wp_position, 'wp_before_content' ); ?>><?php esc_html_e( 'Before Post/Page Content', 'buddypress-ads-rotator' ); ?></option>
+						<option value="wp_after_content" <?php selected( $wp_position, 'wp_after_content' ); ?>><?php esc_html_e( 'After Post/Page Content', 'buddypress-ads-rotator' ); ?></option>
+						<option value="wp_header" <?php selected( $wp_position, 'wp_header' ); ?>><?php esc_html_e( 'Site Header (wp_head)', 'buddypress-ads-rotator' ); ?></option>
+						<option value="wp_footer" <?php selected( $wp_position, 'wp_footer' ); ?>><?php esc_html_e( 'Site Footer (wp_footer)', 'buddypress-ads-rotator' ); ?></option>
+					</select>
+					<p>
+					<?php esc_html_e( 'Choose a WordPress position to automatically display the ad on posts and pages.', 'buddypress-ads-rotator' ); ?>
+					</p>
+				</div>
+			</div>
+
+			<?php if ( $is_buddypress_active ) : ?>
+			<!-- BuddyPress Options - Only when BuddyPress is Active -->
+			<div class="wb_ads_rotator-wrapper">
+				<div class="wb_ads_rotator-label">
+				<?php esc_html_e( 'BuddyPress Activity Type', 'buddypress-ads-rotator' ); ?>
 				</div>
 				<div class="wb_ads_rotator-input">
 					<select id="wb_ads_rotator_activity_type" name="wb_ads_rotator[activity_type][]" multiple>
@@ -724,7 +744,7 @@ class Buddypress_Ads_Rotator_Admin {
 			</div>
 			<div class="wb_ads_rotator-wrapper">
 				<div class="wb_ads_rotator-label">
-				<?php esc_html_e( 'Activity Positions', 'buddypress-ads-rotator' ); ?>
+				<?php esc_html_e( 'BuddyPress Activity Positions', 'buddypress-ads-rotator' ); ?>
 				</div>
 				<div class="wb_ads_rotator-input">
 					<select id="wb_ads_rotator_activity_position" name="wb_ads_rotator[activity_position]">
@@ -755,6 +775,15 @@ class Buddypress_Ads_Rotator_Admin {
 				<?php esc_html_e( 'Enable this option if you want to repeat inject position', 'buddypress-ads-rotator' ); ?>
 				</div>
 			</div>
+			<?php else : ?>
+			<div class="wb_ads_rotator-wrapper">
+				<div class="wb_ads_rotator-input">
+					<p class="description">
+					<?php esc_html_e( 'BuddyPress is not active. Install and activate BuddyPress to display ads in activity streams.', 'buddypress-ads-rotator' ); ?>
+					</p>
+				</div>
+			</div>
+			<?php endif; ?>
 		<?php do_action( 'wb_ads_rotator_options_after' ); ?>
 		</div>
 		<?php
