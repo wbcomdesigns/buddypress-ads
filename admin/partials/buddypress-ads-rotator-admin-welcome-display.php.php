@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore WordPress.Files.FileName.NotHyphenatedLowercase -- Legacy file name with double extension.
 /**
  * Provide a admin area view for the plugin
  *

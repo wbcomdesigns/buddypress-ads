@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore WordPress.Files.FileName.InvalidClassFileName -- Legacy file name.
 /**
  * Class to add top header pages of wbcom plugin and additional features.
  *
@@ -45,7 +45,6 @@ if ( ! class_exists( 'Wbcom_Admin_Settings' ) ) {
 				echo esc_html( $display_extention );
 				die;
 			}
-
 		}
 
 		/**
@@ -274,8 +273,11 @@ if ( ! class_exists( 'Wbcom_Admin_Settings' ) ) {
 		 * @access public
 		 */
 		public function wbcom_admin_setting_header_html() {
-			$page          = filter_input( INPUT_GET, 'page' ) ? filter_input( INPUT_GET, 'page' ) : 'wbcom-themes-page';
-			$plugin_active = $theme_active = $support_active = $settings_active = '';
+			$page            = filter_input( INPUT_GET, 'page' ) ? filter_input( INPUT_GET, 'page' ) : 'wbcom-themes-page';
+			$plugin_active   = '';
+			$theme_active    = '';
+			$support_active  = '';
+			$settings_active = '';
 			switch ( $page ) {
 				case 'wbcom-plugins-page':
 					$plugin_active = 'is_active';
@@ -317,7 +319,6 @@ if ( ! class_exists( 'Wbcom_Admin_Settings' ) ) {
 			</div>
 			<?php
 		}
-
 	}
 
 	/**
@@ -325,7 +326,7 @@ if ( ! class_exists( 'Wbcom_Admin_Settings' ) ) {
 	 *
 	 * @return void
 	 */
-	function instantiate_wbcom_plugin_manager() {
+	function instantiate_wbcom_plugin_manager() { // phpcs:ignore Universal.Files.SeparateFunctionsFromOO.Mixed -- Legacy architecture.
 		new Wbcom_Admin_Settings();
 	}
 

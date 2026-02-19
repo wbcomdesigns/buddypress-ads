@@ -23,6 +23,7 @@
  * @subpackage Buddypress_Ads_Rotator/includes
  * @author     WB COM <admin@wbcomdesigns.com>
  */
+// phpcs:ignore PEAR.NamingConventions.ValidClassName.Invalid, Squiz.Commenting.ClassComment.Missing -- Legacy class name; docblock is above.
 class Buddypress_Ads_Rotator_i18n {
 
 
@@ -38,9 +39,5 @@ class Buddypress_Ads_Rotator_i18n {
 			false,
 			dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages/'
 		);
-
 	}
-
-
-
 }

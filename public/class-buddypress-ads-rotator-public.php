@@ -60,7 +60,6 @@ class Buddypress_Ads_Rotator_Public {
 		$this->plugin_name  = $plugin_name;
 		$this->version      = $version;
 		$this->is_bp_active = class_exists( 'BuddyPress' );
-
 	}
 
 	/**
@@ -99,7 +98,6 @@ class Buddypress_Ads_Rotator_Public {
 		 */
 
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/buddypress-ads-rotator-public.css', array(), $this->version, 'all' );
-
 	}
 
 	/**
@@ -359,8 +357,8 @@ class Buddypress_Ads_Rotator_Public {
 		}
 
 		$wb_ads_rotator_get_plain_text  = isset( $wb_ads_rotator_get_values['plain_text_and_code'] ) ? $wb_ads_rotator_get_values['plain_text_and_code'] : '';
-		$wb_ads_rotator_get_plain_text = preg_replace('/<script\b[^>]*>(.*?)<\/script>/is', '', $wb_ads_rotator_get_plain_text);
-		$wb_ads_rotator_get_plain_text = preg_replace('/<style\b[^>]*>(.*?)<\/style>/is', '', $wb_ads_rotator_get_plain_text);
+		$wb_ads_rotator_get_plain_text  = preg_replace( '/<script\b[^>]*>(.*?)<\/script>/is', '', $wb_ads_rotator_get_plain_text );
+		$wb_ads_rotator_get_plain_text  = preg_replace( '/<style\b[^>]*>(.*?)<\/style>/is', '', $wb_ads_rotator_get_plain_text );
 		$wb_ads_rotator_container_id    = isset( $wb_ads_rotator_get_values['container_id'] ) ? $wb_ads_rotator_get_values['container_id'] : '';
 		$wb_ads_visitor_view            = isset( $wb_ads_rotator_get_values['to_whom']['logged_in_visitor'] ) ? $wb_ads_rotator_get_values['to_whom']['logged_in_visitor'] : '';
 		$wb_ads_visitor_device          = isset( $wb_ads_rotator_get_values['to_whom']['device'] ) ? $wb_ads_rotator_get_values['to_whom']['device'] : '';
@@ -425,7 +423,6 @@ class Buddypress_Ads_Rotator_Public {
 		if ( 'yes' === $wb_ads_rotator_clearfix ) {
 			echo '<br style="clear: both; display: block; float: none;">';
 		}
-
 	}
 
 	/**
@@ -809,5 +806,4 @@ class Buddypress_Ads_Rotator_Public {
 
 		return $allowed_tags;
 	}
-
 }

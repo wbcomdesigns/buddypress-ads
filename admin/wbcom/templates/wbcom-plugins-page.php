@@ -1,9 +1,17 @@
+<?php
+/**
+ * Wbcom plugins page template.
+ *
+ * @package Buddypress_Ads_Rotator
+ */
+
+?>
 <div class="wrap">
 	<div class="wbcom-bb-plugins-offer-wrapper">
 		<div id="wb_admin_logo">
 		</div>
 	</div>
-	<div class="wbcom-wrap wbcom-plugin-wrapper">    	
+	<div class="wbcom-wrap wbcom-plugin-wrapper">
 		<div class="wbcom_admin_header-wrapper">
 			<div id="wb_admin_plugin_name">
 				<?php esc_html_e( 'Themes & Extensions', 'buddypress-ads-rotator' ); ?>

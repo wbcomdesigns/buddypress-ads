@@ -52,9 +52,9 @@ class Buddypress_Ads_Rotator_BP {
 	 * Initialize the class and set its properties.
 	 *
 	 * @since    1.6.0
-	 * @param    string                          $plugin_name    The name of the plugin.
-	 * @param    string                          $version        The version of this plugin.
-	 * @param    Buddypress_Ads_Rotator_Public   $public_class   The public class instance.
+	 * @param    string                        $plugin_name    The name of the plugin.
+	 * @param    string                        $version        The version of this plugin.
+	 * @param    Buddypress_Ads_Rotator_Public $public_class   The public class instance.
 	 */
 	public function __construct( $plugin_name, $version, $public_class ) {
 		$this->plugin_name  = $plugin_name;
@@ -137,7 +137,7 @@ class Buddypress_Ads_Rotator_BP {
 	 */
 	public function wb_ads_rotator_display_ads( $position ) {
 		global $activities_template;
-		$args = array(
+		$args                   = array(
 			'post_type'  => 'wb-ads',
 			'fields'     => 'ids',
 			'meta_query' => array(
@@ -245,7 +245,7 @@ class Buddypress_Ads_Rotator_BP {
 		}
 
 		global $activities_template;
-		$args = array(
+		$args                   = array(
 			'post_type' => 'wb-ads',
 			'fields'    => 'ids',
 		);

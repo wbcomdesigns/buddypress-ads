@@ -57,7 +57,6 @@ class Buddypress_Ads_Rotator_Admin {
 
 		$this->plugin_name = $plugin_name;
 		$this->version     = $version;
-
 	}
 
 	/**
@@ -78,7 +77,7 @@ class Buddypress_Ads_Rotator_Admin {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
-		if ( null !== filter_input( INPUT_GET, 'page' ) && ( 'buddypress-ads-rotator-settings' === filter_input( INPUT_GET, 'page' ) ) || isset( $screen->post_type ) && ( 'wb-ads' === $screen->post_type ) ) {
+		if ( ( null !== filter_input( INPUT_GET, 'page' ) && 'buddypress-ads-rotator-settings' === filter_input( INPUT_GET, 'page' ) ) || ( isset( $screen->post_type ) && 'wb-ads' === $screen->post_type ) ) {
 			wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/buddypress-ads-rotator-admin.css', array(), $this->version, 'all' );
 			wp_enqueue_style( 'wb_ads_rotator-selectize', plugin_dir_url( __FILE__ ) . 'css/selectize.css', array(), $this->version, 'all' );
 		}
@@ -102,7 +101,7 @@ class Buddypress_Ads_Rotator_Admin {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
-		if ( null !== filter_input( INPUT_GET, 'page' ) && ( 'buddypress-ads-rotator-settings' === filter_input( INPUT_GET, 'page' ) ) || isset( $screen->post_type ) && ( 'wb-ads' === $screen->post_type ) ) {
+		if ( ( null !== filter_input( INPUT_GET, 'page' ) && 'buddypress-ads-rotator-settings' === filter_input( INPUT_GET, 'page' ) ) || ( isset( $screen->post_type ) && 'wb-ads' === $screen->post_type ) ) {
 			wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/buddypress-ads-rotator-admin.js', array( 'jquery' ), $this->version, false );
 			wp_localize_script(
 				$this->plugin_name,
@@ -122,20 +121,19 @@ class Buddypress_Ads_Rotator_Admin {
 	}
 
 	/**
-		 * Hide all notices from the setting page.
-		 *
-		 * @return void
-		 */
-		public function wbcom_hide_all_admin_notices_from_setting_page() {
-			$wbcom_pages_array  = array( 'wbcomplugins', 'wbcom-plugins-page', 'wbcom-support-page', 'buddypress-ads-rotator-settings' );
-			$wbcom_setting_page = filter_input( INPUT_GET, 'page' ) ? filter_input( INPUT_GET, 'page' ) : '';
+	 * Hide all notices from the setting page.
+	 *
+	 * @return void
+	 */
+	public function wbcom_hide_all_admin_notices_from_setting_page() {
+		$wbcom_pages_array  = array( 'wbcomplugins', 'wbcom-plugins-page', 'wbcom-support-page', 'buddypress-ads-rotator-settings' );
+		$wbcom_setting_page = filter_input( INPUT_GET, 'page' ) ? filter_input( INPUT_GET, 'page' ) : '';
 
-			if ( in_array( $wbcom_setting_page, $wbcom_pages_array, true ) ) {
-				remove_all_actions( 'admin_notices' );
-				remove_all_actions( 'all_admin_notices' );
-			}
-
+		if ( in_array( $wbcom_setting_page, $wbcom_pages_array, true ) ) {
+			remove_all_actions( 'admin_notices' );
+			remove_all_actions( 'all_admin_notices' );
 		}
+	}
 
 	/**
 	 * Actions performed on loading admin_menu.
@@ -173,7 +171,8 @@ class Buddypress_Ads_Rotator_Admin {
 			<div class="wbcom_admin_header-wrapper">
 				<div id="wb_admin_plugin_name">
 					<?php esc_html_e( 'BuddyPress Ads', 'buddypress-ads-rotator' ); ?>
-					<span><?php
+					<span>
+					<?php
 					/* translators: %s: */
 					printf( __( 'Version %s', 'buddypress-ads-rotator' ), BUDDYPRESS_ADS_ROTATOR_VERSION ); //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 					?>
@@ -203,7 +202,7 @@ class Buddypress_Ads_Rotator_Admin {
 		echo '<div class="wbcom-tabs-section"><div class="nav-tab-wrapper"><div class="wb-responsive-menu"><span>' . esc_html( 'Menu' ) . '</span><input class="wb-toggle-btn" type="checkbox" id="wb-toggle-btn"><label class="wb-toggle-icon" for="wb-toggle-btn"><span class="wb-icon-bars"></span></label></div><ul>';
 		foreach ( $this->plugin_settings_tabs as $tab_key => $tab_caption ) {
 			$active = $current_tab === $tab_key ? 'nav-tab-active' : '';
-			echo '<li><a class="nav-tab ' . esc_attr( $active ) . '" id="' . esc_attr( $tab_key ) . '-tab" href="?page=buddypress-ads-rotator-settings' . '&tab=' . esc_attr( $tab_key ) . '">' . esc_attr( $tab_caption ) . '</a></li>';
+			echo '<li><a class="nav-tab ' . esc_attr( $active ) . '" id="' . esc_attr( $tab_key ) . '-tab" href="?page=buddypress-ads-rotator-settings&tab=' . esc_attr( $tab_key ) . '">' . esc_attr( $tab_caption ) . '</a></li>';
 		}
 		echo '<li><a class="nav-tab wb-all-ads" href="' . esc_url( get_site_url() ) . '/wp-admin/edit.php?post_type=wb-ads">' . esc_html( 'All Ads' ) . '</a></li>';
 		echo '<li><a class="nav-tab add-new-ads" href="' . esc_url( get_site_url() ) . '/wp-admin/post-new.php?post_type=wb-ads">' . esc_html( 'Add New Ads' ) . '</a></li>';
@@ -230,7 +229,6 @@ class Buddypress_Ads_Rotator_Admin {
 		$this->plugin_settings_tabs['buddypress-ads-rotator-scripts'] = esc_html__( 'Add Scripts/Styles', 'buddypress-ads-rotator' );
 		register_setting( 'buddypress-ads-rotator_admin_scripts_options', 'buddypress-ads-rotator_admin_scripts_options' );
 		add_settings_section( 'buddypress-ads-rotator-scripts', ' ', array( $this, 'wb_ads_rotator_admin_scripts_content' ), 'buddypress-ads-rotator-scripts' );
-
 	}
 
 	/**
@@ -345,7 +343,6 @@ class Buddypress_Ads_Rotator_Admin {
 			array( $post_types ),
 			'side',
 		);
-
 	}
 
 	/**
@@ -535,7 +532,7 @@ class Buddypress_Ads_Rotator_Admin {
 				<?php esc_html_e( 'Execute shortcodes', 'buddypress-ads-rotator' ); ?>
 					<div class="wb-ad-rotator-error-message" id="wb-ad-rotator-allow-shortcode-warning"
 					<?php
-					if ( true != isset( $wb_ads_rotator_values['allow_shortcode'] ) ) {
+					if ( true !== isset( $wb_ads_rotator_values['allow_shortcode'] ) ) {
 						echo 'style="display:none"';
 					}
 					?>
@@ -854,7 +851,7 @@ class Buddypress_Ads_Rotator_Admin {
 		<?php do_action( 'wb_ads_rotator_options_before' ); ?>
 			<div class="wb_ads_rotator-wrapper">
 				<div class="wb_ads_rotator-input ads-copy" data-code="[ads-shortcode ads_id=<?php echo esc_attr( $post_id ); ?>]">
-					<code><?php esc_html_e( '[ads-shortcode ads_id=' . esc_attr( $post_id ) . ']', 'buddypress-ads-rotator' ); ?></code>
+					<code><?php echo esc_html( '[ads-shortcode ads_id=' . esc_attr( $post_id ) . ']' ); ?></code>
 				</div>
 				<span class="ads-shortcode-text shortcode-text-hide"><?php echo esc_attr__( 'Shortcode Copied!', 'buddypress-ads-rotator' ); ?></span>
 			</div>
@@ -978,7 +975,7 @@ class Buddypress_Ads_Rotator_Admin {
 				break;
 			case 'ads-shortcode':
 				echo '<div class="wb_ads_rotator-input wb-ads-shortcode-text shortcode-copy" data-shortcode="[ads-shortcode ads_id=' . esc_attr( $post_id ) . ']">
-					<code> ' . esc_html__( '[ads-shortcode ads_id=' . $post_id . ']', 'buddypress-ads-rotator' ) . '</code>
+					<code> ' . esc_html( '[ads-shortcode ads_id=' . $post_id . ']' ) . '</code>
 					</div><span class="ads-shortcode-text shortcode-text-hide">' . esc_attr__( 'Shortcode Copied!', 'buddypress-ads-rotator' ) . '</span>';
 
 		}
@@ -1034,5 +1031,4 @@ class Buddypress_Ads_Rotator_Admin {
 		$wb_ads_placeholder_img = plugin_dir_url( __FILE__ ) . 'images/wb-ads-placeholder-image.jpg';
 		wp_send_json( $wb_ads_placeholder_img );
 	}
-
 }

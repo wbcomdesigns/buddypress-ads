@@ -3,8 +3,8 @@ Contributors: vapvarun, wbcomdesigns
 Donate link: https://wbcomdesigns.com
 Tags: BuddyPress
 Requires at least: 3.0.1
-Tested up to: 6.5.0
-Stable tag: 1.5.5
+Tested up to: 6.9
+Stable tag: 1.6.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -20,6 +20,12 @@ Do you consider integrating your BuddyPress community to enhance customer satisf
 2. Activate the plugin through the 'Plugins' menu in WordPress
 
 == Changelog ==
+= 1.6.0 =
+* Major: Refactored plugin for standalone WordPress support — no longer requires BuddyPress.
+* Code Quality: Fixed all WordPress Coding Standards (WPCS) violations across all PHP files.
+* Code Quality: Added phpcs:ignore for legacy file and class naming conventions.
+* Code Quality: Fixed mixed boolean operator precedence issues.
+
 = 1.5.5 =
 * Fix: (#66,#68,#69)Fixed ads position issue on activity feed
 * Fix: Compatibility check with WordPress 6.5.0

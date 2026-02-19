@@ -1,3 +1,11 @@
+<?php
+/**
+ * Wbcom support page template.
+ *
+ * @package Buddypress_Ads_Rotator
+ */
+
+?>
 <div class="wrap">
 	<div class="wbcom-bb-plugins-offer-wrapper">
 		<div id="wb_admin_logo">

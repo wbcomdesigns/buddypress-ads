@@ -77,7 +77,6 @@ class Buddypress_Ads_Rotator {
 		$this->set_locale();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
-
 	}
 
 	/**
@@ -88,9 +87,9 @@ class Buddypress_Ads_Rotator {
 	 */
 	public function define_constants() {
 		$this->define( 'BUDDYPRESS_ADS_ROTATOR_FILE', __FILE__ );
-		$this->define( 'BUDDYPRESS_ADS_ROTATOR_URL', plugin_dir_url( dirname( __FILE__ ) ) );
-		$this->define( 'BUDDYPRESS_ADS_ROTATOR_PATH', plugin_dir_path( dirname( __FILE__ ) ) );
-		$this->define( 'BUDDYPRESS_ADS_ROTATOR_DIR', trailingslashit( dirname( __FILE__ ) ) );
+		$this->define( 'BUDDYPRESS_ADS_ROTATOR_URL', plugin_dir_url( __DIR__ ) );
+		$this->define( 'BUDDYPRESS_ADS_ROTATOR_PATH', plugin_dir_path( __DIR__ ) );
+		$this->define( 'BUDDYPRESS_ADS_ROTATOR_DIR', trailingslashit( __DIR__ ) );
 	}
 
 	/**
@@ -131,40 +130,39 @@ class Buddypress_Ads_Rotator {
 		 * The class responsible for orchestrating the actions and filters of the
 		 * core plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-buddypress-ads-rotator-loader.php';
+		require_once plugin_dir_path( __DIR__ ) . 'includes/class-buddypress-ads-rotator-loader.php';
 
 		/**
 		 * The class responsible for defining internationalization functionality
 		 * of the plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-buddypress-ads-rotator-i18n.php';
+		require_once plugin_dir_path( __DIR__ ) . 'includes/class-buddypress-ads-rotator-i18n.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-buddypress-ads-rotator-admin.php';
+		require_once plugin_dir_path( __DIR__ ) . 'admin/class-buddypress-ads-rotator-admin.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
 		 * side of the site.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-buddypress-ads-rotator-public.php';
+		require_once plugin_dir_path( __DIR__ ) . 'public/class-buddypress-ads-rotator-public.php';
 
 		/**
 		 * The class responsible for BuddyPress-specific functionality.
 		 * Only loaded when BuddyPress is active.
 		 */
 		if ( class_exists( 'BuddyPress' ) ) {
-			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-buddypress-ads-rotator-bp.php';
+			require_once plugin_dir_path( __DIR__ ) . 'public/class-buddypress-ads-rotator-bp.php';
 		}
 
 		/**
 		* The class responsible add wrapper of admin settings.
 		*/
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/wbcom/wbcom-admin-settings.php';
+		require_once plugin_dir_path( __DIR__ ) . 'admin/wbcom/wbcom-admin-settings.php';
 
 		$this->loader = new Buddypress_Ads_Rotator_Loader();
-
 	}
 
 	/**
@@ -181,7 +179,6 @@ class Buddypress_Ads_Rotator {
 		$plugin_i18n = new Buddypress_Ads_Rotator_i18n();
 
 		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
-
 	}
 
 	/**
@@ -294,5 +291,4 @@ class Buddypress_Ads_Rotator {
 	public function get_version() {
 		return $this->version;
 	}
-
 }
