@@ -9,6 +9,10 @@
  * @subpackage Buddypress_Ads_Rotator/admin
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * The admin-specific functionality of the plugin.
  *
@@ -238,7 +242,18 @@ class Buddypress_Ads_Rotator_Admin {
 		register_setting(
 			'buddypress-ads-rotator_admin_scripts_options',
 			'buddypress-ads-rotator_admin_scripts_options',
-			array( 'sanitize_callback' => 'sanitize_text_field' )
+			array(
+				'sanitize_callback' => function( $input ) {
+					if ( ! is_array( $input ) ) {
+						return array();
+					}
+					return array(
+						'header' => isset( $input['header'] ) ? wp_kses_post( $input['header'] ) : '',
+						'body'   => isset( $input['body'] )   ? wp_kses_post( $input['body'] )   : '',
+						'footer' => isset( $input['footer'] ) ? wp_kses_post( $input['footer'] ) : '',
+					);
+				},
+			)
 		);
 		add_settings_section( 'buddypress-ads-rotator-scripts', ' ', array( $this, 'wb_ads_rotator_admin_scripts_content' ), 'buddypress-ads-rotator-scripts' );
 	}
