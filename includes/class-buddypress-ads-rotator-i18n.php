@@ -33,11 +33,8 @@ class Buddypress_Ads_Rotator_i18n {
 	 * @since    1.0.0
 	 */
 	public function load_plugin_textdomain() {
-
-		load_plugin_textdomain(
-			'buddypress-ads-rotator',
-			false,
-			dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages/'
-		);
+		// Since WordPress 4.6, translations are automatically loaded from
+		// wp-content/languages/plugins/ for plugins hosted on WordPress.org.
+		// Manual load_plugin_textdomain() is no longer needed.
 	}
 }

@@ -723,8 +723,10 @@ div#wb_admin_plugin_name span {
     box-shadow: var(--shadow-normal);
 }
 
-.wbcom_help_support_icon_wrapper i.fa {
+.wbcom_help_support_icon_wrapper .dashicons {
     font-size: 40px;
+    width: 40px;
+    height: 40px;
     color: var(--primary-color);
 }
 

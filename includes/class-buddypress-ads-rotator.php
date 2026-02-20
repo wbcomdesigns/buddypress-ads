@@ -12,6 +12,10 @@
  * @subpackage Buddypress_Ads_Rotator/includes
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * The core plugin class.
  *

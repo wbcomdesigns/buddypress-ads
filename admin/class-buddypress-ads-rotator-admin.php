@@ -219,15 +219,27 @@ class Buddypress_Ads_Rotator_Admin {
 	public function wb_ads_rotator_init_plugin_settings() {
 
 		$this->plugin_settings_tabs['buddypress-ads-rotator-welcome'] = esc_html__( 'Welcome', 'buddypress-ads-rotator' );
-		register_setting( 'wb_ads_rotator_admin_welcome_options', 'wb_ads_rotator_admin_welcome_options' );
+		register_setting(
+			'wb_ads_rotator_admin_welcome_options',
+			'wb_ads_rotator_admin_welcome_options',
+			array( 'sanitize_callback' => 'sanitize_text_field' )
+		);
 		add_settings_section( 'buddypress-ads-rotator-welcome', ' ', array( $this, 'wb_ads_rotator_admin_welcome_content' ), 'buddypress-ads-rotator-welcome' );
 
 		$this->plugin_settings_tabs['buddypress-ads-rotator-faq'] = esc_html__( 'FAQ', 'buddypress-ads-rotator' );
-		register_setting( 'buddypress-ads-rotator_admin_faq_options', 'buddypress-ads-rotator_admin_faq_option' );
+		register_setting(
+			'buddypress-ads-rotator_admin_faq_options',
+			'buddypress-ads-rotator_admin_faq_option',
+			array( 'sanitize_callback' => 'sanitize_text_field' )
+		);
 		add_settings_section( 'buddypress-ads-rotator-faq', ' ', array( $this, 'wb_ads_rotator_admin_faq_content' ), 'buddypress-ads-rotator-faq' );
 
 		$this->plugin_settings_tabs['buddypress-ads-rotator-scripts'] = esc_html__( 'Add Scripts/Styles', 'buddypress-ads-rotator' );
-		register_setting( 'buddypress-ads-rotator_admin_scripts_options', 'buddypress-ads-rotator_admin_scripts_options' );
+		register_setting(
+			'buddypress-ads-rotator_admin_scripts_options',
+			'buddypress-ads-rotator_admin_scripts_options',
+			array( 'sanitize_callback' => 'sanitize_text_field' )
+		);
 		add_settings_section( 'buddypress-ads-rotator-scripts', ' ', array( $this, 'wb_ads_rotator_admin_scripts_content' ), 'buddypress-ads-rotator-scripts' );
 	}
 
