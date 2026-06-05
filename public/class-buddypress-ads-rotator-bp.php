@@ -137,19 +137,11 @@ class Buddypress_Ads_Rotator_BP {
 	 */
 	public function wb_ads_rotator_display_ads( $position ) {
 		global $activities_template;
-		$args                   = array(
-			'post_type'  => 'wb-ads',
-			'fields'     => 'ids',
-			'meta_query' => array(
-				array(
-					'key'     => 'wb_ads_rotator_values',
-					'value'   => $position,
-					'compare' => 'LIKE',
-				),
-			),
-		);
-		$ads                    = get_posts( $args );
-		$wb_ads_rotator_get_ads = ( count( $ads ) > 0 ) ? $ads : array();
+		// Bounded + cached set, filtered to the same membership the previous
+		// meta_query LIKE '%$position%' returned (meta already primed, no
+		// extra queries). The loop's exact logic — including the early
+		// return on activity_position mismatch — is preserved unchanged.
+		$wb_ads_rotator_get_ads = Buddypress_Ads_Rotator_Cache::get_ad_ids_matching( $position );
 
 		foreach ( $wb_ads_rotator_get_ads as $wb_ads_rotator_get_ad ) {
 			$wb_ads_rotator_enable = get_post_meta( $wb_ads_rotator_get_ad, 'wb_ads_enable', true );
@@ -245,12 +237,8 @@ class Buddypress_Ads_Rotator_BP {
 		}
 
 		global $activities_template;
-		$args                   = array(
-			'post_type' => 'wb-ads',
-			'fields'    => 'ids',
-		);
-		$ads                    = get_posts( $args );
-		$wb_ads_rotator_get_ads = ( count( $ads ) > 0 ) ? $ads : array();
+		// Bounded + cached eligible-ad set (meta primed in one batch).
+		$wb_ads_rotator_get_ads = Buddypress_Ads_Rotator_Cache::get_ad_ids();
 
 		foreach ( $wb_ads_rotator_get_ads as $wb_ads_rotator_get_ad ) {
 			$wb_ads_rotator_type = get_post_meta( $wb_ads_rotator_get_ad, 'wb_ads_rotator_values', true );
@@ -324,12 +312,8 @@ class Buddypress_Ads_Rotator_BP {
 			return;
 		}
 
-		$args = array(
-			'post_type' => 'wb-ads',
-			'fields'    => 'ids',
-		);
-
-		$wb_ads_rotator_get_ads = get_posts( $args );
+		// Bounded + cached eligible-ad set (meta primed in one batch).
+		$wb_ads_rotator_get_ads = Buddypress_Ads_Rotator_Cache::get_ad_ids();
 		echo '<div id="rich-ads">';
 		foreach ( $wb_ads_rotator_get_ads as $wb_ads_rotator_get_ad ) {
 			$wb_ads_rotator_type = get_post_meta( $wb_ads_rotator_get_ad, 'wb_ads_rotator_values', true );

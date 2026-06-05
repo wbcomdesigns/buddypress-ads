@@ -143,6 +143,12 @@ class Buddypress_Ads_Rotator {
 		require_once plugin_dir_path( __DIR__ ) . 'includes/class-buddypress-ads-rotator-i18n.php';
 
 		/**
+		 * The class responsible for the front-end eligible-ad query, batched
+		 * meta priming, transient cache, and cache invalidation.
+		 */
+		require_once plugin_dir_path( __DIR__ ) . 'includes/class-buddypress-ads-rotator-cache.php';
+
+		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
 		require_once plugin_dir_path( __DIR__ ) . 'admin/class-buddypress-ads-rotator-admin.php';
@@ -219,6 +225,12 @@ class Buddypress_Ads_Rotator {
 		$this->loader->add_action( 'manage_wb-ads_posts_custom_column', $plugin_admin, 'wb_ads_rotator_add_disable_column_content', 10, 2 );
 		$this->loader->add_action( 'transition_post_status', $plugin_admin, 'wb_ads_rotator_update_default_value_on_ads_publish', 10, 3 );
 		$this->loader->add_action( 'wp_ajax_wb_ads_rotator_enable', $plugin_admin, 'wb_ads_rotator_ajax_enable_callback' );
+
+		// Invalidate the cached front-end ad-ID set whenever an ad is
+		// created/updated/deleted. The enable/disable AJAX toggle clears
+		// it directly inside wb_ads_rotator_ajax_enable_callback().
+		$this->loader->add_action( 'save_post_wb-ads', 'Buddypress_Ads_Rotator_Cache', 'invalidate' );
+		$this->loader->add_action( 'deleted_post', 'Buddypress_Ads_Rotator_Cache', 'invalidate', 10, 2 );
 
 		// Card-panel settings admin (Overview / Scripts / Welcome / FAQ).
 		$settings_admin = new Buddypress_Ads_Rotator_Settings_Admin();

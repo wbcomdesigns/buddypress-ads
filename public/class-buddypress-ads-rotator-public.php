@@ -149,26 +149,10 @@ class Buddypress_Ads_Rotator_Public {
 		$before_content = '';
 		$after_content  = '';
 
-		// Get ads configured for WordPress content positions.
-		$args = array(
-			'post_type'  => 'wb-ads',
-			'fields'     => 'ids',
-			'meta_query' => array(
-				'relation' => 'OR',
-				array(
-					'key'     => 'wb_ads_rotator_values',
-					'value'   => 'wp_before_content',
-					'compare' => 'LIKE',
-				),
-				array(
-					'key'     => 'wb_ads_rotator_values',
-					'value'   => 'wp_after_content',
-					'compare' => 'LIKE',
-				),
-			),
-		);
-
-		$ads = get_posts( $args );
+		// Bounded + cached eligible-ad set (meta primed in one batch).
+		// Position filtering stays in PHP below so the result is identical
+		// to the previous per-position meta_query LIKE.
+		$ads = Buddypress_Ads_Rotator_Cache::get_ad_ids();
 		if ( empty( $ads ) ) {
 			return $content;
 		}
@@ -217,19 +201,9 @@ class Buddypress_Ads_Rotator_Public {
 			return;
 		}
 
-		$args = array(
-			'post_type'  => 'wb-ads',
-			'fields'     => 'ids',
-			'meta_query' => array(
-				array(
-					'key'     => 'wb_ads_rotator_values',
-					'value'   => 'wp_header',
-					'compare' => 'LIKE',
-				),
-			),
-		);
-
-		$ads = get_posts( $args );
+		// Bounded + cached eligible-ad set (meta primed in one batch);
+		// wp_header position filtered in PHP below (identical result).
+		$ads = Buddypress_Ads_Rotator_Cache::get_ad_ids();
 		foreach ( $ads as $ad_id ) {
 			$wb_ads_enable = get_post_meta( $ad_id, 'wb_ads_enable', true );
 			if ( 'disable' === $wb_ads_enable ) {
@@ -280,19 +254,9 @@ class Buddypress_Ads_Rotator_Public {
 			return;
 		}
 
-		$args = array(
-			'post_type'  => 'wb-ads',
-			'fields'     => 'ids',
-			'meta_query' => array(
-				array(
-					'key'     => 'wb_ads_rotator_values',
-					'value'   => 'wp_footer',
-					'compare' => 'LIKE',
-				),
-			),
-		);
-
-		$ads = get_posts( $args );
+		// Bounded + cached eligible-ad set (meta primed in one batch);
+		// wp_footer position filtered in PHP below (identical result).
+		$ads = Buddypress_Ads_Rotator_Cache::get_ad_ids();
 		foreach ( $ads as $ad_id ) {
 			$wb_ads_enable = get_post_meta( $ad_id, 'wb_ads_enable', true );
 			if ( 'disable' === $wb_ads_enable ) {
