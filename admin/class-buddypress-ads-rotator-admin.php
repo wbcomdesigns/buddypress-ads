@@ -14,10 +14,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * The admin-specific functionality of the plugin.
+ * Legacy admin service class for the wb-ads CPT.
  *
- * Defines the plugin name, version, and two examples hooks for how to
- * enqueue the admin-specific stylesheet and JavaScript.
+ * Post-1.6.0 scope: registers the wb-ads custom post type, its
+ * metaboxes, the save-post handler, the All Ads list columns, the
+ * publish-time default, the CPT-screen assets, and the three metabox
+ * AJAX handlers (image preview, image removal, enable toggle). The
+ * plugin settings page (Overview / Scripts / Welcome / FAQ) moved to
+ * Buddypress_Ads_Rotator_Settings_Admin during the card-panel admin
+ * migration, so this class no longer owns any settings-page UI.
  *
  * @package    Buddypress_Ads_Rotator
  * @subpackage Buddypress_Ads_Rotator/admin
@@ -44,13 +49,6 @@ class Buddypress_Ads_Rotator_Admin {
 	private $version;
 
 	/**
-	 * Plugin tabs settings
-	 *
-	 * @var mixed
-	 */
-	private $plugin_settings_tabs;
-
-	/**
 	 * Initialize the class and set its properties.
 	 *
 	 * @since    1.0.0
@@ -70,18 +68,10 @@ class Buddypress_Ads_Rotator_Admin {
 	 */
 	public function enqueue_styles() {
 		$screen = get_current_screen();
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Buddypress_Ads_Rotator_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Buddypress_Ads_Rotator_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
-		if ( ( null !== filter_input( INPUT_GET, 'page' ) && 'buddypress-ads-rotator-settings' === filter_input( INPUT_GET, 'page' ) ) || ( isset( $screen->post_type ) && 'wb-ads' === $screen->post_type ) ) {
+		// Only on the wb-ads CPT add/edit screens. The settings page has
+		// its own card-panel stylesheet (assets/css/admin.css) enqueued by
+		// Buddypress_Ads_Rotator_Settings_Admin.
+		if ( isset( $screen->post_type ) && 'wb-ads' === $screen->post_type ) {
 			wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/buddypress-ads-rotator-admin.css', array(), $this->version, 'all' );
 			wp_enqueue_style( 'wb_ads_rotator-selectize', plugin_dir_url( __FILE__ ) . 'css/selectize.css', array(), $this->version, 'all' );
 		}
@@ -94,18 +84,11 @@ class Buddypress_Ads_Rotator_Admin {
 	 */
 	public function enqueue_scripts() {
 		$screen = get_current_screen();
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Buddypress_Ads_Rotator_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Buddypress_Ads_Rotator_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
-		if ( ( null !== filter_input( INPUT_GET, 'page' ) && 'buddypress-ads-rotator-settings' === filter_input( INPUT_GET, 'page' ) ) || ( isset( $screen->post_type ) && 'wb-ads' === $screen->post_type ) ) {
+		// Only on the wb-ads CPT add/edit screens (metabox behaviour:
+		// ad-type toggle, image uploader, enable switch, codemirror,
+		// shortcode copy, selectize). The settings page uses its own
+		// card-panel script.
+		if ( isset( $screen->post_type ) && 'wb-ads' === $screen->post_type ) {
 			wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/buddypress-ads-rotator-admin.js', array( 'jquery' ), $this->version, false );
 			wp_localize_script(
 				$this->plugin_name,
@@ -122,161 +105,6 @@ class Buddypress_Ads_Rotator_Admin {
 			wp_enqueue_script( 'wp-theme-plugin-editor' );
 			wp_enqueue_style( 'wp-codemirror' );
 		}
-	}
-
-	/**
-	 * Hide all notices from the setting page.
-	 *
-	 * @return void
-	 */
-	public function wbcom_hide_all_admin_notices_from_setting_page() {
-		$wbcom_pages_array  = array( 'wbcomplugins', 'wbcom-plugins-page', 'wbcom-support-page', 'buddypress-ads-rotator-settings' );
-		$wbcom_setting_page = filter_input( INPUT_GET, 'page' ) ? filter_input( INPUT_GET, 'page' ) : '';
-
-		if ( in_array( $wbcom_setting_page, $wbcom_pages_array, true ) ) {
-			remove_all_actions( 'admin_notices' );
-			remove_all_actions( 'all_admin_notices' );
-		}
-	}
-
-	/**
-	 * Actions performed on loading admin_menu.
-	 *
-	 * @since    1.0.0
-	 * @access   public
-	 * @author   Wbcom Designs
-	 */
-	public function wb_ads_rotator_add_submenu_page_admin_settings() {
-		if ( empty( $GLOBALS['admin_page_hooks']['wbcomplugins'] ) ) {
-			add_menu_page( esc_html__( 'WB Plugins', 'buddypress-ads-rotator' ), esc_html__( 'WB Plugins', 'buddypress-ads-rotator' ), 'manage_options', 'wbcomplugins', array( $this, 'buddypress_ads_rotator_admin_options_page' ), 'dashicons-lightbulb', 59 );
-			add_submenu_page( 'wbcomplugins', esc_html__( 'Welcome', 'buddypress-ads-rotator' ), esc_html__( 'Welcome', 'buddypress-ads-rotator' ), 'manage_options', 'wbcomplugins' );
-
-		}
-		add_submenu_page( 'wbcomplugins', esc_html__( 'BuddyPress Ads', 'buddypress-ads-rotator' ), esc_html__( 'BuddyPress Ads', 'buddypress-ads-rotator' ), 'manage_options', 'buddypress-ads-rotator-settings', array( $this, 'buddypress_ads_rotator_admin_options_page' ) );
-	}
-
-	/**
-	 * Actions performed to create a submenu page content.
-	 *
-	 * @since    1.0.0
-	 * @access public
-	 */
-	public function buddypress_ads_rotator_admin_options_page() {
-		global $allowedposttags;
-		$tab = filter_input( INPUT_GET, 'tab' ) ? filter_input( INPUT_GET, 'tab' ) : 'buddypress-ads-rotator-welcome';
-		?>
-	<div class="wrap">
-		<div class="wbcom-bb-plugins-offer-wrapper">
-			<div id="wb_admin_logo">
-			</div>
-		</div>
-		<div class="wbcom-wrap wbcom-plugin-wrapper">
-			<div class="bupr-header">
-			<div class="wbcom_admin_header-wrapper">
-				<div id="wb_admin_plugin_name">
-					<?php esc_html_e( 'BuddyPress Ads', 'buddypress-ads-rotator' ); ?>
-					<span>
-					<?php
-					/* translators: %s: */
-					printf( __( 'Version %s', 'buddypress-ads-rotator' ), BUDDYPRESS_ADS_ROTATOR_VERSION ); //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-					?>
-					</span>
-				</div>
-				<?php echo do_shortcode( '[wbcom_admin_setting_header]' ); ?>
-			</div>
-			</div>
-			<div class="wbcom-admin-settings-page">
-			<?php
-			$this->wb_ads_rotator_plugin_settings_tabs();
-			settings_fields( $tab );
-			do_settings_sections( $tab );
-			?>
-			</div>
-		</div>
-	</div>
-			<?php
-	}
-
-	/**
-	 * Actions performed to create tabs on the sub menu page.
-	 */
-	public function wb_ads_rotator_plugin_settings_tabs() {
-		$current_tab = filter_input( INPUT_GET, 'tab' ) ? filter_input( INPUT_GET, 'tab' ) : 'buddypress-ads-rotator-welcome';
-		// xprofile setup tab.
-		echo '<div class="wbcom-tabs-section"><div class="nav-tab-wrapper"><div class="wb-responsive-menu"><span>' . esc_html( 'Menu' ) . '</span><input class="wb-toggle-btn" type="checkbox" id="wb-toggle-btn"><label class="wb-toggle-icon" for="wb-toggle-btn"><span class="wb-icon-bars"></span></label></div><ul>';
-		foreach ( $this->plugin_settings_tabs as $tab_key => $tab_caption ) {
-			$active = $current_tab === $tab_key ? 'nav-tab-active' : '';
-			echo '<li><a class="nav-tab ' . esc_attr( $active ) . '" id="' . esc_attr( $tab_key ) . '-tab" href="?page=buddypress-ads-rotator-settings&tab=' . esc_attr( $tab_key ) . '">' . esc_attr( $tab_caption ) . '</a></li>';
-		}
-		echo '<li><a class="nav-tab wb-all-ads" href="' . esc_url( get_site_url() ) . '/wp-admin/edit.php?post_type=wb-ads">' . esc_html( 'All Ads' ) . '</a></li>';
-		echo '<li><a class="nav-tab add-new-ads" href="' . esc_url( get_site_url() ) . '/wp-admin/post-new.php?post_type=wb-ads">' . esc_html( 'Add New Ads' ) . '</a></li>';
-		echo '</div></ul></div>';
-	}
-
-	/**
-	 * Actions performed on loading plugin settings
-	 *
-	 * @since    1.0.9
-	 * @access   public
-	 * @author   Wbcom Designs
-	 */
-	public function wb_ads_rotator_init_plugin_settings() {
-
-		$this->plugin_settings_tabs['buddypress-ads-rotator-welcome'] = esc_html__( 'Welcome', 'buddypress-ads-rotator' );
-		register_setting(
-			'wb_ads_rotator_admin_welcome_options',
-			'wb_ads_rotator_admin_welcome_options',
-			array( 'sanitize_callback' => 'sanitize_text_field' )
-		);
-		add_settings_section( 'buddypress-ads-rotator-welcome', ' ', array( $this, 'wb_ads_rotator_admin_welcome_content' ), 'buddypress-ads-rotator-welcome' );
-
-		$this->plugin_settings_tabs['buddypress-ads-rotator-faq'] = esc_html__( 'FAQ', 'buddypress-ads-rotator' );
-		register_setting(
-			'buddypress-ads-rotator_admin_faq_options',
-			'buddypress-ads-rotator_admin_faq_option',
-			array( 'sanitize_callback' => 'sanitize_text_field' )
-		);
-		add_settings_section( 'buddypress-ads-rotator-faq', ' ', array( $this, 'wb_ads_rotator_admin_faq_content' ), 'buddypress-ads-rotator-faq' );
-
-		$this->plugin_settings_tabs['buddypress-ads-rotator-scripts'] = esc_html__( 'Add Scripts/Styles', 'buddypress-ads-rotator' );
-		register_setting(
-			'buddypress-ads-rotator_admin_scripts_options',
-			'buddypress-ads-rotator_admin_scripts_options',
-			array(
-				'sanitize_callback' => function( $input ) {
-					if ( ! is_array( $input ) ) {
-						return array();
-					}
-					return array(
-						'header' => isset( $input['header'] ) ? wp_kses_post( $input['header'] ) : '',
-						'body'   => isset( $input['body'] )   ? wp_kses_post( $input['body'] )   : '',
-						'footer' => isset( $input['footer'] ) ? wp_kses_post( $input['footer'] ) : '',
-					);
-				},
-			)
-		);
-		add_settings_section( 'buddypress-ads-rotator-scripts', ' ', array( $this, 'wb_ads_rotator_admin_scripts_content' ), 'buddypress-ads-rotator-scripts' );
-	}
-
-	/**
-	 * Include BuddyPress Ads admin welcome setting tab content file.
-	 */
-	public function wb_ads_rotator_admin_welcome_content() {
-		include 'partials/buddypress-ads-rotator-admin-welcome-display.php.php';
-	}
-
-	/**
-	 * Include BuddyPress Ads admin genral setting tab content file.
-	 */
-	public function wb_ads_rotator_admin_faq_content() {
-		include 'partials/buddypress-ads-rotator-admin-faq-display.php';
-	}
-
-	/**
-	 * Include BuddyPress Ads admin genral setting tab content file.
-	 */
-	public function wb_ads_rotator_admin_scripts_content() {
-		include 'partials/buddypress-ads-rotator-admin-scripts-display.php';
 	}
 
 	/**
@@ -926,9 +754,13 @@ class Buddypress_Ads_Rotator_Admin {
 	 * Get a selected ads media.
 	 */
 	public function wb_ads_rotator_image() {
+		// Only users who can manage ads may resolve attachment markup.
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error();
+		}
 		// Check if our nonce is set.
 		if ( ! isset( $_GET['nonce'] ) ) {
-			return $post_id;
+			wp_send_json_error();
 		}
 		if ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['nonce'] ) ), 'ajax-nonce' ) ) {
 			die( 'Busted!' );
@@ -1027,9 +859,13 @@ class Buddypress_Ads_Rotator_Admin {
 	 * This Function is handle the ajax callback.
 	 */
 	public function wb_ads_rotator_ajax_enable_callback() {
+		// Toggling an ad on/off writes post meta — gate to admins.
+		if ( ! current_user_can( 'manage_options' ) ) {
+			die;
+		}
 		// Check if our nonce is set.
 		if ( ! isset( $_POST['nonce'] ) ) {
-			return $post_id;
+			die;
 		}
 		if ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'ajax-nonce' ) ) {
 			die( 'Busted!' );
@@ -1051,6 +887,10 @@ class Buddypress_Ads_Rotator_Admin {
 	 * @return void
 	 */
 	public function wb_ads_remove_uploaded_image() {
+		// Only users who can manage ads may reset an ad image.
+		if ( ! current_user_can( 'manage_options' ) ) {
+			die;
+		}
 		$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
 		if ( ! wp_verify_nonce( $nonce, 'ajax-nonce' ) ) {
 			die( 'Busted!' );

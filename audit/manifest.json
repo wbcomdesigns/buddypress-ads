@@ -1,0 +1,334 @@
+{
+  "$schema": "https://wpmediaverse.com/schemas/wp-plugin-manifest-v2.json",
+  "plugin": {
+    "slug": "buddypress-ads",
+    "name": "Wbcom Designs - BuddyPress Ads",
+    "version": "1.6.0",
+    "namespace": "(none - global classes prefixed Buddypress_Ads_Rotator_)",
+    "main_file": "buddypress-ads-rotator.php",
+    "text_domain": "buddypress-ads-rotator",
+    "extends": null,
+    "extension_hook_consumed": null,
+    "extension_hook_fired": null
+  },
+  "rest": { "namespace": null, "endpoints": [] },
+  "ajax": [
+    {
+      "action": "wb_ads_rotator_image",
+      "handler": "admin/class-buddypress-ads-rotator-admin.php::wb_ads_rotator_image",
+      "nonce": "ajax-nonce (read from $_GET['nonce'])",
+      "capability": "NONE (nonce only, no current_user_can)",
+      "purpose": "Return rendered attachment <img> markup for the selected image ad."
+    },
+    {
+      "action": "wb_ads_rotator_remove_image",
+      "handler": "admin/class-buddypress-ads-rotator-admin.php::wb_ads_remove_uploaded_image",
+      "nonce": "ajax-nonce (read from $_POST['nonce'])",
+      "capability": "NONE (nonce only, no current_user_can)",
+      "purpose": "Return the placeholder image URL when an image ad's image is removed."
+    },
+    {
+      "action": "wb_ads_rotator_enable",
+      "handler": "admin/class-buddypress-ads-rotator-admin.php::wb_ads_rotator_ajax_enable_callback",
+      "nonce": "ajax-nonce (read from $_POST['nonce'])",
+      "capability": "NONE (nonce only, no current_user_can) - writes wb_ads_enable post meta",
+      "purpose": "Toggle the enable/disable state of an ad from the All Ads list column."
+    },
+    {
+      "action": "wbcom_addons_cards",
+      "handler": "admin/wbcom/wbcom-admin-settings.php::wbcom_addons_cards_links",
+      "nonce": "wbcom_admin_setting_nonce (read from $_POST['nonce'])",
+      "capability": "NONE (nonce only) - echoes display_extension back",
+      "purpose": "Wbcom shared-wrapper helper that echoes an extension card label (legacy)."
+    }
+  ],
+  "admin_pages": [
+    {
+      "title": "WB Plugins",
+      "slug": "wbcomplugins",
+      "parent": null,
+      "capability": "manage_options",
+      "source": "admin/class-buddypress-ads-rotator-admin.php:151 (add_menu_page, only if global wbcomplugins menu not already registered)",
+      "icon": "dashicons-lightbulb",
+      "position": 59
+    },
+    {
+      "title": "Welcome",
+      "slug": "wbcomplugins",
+      "parent": "wbcomplugins",
+      "capability": "manage_options",
+      "source": "admin/class-buddypress-ads-rotator-admin.php:152 (add_submenu_page)"
+    },
+    {
+      "title": "BuddyPress Ads",
+      "slug": "buddypress-ads-rotator-settings",
+      "parent": "wbcomplugins",
+      "capability": "manage_options",
+      "source": "admin/class-buddypress-ads-rotator-admin.php:155 (add_submenu_page) - main settings page (Welcome/FAQ/Add Scripts tabs)"
+    },
+    {
+      "title": "Our Plugins",
+      "slug": "wbcom-plugins-page",
+      "parent": "wbcomplugins",
+      "capability": "manage_options",
+      "source": "admin/wbcom/wbcom-admin-settings.php:211 (add_submenu_page @ priority 999) - OLD wrapper"
+    },
+    {
+      "title": "Our Themes",
+      "slug": "wbcom-themes-page",
+      "parent": "wbcomplugins",
+      "capability": "manage_options",
+      "source": "admin/wbcom/wbcom-admin-settings.php:219 (add_submenu_page @ priority 999) - OLD wrapper. NOTE: template templates/wbcom-themes-page.php is missing on disk."
+    },
+    {
+      "title": "Support",
+      "slug": "wbcom-support-page",
+      "parent": "wbcomplugins",
+      "capability": "manage_options",
+      "source": "admin/wbcom/wbcom-admin-settings.php:227 (add_submenu_page @ priority 999) - OLD wrapper"
+    }
+  ],
+  "settings": [
+    {
+      "key": "wb_ads_rotator_admin_welcome_options",
+      "group": "wb_ads_rotator_admin_welcome_options",
+      "type": "string",
+      "default": "",
+      "controls": "Welcome tab placeholder setting. Registered + sanitized (sanitize_text_field) but the Welcome partial is informational; value is never read on the frontend.",
+      "registered_at": "admin/class-buddypress-ads-rotator-admin.php:226"
+    },
+    {
+      "key": "buddypress-ads-rotator_admin_faq_option",
+      "group": "buddypress-ads-rotator_admin_faq_options",
+      "type": "string",
+      "default": "",
+      "controls": "FAQ tab placeholder setting. Registered + sanitized but never read. NOTE: option name (singular _option) differs from group name (plural _options).",
+      "registered_at": "admin/class-buddypress-ads-rotator-admin.php:234"
+    },
+    {
+      "key": "buddypress-ads-rotator_admin_scripts_options",
+      "group": "buddypress-ads-rotator_admin_scripts_options",
+      "type": "array",
+      "default": "{header:'', body:'', footer:''}",
+      "controls": "Global custom header/body/footer HTML, scripts and styles. Sanitized with wp_kses_post per key. READ on frontend in public class (wp_head/wp_footer) and BP class (header/body/footer scripts).",
+      "registered_at": "admin/class-buddypress-ads-rotator-admin.php:242",
+      "read_at": ["public/class-buddypress-ads-rotator-public.php:265", "public/class-buddypress-ads-rotator-public.php:323", "public/class-buddypress-ads-rotator-bp.php:278", "public/class-buddypress-ads-rotator-bp.php:293", "public/class-buddypress-ads-rotator-bp.php:310"]
+    },
+    {
+      "key": "wb_ads_image_id",
+      "group": "(read-only, never registered/written by plugin)",
+      "type": "int",
+      "default": "",
+      "controls": "Read once in the image-ad metabox preview (admin/class-buddypress-ads-rotator-admin.php:492) but never written anywhere - effectively dead read.",
+      "registered_at": null,
+      "read_at": ["admin/class-buddypress-ads-rotator-admin.php:492"]
+    }
+  ],
+  "post_meta": [
+    {
+      "key": "wb_ads_rotator_values",
+      "post_type": "wb-ads",
+      "type": "array",
+      "purpose": "All ad configuration: ads_type, plain_text_and_code, rich_content, ads_image, image_link, size, font_size, text_color, bg_color, ads_position, clearfix, margin, allow_shortcode, wp_position, activity_type[], activity_position, enject_after, repeat_position, to_whom{logged_in_visitor,device}, container_id, container_classes.",
+      "written_at": "admin/class-buddypress-ads-rotator-admin.php:920 (wb_ads_rotator_save_post_meta)"
+    },
+    {
+      "key": "wb_ads_enable",
+      "post_type": "wb-ads",
+      "type": "string (enable|disable)",
+      "purpose": "Per-ad on/off switch. Defaults to 'enable' on publish (transition_post_status); toggled via AJAX wb_ads_rotator_enable.",
+      "written_at": "admin/class-buddypress-ads-rotator-admin.php:1023, :1041, :1043"
+    }
+  ],
+  "shortcodes": [
+    {
+      "tag": "ads-shortcode",
+      "handler": "public/class-buddypress-ads-rotator-public.php::wb_ads_rotator_shortcode_ads",
+      "attrs": ["ads_id"],
+      "purpose": "Render a single ad by post ID anywhere content/shortcodes run."
+    },
+    {
+      "tag": "wbcom_admin_setting_header",
+      "handler": "admin/wbcom/wbcom-admin-settings.php::wbcom_admin_setting_header_html",
+      "attrs": [],
+      "purpose": "OLD wrapper admin header nav (Settings/Themes & Extension/Help & Support). Echoed via do_shortcode in the settings page header."
+    }
+  ],
+  "blocks": [],
+  "post_types": [
+    {
+      "name": "wb-ads",
+      "public": false,
+      "publicly_queryable": false,
+      "show_ui": true,
+      "show_in_menu": true,
+      "show_in_rest": true,
+      "capability_type": "page",
+      "supports": ["title"],
+      "registered_at": "admin/class-buddypress-ads-rotator-admin.php:321 (hooked on init)",
+      "purpose": "Stores each ad as a CPT post; configuration lives in post meta."
+    }
+  ],
+  "taxonomies": [],
+  "tables": [],
+  "capabilities": [
+    {
+      "cap": "manage_options",
+      "default_roles": ["administrator"],
+      "registered_at": "(WP core)",
+      "enforced_at": ["admin/class-buddypress-ads-rotator-admin.php:151-155 (menu registration)", "admin/wbcom/wbcom-admin-settings.php:211-233 (menu registration)"],
+      "enforcement_count": 9,
+      "meta": false,
+      "requires_context": "none",
+      "notes": "Gates admin menu visibility only. The wb-ads CPT uses capability_type 'page' so the CPT screens are gated by edit_pages/edit_published_pages etc."
+    },
+    {
+      "cap": "edit_posts",
+      "default_roles": ["administrator", "editor", "author", "contributor"],
+      "registered_at": "(WP core)",
+      "enforced_at": ["admin/class-buddypress-ads-rotator-admin.php:914 (wb_ads_rotator_save_post_meta)"],
+      "enforcement_count": 1,
+      "meta": false,
+      "requires_context": "none",
+      "notes": "Save-meta handler checks edit_posts; note this is broader than the wb-ads CPT's page capability_type."
+    }
+  ],
+  "services": [],
+  "hooks_fired": [
+    { "name": "wb_ads_rotator_options_before", "type": "action", "args_count": 0, "args_signature": [], "where": "admin/class-buddypress-ads-rotator-admin.php (every metabox render, x6)", "consumed_by": [] },
+    { "name": "wb_ads_rotator_options_after", "type": "action", "args_count": 0, "args_signature": [], "where": "admin/class-buddypress-ads-rotator-admin.php (every metabox render, x6)", "consumed_by": [] },
+    { "name": "wb_ads_rotator_admin_save_options", "type": "action", "args_count": 0, "args_signature": [], "where": "admin/class-buddypress-ads-rotator-admin.php:922", "consumed_by": [] },
+    { "name": "wb_ads_rotator_plain_text_code_ads_content", "type": "filter", "args_count": 1, "args_signature": ["string $content"], "where": "public/class-buddypress-ads-rotator-public.php:419", "consumed_by": [] },
+    { "name": "wb_ads_rotator_rich_content_ads_content", "type": "filter", "args_count": 1, "args_signature": ["string $content"], "where": "public/class-buddypress-ads-rotator-public.php:522", "consumed_by": [] },
+    { "name": "wbcom_add_header_menu", "type": "action", "args_count": 0, "args_signature": [], "where": "admin/wbcom/wbcom-admin-settings.php:314 (OLD wrapper)", "consumed_by": [] },
+    { "name": "wbcom_add_plugin_license_code", "type": "action", "args_count": 0, "args_signature": [], "where": "admin/wbcom/templates/wbcom-license-page.php", "consumed_by": [] }
+  ],
+  "hooks_consumed": [
+    { "hook": "plugins_loaded", "where": "includes/class-buddypress-ads-rotator.php:185", "callback": "Buddypress_Ads_Rotator_i18n::load_plugin_textdomain" },
+    { "hook": "admin_enqueue_scripts", "where": "includes/...:199-200", "callback": "Admin::enqueue_styles / enqueue_scripts" },
+    { "hook": "admin_menu", "where": "includes/...:202", "callback": "Admin::wb_ads_rotator_add_submenu_page_admin_settings" },
+    { "hook": "admin_init", "where": "includes/...:203,:215", "callback": "Admin::wb_ads_rotator_init_plugin_settings / wbcom_hide_all_admin_notices_from_setting_page" },
+    { "hook": "init", "where": "includes/...:205", "callback": "Admin::wb_ads_rotator_add_cpt" },
+    { "hook": "add_meta_boxes", "where": "includes/...:206", "callback": "Admin::wb_ads_rotator_add_metaboxes" },
+    { "hook": "save_post", "where": "includes/...:207", "callback": "Admin::wb_ads_rotator_save_post_meta" },
+    { "hook": "manage_wb-ads_posts_columns", "where": "includes/...:211", "callback": "Admin::wb_ads_rotator_add_disable_admin_columns" },
+    { "hook": "manage_wb-ads_posts_custom_column", "where": "includes/...:212", "callback": "Admin::wb_ads_rotator_add_disable_column_content" },
+    { "hook": "transition_post_status", "where": "includes/...:213", "callback": "Admin::wb_ads_rotator_update_default_value_on_ads_publish" },
+    { "hook": "wp_enqueue_scripts", "where": "includes/...:229-230", "callback": "Public::enqueue_styles / enqueue_scripts" },
+    { "hook": "the_content", "where": "includes/...:236,:255", "callback": "Public::wb_ads_display_in_content / BP::wb_ads_body_scripts" },
+    { "hook": "wp_head", "where": "includes/...:237,:253", "callback": "Public::wb_ads_display_header / BP::wb_ads_scripts" },
+    { "hook": "wp_footer", "where": "includes/...:238,:254", "callback": "Public::wb_ads_display_footer / BP::wb_ads_footer_scripts" },
+    { "hook": "admin_notices", "where": "buddypress-ads-rotator.php:95", "callback": "wb_ads_rotator_buddypress_notice" },
+    { "hook": "activated_plugin", "where": "buddypress-ads-rotator.php:117", "callback": "wb_ads_rotator_activation_redirect_settings" },
+    { "hook": "bp_before_activity_entry / bp_activity_entry_content / bp_after_activity_entry / bp_before_activity_entry_comments / bp_activity_entry_comments / bp_after_activity_entry_comments / bp_before_directory_activity_content / bp_after_member_activity_post_form / bp_after_group_activity_post_form", "where": "includes/...:244-252", "callback": "BP::* (only when BuddyPress active)" }
+  ],
+  "interactivity": [],
+  "ui_activation": [
+    { "selector": ".plain-text-and-code / .rich-content / .image-ad", "default_hidden_by": "inline style=display:none in metabox PHP + JS show/hide", "active_modifier": "jQuery .show()/.hide()", "php_fallback": true, "notes": "Server renders the correct visible block based on saved ads_type; JS toggles on radio change." }
+  ],
+  "static_analysis": {
+    "dead_listeners": [],
+    "cap_context_mismatches": [
+      { "cap": "(none)", "consumed_at": "admin/class-buddypress-ads-rotator-admin.php:933,1034,1055", "required_context": "edit_post / manage CPT", "available_context": "none", "note": "Three admin AJAX handlers verify nonce but perform no capability check before writing post meta / returning attachment markup. wppqa flagged as nonce-no-cap (high). These are wp_ajax_ (auth-required) endpoints, so a logged-in subscriber could toggle/modify ads via wb_ads_rotator_enable. REAL finding (not a nopriv false positive)." }
+    ],
+    "extensibility_gaps": [
+      { "list_at": "public/class-buddypress-ads-rotator-public.php:171,232,295 (get_posts ad loops)", "injecting_action": "(none)", "injecting_action_at": null, "suggested_filter": "wb_ads_rotator_query_args / wb_ads_rotator_eligible_ads", "note": "Frontend ad selection runs unbounded get_posts() with a meta_query LIKE on every singular view / wp_head / wp_footer with no posts_per_page cap, no caching, and no filter to alter the result set." }
+    ],
+    "js_only_activation": [],
+    "rest_hang_risks": [],
+    "visual_required_no_enforcement": [],
+    "grid_track_overflow_risks": [],
+    "hook_signature_drift": [],
+    "adapter_undefined_calls": [],
+    "registry_bypasses": [],
+    "suppressed_baseline_inventory": {
+      "stub_class_missing": { "count": 0, "action": "n/a" },
+      "stub_const_missing": { "count": 0, "action": "n/a" },
+      "undef_var_risk": { "count": 0, "action": "n/a" },
+      "real_type_debt": { "count": 0, "action": "n/a" },
+      "phpcs_excludes": { "count": 0, "action": "Inline phpcs:ignore used for unescaped echo of raw ad HTML/scripts (by design) and legacy class/file names." }
+    },
+    "registry_strategy": [],
+    "performance_risks": [
+      { "where": "public/class-buddypress-ads-rotator-public.php:wb_ads_display_in_content/header/footer; public/class-buddypress-ads-rotator-bp.php:wb_ads_rotator_display_ads/wb_ads_scripts/wb_ads_rotator_check_ads", "pattern": "Unbounded get_posts(post_type=wb-ads) with meta_query LIKE, run on every page load (the_content, wp_head, wp_footer, multiple BP hooks), then per-ad get_post_meta() in a foreach (N+1). No posts_per_page, no transient cache.", "risk": "high at scale - a site with hundreds of ads pays repeated full-table meta_query scans on every front-end request.", "suggestion": "Add posts_per_page bound, replace meta_query LIKE with a dedicated indexed meta key per position, batch-fetch meta, and cache the eligible-ad set per position with invalidation on save_post." }
+    ],
+    "output_escaping_risks": [
+      { "where": "public/class-buddypress-ads-rotator-public.php:253,268,326,419; public/class-buddypress-ads-rotator-bp.php:268,273,280,295,312", "pattern": "Raw echo of admin-entered scripts/styles/HTML and apply_filters output with phpcs:ignore (no escaping).", "risk": "By design (ad code must run verbatim) and gated to manage_options input, but means stored content is rendered unescaped. Document as intentional; ensure only high-trust roles can edit ads." }
+    ]
+  },
+  "buddypress_integration": {
+    "enabled_when": "class_exists('BuddyPress') at load time",
+    "manager": "Buddypress_Ads_Rotator_BP (public/class-buddypress-ads-rotator-bp.php), instantiated in define_public_hooks() only when BP active",
+    "sub_classes": ["Buddypress_Ads_Rotator_BP"],
+    "notes": "1.6.0 made BP optional - core WordPress positions (before/after content, header, footer, shortcode) always work; BP activity-stream positions only register when BuddyPress is active. Nouveau-specific paths gated on bp_get_theme_compat_id()."
+  },
+  "frontend_assets": {
+    "js": [
+      { "handle": "buddypress-ads-rotator", "path": "public/js/buddypress-ads-rotator-public.js", "deps": ["jquery"], "localized": "bp_ads_check{is_shortcode_page}" }
+    ],
+    "css": [
+      { "handle": "buddypress-ads-rotator", "path": "public/css/buddypress-ads-rotator-public.css" }
+    ]
+  },
+  "admin_assets": {
+    "js": [
+      { "handle": "buddypress-ads-rotator", "path": "admin/js/buddypress-ads-rotator-admin.js", "deps": ["jquery"], "localized": "ajax{url,nonce:ajax-nonce}", "loaded_on": "page=buddypress-ads-rotator-settings OR post_type=wb-ads" },
+      { "handle": "wb_ads_rotator-selectize-min", "path": "admin/js/selectize.min.js", "deps": ["jquery"] },
+      { "handle": "wbcom_admin_setting_js", "path": "admin/wbcom/assets/js/wbcom-admin-setting.js", "deps": ["jquery"], "localized": "wbcom_plugin_installer_params", "source": "OLD wrapper" }
+    ],
+    "css": [
+      { "handle": "buddypress-ads-rotator", "path": "admin/css/buddypress-ads-rotator-admin.css" },
+      { "handle": "wb_ads_rotator-selectize", "path": "admin/css/selectize.css" },
+      { "handle": "wbcom-admin-setting-css", "path": "admin/wbcom/assets/css/wbcom-admin-setting.css", "source": "OLD wrapper" }
+    ],
+    "wp_core_used": ["wp-codemirror", "wp-theme-plugin-editor", "wp.media (image uploader)"]
+  },
+  "cron": [],
+  "wp_cli": [],
+  "storage_drivers": [],
+  "security": {
+    "uploads_gate": "n/a (uses wp.media; image stored as attachment ID)",
+    "signing_entry_points": [],
+    "always_sign_filter": null,
+    "rate_limit_middleware": null,
+    "nonce_actions": ["ajax-nonce", "wb_ads_rotator_render_add_meta_box", "wbcom_admin_setting_nonce"],
+    "notes": "AJAX handlers verify nonce but 3 of 4 lack any capability check (see static_analysis.cap_context_mismatches). Frontend ad output is intentionally unescaped raw HTML/JS (manage_options-trusted input)."
+  },
+  "ci_guards": { "script": null, "url_emission_regex": null, "storage_internal_marker": null, "phpstan_level": null },
+  "coding_rules": [
+    "Hook orchestration goes through Buddypress_Ads_Rotator_Loader (WP Plugin Boilerplate pattern) - add hooks in includes/class-buddypress-ads-rotator.php define_admin_hooks()/define_public_hooks(), not scattered add_action calls.",
+    "All ad config persists in the single wb_ads_rotator_values post-meta array on the wb-ads CPT.",
+    "Frontend ad markup is rendered by the three Public::wb_ads_rotator_display_*_ads() methods; BP class delegates to them via $public_class."
+  ],
+  "build_commands": { "release": "grunt (gruntfile.js: checktextdomain, makepot, etc.)", "ci_local": null },
+  "category_sources": {
+    "rest": ["**/*.php"],
+    "ajax": ["admin/**/*.php"],
+    "admin_pages": ["admin/**/*.php"],
+    "settings": ["admin/**/*.php"],
+    "shortcodes": ["**/*.php"],
+    "blocks": [],
+    "post_types": ["admin/**/*.php"],
+    "taxonomies": [],
+    "tables": [],
+    "capabilities": ["**/*.php"],
+    "services": [],
+    "hooks_fired": ["**/*.php"],
+    "frontend_assets": ["public/**/*.php"],
+    "cron": [],
+    "wp_cli": [],
+    "security": ["admin/**/*.php", "public/**/*.php"]
+  },
+  "generated": {
+    "at": "2026-06-05T00:00:00Z",
+    "from": "wp-plugin-onboard skill",
+    "branch": "1.6.0",
+    "commit": "fad6e1f",
+    "schema_version": "v2.2",
+    "scan_scope": "fallback_defaults",
+    "scan_path": ".",
+    "php_file_count": 22,
+    "size_class": "small",
+    "notes": "Onboarding-only pass (no CI/journey/scale scaffold, no commit). Plugin uses the WordPress Plugin Boilerplate (loader pattern), no REST/tables/cron/CLI/blocks. Admin UI wrapper = OLD (admin/wbcom/wbcom-admin-settings.php, class Wbcom_Admin_Settings)."
+  }
+}

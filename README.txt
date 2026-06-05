@@ -22,6 +22,9 @@ Do you consider integrating your BuddyPress community to enhance customer satisf
 == Changelog ==
 = 1.6.0 =
 * Major: Refactored plugin for standalone WordPress support — no longer requires BuddyPress.
+* UX: Rebuilt the settings screen on the new Wbcom card-panel admin (Overview, Scripts/Styles, Welcome, FAQ) with a sidebar layout and shared WB Plugins hub. Replaces the legacy tab wrapper.
+* Security: Added capability checks (manage_options) to the ad image, image-removal, and enable/disable AJAX handlers.
+* Code Quality: Removed the legacy admin/wbcom/ wrapper and unused settings partials.
 * Code Quality: Fixed all WordPress Coding Standards (WPCS) violations across all PHP files.
 * Code Quality: Added phpcs:ignore for legacy file and class naming conventions.
 * Code Quality: Fixed mixed boolean operator precedence issues.

@@ -162,9 +162,11 @@ class Buddypress_Ads_Rotator {
 		}
 
 		/**
-		* The class responsible add wrapper of admin settings.
-		*/
-		require_once plugin_dir_path( __DIR__ ) . 'admin/wbcom/wbcom-admin-settings.php';
+		 * The class responsible for the card-panel settings admin page
+		 * (Overview / Scripts / Welcome / FAQ). Replaces the legacy
+		 * admin/wbcom/ wrapper as of 1.6.0.
+		 */
+		require_once plugin_dir_path( __DIR__ ) . 'includes/admin/class-buddypress-ads-rotator-settings-admin.php';
 
 		$this->loader = new Buddypress_Ads_Rotator_Loader();
 	}
@@ -194,13 +196,18 @@ class Buddypress_Ads_Rotator {
 	 */
 	private function define_admin_hooks() {
 
+		// Legacy admin service class — retained for the wb-ads CPT, its
+		// metaboxes, list columns, save handler, and metabox AJAX. Its
+		// settings-page UI (menu + Settings-API tabs + notice suppression)
+		// is no longer wired; Buddypress_Ads_Rotator_Settings_Admin owns
+		// that surface as of 1.6.0. See the wbcom-wrapper-migration
+		// playbook Part 3.
 		$plugin_admin = new Buddypress_Ads_Rotator_Admin( $this->get_plugin_name(), $this->get_version() );
 
+		// CPT-screen assets only (the metabox UI). The settings page has
+		// its own card-panel CSS/JS.
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
-
-		$this->loader->add_action( 'admin_menu', $plugin_admin, 'wb_ads_rotator_add_submenu_page_admin_settings' );
-		$this->loader->add_action( 'admin_init', $plugin_admin, 'wb_ads_rotator_init_plugin_settings' );
 
 		$this->loader->add_action( 'init', $plugin_admin, 'wb_ads_rotator_add_cpt' );
 		$this->loader->add_action( 'add_meta_boxes', $plugin_admin, 'wb_ads_rotator_add_metaboxes' );
@@ -212,7 +219,10 @@ class Buddypress_Ads_Rotator {
 		$this->loader->add_action( 'manage_wb-ads_posts_custom_column', $plugin_admin, 'wb_ads_rotator_add_disable_column_content', 10, 2 );
 		$this->loader->add_action( 'transition_post_status', $plugin_admin, 'wb_ads_rotator_update_default_value_on_ads_publish', 10, 3 );
 		$this->loader->add_action( 'wp_ajax_wb_ads_rotator_enable', $plugin_admin, 'wb_ads_rotator_ajax_enable_callback' );
-		$this->loader->add_action( 'admin_init', $plugin_admin, 'wbcom_hide_all_admin_notices_from_setting_page' );
+
+		// Card-panel settings admin (Overview / Scripts / Welcome / FAQ).
+		$settings_admin = new Buddypress_Ads_Rotator_Settings_Admin();
+		$settings_admin->register();
 	}
 
 	/**
