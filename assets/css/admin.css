@@ -37,6 +37,7 @@
 	--wbar-admin-success-light: #dcfce7;
 	--wbar-admin-warn: #f59e0b;
 	--wbar-admin-warn-light: #fef9c3;
+	--wbar-admin-warn-text: #92400e;
 	--wbar-admin-danger: #dc2626;
 	--wbar-admin-danger-dark: #b91c1c;
 	--wbar-admin-danger-light: #fee2e2;
@@ -567,7 +568,7 @@
 	cursor: pointer;
 	text-decoration: none;
 	transition: background 0.12s, border-color 0.12s, color 0.12s;
-	min-height: 36px;
+	min-height: 40px;
 	box-shadow: none;
 }
 
@@ -681,7 +682,7 @@
 .wbar-notice--warn {
 	background: var(--wbar-admin-warn-light);
 	border-color: rgba(245, 158, 11, 0.3);
-	color: #92400e;
+	color: var(--wbar-admin-warn-text);
 }
 
 .wbar-notice--success {
@@ -1234,4 +1235,86 @@
 	margin: 8px 0 0;
 	color: var(--wbar-admin-warn, #d97706);
 	font-size: 13px;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   Discover tab: ecosystem cross-promotion cards
+   ═══════════════════════════════════════════════════════════ */
+.wbar-discover-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+	gap: var(--wbar-admin-gap-md);
+}
+
+.wbar-discover-card {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 10px;
+	padding: var(--wbar-admin-gap-lg);
+	background: var(--wbar-admin-white);
+	border: 1px solid var(--wbar-admin-border);
+	border-radius: var(--wbar-admin-radius);
+	box-shadow: var(--wbar-admin-shadow);
+	transition: box-shadow 0.12s, border-color 0.12s, transform 0.12s;
+}
+
+.wbar-discover-card:hover {
+	border-color: var(--wbar-admin-border-strong);
+	box-shadow: var(--wbar-admin-shadow-hover);
+	transform: translateY(-1px);
+}
+
+.wbar-discover-card__logo {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 52px;
+	height: 52px;
+}
+
+.wbar-discover-card__logo img {
+	width: 52px;
+	height: 52px;
+	display: block;
+	border-radius: var(--wbar-admin-radius-sm);
+}
+
+.wbar-discover-card__logo .dashicons {
+	width: 32px;
+	height: 32px;
+	font-size: 32px;
+	color: var(--wbar-admin-accent);
+}
+
+.wbar-discover-card__title {
+	font-size: 15px;
+	font-weight: 700;
+	color: var(--wbar-admin-text);
+	line-height: 1.2;
+	margin: 0;
+}
+
+.wbar-discover-card__desc {
+	font-size: 13px;
+	color: var(--wbar-admin-text-muted);
+	line-height: 1.5;
+	margin: 0;
+	flex: 1 1 auto;
+}
+
+.wbar-discover-card__cta {
+	margin-top: 4px;
+}
+
+.wbar-discover-card__cta .dashicons {
+	width: 14px;
+	height: 14px;
+	font-size: 14px;
+}
+
+@media (max-width: 640px) {
+	.wbar-discover-grid {
+		grid-template-columns: 1fr;
+	}
 }

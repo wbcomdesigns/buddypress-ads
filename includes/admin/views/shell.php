@@ -67,6 +67,7 @@ $version = defined( 'BUDDYPRESS_ADS_ROTATOR_VERSION' ) ? BUDDYPRESS_ADS_ROTATOR_
 				$group_labels   = array(
 					'settings' => esc_html__( 'Settings', 'buddypress-ads-rotator' ),
 					'help'     => esc_html__( 'Help', 'buddypress-ads-rotator' ),
+					'more'     => esc_html__( 'More', 'buddypress-ads-rotator' ),
 				);
 				foreach ( $wbar_tabs as $slug => $wbar_tab ) {
 					$group = isset( $wbar_tab['group'] ) ? $wbar_tab['group'] : 'main';

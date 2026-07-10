@@ -1,9 +1,10 @@
 === Wbcom Designs - BuddyPress Ads ===
 Contributors: vapvarun, wbcomdesigns
 Donate link: https://wbcomdesigns.com
-Tags: BuddyPress
-Requires at least: 3.0.1
-Tested up to: 6.9
+Tags: BuddyPress, ads, advertising, ad rotator, banner
+Requires at least: 5.0
+Tested up to: 7.0
+Requires PHP: 7.4
 Stable tag: 1.6.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -20,14 +21,17 @@ Do you consider integrating your BuddyPress community to enhance customer satisf
 2. Activate the plugin through the 'Plugins' menu in WordPress
 
 == Changelog ==
-= 1.6.0 =
-* Major: Refactored plugin for standalone WordPress support — no longer requires BuddyPress.
-* UX: Rebuilt the settings screen on the new Wbcom card-panel admin (Overview, Scripts/Styles, Welcome, FAQ) with a sidebar layout and shared WB Plugins hub. Replaces the legacy tab wrapper.
-* Security: Added capability checks (manage_options) to the ad image, image-removal, and enable/disable AJAX handlers.
-* Code Quality: Removed the legacy admin/wbcom/ wrapper and unused settings partials.
-* Code Quality: Fixed all WordPress Coding Standards (WPCS) violations across all PHP files.
-* Code Quality: Added phpcs:ignore for legacy file and class naming conventions.
-* Code Quality: Fixed mixed boolean operator precedence issues.
+= 1.6.0 - July 2026 =
+
+Standalone WordPress support plus a rebuilt admin. BuddyPress is now optional.
+
+* New      - Added a Discover tab to the settings screen with more free tools from Wbcom Designs.
+* Improve  - Refactored the plugin to run on standalone WordPress; BuddyPress is now optional, not required.
+* Improve  - Rebuilt the settings screen on the new Wbcom card-panel admin (Overview, Scripts / Styles, Welcome, FAQ) with a sidebar layout and shared WB Plugins hub.
+* Improve  - Raised admin buttons to a 40px tap target and moved the warning-text color onto a design token.
+* Security - Added capability checks (manage_options) to the ad image, image-removal, and enable/disable AJAX handlers.
+* Dev      - Removed the legacy admin/wbcom/ wrapper and unused settings partials.
+* Dev      - Fixed all WordPress Coding Standards violations and mixed boolean operator precedence issues across all PHP files.
 
 = 1.5.5 =
 * Fix: (#66,#68,#69)Fixed ads position issue on activity feed

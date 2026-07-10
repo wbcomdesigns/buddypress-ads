@@ -65,6 +65,11 @@ class Buddypress_Ads_Rotator_Settings_Admin {
 				'icon'  => 'dashicons-editor-help',
 				'group' => 'help',
 			),
+			'discover' => array(
+				'label' => __( 'Discover', 'buddypress-ads-rotator' ),
+				'icon'  => 'dashicons-lightbulb',
+				'group' => 'more',
+			),
 		);
 		return apply_filters( 'buddypress_ads_rotator_admin_tabs', $tabs );
 	}
@@ -279,6 +284,7 @@ class Buddypress_Ads_Rotator_Settings_Admin {
 			'scripts'  => 'settings-scripts',
 			'welcome'  => 'welcome',
 			'faq'      => 'faq',
+			'discover' => 'discover',
 		);
 
 		$view                = isset( $view_map[ $active ] ) ? $view_map[ $active ] : 'overview';

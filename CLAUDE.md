@@ -20,11 +20,11 @@
 - Public: `public/class-buddypress-ads-rotator-public.php` (content/header/footer/shortcode rendering)
 - BuddyPress: `public/class-buddypress-ads-rotator-bp.php` (loaded only if `class_exists('BuddyPress')`)
 
-## Admin UI wrapper classification: **OLD**
-- **File**: `admin/wbcom/wbcom-admin-settings.php` — class `Wbcom_Admin_Settings` (legacy tab/header pattern). Required from the core class at `includes/class-buddypress-ads-rotator.php:167`.
-- The plugin's own settings page (`buddypress-ads-rotator-settings`) is a hand-rolled tabbed Settings-API page in `Buddypress_Ads_Rotator_Admin` that embeds the wrapper header via `do_shortcode('[wbcom_admin_setting_header]')`.
-- NOT the INTERMEDIATE (`includes/shared-admin/class-wbcom-shared-dashboard.php`) or NEW (`includes/admin/views/shell.php`) patterns — neither file exists.
-- Wrapper-owned pages: Our Plugins (`wbcom-plugins-page`), Our Themes (`wbcom-themes-page` — **template missing**), Support (`wbcom-support-page`); AJAX `wbcom_addons_cards`; shortcode `wbcom_admin_setting_header`.
+## Admin UI wrapper classification: **NEW (card-panel shell)**
+- **Controller**: `includes/admin/class-buddypress-ads-rotator-settings-admin.php` — class `Buddypress_Ads_Rotator_Settings_Admin` (card-panel pattern, `get_tabs()` registry + `view_map`).
+- Renders `includes/admin/views/shell.php` (page header + sidebar nav + body slot). Tabs: `overview`, `scripts`, `welcome`, `faq`, `discover`. Views in `includes/admin/views/`.
+- Shared WB Plugins hub under `wbcomplugins` (top-level, pos 59). Settings submenu slug `buddypress-ads-rotator-settings`. `takeover_hub_landing()` @999 reclaims the hub landing if a legacy wbcom-wrapper plugin registered `wbcomplugins` first.
+- The legacy `admin/wbcom/` wrapper + `Wbcom_Admin_Settings` class + `[wbcom_admin_setting_header]` shortcode + `wbcom_addons_cards` AJAX were removed in the 1.6.0 migration. The `wb-ads` CPT, metaboxes, list columns, save handler and metabox AJAX remain in the retained legacy `Buddypress_Ads_Rotator_Admin` service class.
 
 ## Important patterns
 - All ad config lives in ONE post-meta array `wb_ads_rotator_values` on the `wb-ads` CPT; on/off in `wb_ads_enable`.
@@ -46,4 +46,5 @@
 ## Recent changes
 | Date | Type | Description | Files |
 |---|---|---|---|
+| 2026-07-10 | feature | Added a "Discover" tab (9 free Wbcom products, brand logos + CTAs) to the card-panel admin; registered in `get_tabs()` (group `more`) + `view_map`, added `more` group label to shell.php, copied `assets/images/ecosystem/*`, appended `.wbar-discover-*` CSS. Polish: `.wbar-btn` min-height 36→40px (tap target), `#92400e` warn text moved to `--wbar-admin-warn-text` token. readme/header: Tested up to 7.0, Requires PHP 7.4, Requires at least 5.0, 1.6.0 changelog reformatted to action-prefix house style. NOT added `Requires Plugins: buddypress` (1.6.0 is standalone; BP optional). Corrected stale OLD→NEW wrapper classification above. | includes/admin/class-buddypress-ads-rotator-settings-admin.php, includes/admin/views/{discover,shell}.php, assets/css/admin.css, assets/images/ecosystem/*, README.txt, buddypress-ads-rotator.php, CLAUDE.md |
 | 2026-06-05 | onboard | Generated audit/ manifest + reports + graph + wppqa baseline + this CLAUDE.md (no code change) | audit/*, CLAUDE.md |
