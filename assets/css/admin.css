@@ -74,7 +74,7 @@
 	color: inherit;
 }
 
-.wbar-admin a {
+.wbar-admin a:not(.wbar-btn) {
 	color: var(--wbar-admin-accent);
 }
 

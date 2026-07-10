@@ -20,6 +20,11 @@ Do you consider integrating your BuddyPress community to enhance customer satisf
 1. Upload `buddypress-ads.zip` to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
 
+== Screenshots ==
+
+1. Admin overview - published and enabled ad counts, global header/body/footer markup, and quick actions.
+2. Discover more free Wbcom Designs community plugins from the admin screen.
+
 == Changelog ==
 = 1.6.0 - July 2026 =
 
