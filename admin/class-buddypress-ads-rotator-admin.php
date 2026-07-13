@@ -751,6 +751,113 @@ class Buddypress_Ads_Rotator_Admin {
 	}
 
 	/**
+	 * Whether an ad has no content for its selected type.
+	 *
+	 * An ad with no content renders an empty container in the stream, so it must not
+	 * reach a published state. Only the field that belongs to the chosen ad type is
+	 * considered - a plain-text ad does not need an image, and vice versa.
+	 *
+	 * @since 1.6.0
+	 * @param array $values The `wb_ads_rotator_values` payload.
+	 * @return bool True when the ad has nothing to render.
+	 */
+	private function wb_ads_rotator_is_empty( $values ) {
+		if ( ! is_array( $values ) ) {
+			return true;
+		}
+
+		$type = isset( $values['ads_type'] ) ? $values['ads_type'] : 'plain-text-and-code';
+
+		switch ( $type ) {
+			case 'image-ad':
+				return empty( $values['ads_image'] );
+
+			case 'rich-content':
+				$content = isset( $values['rich_content'] ) ? $values['rich_content'] : '';
+				// Media-only rich content is legitimate, so keep anything embedded.
+				if ( preg_match( '/<(img|iframe|video|embed|object|svg)\b/i', $content ) ) {
+					return false;
+				}
+				return '' === trim( wp_strip_all_tags( $content ) );
+
+			case 'plain-text-and-code':
+			default:
+				$content = isset( $values['plain_text_and_code'] ) ? $values['plain_text_and_code'] : '';
+				return '' === trim( $content );
+		}
+	}
+
+	/**
+	 * Keep an empty ad out of a published state.
+	 *
+	 * Runs on wp_insert_post_data, before the post row is written, so the ad is saved
+	 * as a draft rather than published. The meta is still stored by the save_post
+	 * handler, so nothing the author typed is lost - the ad simply stays a draft until
+	 * it has content.
+	 *
+	 * @since 1.6.0
+	 * @param array $data    Sanitized post data about to be written.
+	 * @param array $postarr Raw post data as submitted.
+	 * @return array Post data, forced to draft when the ad is empty.
+	 */
+	public function wb_ads_rotator_block_empty_publish( $data, $postarr ) {
+		if ( ! isset( $data['post_type'] ) || 'wb-ads' !== $data['post_type'] ) {
+			return $data;
+		}
+
+		if ( ! in_array( $data['post_status'], array( 'publish', 'future' ), true ) ) {
+			return $data;
+		}
+
+		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+			return $data;
+		}
+
+		// The metabox payload when editing; the stored meta when publishing from
+		// Quick Edit or a bulk action, where the metabox is not part of the request.
+		// Core verifies the edit nonce before this filter runs.
+		// phpcs:ignore WordPress.Security.NonceVerification.Missing
+		if ( isset( $_POST['wb_ads_rotator'] ) ) {
+			// phpcs:ignore WordPress.Security.NonceVerification.Missing
+			$values = filter_input( INPUT_POST, 'wb_ads_rotator', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
+		} elseif ( ! empty( $postarr['ID'] ) ) {
+			$values = get_post_meta( (int) $postarr['ID'], 'wb_ads_rotator_values', true );
+		} else {
+			$values = array();
+		}
+
+		if ( ! $this->wb_ads_rotator_is_empty( $values ) ) {
+			return $data;
+		}
+
+		$data['post_status'] = 'draft';
+
+		set_transient( 'wb_ads_rotator_empty_notice_' . get_current_user_id(), 1, 60 );
+
+		return $data;
+	}
+
+	/**
+	 * Tell the author why their empty ad was kept as a draft.
+	 *
+	 * @since 1.6.0
+	 */
+	public function wb_ads_rotator_empty_ad_notice() {
+		$key = 'wb_ads_rotator_empty_notice_' . get_current_user_id();
+
+		if ( ! get_transient( $key ) ) {
+			return;
+		}
+
+		delete_transient( $key );
+
+		printf(
+			'<div class="notice notice-error is-dismissible"><p>%s</p></div>',
+			esc_html__( 'This ad was saved as a draft because it has no content. Add the ad content for the selected ad type, then publish.', 'buddypress-ads-rotator' )
+		);
+	}
+
+	/**
 	 * Get a selected ads media.
 	 */
 	public function wb_ads_rotator_image() {

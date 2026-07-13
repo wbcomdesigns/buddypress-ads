@@ -31,6 +31,10 @@ Do you consider integrating your BuddyPress community to enhance customer satisf
 Standalone WordPress support plus a rebuilt admin. BuddyPress is now optional.
 
 * New      - Added a Discover tab to the settings screen with more free tools from Wbcom Designs.
+* Fix      - Activity stream ads now appear reliably. The BuddyPress integration was skipped whenever this plugin loaded before BuddyPress, which left every activity ad position dead.
+* Fix      - An ad with no content can no longer be published. It is kept as a draft with a notice, instead of publishing an ad that renders as an empty space.
+* Fix      - Iframe ads inside the activity stream now become visible. The script that moves them into place targeted class names the markup never had.
+* Fix      - The Documentation link in the settings screen opened a 404. It now points at the current documentation.
 * Improve  - Refactored the plugin to run on standalone WordPress; BuddyPress is now optional, not required.
 * Improve  - Rebuilt the settings screen on the new Wbcom card-panel admin (Overview, Scripts / Styles, Welcome, FAQ) with a sidebar layout and shared WB Plugins hub.
 * Improve  - Raised admin buttons to a 40px tap target and moved the warning-text color onto a design token.

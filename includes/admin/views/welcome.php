@@ -39,7 +39,7 @@ defined( 'ABSPATH' ) || exit;
 			<div class="wbar-resource">
 				<h3><span class="dashicons dashicons-book" aria-hidden="true"></span><?php esc_html_e( 'Documentation', 'buddypress-ads-rotator' ); ?></h3>
 				<p><?php esc_html_e( 'A complete guide covering every aspect of BuddyPress Ads. Most answers live here.', 'buddypress-ads-rotator' ); ?></p>
-				<a href="https://wbcomdesigns.com/docs/buddypress-paid-addons/buddypress-ads-rotator/" class="wbar-btn wbar-btn-secondary" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Read Documentation', 'buddypress-ads-rotator' ); ?></a>
+				<a href="https://docs.wbcomdesigns.com/docs/buddypress-ads/" class="wbar-btn wbar-btn-secondary" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Read Documentation', 'buddypress-ads-rotator' ); ?></a>
 			</div>
 			<div class="wbar-resource">
 				<h3><span class="dashicons dashicons-sos" aria-hidden="true"></span><?php esc_html_e( 'Support Center', 'buddypress-ads-rotator' ); ?></h3>

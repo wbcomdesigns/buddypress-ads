@@ -61,6 +61,18 @@ class Buddypress_Ads_Rotator {
 	protected $version;
 
 	/**
+	 * The public-facing renderer, reused by the BuddyPress integration.
+	 *
+	 * Held on the instance because the BuddyPress hooks are registered later, on
+	 * bp_loaded, rather than inside define_public_hooks().
+	 *
+	 * @since    1.6.0
+	 * @access   protected
+	 * @var      Buddypress_Ads_Rotator_Public    $plugin_public    Public renderer.
+	 */
+	protected $plugin_public;
+
+	/**
 	 * Define the core functionality of the plugin.
 	 *
 	 * Set the plugin name and the plugin version that can be used throughout the plugin.
@@ -159,13 +171,16 @@ class Buddypress_Ads_Rotator {
 		 */
 		require_once plugin_dir_path( __DIR__ ) . 'public/class-buddypress-ads-rotator-public.php';
 
-		/**
-		 * The class responsible for BuddyPress-specific functionality.
-		 * Only loaded when BuddyPress is active.
+		/*
+		 * The BuddyPress class is NOT required here.
+		 *
+		 * This file runs while the plugin file is being included, which is before
+		 * plugins_loaded. Whether class_exists( 'BuddyPress' ) is true at this point
+		 * depends purely on the order of the active_plugins option, so requiring it
+		 * here silently skipped the whole BuddyPress integration whenever this plugin
+		 * happened to load first. It is loaded on bp_loaded instead - see
+		 * load_buddypress_integration().
 		 */
-		if ( class_exists( 'BuddyPress' ) ) {
-			require_once plugin_dir_path( __DIR__ ) . 'public/class-buddypress-ads-rotator-bp.php';
-		}
 
 		/**
 		 * The class responsible for the card-panel settings admin page
@@ -218,6 +233,10 @@ class Buddypress_Ads_Rotator {
 		$this->loader->add_action( 'init', $plugin_admin, 'wb_ads_rotator_add_cpt' );
 		$this->loader->add_action( 'add_meta_boxes', $plugin_admin, 'wb_ads_rotator_add_metaboxes' );
 		$this->loader->add_action( 'save_post', $plugin_admin, 'wb_ads_rotator_save_post_meta' );
+
+		// An ad with no content renders an empty container, so keep it out of publish.
+		$this->loader->add_filter( 'wp_insert_post_data', $plugin_admin, 'wb_ads_rotator_block_empty_publish', 10, 2 );
+		$this->loader->add_action( 'admin_notices', $plugin_admin, 'wb_ads_rotator_empty_ad_notice' );
 		$this->loader->add_action( 'wp_ajax_wb_ads_rotator_image', $plugin_admin, 'wb_ads_rotator_image' );
 		$this->loader->add_action( 'wp_ajax_wb_ads_rotator_remove_image', $plugin_admin, 'wb_ads_remove_uploaded_image' );
 
@@ -259,23 +278,45 @@ class Buddypress_Ads_Rotator {
 		$this->loader->add_action( 'wp_head', $plugin_public, 'wb_ads_display_header' );
 		$this->loader->add_action( 'wp_footer', $plugin_public, 'wb_ads_display_footer' );
 
-		// BuddyPress hooks - only when BuddyPress is active.
-		if ( class_exists( 'BuddyPress' ) ) {
-			$plugin_bp = new Buddypress_Ads_Rotator_BP( $this->get_plugin_name(), $this->get_version(), $plugin_public );
+		/*
+		 * BuddyPress hooks are registered on bp_loaded, not here.
+		 *
+		 * BuddyPress fires bp_loaded from plugins_loaded (bp-core-actions.php:33), so
+		 * it always runs after every plugin file is included, whatever order they load
+		 * in. Testing class_exists( 'BuddyPress' ) at this point would be a race with
+		 * the active_plugins order. bp_loaded only fires when BuddyPress is active, so
+		 * it doubles as the "is BuddyPress here" test.
+		 */
+		$this->plugin_public = $plugin_public;
+		add_action( 'bp_loaded', array( $this, 'load_buddypress_integration' ) );
+	}
 
-			$this->loader->add_action( 'bp_before_activity_entry', $plugin_bp, 'wb_ads_display_before_activity_entry' );
-			$this->loader->add_action( 'bp_activity_entry_content', $plugin_bp, 'wb_ads_display_activity_entry_content' );
-			$this->loader->add_action( 'bp_after_activity_entry', $plugin_bp, 'wb_ads_display_after_activity_entry' );
-			$this->loader->add_action( 'bp_before_activity_entry_comments', $plugin_bp, 'wb_ads_display_before_activity_entry_comments' );
-			$this->loader->add_action( 'bp_activity_entry_comments', $plugin_bp, 'wb_ads_display_activity_entry_comments' );
-			$this->loader->add_action( 'bp_after_activity_entry_comments', $plugin_bp, 'wb_ads_display_after_activity_entry_comments' );
-			$this->loader->add_action( 'bp_before_directory_activity_content', $plugin_bp, 'wb_ads_rotator_check_ads' );
-			$this->loader->add_action( 'bp_after_member_activity_post_form', $plugin_bp, 'wb_ads_rotator_check_ads' );
-			$this->loader->add_action( 'bp_after_group_activity_post_form', $plugin_bp, 'wb_ads_rotator_check_ads' );
-			$this->loader->add_action( 'wp_head', $plugin_bp, 'wb_ads_scripts' );
-			$this->loader->add_action( 'wp_footer', $plugin_bp, 'wb_ads_footer_scripts' );
-			$this->loader->add_filter( 'the_content', $plugin_bp, 'wb_ads_body_scripts' );
-		}
+	/**
+	 * Load the BuddyPress integration and register its activity stream hooks.
+	 *
+	 * Runs on bp_loaded, so BuddyPress is guaranteed to be present and loaded.
+	 * Hooks are registered directly rather than through the loader, because the
+	 * loader has already run by the time this fires.
+	 *
+	 * @since 1.6.0
+	 */
+	public function load_buddypress_integration() {
+		require_once plugin_dir_path( __DIR__ ) . 'public/class-buddypress-ads-rotator-bp.php';
+
+		$plugin_bp = new Buddypress_Ads_Rotator_BP( $this->get_plugin_name(), $this->get_version(), $this->plugin_public );
+
+		add_action( 'bp_before_activity_entry', array( $plugin_bp, 'wb_ads_display_before_activity_entry' ) );
+		add_action( 'bp_activity_entry_content', array( $plugin_bp, 'wb_ads_display_activity_entry_content' ) );
+		add_action( 'bp_after_activity_entry', array( $plugin_bp, 'wb_ads_display_after_activity_entry' ) );
+		add_action( 'bp_before_activity_entry_comments', array( $plugin_bp, 'wb_ads_display_before_activity_entry_comments' ) );
+		add_action( 'bp_activity_entry_comments', array( $plugin_bp, 'wb_ads_display_activity_entry_comments' ) );
+		add_action( 'bp_after_activity_entry_comments', array( $plugin_bp, 'wb_ads_display_after_activity_entry_comments' ) );
+		add_action( 'bp_before_directory_activity_content', array( $plugin_bp, 'wb_ads_rotator_check_ads' ) );
+		add_action( 'bp_after_member_activity_post_form', array( $plugin_bp, 'wb_ads_rotator_check_ads' ) );
+		add_action( 'bp_after_group_activity_post_form', array( $plugin_bp, 'wb_ads_rotator_check_ads' ) );
+		add_action( 'wp_head', array( $plugin_bp, 'wb_ads_scripts' ) );
+		add_action( 'wp_footer', array( $plugin_bp, 'wb_ads_footer_scripts' ) );
+		add_filter( 'the_content', array( $plugin_bp, 'wb_ads_body_scripts' ) );
 	}
 
 	/**

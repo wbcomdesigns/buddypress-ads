@@ -36,7 +36,11 @@
       if (!ishshortcodepage && addiframe.length) {
         setTimeout(function () {
           $(addiframe).css("height", "100%");
-          jQuery("div.wb-ads-rotator.bp-ads-nouveau.wb-ads-iframe").html(
+          // The class names below must match what class-buddypress-ads-rotator-bp.php
+          // actually emits. They previously read .wb-ads-rotator.bp-ads-nouveau
+          // .wb-ads-iframe, which matched no element, so iframe ads were left inside
+          // the hidden #rich-ads holder and never became visible.
+          jQuery("div.wb-bannerads-rotator.wbbpads-nouveau.wbads-iframe").html(
             innerHtml[0].innerHTML
           );
         }, 1000);

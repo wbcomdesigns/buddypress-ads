@@ -100,7 +100,7 @@ $version = defined( 'BUDDYPRESS_ADS_ROTATOR_VERSION' ) ? BUDDYPRESS_ADS_ROTATOR_
 
 				<div class="wbar-snav-divider" role="separator"></div>
 				<p class="wbar-snav-section-label"><?php esc_html_e( 'Resources', 'buddypress-ads-rotator' ); ?></p>
-				<a href="https://wbcomdesigns.com/docs/buddypress-paid-addons/buddypress-ads-rotator/" class="wbar-snav-link" target="_blank" rel="noopener noreferrer">
+				<a href="https://docs.wbcomdesigns.com/docs/buddypress-ads/" class="wbar-snav-link" target="_blank" rel="noopener noreferrer">
 					<span class="dashicons dashicons-book" aria-hidden="true"></span>
 					<?php esc_html_e( 'Documentation', 'buddypress-ads-rotator' ); ?>
 					<span class="dashicons dashicons-external wbar-snav-link__ext" aria-hidden="true"></span>
