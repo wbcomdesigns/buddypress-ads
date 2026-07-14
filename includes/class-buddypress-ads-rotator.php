@@ -146,6 +146,9 @@ class Buddypress_Ads_Rotator {
 		 * The class responsible for orchestrating the actions and filters of the
 		 * core plugin.
 		 */
+		// Shared helpers used by both the admin and the public side.
+		require_once plugin_dir_path( __DIR__ ) . 'includes/wb-ads-rotator-functions.php';
+
 		require_once plugin_dir_path( __DIR__ ) . 'includes/class-buddypress-ads-rotator-loader.php';
 
 		/**

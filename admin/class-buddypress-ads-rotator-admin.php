@@ -268,6 +268,9 @@ class Buddypress_Ads_Rotator_Admin {
 		$wb_ads_rotator_font_size  = isset( $wb_ads_rotator_values['font_size'] ) ? $wb_ads_rotator_values['font_size'] : '20';
 		$wb_ads_rotator_txt_color  = isset( $wb_ads_rotator_values['text_color'] ) ? $wb_ads_rotator_values['text_color'] : '#FFFFFF';
 		$wb_ads_rotator_bg_color   = isset( $wb_ads_rotator_values['bg_color'] ) ? $wb_ads_rotator_values['bg_color'] : '';
+
+		// Off unless the owner deliberately chose colours. See wb_ads_rotator_uses_custom_colors().
+		$wb_ads_rotator_custom_colors = wb_ads_rotator_uses_custom_colors( $wb_ads_rotator_values );
 		?>
 		<div class="wb_ads_rotator-panel">
 		<?php do_action( 'wb_ads_rotator_options_before' ); ?>
@@ -412,6 +415,28 @@ class Buddypress_Ads_Rotator_Admin {
 					<?php esc_html_e( 'px', 'buddypress-ads-rotator' ); ?>
 					</label>
 					<label>
+				</div>
+			</div>
+			<div class="wb_ads_rotator-wrapper rich-content"
+			<?php
+			if ( 'rich-content' !== $wb_ads_rotator_type ) {
+				echo 'style="display:none"';
+			}
+			?>
+			>
+				<div class="wb_ads_rotator-label">
+				<?php esc_html_e( 'Rich Content Colors', 'buddypress-ads-rotator' ); ?>
+				</div>
+				<div class="wb_ads_rotator-input wb_ads_custom_colors">
+					<?php // An unchecked box is not submitted, so "off" must be posted explicitly - otherwise the key goes missing and the ad falls back to its stored colors. ?>
+					<input type="hidden" name="wb_ads_rotator[custom_colors]" value="0" />
+					<label>
+						<input type="checkbox" name="wb_ads_rotator[custom_colors]" value="1" <?php checked( $wb_ads_rotator_custom_colors ); ?> />
+						<?php esc_html_e( 'Use custom colors for this ad', 'buddypress-ads-rotator' ); ?>
+					</label>
+					<p class="description">
+						<?php esc_html_e( 'Leave this off and the ad inherits the colors of the page it sits on, so it follows the theme in both light and dark mode. Turn it on to set the ad\'s own colors, which are then used exactly as chosen everywhere.', 'buddypress-ads-rotator' ); ?>
+					</p>
 				</div>
 			</div>
 			<div class="wb_ads_rotator-wrapper rich-content"

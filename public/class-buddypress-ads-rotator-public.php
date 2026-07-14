@@ -423,8 +423,14 @@ class Buddypress_Ads_Rotator_Public {
 		$wb_ads_rotator_margin_left      = isset( $wb_ads_rotator_get_values['margin']['left'] ) ? $wb_ads_rotator_get_values['margin']['left'] : '';
 		$wb_ads_rotator_clearfix         = isset( $wb_ads_rotator_get_values['clearfix'] ) ? $wb_ads_rotator_get_values['clearfix'] : '';
 		$wb_ads_rotator_font_size        = isset( $wb_ads_rotator_get_values['font_size'] ) ? $wb_ads_rotator_get_values['font_size'] : '';
-		$wb_ads_rotator_txt_color        = isset( $wb_ads_rotator_get_values['text_color'] ) ? $wb_ads_rotator_get_values['text_color'] : '';
-		$wb_ads_rotator_bg_color         = isset( $wb_ads_rotator_get_values['bg_color'] ) ? $wb_ads_rotator_get_values['bg_color'] : '';
+		/*
+		 * Colour declarations for the wrapper - empty unless the owner deliberately chose
+		 * them. Painting a background and text colour nobody asked for is what made an ad
+		 * a solid block on a dark page: an inline style cannot be overridden by any theme,
+		 * so the ad was frozen in whatever colours the picker happened to submit. The ad's
+		 * own content is never touched - its colours are the advertiser's call.
+		 */
+		$wb_ads_rotator_color_styles = wb_ads_rotator_color_styles( $wb_ads_rotator_get_values );
 
 		if ( empty( $wb_ads_rotator_container_id ) ) {
 			$wb_ads_rotator_container_id = 'wbcomads-' . $wb_ads_rotator_get_ad;
@@ -460,12 +466,20 @@ class Buddypress_Ads_Rotator_Public {
 		$allowedposttags['iframe'] = $allowed_atts;
 		$allowedposttags['img']    = $allowed_atts;
 
+		$wb_ads_rotator_style = $wb_ads_rotator_color_styles
+			. 'font-size:' . $wb_ads_rotator_font_size . 'px;'
+			. 'text-align:' . $wb_ads_position . ';'
+			. 'margin-top:' . $wb_ads_rotator_margin_top . 'px;'
+			. 'margin-right:' . $wb_ads_rotator_margin_right . 'px;'
+			. 'margin-bottom:' . $wb_ads_rotator_margin_bottom . 'px;'
+			. 'margin-left:' . $wb_ads_rotator_margin_left . 'px;';
+
 		$is_nouveau = function_exists( 'bp_get_theme_compat_id' ) && 'nouveau' === bp_get_theme_compat_id();
-		if ( $is_nouveau ) {
-			echo '<div id="' . esc_attr( $wb_ads_rotator_container_id ) . '" class="wb-bannerads-rotator wbbpads-nouveau wbads-iframe rich-contentwbads" style="background-color:' . esc_attr( $wb_ads_rotator_bg_color ) . ';color:' . esc_attr( $wb_ads_rotator_txt_color ) . ';font-size:' . esc_attr( $wb_ads_rotator_font_size ) . 'px;text-align:' . esc_attr( $wb_ads_position ) . ';margin-top:' . esc_attr( $wb_ads_rotator_margin_top ) . 'px; margin-right:' . esc_attr( $wb_ads_rotator_margin_right ) . 'px; margin-bottom:' . esc_attr( $wb_ads_rotator_margin_bottom ) . 'px;margin-left:' . esc_attr( $wb_ads_rotator_margin_left ) . 'px; ">';
-		} else {
-			echo '<div id="' . esc_attr( $wb_ads_rotator_container_id ) . '" class="wb-bannerads-rotator rich-contentwbads" style="background-color:' . esc_attr( $wb_ads_rotator_bg_color ) . ';color:' . esc_attr( $wb_ads_rotator_txt_color ) . ';font-size:' . esc_attr( $wb_ads_rotator_font_size ) . 'px;text-align:' . esc_attr( $wb_ads_position ) . ';margin-top:' . esc_attr( $wb_ads_rotator_margin_top ) . 'px; margin-right:' . esc_attr( $wb_ads_rotator_margin_right ) . 'px; margin-bottom:' . esc_attr( $wb_ads_rotator_margin_bottom ) . 'px;margin-left:' . esc_attr( $wb_ads_rotator_margin_left ) . 'px; ">';
-		}
+		$wb_ads_rotator_classes = $is_nouveau
+			? 'wb-bannerads-rotator wbbpads-nouveau wbads-iframe rich-contentwbads'
+			: 'wb-bannerads-rotator rich-contentwbads';
+
+		echo '<div id="' . esc_attr( $wb_ads_rotator_container_id ) . '" class="' . esc_attr( $wb_ads_rotator_classes ) . '" style="' . esc_attr( $wb_ads_rotator_style ) . '">';
 		if ( false !== strpos( $wb_ads_rotator_get_rich_content, '[' ) ) {
 			preg_match_all( '/' . get_shortcode_regex() . '/', $wb_ads_rotator_get_rich_content, $matches, PREG_SET_ORDER );
 			if ( ! empty( $matches ) ) {
