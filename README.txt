@@ -2,7 +2,7 @@
 Contributors: vapvarun, wbcomdesigns
 Donate link: https://wbcomdesigns.com
 Tags: BuddyPress, ads, advertising, ad rotator, banner
-Requires at least: 5.0
+Requires at least: 6.9
 Tested up to: 7.0
 Requires PHP: 7.4
 Stable tag: 1.6.0
