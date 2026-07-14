@@ -1,9 +1,9 @@
 {
   "name": "buddypress-ads-rotator",
-  "version": "1.0.0",
+  "version": "1.6.0",
   "url": "https://github.com/wbcomdesigns/buddypress-ads-rotator",
   "license": "GPL-2.0+",
-  "description": " This Plugin Provide integration of Ads with Buddypress.",
+  "description": "Display ads on your WordPress site with support for posts, pages, header, footer, and BuddyPress activity streams. Works as standalone WordPress or with BuddyPress.",
   "devDependencies": {
     "grunt": "^1.1.0",
     "grunt-wp-i18n": "^1.0.3",

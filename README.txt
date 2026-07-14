@@ -9,7 +9,7 @@ Stable tag: 1.6.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Integrate your BuddyPress community to provide a smooth customer experience and increase site engagement.
+Display ads in posts, pages, header, footer, and BuddyPress activity streams. Works standalone or with BuddyPress.
 
 == Description ==
 
