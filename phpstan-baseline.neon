@@ -1,0 +1,115 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Call to function is_array\(\) with array will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: admin/class-buddypress-ads-rotator-admin.php
+
+		-
+			message: '#^Parameter \#1 \$post_id of function update_post_meta expects int, string given\.$#'
+			identifier: argument.type
+			count: 2
+			path: admin/class-buddypress-ads-rotator-admin.php
+
+		-
+			message: '#^Parameter \#1 \$text of function esc_attr expects string, int given\.$#'
+			identifier: argument.type
+			count: 3
+			path: admin/class-buddypress-ads-rotator-admin.php
+
+		-
+			message: '#^Parameter \#1 \$text of function esc_html expects string, int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: admin/class-buddypress-ads-rotator-admin.php
+
+		-
+			message: '#^Parameter \#2 \$args of function register_post_type expects array\{label\?\: string, labels\?\: array\<string\>, description\?\: string, public\?\: bool, hierarchical\?\: bool, exclude_from_search\?\: bool, publicly_queryable\?\: bool, show_ui\?\: bool, \.\.\.\}, array\{labels\: array\{name\: string, singular_name\: string, menu_name\: string, name_admin_bar\: string, add_new\: string, add_new_item\: string, new_item\: string, edit_item\: string, \.\.\.\}, public\: false, publicly_queryable\: false, show_ui\: true, show_in_menu\: true, query_var\: true, rewrite\: array\{slug\: ''wb\-ads''\}, capability_type\: ''page'', \.\.\.\} given\.$#'
+			identifier: argument.type
+			count: 1
+			path: admin/class-buddypress-ads-rotator-admin.php
+
+		-
+			message: '#^Call to Buddypress_Ads_Rotator_Activator\:\:activate\(\) on a separate line has no effect\.$#'
+			identifier: staticMethod.resultUnused
+			count: 1
+			path: buddypress-ads-rotator.php
+
+		-
+			message: '#^Call to Buddypress_Ads_Rotator_Deactivator\:\:deactivate\(\) on a separate line has no effect\.$#'
+			identifier: staticMethod.resultUnused
+			count: 1
+			path: buddypress-ads-rotator.php
+
+		-
+			message: '#^Offset ''plugin'' on non\-empty\-array\<mixed\> in isset\(\) always exists and is not nullable\.$#'
+			identifier: isset.offset
+			count: 1
+			path: buddypress-ads-rotator.php
+
+		-
+			message: '#^Constant BUDDYPRESS_ADS_ROTATOR_PATH not found\.$#'
+			identifier: constant.notFound
+			count: 3
+			path: includes/admin/class-buddypress-ads-rotator-settings-admin.php
+
+		-
+			message: '#^Constant BUDDYPRESS_ADS_ROTATOR_URL not found\.$#'
+			identifier: constant.notFound
+			count: 1
+			path: includes/admin/class-buddypress-ads-rotator-settings-admin.php
+
+		-
+			message: '#^Constant BUDDYPRESS_ADS_ROTATOR_URL not found\.$#'
+			identifier: constant.notFound
+			count: 1
+			path: includes/admin/views/discover.php
+
+		-
+			message: '#^Offset ''icon'' on array\{name\: string, logo\: ''buddynext\.svg'', icon\: ''groups'', desc\: string, url\: ''https\:/…''\}\|array\{name\: string, logo\: ''buddyx\.png'', icon\: ''admin\-appearance'', desc\: string, url\: ''https\:/…''\}\|array\{name\: string, logo\: ''eventonomy\.svg'', icon\: ''calendar\-alt'', desc\: string, url\: ''https\:/…''\}\|array\{name\: string, logo\: ''jetonomy\.svg'', icon\: ''format\-chat'', desc\: string, url\: ''https\:/…''\}\|array\{name\: string, logo\: ''learnomy\.svg'', icon\: ''welcome\-learn\-more'', desc\: string, url\: ''https\:/…''\}\|array\{name\: string, logo\: ''listora\.svg'', icon\: ''list\-view'', desc\: string, url\: ''https\:/…''\}\|array\{name\: string, logo\: ''mediaverse\.svg'', icon\: ''format\-gallery'', desc\: string, url\: ''https\:/…''\}\|array\{name\: string, logo\: ''wb\-gamification\.svg'', icon\: ''awards'', desc\: string, url\: ''https\:/…''\}\|array\{name\: string, logo\: ''wp\-career\-board\.svg'', icon\: ''businessman'', desc\: string, url\: ''https\:/…''\} in isset\(\) always exists and is not nullable\.$#'
+			identifier: isset.offset
+			count: 1
+			path: includes/admin/views/discover.php
+
+		-
+			message: '#^Call to function is_array\(\) with array\<int, int\> will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: includes/class-buddypress-ads-rotator-cache.php
+
+		-
+			message: '#^Parameter \#2 \$component of method Buddypress_Ads_Rotator_Loader\:\:add_action\(\) expects object, string given\.$#'
+			identifier: argument.type
+			count: 2
+			path: includes/class-buddypress-ads-rotator.php
+
+		-
+			message: '#^Call to function is_array\(\) with array will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: includes/wb-ads-rotator-functions.php
+
+		-
+			message: '#^Offset 0 on array\{list\<string\>, list\<string\>\} in isset\(\) always exists and is not nullable\.$#'
+			identifier: isset.offset
+			count: 2
+			path: public/class-buddypress-ads-rotator-bp.php
+
+		-
+			message: '#^Property Buddypress_Ads_Rotator_BP\:\:\$plugin_name is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: public/class-buddypress-ads-rotator-bp.php
+
+		-
+			message: '#^Property Buddypress_Ads_Rotator_BP\:\:\$version is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: public/class-buddypress-ads-rotator-bp.php
+
+		-
+			message: '#^Offset 0 on array\{list\<string\>, list\<string\>\} in isset\(\) always exists and is not nullable\.$#'
+			identifier: isset.offset
+			count: 2
+			path: public/class-buddypress-ads-rotator-public.php
