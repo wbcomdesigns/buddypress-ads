@@ -40,15 +40,6 @@ class Buddypress_Ads_Rotator_Public {
 	private $version;
 
 	/**
-	 * Whether BuddyPress is active.
-	 *
-	 * @since    1.6.0
-	 * @access   private
-	 * @var      bool    $is_bp_active    True if BuddyPress is active.
-	 */
-	private $is_bp_active;
-
-	/**
 	 * Initialize the class and set its properties.
 	 *
 	 * @since    1.0.0
@@ -57,21 +48,24 @@ class Buddypress_Ads_Rotator_Public {
 	 */
 	public function __construct( $plugin_name, $version ) {
 
-		$this->plugin_name  = $plugin_name;
-		$this->version      = $version;
-		$this->is_bp_active = class_exists( 'BuddyPress' );
+		$this->plugin_name = $plugin_name;
+		$this->version     = $version;
 	}
 
 	/**
 	 * Check if current page is a BuddyPress activity page.
 	 *
+	 * BuddyPress presence is tested here rather than cached in the constructor. This
+	 * class is built while the plugin file is being included, which is before
+	 * plugins_loaded, so class_exists( 'BuddyPress' ) at that point is a race with the
+	 * active_plugins order. When it lost that race the flag stuck at false, this guard
+	 * never fired, and the header/footer code was printed twice on BuddyPress pages -
+	 * once here and once from the BuddyPress integration class.
+	 *
 	 * @since 1.6.0
 	 * @return bool True if on a BP activity page.
 	 */
 	private function is_buddypress_page() {
-		if ( ! $this->is_bp_active ) {
-			return false;
-		}
 		if ( ! function_exists( 'bp_is_activity_directory' ) ) {
 			return false;
 		}

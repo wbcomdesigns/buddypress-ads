@@ -32,6 +32,8 @@ Standalone WordPress support plus a rebuilt admin. BuddyPress is now optional.
 
 * New      - Added a Discover tab to the settings screen with more free tools from Wbcom Designs.
 * Fix      - Activity stream ads now appear reliably. The BuddyPress integration was skipped whenever this plugin loaded before BuddyPress, which left every activity ad position dead.
+* Fix      - The Scripts / Styles header, body and footer fields no longer strip the style, script and meta tags you paste into them. Saving a style block now keeps it, and the CSS is applied instead of being printed as text.
+* Fix      - Header and footer code is no longer printed twice on BuddyPress pages.
 * Fix      - An ad with no content can no longer be published. It is kept as a draft with a notice, instead of publishing an ad that renders as an empty space.
 * Fix      - Iframe ads inside the activity stream now become visible. The script that moves them into place targeted class names the markup never had.
 * Fix      - The Documentation link in the settings screen opened a 404. It now points at the current documentation.

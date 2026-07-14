@@ -153,8 +153,18 @@ class Buddypress_Ads_Rotator_Settings_Admin {
 	}
 
 	/**
-	 * Sanitize the header/body/footer ad markup. wp_kses_post per key,
-	 * identical to the legacy inline sanitizer (admin class :246-256).
+	 * Sanitize the header/body/footer code.
+	 *
+	 * These three fields exist for one purpose: to inject `<script>`, `<style>` and
+	 * `<meta>` into the page. wp_kses_post() strips exactly those tags, so the setting
+	 * silently destroyed the only thing it was for - an admin pasted a `<style>` block,
+	 * saved, and got back the bare CSS, which then rendered as visible text.
+	 *
+	 * Use WordPress's own trust boundary instead of inventing one. A user who may post
+	 * unfiltered HTML (an administrator on single site, a super admin on multisite) has
+	 * their code stored verbatim; anyone else still goes through wp_kses_post(). The
+	 * settings page itself is already gated on `manage_options` and a Settings API
+	 * nonce, and the front end prints these fields raw by design.
 	 *
 	 * @param mixed $input Raw form input.
 	 * @return array{header:string, body:string, footer:string}
@@ -167,10 +177,19 @@ class Buddypress_Ads_Rotator_Settings_Admin {
 				'footer' => '',
 			);
 		}
+
+		$trusted = current_user_can( 'unfiltered_html' );
+
+		$sanitize = static function ( $value ) use ( $trusted ) {
+			$value = is_string( $value ) ? $value : '';
+
+			return $trusted ? $value : wp_kses_post( $value );
+		};
+
 		return array(
-			'header' => isset( $input['header'] ) ? wp_kses_post( $input['header'] ) : '',
-			'body'   => isset( $input['body'] ) ? wp_kses_post( $input['body'] ) : '',
-			'footer' => isset( $input['footer'] ) ? wp_kses_post( $input['footer'] ) : '',
+			'header' => isset( $input['header'] ) ? $sanitize( $input['header'] ) : '',
+			'body'   => isset( $input['body'] ) ? $sanitize( $input['body'] ) : '',
+			'footer' => isset( $input['footer'] ) ? $sanitize( $input['footer'] ) : '',
 		);
 	}
 
