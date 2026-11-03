@@ -6,17 +6,7 @@ parameters:
 			count: 1
 			path: admin/class-buddypress-ads-rotator-admin.php
 
-		-
-			message: '#^Parameter \#1 \$post_id of function update_post_meta expects int, string given\.$#'
-			identifier: argument.type
-			count: 2
-			path: admin/class-buddypress-ads-rotator-admin.php
 
-		-
-			message: '#^Parameter \#1 \$text of function esc_attr expects string, int given\.$#'
-			identifier: argument.type
-			count: 3
-			path: admin/class-buddypress-ads-rotator-admin.php
 
 		-
 			message: '#^Parameter \#1 \$text of function esc_html expects string, int given\.$#'

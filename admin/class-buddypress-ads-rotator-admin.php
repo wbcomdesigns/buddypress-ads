@@ -143,7 +143,7 @@ class Buddypress_Ads_Rotator_Admin {
 			'hierarchical'       => false,
 			'menu_position'      => null,
 			'show_in_rest'       => true,
-			'menu_icon'          => __( 'dashicons-chart-line', 'buddypress-ads-rotator' ),
+			'menu_icon'          => 'dashicons-chart-line',
 			'supports'           => array( 'title' ),
 		);
 		register_post_type( 'wb-ads', $args );
@@ -203,10 +203,9 @@ class Buddypress_Ads_Rotator_Admin {
 	/**
 	 * WB Ads Metabox callback function.
 	 *
-	 * @param array $post Get a Post Object.
+	 * @param WP_Post $post Ad post being edited.
 	 */
 	public function wb_ads_rotator_render_add_meta_box( $post ) {
-		global $post;
 		// Add an nonce field so we can check for it later.
 		wp_nonce_field( 'wb_ads_rotator_render_add_meta_box', 'wb_ads_rotator_render_add_meta_box_nonce' );
 		$post_id               = $post->ID;
@@ -220,7 +219,7 @@ class Buddypress_Ads_Rotator_Admin {
 				<?php esc_html_e( 'Plain Text and Code', 'buddypress-ads-rotator' ); ?>
 				</div>
 				<div class="wb_ads_rotator-input">
-					<input type="radio" name="wb_ads_rotator[ads_type]" class="wb-ads_types" id="wb_ads_rotator_type" value="plain-text-and-code" <?php echo ( isset( $wb_ads_rotator_values['ads_type'] ) ) ? checked( $wb_ads_rotator_values['ads_type'], 'plain-text-and-code' ) : 'checked'; ?>/>
+					<input type="radio" name="wb_ads_rotator[ads_type]" class="wb-ads_types" id="wb_ads_type_plain" value="plain-text-and-code" <?php echo ( isset( $wb_ads_rotator_values['ads_type'] ) ) ? checked( $wb_ads_rotator_values['ads_type'], 'plain-text-and-code' ) : 'checked'; ?>/>
 				<?php esc_html_e( 'Any ad network, Amazon, customized AdSense codes, shortcodes, and code like JavaScript or HTML.', 'buddypress-ads-rotator' ); ?>
 				</div>
 			</div>
@@ -229,7 +228,7 @@ class Buddypress_Ads_Rotator_Admin {
 				<?php esc_html_e( 'Rich Content', 'buddypress-ads-rotator' ); ?>
 				</div>
 				<div class="wb_ads_rotator-input">
-					<input type="radio" name="wb_ads_rotator[ads_type]" class="wb-ads_types" id="wb_ads_rotator_type" value="rich-content" <?php ( isset( $wb_ads_rotator_values['ads_type'] ) ) ? checked( $wb_ads_rotator_values['ads_type'], 'rich-content' ) : ''; ?>/>
+					<input type="radio" name="wb_ads_rotator[ads_type]" class="wb-ads_types" id="wb_ads_type_rich" value="rich-content" <?php ( isset( $wb_ads_rotator_values['ads_type'] ) ) ? checked( $wb_ads_rotator_values['ads_type'], 'rich-content' ) : ''; ?>/>
 				<?php esc_html_e( 'The full content editor from WordPress with all features like shortcodes, image upload or styling, but also simple text/html mode for scripts.', 'buddypress-ads-rotator' ); ?>
 				</div>
 			</div>
@@ -238,7 +237,7 @@ class Buddypress_Ads_Rotator_Admin {
 				<?php esc_html_e( 'Image Ad', 'buddypress-ads-rotator' ); ?>
 				</div>
 				<div class="wb_ads_rotator-input">
-					<input type="radio" name="wb_ads_rotator[ads_type]" class="wb-ads_types" id="wb_ads_rotator_type" value="image-ad" <?php ( isset( $wb_ads_rotator_values['ads_type'] ) ) ? checked( $wb_ads_rotator_values['ads_type'], 'image-ad' ) : ''; ?>/>
+					<input type="radio" name="wb_ads_rotator[ads_type]" class="wb-ads_types" id="wb_ads_type_image" value="image-ad" <?php ( isset( $wb_ads_rotator_values['ads_type'] ) ) ? checked( $wb_ads_rotator_values['ads_type'], 'image-ad' ) : ''; ?>/>
 				<?php esc_html_e( 'Ads in various image formats.', 'buddypress-ads-rotator' ); ?>
 				</div>
 			</div>
@@ -250,12 +249,9 @@ class Buddypress_Ads_Rotator_Admin {
 	/**
 	 * WB Ads Metabox callback function.
 	 *
-	 * @param array $post Get a Post Object.
+	 * @param WP_Post $post Ad post being edited.
 	 */
 	public function wb_ads_rotator_render_parameter_box( $post ) {
-		global $post;
-		// Add an nonce field so we can check for it later.
-		wp_nonce_field( 'wb_ads_rotator_render_add_meta_box', 'wb_ads_rotator_render_add_meta_box_nonce' );
 		$post_id                   = $post->ID;
 		$post_type                 = get_post_type();
 		$wb_ads_rotator_values     = get_post_meta( $post_id, 'wb_ads_rotator_values', true );
@@ -481,12 +477,9 @@ class Buddypress_Ads_Rotator_Admin {
 	/**
 	 * WB Ads Metabox callback function.
 	 *
-	 * @param array $post Get a Post Object.
+	 * @param WP_Post $post Ad post being edited.
 	 */
 	public function wb_ads_rotator_render_layout_box( $post ) {
-		global $post;
-		// Add an nonce field so we can check for it later.
-		wp_nonce_field( 'wb_ads_rotator_render_add_meta_box', 'wb_ads_rotator_render_add_meta_box_nonce' );
 		$post_id                        = $post->ID;
 		$post_type                      = get_post_type();
 		$wb_ads_rotator_values          = get_post_meta( $post_id, 'wb_ads_rotator_values', true );
@@ -555,7 +548,7 @@ class Buddypress_Ads_Rotator_Admin {
 						</label>
 					</div>
 					<p class="wb_ads_margin_disc">
-				<?php echo esc_html_e( 'use this to add a margin around the ads', 'buddypress-ads-rotator' ); ?>
+				<?php esc_html_e( 'use this to add a margin around the ads', 'buddypress-ads-rotator' ); ?>
 				</p>
 				</div>
 			</div>
@@ -567,12 +560,9 @@ class Buddypress_Ads_Rotator_Admin {
 	/**
 	 * WB Ads Metabox callback function.
 	 *
-	 * @param array $post Get a Post Object.
+	 * @param WP_Post $post Ad post being edited.
 	 */
 	public function wb_ads_rotator_render_display_conditions_box( $post ) {
-		global $post;
-		// Add an nonce field so we can check for it later.
-		wp_nonce_field( 'wb_ads_rotator_render_add_meta_box', 'wb_ads_rotator_render_add_meta_box_nonce' );
 		$post_id                        = $post->ID;
 		$post_type                      = get_post_type();
 		$wb_ads_rotator_values          = get_post_meta( $post_id, 'wb_ads_rotator_values', true );
@@ -669,12 +659,9 @@ class Buddypress_Ads_Rotator_Admin {
 	/**
 	 * WB Ads Metabox callback function.
 	 *
-	 * @param array $post Get a Post Object.
+	 * @param WP_Post $post Ad post being edited.
 	 */
 	public function wb_ads_rotator_render_to_whom_box( $post ) {
-		global $post;
-		// Add an nonce field so we can check for it later.
-		wp_nonce_field( 'wb_ads_rotator_render_add_meta_box', 'wb_ads_rotator_render_add_meta_box_nonce' );
 		$post_id               = $post->ID;
 		$post_type             = get_post_type();
 		$wb_ads_rotator_values = get_post_meta( $post_id, 'wb_ads_rotator_values', true );
@@ -719,10 +706,9 @@ class Buddypress_Ads_Rotator_Admin {
 	/**
 	 * WB Ads Metabox callback function.
 	 *
-	 * @param array $post Get a Post Object.
+	 * @param WP_Post $post Ad post being edited.
 	 */
 	public function wb_ads_rotator_render_shortcode_box( $post ) {
-		global $post;
 		$post_id               = $post->ID;
 		$post_type             = get_post_type();
 		$wb_ads_rotator_values = get_post_meta( $post_id, 'wb_ads_rotator_values', true );
@@ -730,8 +716,8 @@ class Buddypress_Ads_Rotator_Admin {
 		<div class="wb_ads_rotator-panel">
 		<?php do_action( 'wb_ads_rotator_options_before' ); ?>
 			<div class="wb_ads_rotator-wrapper">
-				<div class="wb_ads_rotator-input ads-copy" data-code="[ads-shortcode ads_id=<?php echo esc_attr( $post_id ); ?>]">
-					<code><?php echo esc_html( '[ads-shortcode ads_id=' . esc_attr( $post_id ) . ']' ); ?></code>
+				<div class="wb_ads_rotator-input ads-copy" data-code="[ads-shortcode ads_id=<?php echo absint( $post_id ); ?>]">
+					<code><?php echo esc_html( '[ads-shortcode ads_id=' . absint( $post_id ) . ']' ); ?></code>
 				</div>
 				<span class="ads-shortcode-text shortcode-text-hide"><?php echo esc_attr__( 'Shortcode Copied!', 'buddypress-ads-rotator' ); ?></span>
 			</div>
@@ -763,16 +749,55 @@ class Buddypress_Ads_Rotator_Admin {
 		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
 			return;
 		}
-				// if our current user can't edit this post, bail.
-		if ( ! current_user_can( 'edit_posts' ) ) {
+		if ( ! current_user_can( 'edit_post', $post_id ) ) {
 			return;
 		}
 		if ( ! empty( $_POST['wb_ads_rotator'] ) ) {
-
 			$ads_data = filter_input( INPUT_POST, 'wb_ads_rotator', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
-			update_post_meta( $post_id, 'wb_ads_rotator_values', $ads_data );
+			update_post_meta( $post_id, 'wb_ads_rotator_values', $this->wb_ads_rotator_sanitize_values( (array) $ads_data ) );
 		}
 		do_action( 'wb_ads_rotator_admin_save_options' );
+	}
+
+	/**
+	 * Sanitize the ad settings array field by field.
+	 *
+	 * The two ad-code fields keep raw markup (ad networks need script tags) only for
+	 * users who may post unfiltered HTML; everyone else gets wp_kses_post().
+	 *
+	 * @since 1.6.0
+	 * @param array $values Raw `wb_ads_rotator` payload.
+	 * @return array Sanitized values.
+	 */
+	private function wb_ads_rotator_sanitize_values( $values ) {
+		$clean = array();
+		foreach ( $values as $key => $value ) {
+			$key = sanitize_key( $key );
+			if ( is_array( $value ) ) {
+				$clean[ $key ] = $this->wb_ads_rotator_sanitize_values( $value );
+				continue;
+			}
+			$value = (string) $value;
+			switch ( $key ) {
+				case 'plain_text_and_code':
+				case 'rich_content':
+					$clean[ $key ] = current_user_can( 'unfiltered_html' ) ? $value : wp_kses_post( $value );
+					break;
+				case 'image_link':
+					$clean[ $key ] = esc_url_raw( $value );
+					break;
+				case 'ads_image':
+					$clean[ $key ] = absint( $value );
+					break;
+				case 'text_color':
+				case 'bg_color':
+					$clean[ $key ] = (string) sanitize_hex_color( $value );
+					break;
+				default:
+					$clean[ $key ] = sanitize_text_field( $value );
+			}
+		}
+		return $clean;
 	}
 
 	/**
@@ -845,6 +870,9 @@ class Buddypress_Ads_Rotator_Admin {
 		if ( isset( $_POST['wb_ads_rotator'] ) ) {
 			// phpcs:ignore WordPress.Security.NonceVerification.Missing
 			$values = filter_input( INPUT_POST, 'wb_ads_rotator', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
+		} elseif ( isset( $postarr['meta_input']['wb_ads_rotator_values'] ) ) {
+			// wp_insert_post() / REST callers pass the ad in meta_input; it is written after this filter.
+			$values = $postarr['meta_input']['wb_ads_rotator_values'];
 		} elseif ( ! empty( $postarr['ID'] ) ) {
 			$values = get_post_meta( (int) $postarr['ID'], 'wb_ads_rotator_values', true );
 		} else {
@@ -954,18 +982,18 @@ class Buddypress_Ads_Rotator_Admin {
 				$wb_ads_rotator_enable = get_post_meta( $post_id, 'wb_ads_enable', true );
 				if ( 'enable' === $wb_ads_rotator_enable ) {
 					echo '<label class="wb-ads-rotator-switch">
-				<input type="checkbox" class="wb_ads_enable" data-ads-visible="disable" data-ads="' . esc_attr( $post_id ) . '" checked>
+				<input type="checkbox" class="wb_ads_enable" data-ads-visible="disable" data-ads="' . absint( $post_id ) . '" checked>
 				<span class="wb-ads-rotator-slider wb-ads-rotator-round"></span>
 				</label>';
 				} else {
 					echo '<label class="wb-ads-rotator-switch">
-				<input type="checkbox" class="wb_ads_enable" data-ads-visible="enable" data-ads="' . esc_attr( $post_id ) . '">
+				<input type="checkbox" class="wb_ads_enable" data-ads-visible="enable" data-ads="' . absint( $post_id ) . '">
 				<span class="wb-ads-rotator-slider wb-ads-rotator-round"></span>
 				</label>';
 				}
 				break;
 			case 'ads-shortcode':
-				echo '<div class="wb_ads_rotator-input wb-ads-shortcode-text shortcode-copy" data-shortcode="[ads-shortcode ads_id=' . esc_attr( $post_id ) . ']">
+				echo '<div class="wb_ads_rotator-input wb-ads-shortcode-text shortcode-copy" data-shortcode="[ads-shortcode ads_id=' . absint( $post_id ) . ']">
 					<code> ' . esc_html( '[ads-shortcode ads_id=' . $post_id . ']' ) . '</code>
 					</div><span class="ads-shortcode-text shortcode-text-hide">' . esc_attr__( 'Shortcode Copied!', 'buddypress-ads-rotator' ) . '</span>';
 
@@ -1004,7 +1032,10 @@ class Buddypress_Ads_Rotator_Admin {
 		}
 		$action       = isset( $_POST['action'] ) ? sanitize_text_field( wp_unslash( $_POST['action'] ) ) : '';
 		$action_value = isset( $_POST['visible'] ) ? sanitize_text_field( wp_unslash( $_POST['visible'] ) ) : '';
-		$wb_ads_id    = isset( $_POST['datanotice'] ) ? sanitize_text_field( wp_unslash( $_POST['datanotice'] ) ) : '';
+		$wb_ads_id    = isset( $_POST['datanotice'] ) ? absint( $_POST['datanotice'] ) : 0;
+		if ( 'wb-ads' !== get_post_type( $wb_ads_id ) || ! current_user_can( 'edit_post', $wb_ads_id ) ) {
+			die;
+		}
 		if ( 'wb_ads_rotator_enable' === $action && 'enable' === $action_value ) {
 			update_post_meta( $wb_ads_id, 'wb_ads_enable', 'enable' );
 		} elseif ( 'wb_ads_rotator_enable' === $action && 'disable' === $action_value ) {

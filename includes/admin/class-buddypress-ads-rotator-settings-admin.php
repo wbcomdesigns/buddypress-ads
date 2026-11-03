@@ -85,14 +85,23 @@ class Buddypress_Ads_Rotator_Settings_Admin {
 		add_action( 'admin_menu', array( $this, 'takeover_hub_landing' ), 999 );
 		add_action( 'admin_init', array( $this, 'register_settings' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_assets' ) );
-		add_action( 'in_admin_header', array( $this, 'suppress_foreign_notices' ), 1 );
+		add_filter( 'option_page_capability_' . self::OPTION_GROUP, array( $this, 'capability' ) );
+	}
+
+	/**
+	 * Capability for the settings page and its options.php save.
+	 *
+	 * @return string
+	 */
+	public function capability() {
+		return (string) apply_filters( 'buddypress_ads_rotator_admin_capability', 'manage_options' );
 	}
 
 	/**
 	 * Attach as a single submenu under the shared WB Plugins hub.
 	 */
 	public function add_menu() {
-		$cap = 'manage_options';
+		$cap = $this->capability();
 
 		// First Wbcom plugin to load creates the shared WB Plugins hub.
 		if ( empty( $GLOBALS['admin_page_hooks']['wbcomplugins'] ) ) {
@@ -195,11 +204,8 @@ class Buddypress_Ads_Rotator_Settings_Admin {
 
 	/**
 	 * Enqueue admin assets only on our screen + the shared hub landing.
-	 *
-	 * @param string $hook_suffix Current admin page hook.
 	 */
-	public function enqueue_assets( $hook_suffix ) {
-		unset( $hook_suffix );
+	public function enqueue_assets() {
 		$screen = get_current_screen();
 		if ( ! $screen || ! $this->is_our_screen( $screen ) ) {
 			return;
@@ -243,18 +249,6 @@ class Buddypress_Ads_Rotator_Settings_Admin {
 				),
 			)
 		);
-	}
-
-	/**
-	 * Suppress 3rd-party admin notices on our screen.
-	 */
-	public function suppress_foreign_notices() {
-		$screen = get_current_screen();
-		if ( ! $screen || ! $this->is_our_screen( $screen ) ) {
-			return;
-		}
-		remove_all_actions( 'admin_notices' );
-		remove_all_actions( 'all_admin_notices' );
 	}
 
 	/**

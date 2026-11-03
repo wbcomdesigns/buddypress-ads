@@ -367,9 +367,9 @@ class Buddypress_Ads_Rotator_Public {
 			if ( strpos( $wb_ads_rotator_get_plain_text, '<script' ) !== false || strpos( $wb_ads_rotator_get_plain_text, 'iframe' ) !== false ) {
 				$is_iframe = 'wbads-iframe';
 			}
-			echo '<div id="' . esc_attr( $wb_ads_rotator_container_id ) . '" class="wb-bannerads-rotator wbbpads-nouveau ' . esc_attr( $is_iframe ) . ' plain-text-and-code-ads" style=" text-align:' . esc_attr( $wb_ads_position ) . '; margin-top:' . esc_attr( $wb_ads_rotator_margin_top ) . 'px; margin-right:' . esc_attr( $wb_ads_rotator_margin_right ) . 'px; margin-bottom:' . esc_attr( $wb_ads_rotator_margin_bottom ) . 'px;margin-left:' . esc_attr( $wb_ads_rotator_margin_left ) . 'px; ">';
+			echo '<div id="' . esc_attr( $wb_ads_rotator_container_id ) . '" class="wb-bannerads-rotator wbbpads-nouveau ' . esc_attr( $is_iframe ) . ' plain-text-and-code-ads" style="' . esc_attr( $this->wb_ads_rotator_box_style( $wb_ads_position, array( $wb_ads_rotator_margin_top, $wb_ads_rotator_margin_right, $wb_ads_rotator_margin_bottom, $wb_ads_rotator_margin_left ) ) ) . '">';
 		} else {
-			echo '<div id="' . esc_attr( $wb_ads_rotator_container_id ) . '" class="wb-bannerads-rotator plain-text-and-code-ads" style=" text-align:' . esc_attr( $wb_ads_position ) . '; margin-top:' . esc_attr( $wb_ads_rotator_margin_top ) . 'px; margin-right:' . esc_attr( $wb_ads_rotator_margin_right ) . 'px; margin-bottom:' . esc_attr( $wb_ads_rotator_margin_bottom ) . 'px;margin-left:' . esc_attr( $wb_ads_rotator_margin_left ) . 'px; ">';
+			echo '<div id="' . esc_attr( $wb_ads_rotator_container_id ) . '" class="wb-bannerads-rotator plain-text-and-code-ads" style="' . esc_attr( $this->wb_ads_rotator_box_style( $wb_ads_position, array( $wb_ads_rotator_margin_top, $wb_ads_rotator_margin_right, $wb_ads_rotator_margin_bottom, $wb_ads_rotator_margin_left ) ) ) . '">';
 		}
 		if ( 'yes' === $wb_ads_rotator_allow_shortcode ) {
 			echo do_shortcode( $wb_ads_rotator_get_plain_text );
@@ -467,12 +467,8 @@ class Buddypress_Ads_Rotator_Public {
 		$allowedposttags['img']    = $allowed_atts;
 
 		$wb_ads_rotator_style = $wb_ads_rotator_color_styles
-			. 'font-size:' . $wb_ads_rotator_font_size . 'px;'
-			. 'text-align:' . $wb_ads_position . ';'
-			. 'margin-top:' . $wb_ads_rotator_margin_top . 'px;'
-			. 'margin-right:' . $wb_ads_rotator_margin_right . 'px;'
-			. 'margin-bottom:' . $wb_ads_rotator_margin_bottom . 'px;'
-			. 'margin-left:' . $wb_ads_rotator_margin_left . 'px;';
+			. ( is_numeric( $wb_ads_rotator_font_size ) ? 'font-size:' . $wb_ads_rotator_font_size . 'px;' : '' )
+			. $this->wb_ads_rotator_box_style( $wb_ads_position, array( $wb_ads_rotator_margin_top, $wb_ads_rotator_margin_right, $wb_ads_rotator_margin_bottom, $wb_ads_rotator_margin_left ) );
 
 		$is_nouveau = function_exists( 'bp_get_theme_compat_id' ) && 'nouveau' === bp_get_theme_compat_id();
 		$wb_ads_rotator_classes = $is_nouveau
@@ -497,9 +493,26 @@ class Buddypress_Ads_Rotator_Public {
 		if ( 'yes' === $wb_ads_rotator_clearfix ) {
 			echo '<br style="clear: both; display: block; float: none;">';
 		}
-		if ( 'yes' === $wb_ads_rotator_clearfix ) {
-			echo '<br style="clear: both; display: block; float: none;">';
+	}
+
+	/**
+	 * Inline alignment + margin style for an ad container.
+	 *
+	 * Skips empty or non-numeric margins so the markup never carries `margin-top:px`.
+	 *
+	 * @since 1.6.0
+	 * @param string $align   text-align value, or ''.
+	 * @param array  $margins Top, right, bottom, left.
+	 * @return string
+	 */
+	private function wb_ads_rotator_box_style( $align, $margins ) {
+		$style = '' !== $align ? 'text-align:' . $align . ';' : '';
+		foreach ( array( 'top', 'right', 'bottom', 'left' ) as $i => $side ) {
+			if ( isset( $margins[ $i ] ) && is_numeric( $margins[ $i ] ) ) {
+				$style .= 'margin-' . $side . ':' . $margins[ $i ] . 'px;';
+			}
 		}
+		return $style;
 	}
 
 	/**
@@ -565,7 +578,7 @@ class Buddypress_Ads_Rotator_Public {
 				return;
 			}
 		}
-		echo '<div id="' . esc_attr( $wb_ads_rotator_container_id ) . '" class="wb-bannerads-rotator wbcom-imageads" style=" text-align:' . esc_attr( $wb_ads_position ) . ';margin-top:' . esc_attr( $wb_ads_rotator_margin_top ) . 'px; margin-right:' . esc_attr( $wb_ads_rotator_margin_right ) . 'px; margin-bottom:' . esc_attr( $wb_ads_rotator_margin_bottom ) . 'px;margin-left:' . esc_attr( $wb_ads_rotator_margin_left ) . 'px; ">';
+		echo '<div id="' . esc_attr( $wb_ads_rotator_container_id ) . '" class="wb-bannerads-rotator wbcom-imageads" style="' . esc_attr( $this->wb_ads_rotator_box_style( $wb_ads_position, array( $wb_ads_rotator_margin_top, $wb_ads_rotator_margin_right, $wb_ads_rotator_margin_bottom, $wb_ads_rotator_margin_left ) ) ) . '">';
 		echo '<a href="' . esc_url( $wb_ads_rotator_get_image_link ) . '" target="blank">';
 		echo '<img src=" ' . esc_url( $wb_ads_rotator_get_ads_img_src ) . '" width="' . esc_attr( $wb_ads_rotator_image_width ) . '" height="' . esc_attr( $wb_ads_rotator_image_height ) . '">';
 		echo '</a>';

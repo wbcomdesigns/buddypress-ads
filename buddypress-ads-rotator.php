@@ -17,7 +17,7 @@
  * Description:       Display ads on your WordPress site with support for posts, pages, header, footer, and BuddyPress activity streams. Works as standalone WordPress or with BuddyPress.
  * Version:           1.6.0
  * Requires at least: 6.9
- * Requires PHP:      7.4
+ * Requires PHP:      8.1
  * Author:            Wbcom Designs
  * Author URI:        https://wbcomdesigns.com
  * License:           GPL-2.0+
