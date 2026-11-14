@@ -62,7 +62,7 @@ class Buddypress_Ads_Rotator_Cache {
 	 * byte-for-byte identical to the previous per-position queries.
 	 *
 	 * @since 1.6.1
-	 * @return int[] Ad post IDs (capped, default 5, ordered by WP default = date DESC).
+	 * @return int[] Ad post IDs (capped, default 100, ordered by WP default = date DESC).
 	 */
 	public static function get_ad_ids() {
 		if ( null !== self::$ids ) {
@@ -75,21 +75,19 @@ class Buddypress_Ads_Rotator_Cache {
 			/**
 			 * Cap the number of ads resolved on a single front-end request.
 			 *
-			 * Default is 5 — this matches the implicit cap the previous code
-			 * already relied on (every call site used get_posts() WITHOUT a
-			 * posts_per_page arg, and get_posts() defaults numberposts to 5).
-			 * Keeping the default at 5 makes this a pure perf refactor with
-			 * byte-identical front-end output. Site owners running more than
-			 * five concurrent ad positions can raise it via this filter.
+			 * The old default of 5 (get_posts' implicit limit) silently dropped
+			 * every older ad once a site had six, even when the newer ones were
+			 * disabled. 100 covers real sites; ids are cached in a transient and
+			 * meta is primed in one query, so the cost stays one batch.
 			 *
 			 * @since 1.6.1
-			 * @param int $max Maximum ads to load per request. Default 5.
+			 * @param int $max Maximum ads to load per request. Default 100.
 			 */
-			$max = (int) apply_filters( 'wb_ads_rotator_max_ads', 5 );
+			$max = (int) apply_filters( 'wb_ads_rotator_max_ads', 100 );
 			if ( 0 === $max ) {
-				$max = 5;
+				$max = 100;
 			}
-			// Allow -1 (unbounded) only via explicit opt-in through the filter.
+			// ponytail: newest 100 ads only; raise via the filter (-1 = unbounded) on ad-heavy sites.
 
 			$ids = get_posts(
 				array(
