@@ -22,7 +22,7 @@
 
 ## Admin UI wrapper classification: **NEW (card-panel shell)**
 - **Controller**: `includes/admin/class-buddypress-ads-rotator-settings-admin.php` — class `Buddypress_Ads_Rotator_Settings_Admin` (card-panel pattern, `get_tabs()` registry + `view_map`).
-- Renders `includes/admin/views/shell.php` (page header + sidebar nav + body slot). Tabs: `overview`, `scripts`, `welcome`, `faq`, `discover`. Views in `includes/admin/views/`.
+- Renders `includes/admin/views/layout.php` (page header + sidebar nav + body slot; never name a file `shell.php`: host WAFs block zips containing it). Tabs: `overview`, `scripts`, `welcome`, `faq`, `discover`. Views in `includes/admin/views/`.
 - Shared WB Plugins hub under `wbcomplugins` (top-level, pos 59). Settings submenu slug `buddypress-ads-rotator-settings`. `takeover_hub_landing()` @999 reclaims the hub landing if a legacy wbcom-wrapper plugin registered `wbcomplugins` first.
 - The legacy `admin/wbcom/` wrapper + `Wbcom_Admin_Settings` class + `[wbcom_admin_setting_header]` shortcode + `wbcom_addons_cards` AJAX were removed in the 1.6.0 migration. The `wb-ads` CPT, metaboxes, list columns, save handler and metabox AJAX remain in the retained legacy `Buddypress_Ads_Rotator_Admin` service class.
 

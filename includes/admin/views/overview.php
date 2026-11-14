@@ -1,6 +1,6 @@
 <?php
 /**
- * Overview dashboard partial: rendered inside shell.php.
+ * Overview dashboard partial: rendered inside layout.php.
  *
  * @package    Buddypress_Ads_Rotator
  * @subpackage Buddypress_Ads_Rotator/includes/admin/views

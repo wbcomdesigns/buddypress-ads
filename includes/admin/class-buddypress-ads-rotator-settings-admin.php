@@ -305,8 +305,8 @@ class Buddypress_Ads_Rotator_Settings_Admin {
 		$settings_form_group = self::OPTION_GROUP;
 
 		$view_path = BUDDYPRESS_ADS_ROTATOR_PATH . 'includes/admin/views/' . $view . '.php';
-		$shell     = BUDDYPRESS_ADS_ROTATOR_PATH . 'includes/admin/views/shell.php';
+		$layout    = BUDDYPRESS_ADS_ROTATOR_PATH . 'includes/admin/views/layout.php';
 
-		include $shell;
+		include $layout;
 	}
 }

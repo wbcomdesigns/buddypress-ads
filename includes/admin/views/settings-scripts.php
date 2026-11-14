@@ -2,7 +2,7 @@
 /**
  * Settings tab: Global Scripts / Styles.
  *
- * Wrapped by shell.php inside <form action="options.php"> with
+ * Wrapped by layout.php inside <form action="options.php"> with
  * settings_fields( 'buddypress-ads-rotator_admin_scripts_options' )
  * already emitted, so this view only renders the field cards. The
  * option name + sub-keys (header/body/footer) are preserved verbatim
