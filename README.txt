@@ -113,6 +113,10 @@ Standalone WordPress support plus a rebuilt admin. BuddyPress is now optional.
 * Fix      - Header and footer code is no longer printed twice on BuddyPress pages.
 * Fix      - An ad with no content can no longer be published. It is kept as a draft with a notice, instead of publishing an ad that renders as an empty space.
 * Fix      - Ads created with wp_insert_post() or WP-CLI, with their content in meta_input, are no longer forced to draft.
+* Fix      - Two activity ads at different positions now both show. An ad set to show before comments used to hide every activity ad listed after it.
+* Fix      - Clearing the activity ad Position field no longer breaks the activity stream. An empty value now falls back to every 3 entries.
+* Fix      - Turning off one ad no longer removes the site-wide header scripts from BuddyPress pages.
+* Fix      - Sites with more than five ads now show all of them. Older ads were silently skipped once a sixth ad was added.
 * Fix      - Iframe ads inside the activity stream now become visible. The script that moves them into place targeted class names the markup never had.
 * Fix      - Rich content ads with the clearfix option printed the line break twice.
 * Fix      - Empty margin or font size fields no longer write broken CSS such as margin-top:px into the ad.
