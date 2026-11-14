@@ -8,7 +8,7 @@
 - **Main file**: `buddypress-ads-rotator.php`
 - **Version**: `1.6.0`  ·  **Branch**: `1.6.0`  ·  **Constant**: `BUDDYPRESS_ADS_ROTATOR_VERSION`
 - **Namespace**: none — global classes prefixed `Buddypress_Ads_Rotator_`
-- **Text domain**: `buddypress-ads-rotator`  ·  **readme**: `README.txt` (capitalized)
+- **Text domain**: `buddypress-ads-rotator`  ·  **readme**: `readme.txt`
 - **Extends**: none (standalone free plugin; BuddyPress optional since 1.6.0)
 - **Architecture**: WordPress Plugin Boilerplate (loader-orchestrated)
 
