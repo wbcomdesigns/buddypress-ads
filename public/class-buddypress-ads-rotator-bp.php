@@ -153,8 +153,10 @@ class Buddypress_Ads_Rotator_BP {
 			$wb_ads_rotator_enject_repeat     = isset( $wb_ads_rotator_type['repeat_position'] ) ? $wb_ads_rotator_type['repeat_position'] : '';
 			$wb_ads_rotator_activity_type     = isset( $wb_ads_rotator_type['activity_type'] ) ? $wb_ads_rotator_type['activity_type'] : array();
 			$wb_ads_rotator_activity_position = isset( $wb_ads_rotator_type['activity_position'] ) ? $wb_ads_rotator_type['activity_position'] : '';
+			// The position needle also matches longer positions (before_activity_entry
+			// is inside before_activity_entry_comments), so skip, never stop the loop.
 			if ( $position !== $wb_ads_rotator_activity_position ) {
-				return;
+				continue;
 			}
 
 			// Sitewide activity.
@@ -192,15 +194,14 @@ class Buddypress_Ads_Rotator_BP {
 	 */
 	private function display_ad_at_position( $ad_id, $ad_type, $activity_position, $enject_position, $enject_repeat ) {
 		$did_action = did_action( $activity_position );
+		// An empty or 0 value (field cleared) fell into a modulo and fataled the stream.
+		$every = absint( $enject_position );
+		if ( $every < 1 ) {
+			$every = 3;
+		}
 
-		if ( 'yes' !== $enject_repeat ) {
-			if ( $did_action == $enject_position ) {
-				$this->render_ad( $ad_id, $ad_type );
-			}
-		} else {
-			if ( $did_action !== $enject_position && 0 !== $did_action % $enject_position ) {
-				return;
-			}
+		$show = ( 'yes' === $enject_repeat ) ? 0 === $did_action % $every : $did_action === $every;
+		if ( $show ) {
 			$this->render_ad( $ad_id, $ad_type );
 		}
 	}

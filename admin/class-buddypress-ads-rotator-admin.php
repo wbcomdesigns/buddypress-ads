@@ -789,6 +789,9 @@ class Buddypress_Ads_Rotator_Admin {
 				case 'ads_image':
 					$clean[ $key ] = absint( $value );
 					break;
+				case 'enject_after':
+					$clean[ $key ] = absint( $value ) ? absint( $value ) : 3; // Same default the form shows.
+					break;
 				case 'text_color':
 				case 'bg_color':
 					$clean[ $key ] = (string) sanitize_hex_color( $value );
