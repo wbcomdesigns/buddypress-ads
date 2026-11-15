@@ -91,3 +91,24 @@ function wb_ads_rotator_color_styles( $values ) {
 
 	return $styles;
 }
+
+/**
+ * Whether an ad's own script and style tags may run.
+ *
+ * Only when whoever last saved the ad (falling back to its author) may post
+ * unfiltered HTML, the same rule the save path applies. Decided by the ad,
+ * never by the viewer. One rule for the in-content output and the
+ * header/footer script output.
+ *
+ * @since 1.6.0
+ *
+ * @param int $ad_id Ad post ID.
+ * @return bool
+ */
+function wb_ads_rotator_ad_code_allowed( $ad_id ) {
+	$saved_by = (int) get_post_meta( $ad_id, '_edit_last', true );
+	$saved_by = $saved_by ? $saved_by : (int) get_post_field( 'post_author', $ad_id );
+
+	return $saved_by && user_can( $saved_by, 'unfiltered_html' );
+}
+

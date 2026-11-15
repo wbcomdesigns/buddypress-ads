@@ -246,7 +246,7 @@ class Buddypress_Ads_Rotator_BP {
 			if ( 'plain-text-and-code' === $wb_ads_rotator_type['ads_type'] ) {
 				$wb_ads_rotator_get_values = get_post_meta( $wb_ads_rotator_get_ad, 'wb_ads_rotator_values', true );
 				$wb_ads_rotator_enable     = get_post_meta( $wb_ads_rotator_get_ad, 'wb_ads_enable', true );
-				if ( 'disable' === $wb_ads_rotator_enable ) {
+				if ( 'disable' === $wb_ads_rotator_enable || ! wb_ads_rotator_ad_code_allowed( $wb_ads_rotator_get_ad ) ) {
 					continue;
 				}
 				$wb_ads_rotator_get_plain_text = isset( $wb_ads_rotator_get_values['plain_text_and_code'] ) ? $wb_ads_rotator_get_values['plain_text_and_code'] : '';

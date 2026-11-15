@@ -212,7 +212,7 @@ class Buddypress_Ads_Rotator_Public {
 			}
 
 			// Output scripts/styles for plain text ads.
-			if ( 'plain-text-and-code' === $wb_ads_values['ads_type'] ) {
+			if ( 'plain-text-and-code' === $wb_ads_values['ads_type'] && wb_ads_rotator_ad_code_allowed( $ad_id ) ) {
 				$plain_text = isset( $wb_ads_values['plain_text_and_code'] ) ? $wb_ads_values['plain_text_and_code'] : '';
 				preg_match_all( '/<script\b[^>]*>(.*?)<\/script>/is', $plain_text, $scripts );
 				preg_match_all( '/<style\b[^>]*>(.*?)<\/style>/is', $plain_text, $styles );
@@ -315,8 +315,10 @@ class Buddypress_Ads_Rotator_Public {
 		}
 
 		$wb_ads_rotator_get_plain_text  = isset( $wb_ads_rotator_get_values['plain_text_and_code'] ) ? $wb_ads_rotator_get_values['plain_text_and_code'] : '';
-		$wb_ads_rotator_get_plain_text  = preg_replace( '/<script\b[^>]*>(.*?)<\/script>/is', '', $wb_ads_rotator_get_plain_text );
-		$wb_ads_rotator_get_plain_text  = preg_replace( '/<style\b[^>]*>(.*?)<\/style>/is', '', $wb_ads_rotator_get_plain_text );
+		if ( ! wb_ads_rotator_ad_code_allowed( $wb_ads_rotator_get_ad ) ) {
+			$wb_ads_rotator_get_plain_text = preg_replace( '/<script\b[^>]*>(.*?)<\/script>/is', '', $wb_ads_rotator_get_plain_text );
+			$wb_ads_rotator_get_plain_text = preg_replace( '/<style\b[^>]*>(.*?)<\/style>/is', '', $wb_ads_rotator_get_plain_text );
+		}
 		$wb_ads_rotator_container_id    = isset( $wb_ads_rotator_get_values['container_id'] ) ? $wb_ads_rotator_get_values['container_id'] : '';
 		$wb_ads_visitor_view            = isset( $wb_ads_rotator_get_values['to_whom']['logged_in_visitor'] ) ? $wb_ads_rotator_get_values['to_whom']['logged_in_visitor'] : '';
 		$wb_ads_visitor_device          = isset( $wb_ads_rotator_get_values['to_whom']['device'] ) ? $wb_ads_rotator_get_values['to_whom']['device'] : '';
