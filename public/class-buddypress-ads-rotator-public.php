@@ -286,103 +286,112 @@ class Buddypress_Ads_Rotator_Public {
 	}
 
 	/**
+	 * Saved settings of an ad that may show to this visitor, or null when the ad is
+	 * disabled or targets other visitors (logged in/out) or another device.
+	 *
+	 * @since 1.6.0
+	 * @param int $ad_id Ad post ID.
+	 * @return array|null
+	 */
+	private function wb_ads_rotator_visible_values( $ad_id ) {
+		if ( 'disable' === get_post_meta( $ad_id, 'wb_ads_enable', true ) ) {
+			return null;
+		}
+		$values = get_post_meta( $ad_id, 'wb_ads_rotator_values', true );
+		$values = is_array( $values ) ? $values : array();
+		$view   = $values['to_whom']['logged_in_visitor'] ?? '';
+		$device = $values['to_whom']['device'] ?? '';
+
+		if ( ( 'login_in' === $view && ! is_user_logged_in() ) || ( 'logout_out' === $view && is_user_logged_in() ) ) {
+			return null;
+		}
+		if ( ( 'desktop' === $device && wp_is_mobile() ) || ( 'mobile' === $device && ! wp_is_mobile() ) ) {
+			return null;
+		}
+		return $values;
+	}
+
+	/**
+	 * Text-align value for the ad's position setting.
+	 *
+	 * @since 1.6.0
+	 * @param array  $values Ad settings.
+	 * @param string $prefix '' or '-webkit-' (rich content and image ads).
+	 * @return string
+	 */
+	private function wb_ads_rotator_align( $values, $prefix ) {
+		$position = $values['ads_position'] ?? '';
+		if ( 'default' === $position ) {
+			return 'initial';
+		}
+		return in_array( $position, array( 'left', 'center', 'right' ), true ) ? $prefix . $position : '';
+	}
+
+	/**
+	 * Open an ad container: id, classes, alignment and margins.
+	 *
+	 * @since 1.6.0
+	 * @param int      $ad_id   Ad post ID.
+	 * @param array    $values  Ad settings.
+	 * @param string[] $classes Container classes.
+	 * @param string   $align   Text-align value.
+	 * @param string   $style   Extra inline style placed before alignment and margins.
+	 */
+	private function wb_ads_rotator_open( $ad_id, $values, $classes, $align, $style = '' ) {
+		$id      = ! empty( $values['container_id'] ) ? $values['container_id'] : 'wbcomads-' . $ad_id;
+		$margins = array();
+		foreach ( array( 'top', 'right', 'bottom', 'left' ) as $side ) {
+			$margins[] = $values['margin'][ $side ] ?? '';
+		}
+		echo '<div id="' . esc_attr( $id ) . '" class="' . esc_attr( implode( ' ', $classes ) ) . '" style="' . esc_attr( $style . $this->wb_ads_rotator_box_style( $align, $margins ) ) . '">';
+	}
+
+	/**
+	 * Close an ad container, with the optional clearfix.
+	 *
+	 * @since 1.6.0
+	 * @param array $values Ad settings.
+	 */
+	private function wb_ads_rotator_close( $values ) {
+		echo '</div>';
+		if ( 'yes' === ( $values['clearfix'] ?? '' ) ) {
+			echo '<br style="clear: both; display: block; float: none;">';
+		}
+	}
+
+	/**
 	 * Display plain text and code type ads.
 	 *
 	 * @param int $wb_ads_rotator_get_ad Get Ads ID.
 	 */
 	public function wb_ads_rotator_display_plain_text_and_code_ads( $wb_ads_rotator_get_ad ) {
-
-		$wb_ads_rotator_get_values = get_post_meta( $wb_ads_rotator_get_ad, 'wb_ads_rotator_values', true );
-		$wb_ads_rotator_enable     = get_post_meta( $wb_ads_rotator_get_ad, 'wb_ads_enable', true );
-		$wb_ads_rotator_position   = isset( $wb_ads_rotator_get_values['ads_position'] ) ? $wb_ads_rotator_get_values['ads_position'] : '';
-		if ( 'disable' === $wb_ads_rotator_enable ) {
+		$values = $this->wb_ads_rotator_visible_values( $wb_ads_rotator_get_ad );
+		if ( null === $values ) {
 			return;
 		}
-		$wb_ads_position = '';
-		switch ( $wb_ads_rotator_position ) {
-			case 'default':
-				$wb_ads_position = 'initial';
-				break;
-			case 'left':
-				$wb_ads_position = 'left';
-				break;
-			case 'center':
-				$wb_ads_position = 'center';
-				break;
-			case 'right':
-				$wb_ads_position = 'right';
-				break;
-		}
 
-		$wb_ads_rotator_get_plain_text  = isset( $wb_ads_rotator_get_values['plain_text_and_code'] ) ? $wb_ads_rotator_get_values['plain_text_and_code'] : '';
+		$content = $values['plain_text_and_code'] ?? '';
 		if ( ! wb_ads_rotator_ad_code_allowed( $wb_ads_rotator_get_ad ) ) {
-			$wb_ads_rotator_get_plain_text = preg_replace( '/<script\b[^>]*>(.*?)<\/script>/is', '', $wb_ads_rotator_get_plain_text );
-			$wb_ads_rotator_get_plain_text = preg_replace( '/<style\b[^>]*>(.*?)<\/style>/is', '', $wb_ads_rotator_get_plain_text );
-		}
-		$wb_ads_rotator_container_id    = isset( $wb_ads_rotator_get_values['container_id'] ) ? $wb_ads_rotator_get_values['container_id'] : '';
-		$wb_ads_visitor_view            = isset( $wb_ads_rotator_get_values['to_whom']['logged_in_visitor'] ) ? $wb_ads_rotator_get_values['to_whom']['logged_in_visitor'] : '';
-		$wb_ads_visitor_device          = isset( $wb_ads_rotator_get_values['to_whom']['device'] ) ? $wb_ads_rotator_get_values['to_whom']['device'] : '';
-		$wb_ads_rotator_margin_top      = isset( $wb_ads_rotator_get_values['margin']['top'] ) ? $wb_ads_rotator_get_values['margin']['top'] : '';
-		$wb_ads_rotator_margin_right    = isset( $wb_ads_rotator_get_values['margin']['right'] ) ? $wb_ads_rotator_get_values['margin']['right'] : '';
-		$wb_ads_rotator_margin_bottom   = isset( $wb_ads_rotator_get_values['margin']['bottom'] ) ? $wb_ads_rotator_get_values['margin']['bottom'] : '';
-		$wb_ads_rotator_margin_left     = isset( $wb_ads_rotator_get_values['margin']['left'] ) ? $wb_ads_rotator_get_values['margin']['left'] : '';
-		$wb_ads_rotator_clearfix        = isset( $wb_ads_rotator_get_values['clearfix'] ) ? $wb_ads_rotator_get_values['clearfix'] : '';
-		$wb_ads_rotator_allow_shortcode = isset( $wb_ads_rotator_get_values['allow_shortcode'] ) ? $wb_ads_rotator_get_values['allow_shortcode'] : '';
-
-		if ( empty( $wb_ads_rotator_container_id ) ) {
-			$wb_ads_rotator_container_id = 'wbcomads-' . $wb_ads_rotator_get_ad;
-		}
-		if ( ! is_user_logged_in() && 'login_in' === $wb_ads_visitor_view ) {
-			return;
-		} elseif ( is_user_logged_in() && 'logout_out' === $wb_ads_visitor_view ) {
-			return;
+			$content = preg_replace( '/<script\b[^>]*>(.*?)<\/script>/is', '', $content );
+			$content = preg_replace( '/<style\b[^>]*>(.*?)<\/style>/is', '', $content );
 		}
 
-		if ( 'desktop' === $wb_ads_visitor_device ) {
-			if ( wp_is_mobile() ) {
-				return;
-			}
-		} elseif ( 'mobile' === $wb_ads_visitor_device ) {
-			if ( ! wp_is_mobile() ) {
-				return;
+		$classes = array( 'wb-bannerads-rotator' );
+		if ( function_exists( 'bp_get_theme_compat_id' ) && 'nouveau' === bp_get_theme_compat_id() ) {
+			$classes[] = 'wbbpads-nouveau';
+			if ( false !== strpos( $content, '<script' ) || false !== strpos( $content, 'iframe' ) ) {
+				$classes[] = 'wbads-iframe';
 			}
 		}
-		$allowed_atts              = array(
-			'type'              => array(),
-			'id'                => array(),
-			'src'               => array(),
-			'width'             => array(),
-			'height'            => array(),
-			'scrolling'         => array(),
-			'frameborder'       => array(),
-			'allowtransparency' => array(),
-			'allow'             => array(),
-			'allowfullscreen'   => array(),
-		);
-		$allowedposttags['script'] = $allowed_atts;
-		$allowedposttags['iframe'] = $allowed_atts;
-		$allowedposttags['img']    = $allowed_atts;
+		$classes[] = 'plain-text-and-code-ads';
 
-		$is_nouveau = function_exists( 'bp_get_theme_compat_id' ) && 'nouveau' === bp_get_theme_compat_id();
-		if ( $is_nouveau ) {
-			$is_iframe = '';
-			if ( strpos( $wb_ads_rotator_get_plain_text, '<script' ) !== false || strpos( $wb_ads_rotator_get_plain_text, 'iframe' ) !== false ) {
-				$is_iframe = 'wbads-iframe';
-			}
-			echo '<div id="' . esc_attr( $wb_ads_rotator_container_id ) . '" class="wb-bannerads-rotator wbbpads-nouveau ' . esc_attr( $is_iframe ) . ' plain-text-and-code-ads" style="' . esc_attr( $this->wb_ads_rotator_box_style( $wb_ads_position, array( $wb_ads_rotator_margin_top, $wb_ads_rotator_margin_right, $wb_ads_rotator_margin_bottom, $wb_ads_rotator_margin_left ) ) ) . '">';
+		$this->wb_ads_rotator_open( $wb_ads_rotator_get_ad, $values, $classes, $this->wb_ads_rotator_align( $values, '' ) );
+		if ( 'yes' === ( $values['allow_shortcode'] ?? '' ) ) {
+			echo do_shortcode( $content );
 		} else {
-			echo '<div id="' . esc_attr( $wb_ads_rotator_container_id ) . '" class="wb-bannerads-rotator plain-text-and-code-ads" style="' . esc_attr( $this->wb_ads_rotator_box_style( $wb_ads_position, array( $wb_ads_rotator_margin_top, $wb_ads_rotator_margin_right, $wb_ads_rotator_margin_bottom, $wb_ads_rotator_margin_left ) ) ) . '">';
+			echo apply_filters( 'wb_ads_rotator_plain_text_code_ads_content', $content ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- The owner's ad code; script/style already stripped unless the author may post code.
 		}
-		if ( 'yes' === $wb_ads_rotator_allow_shortcode ) {
-			echo do_shortcode( $wb_ads_rotator_get_plain_text );
-		} else {
-			echo  apply_filters( 'wb_ads_rotator_plain_text_code_ads_content', $wb_ads_rotator_get_plain_text ) ;	// phpcs:ignore.
-		}
-
-		echo '</div>';
-		if ( 'yes' === $wb_ads_rotator_clearfix ) {
-			echo '<br style="clear: both; display: block; float: none;">';
-		}
+		$this->wb_ads_rotator_close( $values );
 	}
 
 	/**
@@ -391,40 +400,13 @@ class Buddypress_Ads_Rotator_Public {
 	 * @param int $wb_ads_rotator_get_ad Get Ads ID.
 	 */
 	public function wb_ads_rotator_display_rich_content_ads( $wb_ads_rotator_get_ad ) {
-		global $post;
-		$wb_ads_rotator_get_values = get_post_meta( $wb_ads_rotator_get_ad, 'wb_ads_rotator_values', true );
-		$wb_ads_rotator_enable     = get_post_meta( $wb_ads_rotator_get_ad, 'wb_ads_enable', true );
-		$wb_ads_rotator_position   = isset( $wb_ads_rotator_get_values['ads_position'] ) ? $wb_ads_rotator_get_values['ads_position'] : '';
-		if ( 'disable' === $wb_ads_rotator_enable ) {
+		$values = $this->wb_ads_rotator_visible_values( $wb_ads_rotator_get_ad );
+		if ( null === $values ) {
 			return;
 		}
-		$wb_ads_position = '';
-		switch ( $wb_ads_rotator_position ) {
-			case 'default':
-				$wb_ads_position = 'initial';
-				break;
-			case 'left':
-				$wb_ads_position = '-webkit-left';
-				break;
-			case 'center':
-				$wb_ads_position = '-webkit-center';
-				break;
-			case 'right':
-				$wb_ads_position = '-webkit-right';
-				break;
-		}
 
-		$wb_ads_rotator_get_rich_content = isset( $wb_ads_rotator_get_values['rich_content'] ) ? $wb_ads_rotator_get_values['rich_content'] : '';
-		$wb_ads_rotator_container_class  = isset( $wb_ads_rotator_get_values['container_classes'] ) ? $wb_ads_rotator_get_values['container_classes'] : '';
-		$wb_ads_rotator_container_id     = isset( $wb_ads_rotator_get_values['container_id'] ) ? $wb_ads_rotator_get_values['container_id'] : '';
-		$wb_ads_visitor_view             = isset( $wb_ads_rotator_get_values['to_whom']['logged_in_visitor'] ) ? $wb_ads_rotator_get_values['to_whom']['logged_in_visitor'] : '';
-		$wb_ads_visitor_device           = isset( $wb_ads_rotator_get_values['to_whom']['device'] ) ? $wb_ads_rotator_get_values['to_whom']['device'] : '';
-		$wb_ads_rotator_margin_top       = isset( $wb_ads_rotator_get_values['margin']['top'] ) ? $wb_ads_rotator_get_values['margin']['top'] : '';
-		$wb_ads_rotator_margin_right     = isset( $wb_ads_rotator_get_values['margin']['right'] ) ? $wb_ads_rotator_get_values['margin']['right'] : '';
-		$wb_ads_rotator_margin_bottom    = isset( $wb_ads_rotator_get_values['margin']['bottom'] ) ? $wb_ads_rotator_get_values['margin']['bottom'] : '';
-		$wb_ads_rotator_margin_left      = isset( $wb_ads_rotator_get_values['margin']['left'] ) ? $wb_ads_rotator_get_values['margin']['left'] : '';
-		$wb_ads_rotator_clearfix         = isset( $wb_ads_rotator_get_values['clearfix'] ) ? $wb_ads_rotator_get_values['clearfix'] : '';
-		$wb_ads_rotator_font_size        = isset( $wb_ads_rotator_get_values['font_size'] ) ? $wb_ads_rotator_get_values['font_size'] : '';
+		$content   = $values['rich_content'] ?? '';
+		$font_size = $values['font_size'] ?? '';
 		/*
 		 * Colour declarations for the wrapper - empty unless the owner deliberately chose
 		 * them. Painting a background and text colour nobody asked for is what made an ad
@@ -432,69 +414,24 @@ class Buddypress_Ads_Rotator_Public {
 		 * so the ad was frozen in whatever colours the picker happened to submit. The ad's
 		 * own content is never touched - its colours are the advertiser's call.
 		 */
-		$wb_ads_rotator_color_styles = wb_ads_rotator_color_styles( $wb_ads_rotator_get_values );
+		$style = wb_ads_rotator_color_styles( $values ) . ( is_numeric( $font_size ) ? 'font-size:' . $font_size . 'px;' : '' );
 
-		if ( empty( $wb_ads_rotator_container_id ) ) {
-			$wb_ads_rotator_container_id = 'wbcomads-' . $wb_ads_rotator_get_ad;
-		}
-		if ( ! is_user_logged_in() && 'login_in' === $wb_ads_visitor_view ) {
-			return;
-		} elseif ( is_user_logged_in() && 'logout_out' === $wb_ads_visitor_view ) {
-			return;
-		}
+		$classes = ( function_exists( 'bp_get_theme_compat_id' ) && 'nouveau' === bp_get_theme_compat_id() )
+			? array( 'wb-bannerads-rotator', 'wbbpads-nouveau', 'wbads-iframe', 'rich-contentwbads' )
+			: array( 'wb-bannerads-rotator', 'rich-contentwbads' );
 
-		if ( 'desktop' === $wb_ads_visitor_device ) {
-			if ( wp_is_mobile() ) {
-				return;
-			}
-		} elseif ( 'mobile' === $wb_ads_visitor_device ) {
-			if ( ! wp_is_mobile() ) {
-				return;
-			}
-		}
-		$allowed_atts              = array(
-			'type'              => array(),
-			'id'                => array(),
-			'src'               => array(),
-			'scrolling'         => array(),
-			'width'             => array(),
-			'height'            => array(),
-			'frameborder'       => array(),
-			'allowtransparency' => array(),
-			'allow'             => array(),
-			'allowfullscreen'   => array(),
-		);
-		$allowedposttags['script'] = $allowed_atts;
-		$allowedposttags['iframe'] = $allowed_atts;
-		$allowedposttags['img']    = $allowed_atts;
-
-		$wb_ads_rotator_style = $wb_ads_rotator_color_styles
-			. ( is_numeric( $wb_ads_rotator_font_size ) ? 'font-size:' . $wb_ads_rotator_font_size . 'px;' : '' )
-			. $this->wb_ads_rotator_box_style( $wb_ads_position, array( $wb_ads_rotator_margin_top, $wb_ads_rotator_margin_right, $wb_ads_rotator_margin_bottom, $wb_ads_rotator_margin_left ) );
-
-		$is_nouveau = function_exists( 'bp_get_theme_compat_id' ) && 'nouveau' === bp_get_theme_compat_id();
-		$wb_ads_rotator_classes = $is_nouveau
-			? 'wb-bannerads-rotator wbbpads-nouveau wbads-iframe rich-contentwbads'
-			: 'wb-bannerads-rotator rich-contentwbads';
-
-		echo '<div id="' . esc_attr( $wb_ads_rotator_container_id ) . '" class="' . esc_attr( $wb_ads_rotator_classes ) . '" style="' . esc_attr( $wb_ads_rotator_style ) . '">';
-		if ( false !== strpos( $wb_ads_rotator_get_rich_content, '[' ) ) {
-			preg_match_all( '/' . get_shortcode_regex() . '/', $wb_ads_rotator_get_rich_content, $matches, PREG_SET_ORDER );
-			if ( ! empty( $matches ) ) {
-				foreach ( $matches as $shortcode ) {
-					echo do_shortcode( $shortcode[0] );
-				}
+		$this->wb_ads_rotator_open( $wb_ads_rotator_get_ad, $values, $classes, $this->wb_ads_rotator_align( $values, '-webkit-' ), $style );
+		if ( false !== strpos( $content, '[' ) ) {
+			preg_match_all( '/' . get_shortcode_regex() . '/', $content, $matches, PREG_SET_ORDER );
+			foreach ( $matches as $shortcode ) {
+				echo do_shortcode( $shortcode[0] );
 			}
 		}
 		if ( ! empty( $shortcode[0] ) ) {
-			$wb_ads_rotator_get_rich_content = str_replace( $shortcode[0], '', $wb_ads_rotator_get_rich_content );
+			$content = str_replace( $shortcode[0], '', $content );
 		}
-		echo wp_kses( apply_filters( 'wb_ads_rotator_rich_content_ads_content', $wb_ads_rotator_get_rich_content ), $this->wb_ads_allowed_html() );
-
-		echo '</div>';
-		if ( 'yes' === $wb_ads_rotator_clearfix ) {
-			echo '<br style="clear: both; display: block; float: none;">';
-		}
+		echo wp_kses( apply_filters( 'wb_ads_rotator_rich_content_ads_content', $content ), $this->wb_ads_allowed_html() );
+		$this->wb_ads_rotator_close( $values );
 	}
 
 	/**
@@ -523,71 +460,19 @@ class Buddypress_Ads_Rotator_Public {
 	 * @param int $wb_ads_rotator_get_ad Get Ads ID.
 	 */
 	public function wb_ads_rotator_display_image_ads( $wb_ads_rotator_get_ad ) {
-		$wb_ads_rotator_get_values = get_post_meta( $wb_ads_rotator_get_ad, 'wb_ads_rotator_values', true );
-		$wb_ads_rotator_enable     = get_post_meta( $wb_ads_rotator_get_ad, 'wb_ads_enable', true );
-		$wb_ads_rotator_position   = isset( $wb_ads_rotator_get_values['ads_position'] ) ? $wb_ads_rotator_get_values['ads_position'] : '';
-		if ( 'disable' === $wb_ads_rotator_enable ) {
-			return;
-		}
-		$wb_ads_position = '';
-		switch ( $wb_ads_rotator_position ) {
-			case 'default':
-				$wb_ads_position = 'initial';
-				break;
-			case 'left':
-				$wb_ads_position = '-webkit-left';
-				break;
-			case 'center':
-				$wb_ads_position = '-webkit-center';
-				break;
-			case 'right':
-				$wb_ads_position = '-webkit-right';
-				break;
-		}
-
-		$wb_ads_rotator_get_image_id   = isset( $wb_ads_rotator_get_values['ads_image'] ) ? $wb_ads_rotator_get_values['ads_image'] : '';
-		$wb_ads_rotator_get_image_link = isset( $wb_ads_rotator_get_values['image_link'] ) ? $wb_ads_rotator_get_values['image_link'] : '';
-		$wb_ads_rotator_container_id   = isset( $wb_ads_rotator_get_values['container_id'] ) ? $wb_ads_rotator_get_values['container_id'] : '';
-		$wb_ads_visitor_view           = isset( $wb_ads_rotator_get_values['to_whom']['logged_in_visitor'] ) ? $wb_ads_rotator_get_values['to_whom']['logged_in_visitor'] : '';
-		$wb_ads_visitor_device         = isset( $wb_ads_rotator_get_values['to_whom']['device'] ) ? $wb_ads_rotator_get_values['to_whom']['device'] : '';
-		$wb_ads_rotator_image_width    = isset( $wb_ads_rotator_get_values['size']['width'] ) ? $wb_ads_rotator_get_values['size']['width'] : '';
-		$wb_ads_rotator_image_height   = isset( $wb_ads_rotator_get_values['size']['height'] ) ? $wb_ads_rotator_get_values['size']['height'] : '';
-		$wb_ads_rotator_margin_top     = isset( $wb_ads_rotator_get_values['margin']['top'] ) ? $wb_ads_rotator_get_values['margin']['top'] : '';
-		$wb_ads_rotator_margin_right   = isset( $wb_ads_rotator_get_values['margin']['right'] ) ? $wb_ads_rotator_get_values['margin']['right'] : '';
-		$wb_ads_rotator_margin_bottom  = isset( $wb_ads_rotator_get_values['margin']['bottom'] ) ? $wb_ads_rotator_get_values['margin']['bottom'] : '';
-		$wb_ads_rotator_margin_left    = isset( $wb_ads_rotator_get_values['margin']['left'] ) ? $wb_ads_rotator_get_values['margin']['left'] : '';
-		$wb_ads_rotator_clearfix       = isset( $wb_ads_rotator_get_values['clearfix'] ) ? $wb_ads_rotator_get_values['clearfix'] : '';
-		if ( ! empty( $wb_ads_rotator_get_image_id ) ) {
-			$wb_ads_rotator_get_ads_img_src = wp_get_attachment_url( $wb_ads_rotator_get_image_id );
-		} else {
-			$wb_ads_rotator_get_ads_img_src = $wb_ads_rotator_get_image_link;
-		}
-		if ( empty( $wb_ads_rotator_container_id ) ) {
-			$wb_ads_rotator_container_id = 'wbcomads-' . $wb_ads_rotator_get_ad;
-		}
-		if ( ! is_user_logged_in() && 'login_in' === $wb_ads_visitor_view ) {
-			return;
-		} elseif ( is_user_logged_in() && 'logout_out' === $wb_ads_visitor_view ) {
+		$values = $this->wb_ads_rotator_visible_values( $wb_ads_rotator_get_ad );
+		if ( null === $values ) {
 			return;
 		}
 
-		if ( 'desktop' === $wb_ads_visitor_device ) {
-			if ( wp_is_mobile() ) {
-				return;
-			}
-		} elseif ( 'mobile' === $wb_ads_visitor_device ) {
-			if ( ! wp_is_mobile() ) {
-				return;
-			}
-		}
-		echo '<div id="' . esc_attr( $wb_ads_rotator_container_id ) . '" class="wb-bannerads-rotator wbcom-imageads" style="' . esc_attr( $this->wb_ads_rotator_box_style( $wb_ads_position, array( $wb_ads_rotator_margin_top, $wb_ads_rotator_margin_right, $wb_ads_rotator_margin_bottom, $wb_ads_rotator_margin_left ) ) ) . '">';
-		echo '<a href="' . esc_url( $wb_ads_rotator_get_image_link ) . '" target="blank">';
-		echo '<img src=" ' . esc_url( $wb_ads_rotator_get_ads_img_src ) . '" width="' . esc_attr( $wb_ads_rotator_image_width ) . '" height="' . esc_attr( $wb_ads_rotator_image_height ) . '">';
+		$link = $values['image_link'] ?? '';
+		$src  = ! empty( $values['ads_image'] ) ? wp_get_attachment_url( $values['ads_image'] ) : $link;
+
+		$this->wb_ads_rotator_open( $wb_ads_rotator_get_ad, $values, array( 'wb-bannerads-rotator', 'wbcom-imageads' ), $this->wb_ads_rotator_align( $values, '-webkit-' ) );
+		echo '<a href="' . esc_url( $link ) . '" target="blank">';
+		echo '<img src="' . esc_url( $src ) . '" width="' . esc_attr( $values['size']['width'] ?? '' ) . '" height="' . esc_attr( $values['size']['height'] ?? '' ) . '">';
 		echo '</a>';
-		echo '</div>';
-		if ( 'yes' === $wb_ads_rotator_clearfix ) {
-			echo '<br style="clear: both; display: block; float: none;">';
-		}
+		$this->wb_ads_rotator_close( $values );
 	}
 
 	/**
