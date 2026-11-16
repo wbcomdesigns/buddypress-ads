@@ -8,7 +8,7 @@ Stable tag: 1.6.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Display ads in posts, pages, the site header and footer, and the BuddyPress activity stream. Works with or without BuddyPress.
+Display ads in posts, pages, the site header and footer, and the BuddyPress activity stream. Works with or without BuddyPress; the activity stream placement needs BuddyPress 12.0 or higher.
 
 == Description ==
 
