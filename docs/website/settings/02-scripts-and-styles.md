@@ -11,3 +11,7 @@ Go to **WB Plugins > BuddyPress Ads > Scripts / Styles**. Use these fields for c
 Click **Save Settings**. A **Settings saved** notice confirms it. The code loads on every page, BuddyPress pages included.
 
 Script, style and meta tags are kept for users who can post unfiltered HTML. For other users they are removed on save.
+
+## Discover tab
+
+**WB Plugins > BuddyPress Ads > Discover** lists more free tools from Wbcom Designs. It is read-only and has nothing to configure.

@@ -1077,11 +1077,6 @@ class Buddypress_Ads_Rotator_Admin {
 		} elseif ( 'wb_ads_rotator_enable' === $action && 'disable' === $action_value ) {
 			update_post_meta( $wb_ads_id, 'wb_ads_enable', 'disable' );
 		}
-		// Toggling enable/disable changes which ads render on the front end;
-		// bust the cached eligible-ad set.
-		if ( class_exists( 'Buddypress_Ads_Rotator_Cache' ) ) {
-			Buddypress_Ads_Rotator_Cache::invalidate();
-		}
 		die;
 	}
 
