@@ -102,8 +102,9 @@ class Buddypress_Ads_Rotator_Public {
 	 * @return string Modified content with ads.
 	 */
 	public function wb_ads_display_in_content( $content ) {
-		// Skip if not a singular post/page or in admin.
-		if ( is_admin() || ! is_singular() ) {
+		// Only the main post of a singular view: not admin, not excerpts built outside the loop, and
+		// not another post rendered inside it (related posts, query blocks), whose ID differs.
+		if ( is_admin() || ! is_singular() || ! in_the_loop() || ! is_main_query() || get_the_ID() !== get_queried_object_id() ) {
 			return $content;
 		}
 
@@ -132,12 +133,11 @@ class Buddypress_Ads_Rotator_Public {
 			$wb_ads_values = get_post_meta( $ad_id, 'wb_ads_rotator_values', true );
 			$wp_position   = isset( $wb_ads_values['wp_position'] ) ? $wb_ads_values['wp_position'] : '';
 
-			$ad_html = $this->wb_ads_rotator_render_ad( $ad_id );
-
+			// Render only ads placed here, so other ads' shortcodes never run on this page.
 			if ( 'wp_before_content' === $wp_position ) {
-				$before_content .= $ad_html;
+				$before_content .= $this->wb_ads_rotator_render_ad( $ad_id );
 			} elseif ( 'wp_after_content' === $wp_position ) {
-				$after_content .= $ad_html;
+				$after_content .= $this->wb_ads_rotator_render_ad( $ad_id );
 			}
 		}
 
@@ -402,7 +402,7 @@ class Buddypress_Ads_Rotator_Public {
 		if ( $width && $height ) {
 			$style .= 'height:auto;aspect-ratio:' . $width . '/' . $height . ';object-fit:cover;';
 		}
-		$alt = get_the_title( $wb_ads_rotator_get_ad );
+		$alt = wp_strip_all_tags( get_post_field( 'post_title', $wb_ads_rotator_get_ad, 'raw' ) ); // Raw: get_the_title() texturizes 728x90 into 728&#215;90.
 
 		$this->wb_ads_rotator_open( $wb_ads_rotator_get_ad, $values, array( 'wb-bannerads-rotator', 'wbcom-imageads' ), $this->wb_ads_rotator_align( $values, '-webkit-' ) );
 		$img = '<img src="' . esc_url( $src ) . '" alt="' . esc_attr( $alt ) . '"' . ( $width ? ' width="' . $width . '"' : '' ) . ( $height ? ' height="' . $height . '"' : '' ) . ' style="' . esc_attr( $style ) . '">';
@@ -430,9 +430,12 @@ class Buddypress_Ads_Rotator_Public {
 			if ( ! current_user_can( 'edit_pages' ) ) {
 				return '';
 			}
-			return $ad_id
-				? esc_html__( 'No published ad matches this ads_id.', 'buddypress-ads-rotator' )
-				: esc_html__( 'Add the ads_id attribute to show an ad, for example [ads-shortcode ads_id=12].', 'buddypress-ads-rotator' );
+			$hint = $ad_id
+				? __( 'No published ad matches this ads_id.', 'buddypress-ads-rotator' )
+				: __( 'Add the ads_id attribute to show an ad, for example [ads-shortcode ads_id=12].', 'buddypress-ads-rotator' );
+			// BuddyPress notice markup inside BP's wrapper class, so BP and the theme style it as
+			// their own info notice on any page (BP scopes .bp-feedback to .buddypress-wrap).
+			return '<div class="buddypress-wrap wb-ads-shortcode-hint"><div class="bp-feedback info"><span class="bp-icon" aria-hidden="true"></span><p>' . esc_html( $hint ) . '</p></div></div>';
 		}
 
 		return $this->wb_ads_rotator_render_ad( $ad_id );

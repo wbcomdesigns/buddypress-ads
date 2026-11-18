@@ -163,6 +163,7 @@
       "show_ui": true,
       "show_in_menu": true,
       "show_in_rest": true,
+      "rest_read": "restricted to the CPT edit_posts cap (edit_pages) via rest_request_before_callbacks; guests 401, members 403",
       "capability_type": "page",
       "supports": ["title"],
       "registered_at": "admin/class-buddypress-ads-rotator-admin.php:321 (hooked on init)",
@@ -205,6 +206,7 @@
   ],
   "hooks_consumed": [
     { "hook": "plugins_loaded", "where": "includes/class-buddypress-ads-rotator.php:185", "callback": "Buddypress_Ads_Rotator_i18n::load_plugin_textdomain" },
+    { "hook": "rest_request_before_callbacks", "where": "includes/class-buddypress-ads-rotator.php define_admin_hooks()", "callback": "Admin::wb_ads_rotator_restrict_rest (gates /wp/v2/wb-ads*)" },
     { "hook": "admin_enqueue_scripts", "where": "includes/...:199-200", "callback": "Admin::enqueue_styles / enqueue_scripts" },
     { "hook": "admin_menu", "where": "includes/...:202", "callback": "Admin::wb_ads_rotator_add_submenu_page_admin_settings" },
     { "hook": "admin_init", "where": "includes/...:203,:215", "callback": "Admin::wb_ads_rotator_init_plugin_settings / wbcom_hide_all_admin_notices_from_setting_page" },

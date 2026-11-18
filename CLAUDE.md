@@ -29,7 +29,7 @@
 ## Important patterns
 - All ad config lives in ONE post-meta array `wb_ads_rotator_values` on the `wb-ads` CPT; on/off in `wb_ads_enable`.
 - Frontend rendering has one entry point: `Public::wb_ads_rotator_render_ad( $ad_id )` (returns markup, '' when hidden by To Whom). Content, footer, shortcode and the BP class all call it. No public JS.
-- Activity hooks register only when `bp_is_active( 'activity' )`; before/after-entry ads are wrapped in `li.wb-ads-activity-item`. Stream ad ids are `wbcomads-<ad>-<activity>`.
+- Activity hooks register only when `bp_is_active( 'activity' )`; before/after-entry ads are wrapped in `li.wb-ads-activity-item`; comment-position ads in `div.wb-ads-activity-comments-slot`. The `/wp/v2/wb-ads` REST routes are limited to users who can edit ads. Stream ad ids are `wbcomads-<ad>-<activity>`.
 - Site Header/Footer and the global Scripts tab (header/body/footer) are sitewide, BP pages included; before/after content skips BP pages.
 - Ad code with script/style tags is kept only when the last editor has `unfiltered_html` (`wb_ads_rotator_ad_code_allowed()`); tag matching uses the one `WB_ADS_ROTATOR_CODE_TAGS` regex in `includes/wb-ads-rotator-functions.php`.
 - Ad code (scripts/styles/HTML) is rendered **raw/unescaped by design** (with `phpcs:ignore`) — input is gated to admin; treat ad content as trusted-author input.

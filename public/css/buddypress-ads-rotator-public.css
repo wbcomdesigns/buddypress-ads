@@ -33,3 +33,14 @@
 	margin-inline: auto;
 	padding-inline: 16px;
 }
+
+/* Before / inside / after entry comments: the slot sits beside the entry's action bar. Reign
+   pulls that bar 15px over the next element (margin-bottom:-15px, opaque background); the top
+   margin outweighs it and position:relative paints the ad above the bar, so it never hides. */
+.wb-ads-activity-comments-slot {
+	position: relative;
+	clear: both;
+	display: flow-root;
+	margin-top: 24px;
+	padding-bottom: 8px;
+}

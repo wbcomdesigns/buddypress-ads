@@ -142,9 +142,15 @@ Standalone WordPress support plus a rebuilt admin. BuddyPress is now optional.
 * Fix      - The Documentation links in the settings screen opened a 404. They now open the plugin page.
 * Fix      - The three ad type options no longer share one HTML id.
 * Fix      - Every admin string, including the new settings screen, is now in the translation template.
+* Fix      - Before, inside and after entry comments ads now sit in their own spaced block, so a theme's action bar no longer covers the top of the ad.
+* Fix      - Before and after content ads now show only in the page's main content, not in related posts or query blocks on the same page, and only the ads placed there are rendered.
+* Fix      - Image ad alt text uses the ad title as typed, without converted characters such as 728&#215;90.
+* Fix      - The ad shortcode hints for editors now use the BuddyPress notice style.
 * Security - Added capability checks to the ad image, image-removal and enable/disable AJAX handlers. They follow the ad's own edit permission, so Editors can manage ads.
 * Security - Ad settings are sanitized field by field on save. Ad code keeps script tags only for users with the unfiltered_html capability.
 * Security - Saving an ad or switching it on or off now checks that the user can edit that ad.
+* Security - The image preview in the ad editor no longer runs markup from an attachment's title or alt text.
+* Security - The ads REST API routes are now limited to users who can edit ads, so visitors can no longer list ad titles.
 * Dev      - Added the buddypress_ads_rotator_admin_capability filter for the settings screen capability.
 * Dev      - Raised the minimum PHP version to 8.1.
 * Dev      - Added bin/build-release.sh and .distignore, which build the release zip from git without development files, and bin/local-ci.sh.

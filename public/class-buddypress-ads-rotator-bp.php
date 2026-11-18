@@ -207,8 +207,14 @@ class Buddypress_Ads_Rotator_BP {
 		if ( '' === $markup ) {
 			return; // Hidden for this visitor (To Whom rules): no empty list item either.
 		}
-		if ( in_array( $ad_type['activity_position'] ?? '', array( 'bp_before_activity_entry', 'bp_after_activity_entry' ), true ) ) {
+		$position = $ad_type['activity_position'] ?? '';
+		if ( in_array( $position, array( 'bp_before_activity_entry', 'bp_after_activity_entry' ), true ) ) {
 			$markup = '<li class="wb-ads-activity-item">' . $markup . '</li>';
+		} elseif ( in_array( $position, array( 'bp_before_activity_entry_comments', 'bp_activity_entry_comments', 'bp_after_activity_entry_comments' ), true ) ) {
+			// Comment positions sit next to the entry's action bar, which some themes (Reign) pull
+			// down over the next element with a negative margin. A cleared, spaced slot keeps the
+			// whole ad visible whatever the theme does there.
+			$markup = '<div class="wb-ads-activity-comments-slot">' . $markup . '</div>';
 		}
 		echo $markup; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Rendered by the public ad renderers, which escape their own output.
 	}

@@ -234,6 +234,7 @@ class Buddypress_Ads_Rotator {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 
 		$this->loader->add_action( 'init', $plugin_admin, 'wb_ads_rotator_add_cpt' );
+		$this->loader->add_filter( 'rest_request_before_callbacks', $plugin_admin, 'wb_ads_rotator_restrict_rest', 10, 3 );
 		$this->loader->add_action( 'add_meta_boxes', $plugin_admin, 'wb_ads_rotator_add_metaboxes' );
 		$this->loader->add_action( 'save_post', $plugin_admin, 'wb_ads_rotator_save_post_meta' );
 

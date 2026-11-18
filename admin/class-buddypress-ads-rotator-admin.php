@@ -150,6 +150,34 @@ class Buddypress_Ads_Rotator_Admin {
 	}
 
 	/**
+	 * Keep the wb-ads REST routes for people who can edit ads.
+	 *
+	 * The post type stays in REST for the editor, but ads have no public REST use: without
+	 * this, guests can list every published ad title (disabled ads included). Covers the
+	 * collection, single items, revisions and autosaves.
+	 *
+	 * @since 1.6.0
+	 * @param mixed           $response Response so far (null unless another filter answered).
+	 * @param array           $handler  Route handler.
+	 * @param WP_REST_Request $request  Request.
+	 * @return mixed WP_Error for users who cannot edit ads, otherwise $response unchanged.
+	 */
+	public function wb_ads_rotator_restrict_rest( $response, $handler, $request ) {
+		if ( 0 !== strpos( $request->get_route(), '/wp/v2/wb-ads' ) ) {
+			return $response;
+		}
+		$type = get_post_type_object( 'wb-ads' );
+		if ( $type && ! current_user_can( $type->cap->edit_posts ) ) {
+			return new WP_Error(
+				'rest_forbidden',
+				__( 'Sorry, you are not allowed to view ads.', 'buddypress-ads-rotator' ),
+				array( 'status' => rest_authorization_required_code() )
+			);
+		}
+		return $response;
+	}
+
+	/**
 	 * Added the WB Ads CPT Metaboxes.
 	 */
 	public function wb_ads_rotator_add_metaboxes() {

@@ -26,10 +26,14 @@
 | `.wbcomads-{ad_id}` | One specific ad, wherever it appears. |
 | `.plain-text-and-code-ads`, `.rich-contentwbads`, `.wbcom-imageads` | Ad type. |
 | `li.wb-ads-activity-item` | The list item that holds a before or after entry stream ad. |
+| `.wb-ads-activity-comments-slot` | The block that holds a before, inside or after entry comments ad. It keeps space above the ad so a theme's action bar cannot cover it. |
 | `.wb-ads-site-footer` | The strip that holds site footer ads. |
+| `.wb-ads-shortcode-hint` | The notice editors see when an ad shortcode has a missing or wrong ads_id. Uses the BuddyPress `.bp-feedback` notice markup. |
 
 Inside activity streams, an ad's id is `wbcomads-{ad_id}-{activity_id}` so each copy is unique. Style ads by class, not id.
 
 ## Capabilities
 
 Ads are a page-like post type. Anyone who can edit pages (Editors and Administrators) can create, edit and switch ads on or off.
+
+The `/wp/v2/wb-ads` REST routes answer only to the same users. Visitors and members get a 401 or 403, so ad titles are never listed publicly.

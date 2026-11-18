@@ -172,20 +172,19 @@
                 $w.val(attachment.width);
                 $h.val(attachment.height);
               }
-              // update image preview
-              var new_image =
-                '<img width="' +
-                attachment.width +
-                '" height="' +
-                attachment.height +
-                '" title="' +
-                attachment.title +
-                '" alt="' +
-                attachment.alt +
-                '" src="' +
-                attachment.url +
-                '" id="wb-ads-preview-images"/>';
-              $("#wb-ads-preview-image").html(new_image);
+              // Update the preview. Attachment fields are user-controlled, so set them as
+              // attributes, never as HTML.
+              $("#wb-ads-preview-image")
+                .empty()
+                .append(
+                  $("<img>", { id: "wb-ads-preview-images" }).attr({
+                    width: attachment.width,
+                    height: attachment.height,
+                    title: attachment.title,
+                    alt: attachment.alt,
+                    src: attachment.url,
+                  })
+                );
               $(".wb_ads_rotator_image").attr("value", attachment.url);
               $("#wb_ads_rotator_remove_image").attr(
                 "data-img-id",
