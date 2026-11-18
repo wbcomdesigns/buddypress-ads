@@ -27,7 +27,7 @@ Plain Text and Code, Rich Content or Image Ad. See [Ad Types](../features/01-ad-
 | WordPress Position | None, before content, after content, site header or site footer. See [Where Ads Appear](../features/02-placements.md). |
 | BuddyPress Activity Type | The activity streams the ad appears in. |
 | BuddyPress Activity Position | The slot inside each activity entry. |
-| Show After Entry | Entry number N. |
+| Show After Entry | Entry number N. If you leave it empty or set it to 0, the ad shows every 3 entries. |
 | Repeat | Show the ad every N entries instead of once. |
 
 The BuddyPress options appear only when the Activity Streams component is on. When BuddyPress is active with Activity off, the box says so.

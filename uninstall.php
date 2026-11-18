@@ -28,3 +28,6 @@
 if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	exit;
 }
+
+// Only the ad cache goes. Ads and the Scripts / Styles setting are the owner's content and stay.
+delete_transient( 'wb_ads_rotator_all_ids' );
