@@ -271,7 +271,6 @@ class Buddypress_Ads_Rotator {
 		$plugin_public = new Buddypress_Ads_Rotator_Public( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 
 		// Register shortcode - works everywhere.
 		$this->loader->add_shortcode( 'ads-shortcode', $plugin_public, 'wb_ads_rotator_shortcode_ads' );
@@ -279,6 +278,7 @@ class Buddypress_Ads_Rotator {
 		// WordPress native ad positions - always available.
 		$this->loader->add_filter( 'the_content', $plugin_public, 'wb_ads_display_in_content' );
 		$this->loader->add_action( 'wp_head', $plugin_public, 'wb_ads_display_header' );
+		$this->loader->add_action( 'wp_body_open', $plugin_public, 'wb_ads_display_body' );
 		$this->loader->add_action( 'wp_footer', $plugin_public, 'wb_ads_display_footer' );
 
 		/*
@@ -304,6 +304,12 @@ class Buddypress_Ads_Rotator {
 	 * @since 1.6.0
 	 */
 	public function load_buddypress_integration() {
+		// Every BuddyPress placement lives in the activity stream; with Activity Streams
+		// switched off there is nothing to hook (bp_loaded runs after components are set up).
+		if ( ! bp_is_active( 'activity' ) ) {
+			return;
+		}
+
 		require_once plugin_dir_path( __DIR__ ) . 'public/class-buddypress-ads-rotator-bp.php';
 
 		$plugin_bp = new Buddypress_Ads_Rotator_BP( $this->get_plugin_name(), $this->get_version(), $this->plugin_public );
@@ -314,12 +320,6 @@ class Buddypress_Ads_Rotator {
 		add_action( 'bp_before_activity_entry_comments', array( $plugin_bp, 'wb_ads_display_before_activity_entry_comments' ) );
 		add_action( 'bp_activity_entry_comments', array( $plugin_bp, 'wb_ads_display_activity_entry_comments' ) );
 		add_action( 'bp_after_activity_entry_comments', array( $plugin_bp, 'wb_ads_display_after_activity_entry_comments' ) );
-		add_action( 'bp_before_directory_activity_content', array( $plugin_bp, 'wb_ads_rotator_check_ads' ) );
-		add_action( 'bp_after_member_activity_post_form', array( $plugin_bp, 'wb_ads_rotator_check_ads' ) );
-		add_action( 'bp_after_group_activity_post_form', array( $plugin_bp, 'wb_ads_rotator_check_ads' ) );
-		add_action( 'wp_head', array( $plugin_bp, 'wb_ads_scripts' ) );
-		add_action( 'wp_footer', array( $plugin_bp, 'wb_ads_footer_scripts' ) );
-		add_filter( 'the_content', array( $plugin_bp, 'wb_ads_body_scripts' ) );
 	}
 
 	/**

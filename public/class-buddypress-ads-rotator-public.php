@@ -95,34 +95,6 @@ class Buddypress_Ads_Rotator_Public {
 	}
 
 	/**
-	 * Register the JavaScript for the public-facing side of the site.
-	 *
-	 * @since    1.0.0
-	 */
-	public function enqueue_scripts() {
-		global $post;
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Buddypress_Ads_Rotator_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Buddypress_Ads_Rotator_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		*/
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/buddypress-ads-rotator-public.js', array( 'jquery' ), $this->version, false );
-		wp_localize_script(
-			$this->plugin_name,
-			'bp_ads_check',
-			array(
-				'is_shortcode_page' => has_shortcode( isset( $post->post_content ) ? $post->post_content : '', 'ads-shortcode' ) ? true : false,
-			)
-		);
-	}
-
-	/**
 	 * Display ads in WordPress post/page content.
 	 *
 	 * @since 1.6.0
@@ -160,19 +132,7 @@ class Buddypress_Ads_Rotator_Public {
 			$wb_ads_values = get_post_meta( $ad_id, 'wb_ads_rotator_values', true );
 			$wp_position   = isset( $wb_ads_values['wp_position'] ) ? $wb_ads_values['wp_position'] : '';
 
-			ob_start();
-			switch ( $wb_ads_values['ads_type'] ) {
-				case 'plain-text-and-code':
-					$this->wb_ads_rotator_display_plain_text_and_code_ads( $ad_id );
-					break;
-				case 'rich-content':
-					$this->wb_ads_rotator_display_rich_content_ads( $ad_id );
-					break;
-				case 'image-ad':
-					$this->wb_ads_rotator_display_image_ads( $ad_id );
-					break;
-			}
-			$ad_html = ob_get_clean();
+			$ad_html = $this->wb_ads_rotator_render_ad( $ad_id );
 
 			if ( 'wp_before_content' === $wp_position ) {
 				$before_content .= $ad_html;
@@ -190,50 +150,43 @@ class Buddypress_Ads_Rotator_Public {
 	 * @since 1.6.0
 	 */
 	public function wb_ads_display_header() {
-		// Skip on BuddyPress pages - those have their own handlers.
-		if ( $this->is_buddypress_page() ) {
-			return;
-		}
-
-		// Bounded + cached eligible-ad set (meta primed in one batch);
-		// wp_header position filtered in PHP below (identical result).
-		$ads = Buddypress_Ads_Rotator_Cache::get_ad_ids();
-		foreach ( $ads as $ad_id ) {
-			$wb_ads_enable = get_post_meta( $ad_id, 'wb_ads_enable', true );
-			if ( 'disable' === $wb_ads_enable ) {
+		// Site Header ads are sitewide, BuddyPress pages included. Only the ad's script and
+		// style elements belong in <head>; its visible markup would break the document.
+		foreach ( Buddypress_Ads_Rotator_Cache::get_ad_ids() as $ad_id ) {
+			$wb_ads_values = $this->wb_ads_rotator_visible_values( $ad_id );
+			if ( null === $wb_ads_values || 'wp_header' !== ( $wb_ads_values['wp_position'] ?? '' ) ) {
 				continue;
 			}
-
-			$wb_ads_values = get_post_meta( $ad_id, 'wb_ads_rotator_values', true );
-			$wp_position   = isset( $wb_ads_values['wp_position'] ) ? $wb_ads_values['wp_position'] : '';
-
-			if ( 'wp_header' !== $wp_position ) {
-				continue;
-			}
-
-			// Output scripts/styles for plain text ads.
-			if ( 'plain-text-and-code' === $wb_ads_values['ads_type'] && wb_ads_rotator_ad_code_allowed( $ad_id ) ) {
-				$plain_text = isset( $wb_ads_values['plain_text_and_code'] ) ? $wb_ads_values['plain_text_and_code'] : '';
-				preg_match_all( '/<script\b[^>]*>(.*?)<\/script>/is', $plain_text, $scripts );
-				preg_match_all( '/<style\b[^>]*>(.*?)<\/style>/is', $plain_text, $styles );
-				if ( isset( $scripts[0] ) ) {
-					foreach ( $scripts[0] as $script ) {
-						echo $script; // phpcs:ignore
-					}
-				}
-				if ( isset( $styles[0] ) ) {
-					foreach ( $styles[0] as $style ) {
-						echo $style; // phpcs:ignore
-					}
-				}
+			if ( 'plain-text-and-code' === ( $wb_ads_values['ads_type'] ?? '' ) && wb_ads_rotator_ad_code_allowed( $ad_id ) ) {
+				echo implode( '', wb_ads_rotator_code_tags( $wb_ads_values['plain_text_and_code'] ?? '' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Ad code from an author who may post unfiltered HTML.
 			}
 		}
 
-		// Output global header scripts.
+		$this->wb_ads_print_global_script( 'header' );
+	}
+
+	/**
+	 * Print the Body box of Settings > Scripts / Styles right after <body> opens, on every page.
+	 *
+	 * @since 1.6.0
+	 */
+	public function wb_ads_display_body() {
+		$this->wb_ads_print_global_script( 'body' );
+	}
+
+	/**
+	 * Print one box of the global Scripts / Styles setting.
+	 *
+	 * Saved through Buddypress_Ads_Rotator_Settings_Admin::sanitize_scripts(), which keeps
+	 * raw code only for users allowed to post unfiltered HTML.
+	 *
+	 * @since 1.6.0
+	 * @param string $slot header, body or footer.
+	 */
+	private function wb_ads_print_global_script( $slot ) {
 		$options = get_option( 'buddypress-ads-rotator_admin_scripts_options' );
-		$header  = isset( $options['header'] ) ? $options['header'] : '';
-		if ( ! empty( $header ) ) {
-			echo $header; // phpcs:ignore
+		if ( ! empty( $options[ $slot ] ) ) {
+			echo $options[ $slot ]; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Owner's global code, sanitized on save.
 		}
 	}
 
@@ -243,46 +196,24 @@ class Buddypress_Ads_Rotator_Public {
 	 * @since 1.6.0
 	 */
 	public function wb_ads_display_footer() {
-		// Skip on BuddyPress pages - those have their own handlers.
-		if ( $this->is_buddypress_page() ) {
-			return;
-		}
-
-		// Bounded + cached eligible-ad set (meta primed in one batch);
-		// wp_footer position filtered in PHP below (identical result).
-		$ads = Buddypress_Ads_Rotator_Cache::get_ad_ids();
-		foreach ( $ads as $ad_id ) {
-			$wb_ads_enable = get_post_meta( $ad_id, 'wb_ads_enable', true );
-			if ( 'disable' === $wb_ads_enable ) {
-				continue;
-			}
-
+		// Site Footer ads are sitewide, BuddyPress pages included.
+		$footer_ads = '';
+		foreach ( Buddypress_Ads_Rotator_Cache::get_ad_ids() as $ad_id ) {
 			$wb_ads_values = get_post_meta( $ad_id, 'wb_ads_rotator_values', true );
-			$wp_position   = isset( $wb_ads_values['wp_position'] ) ? $wb_ads_values['wp_position'] : '';
-
-			if ( 'wp_footer' !== $wp_position ) {
+			if ( 'disable' === get_post_meta( $ad_id, 'wb_ads_enable', true ) || 'wp_footer' !== ( $wb_ads_values['wp_position'] ?? '' ) ) {
 				continue;
 			}
 
-			switch ( $wb_ads_values['ads_type'] ) {
-				case 'plain-text-and-code':
-					$this->wb_ads_rotator_display_plain_text_and_code_ads( $ad_id );
-					break;
-				case 'rich-content':
-					$this->wb_ads_rotator_display_rich_content_ads( $ad_id );
-					break;
-				case 'image-ad':
-					$this->wb_ads_rotator_display_image_ads( $ad_id );
-					break;
-			}
+			$footer_ads .= $this->wb_ads_rotator_render_ad( $ad_id );
 		}
 
-		// Output global footer scripts.
-		$options = get_option( 'buddypress-ads-rotator_admin_scripts_options' );
-		$footer  = isset( $options['footer'] ) ? $options['footer'] : '';
-		if ( ! empty( $footer ) ) {
-			echo $footer; // phpcs:ignore
+		// wp_footer prints straight into <body>, outside the theme's content column, where a
+		// fixed side panel (Reign) can cover it. One centred, padded strip keeps it readable.
+		if ( '' !== $footer_ads ) {
+			echo '<div class="wb-ads-site-footer">' . $footer_ads . '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Rendered by the ad renderers, which escape their own output.
 		}
+
+		$this->wb_ads_print_global_script( 'footer' );
 	}
 
 	/**
@@ -338,7 +269,15 @@ class Buddypress_Ads_Rotator_Public {
 	 * @param string   $style   Extra inline style placed before alignment and margins.
 	 */
 	private function wb_ads_rotator_open( $ad_id, $values, $classes, $align, $style = '' ) {
-		$id      = ! empty( $values['container_id'] ) ? $values['container_id'] : 'wbcomads-' . $ad_id;
+		$id = ! empty( $values['container_id'] ) ? $values['container_id'] : 'wbcomads-' . $ad_id;
+		// A repeating stream ad prints once per matching entry, and Load More adds entries over
+		// AJAX, so inside the activity loop the id carries the entry's id to stay unique. The
+		// wbcomads-<ad> class is on every copy for styling one ad wherever it shows.
+		$stream = $GLOBALS['activities_template'] ?? null;
+		if ( ! empty( $stream->in_the_loop ) && ! empty( $stream->activity->id ) ) {
+			$id .= '-' . (int) $stream->activity->id;
+		}
+		$classes[] = 'wbcomads-' . $ad_id;
 		$margins = array();
 		foreach ( array( 'top', 'right', 'bottom', 'left' ) as $side ) {
 			$margins[] = $values['margin'][ $side ] ?? '';
@@ -372,25 +311,18 @@ class Buddypress_Ads_Rotator_Public {
 
 		$content = $values['plain_text_and_code'] ?? '';
 		if ( ! wb_ads_rotator_ad_code_allowed( $wb_ads_rotator_get_ad ) ) {
-			$content = preg_replace( '/<script\b[^>]*>(.*?)<\/script>/is', '', $content );
-			$content = preg_replace( '/<style\b[^>]*>(.*?)<\/style>/is', '', $content );
+			$content = wb_ads_rotator_strip_code_tags( $content );
 		}
 
 		$classes = array( 'wb-bannerads-rotator' );
 		if ( function_exists( 'bp_get_theme_compat_id' ) && 'nouveau' === bp_get_theme_compat_id() ) {
 			$classes[] = 'wbbpads-nouveau';
-			if ( false !== strpos( $content, '<script' ) || false !== strpos( $content, 'iframe' ) ) {
-				$classes[] = 'wbads-iframe';
-			}
 		}
 		$classes[] = 'plain-text-and-code-ads';
 
 		$this->wb_ads_rotator_open( $wb_ads_rotator_get_ad, $values, $classes, $this->wb_ads_rotator_align( $values, '' ) );
-		if ( 'yes' === ( $values['allow_shortcode'] ?? '' ) ) {
-			echo do_shortcode( $content );
-		} else {
-			echo apply_filters( 'wb_ads_rotator_plain_text_code_ads_content', $content ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- The owner's ad code; script/style already stripped unless the author may post code.
-		}
+		$content = apply_filters( 'wb_ads_rotator_plain_text_code_ads_content', $content );
+		echo 'yes' === ( $values['allow_shortcode'] ?? '' ) ? do_shortcode( $content ) : $content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- The owner's ad code; script/style already stripped unless the author may post code.
 		$this->wb_ads_rotator_close( $values );
 	}
 
@@ -417,20 +349,13 @@ class Buddypress_Ads_Rotator_Public {
 		$style = wb_ads_rotator_color_styles( $values ) . ( is_numeric( $font_size ) ? 'font-size:' . $font_size . 'px;' : '' );
 
 		$classes = ( function_exists( 'bp_get_theme_compat_id' ) && 'nouveau' === bp_get_theme_compat_id() )
-			? array( 'wb-bannerads-rotator', 'wbbpads-nouveau', 'wbads-iframe', 'rich-contentwbads' )
+			? array( 'wb-bannerads-rotator', 'wbbpads-nouveau', 'rich-contentwbads' )
 			: array( 'wb-bannerads-rotator', 'rich-contentwbads' );
 
 		$this->wb_ads_rotator_open( $wb_ads_rotator_get_ad, $values, $classes, $this->wb_ads_rotator_align( $values, '-webkit-' ), $style );
-		if ( false !== strpos( $content, '[' ) ) {
-			preg_match_all( '/' . get_shortcode_regex() . '/', $content, $matches, PREG_SET_ORDER );
-			foreach ( $matches as $shortcode ) {
-				echo do_shortcode( $shortcode[0] );
-			}
-		}
-		if ( ! empty( $shortcode[0] ) ) {
-			$content = str_replace( $shortcode[0], '', $content );
-		}
-		echo wp_kses( apply_filters( 'wb_ads_rotator_rich_content_ads_content', $content ), $this->wb_ads_allowed_html() );
+		// Filter the author's markup first, then run its shortcodes where they stand, so each
+		// shortcode renders once, in place, with its own output left intact.
+		echo do_shortcode( wp_kses( apply_filters( 'wb_ads_rotator_rich_content_ads_content', $content ), $this->wb_ads_allowed_html() ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- kses-filtered above; shortcode output is the shortcode's own.
 		$this->wb_ads_rotator_close( $values );
 	}
 
@@ -468,10 +393,24 @@ class Buddypress_Ads_Rotator_Public {
 		$link = $values['image_link'] ?? '';
 		$src  = ! empty( $values['ads_image'] ) ? wp_get_attachment_url( $values['ads_image'] ) : $link;
 
+		$width  = absint( $values['size']['width'] ?? 0 );
+		$height = absint( $values['size']['height'] ?? 0 );
+		// The owner's width and height are the ad box. Themes set img { height: auto }, which
+		// let the photo's own shape win, so a 728 x 90 banner showed at 728 x 420. Keep the
+		// box shape and let it shrink on small screens.
+		$style = 'max-width:100%;';
+		if ( $width && $height ) {
+			$style .= 'height:auto;aspect-ratio:' . $width . '/' . $height . ';object-fit:cover;';
+		}
+		$alt = get_the_title( $wb_ads_rotator_get_ad );
+
 		$this->wb_ads_rotator_open( $wb_ads_rotator_get_ad, $values, array( 'wb-bannerads-rotator', 'wbcom-imageads' ), $this->wb_ads_rotator_align( $values, '-webkit-' ) );
-		echo '<a href="' . esc_url( $link ) . '" target="blank">';
-		echo '<img src="' . esc_url( $src ) . '" width="' . esc_attr( $values['size']['width'] ?? '' ) . '" height="' . esc_attr( $values['size']['height'] ?? '' ) . '">';
-		echo '</a>';
+		$img = '<img src="' . esc_url( $src ) . '" alt="' . esc_attr( $alt ) . '"' . ( $width ? ' width="' . $width . '"' : '' ) . ( $height ? ' height="' . $height . '"' : '' ) . ' style="' . esc_attr( $style ) . '">';
+		if ( '' !== $link ) {
+			// A paid link: opened in a new tab, and marked sponsored for search engines.
+			$img = '<a href="' . esc_url( $link ) . '" target="_blank" rel="sponsored noopener">' . $img . '</a>';
+		}
+		echo $img; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Built from escaped parts above.
 		$this->wb_ads_rotator_close( $values );
 	}
 
@@ -482,53 +421,47 @@ class Buddypress_Ads_Rotator_Public {
 	 * @param array|string $atts User defined attributes for this shortcode instance.
 	 */
 	public function wb_ads_rotator_shortcode_ads( $atts ) {
-		// Attributes.
-		$atts = shortcode_atts(
-			array(
-				'ads_id' => null,
-			),
-			$atts,
-			'wb-ads'
-		);
+		$atts  = shortcode_atts( array( 'ads_id' => 0 ), $atts, 'ads-shortcode' );
+		$ad_id = absint( $atts['ads_id'] );
+		$ad    = $ad_id ? get_post( $ad_id ) : null;
 
-		$wb_ads_display = '';
-		if ( empty( $atts['ads_id'] ) ) {
-			$wb_ads_display .= __( 'Please Enter the ads_id parameter value', 'buddypress-ads-rotator' );
-			return $wb_ads_display;
+		if ( ! $ad || 'wb-ads' !== $ad->post_type || 'publish' !== $ad->post_status ) {
+			// Visitors see nothing; people who can fix the shortcode see why it is empty.
+			if ( ! current_user_can( 'edit_pages' ) ) {
+				return '';
+			}
+			return $ad_id
+				? esc_html__( 'No published ad matches this ads_id.', 'buddypress-ads-rotator' )
+				: esc_html__( 'Add the ads_id attribute to show an ad, for example [ads-shortcode ads_id=12].', 'buddypress-ads-rotator' );
 		}
+
+		return $this->wb_ads_rotator_render_ad( $ad_id );
+	}
+
+	/**
+	 * One ad's markup for this visitor, by its type; '' when it is hidden from them.
+	 *
+	 * The single entry point every placement uses: content, footer, shortcode and the
+	 * BuddyPress activity stream.
+	 *
+	 * @since 1.6.0
+	 * @param int $ad_id Ad post ID.
+	 * @return string
+	 */
+	public function wb_ads_rotator_render_ad( $ad_id ) {
+		$values = get_post_meta( $ad_id, 'wb_ads_rotator_values', true );
 		ob_start();
-		$args = array(
-			'post_type'      => 'wb-ads',
-			'posts_per_page' => 1,
-			'publish_status' => 'published',
-			'p'              => $atts['ads_id'],
-		);
-
-		$query = new WP_Query( $args );
-
-		if ( $query->have_posts() ) {
-			while ( $query->have_posts() ) :
-
-				$query->the_post();
-				$ads_id        = get_the_ID();
-				$wb_ads_values = get_post_meta( $ads_id, 'wb_ads_rotator_values', true );
-				$wb_ads_type   = isset( $wb_ads_values['ads_type'] ) ? $wb_ads_values['ads_type'] : '';
-				if ( 'rich-content' === $wb_ads_type ) {
-					$wb_ads_display = $this->wb_ads_rotator_display_rich_content_ads( $ads_id );
-				} elseif ( 'plain-text-and-code' === $wb_ads_type ) {
-					$wb_ads_display = $this->wb_ads_rotator_display_plain_text_and_code_ads( $ads_id );
-				} else {
-					$wb_ads_display = $this->wb_ads_rotator_display_image_ads( $ads_id );
-				}
-
-			endwhile;
-		} else {
-			return __( 'Nothing ads found', 'buddypress-ads-rotator' );
+		switch ( $values['ads_type'] ?? '' ) {
+			case 'rich-content':
+				$this->wb_ads_rotator_display_rich_content_ads( $ad_id );
+				break;
+			case 'image-ad':
+				$this->wb_ads_rotator_display_image_ads( $ad_id );
+				break;
+			default:
+				$this->wb_ads_rotator_display_plain_text_and_code_ads( $ad_id );
 		}
-
-		wp_reset_postdata();
-		$wb_ads_display = ob_get_clean();
-		return $wb_ads_display;
+		return (string) ob_get_clean();
 	}
 
 	/**

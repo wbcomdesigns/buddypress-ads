@@ -28,23 +28,19 @@
 
 ## Important patterns
 - All ad config lives in ONE post-meta array `wb_ads_rotator_values` on the `wb-ads` CPT; on/off in `wb_ads_enable`.
-- Frontend rendering = three `Public::wb_ads_rotator_display_{plain_text_and_code|rich_content|image}_ads()` methods; the BP class delegates to them.
+- Frontend rendering has one entry point: `Public::wb_ads_rotator_render_ad( $ad_id )` (returns markup, '' when hidden by To Whom). Content, footer, shortcode and the BP class all call it. No public JS.
+- Activity hooks register only when `bp_is_active( 'activity' )`; before/after-entry ads are wrapped in `li.wb-ads-activity-item`. Stream ad ids are `wbcomads-<ad>-<activity>`.
+- Site Header/Footer and the global Scripts tab (header/body/footer) are sitewide, BP pages included; before/after content skips BP pages.
+- Ad code with script/style tags is kept only when the last editor has `unfiltered_html` (`wb_ads_rotator_ad_code_allowed()`); tag matching uses the one `WB_ADS_ROTATOR_CODE_TAGS` regex in `includes/wb-ads-rotator-functions.php`.
 - Ad code (scripts/styles/HTML) is rendered **raw/unescaped by design** (with `phpcs:ignore`) — input is gated to admin; treat ad content as trusted-author input.
-- Build: `grunt` (gruntfile.js — checktextdomain, makepot).
-
-## Known issues (from onboarding — see wppqa baseline for detail)
-1. **4× AJAX nonce-without-capability** (`wb_ads_rotator_image`, `wb_ads_rotator_remove_image`, `wb_ads_rotator_enable` [writes meta], `wbcom_addons_cards`). Add `current_user_can()` after each nonce check. Plugin is NOT release-ready until fixed.
-2. **Unbounded `get_posts` + N+1 `get_post_meta`** on `the_content`/`wp_head`/`wp_footer` and BP hooks — scale risk; needs `posts_per_page` bound + caching.
-3. **Missing wrapper template** `admin/wbcom/templates/wbcom-themes-page.php` (Our Themes page warns/fatals on open).
-4. **Settings name mismatch**: FAQ option `buddypress-ads-rotator_admin_faq_option` (singular) vs group `..._options` (plural); Welcome/FAQ options are placeholders never read.
+- POT: `wp i18n make-pot . languages/buddypress-ads-rotator.pot`.
 
 ## CSS selectors (for testing/dev)
 - Frontend ad container: `.wb-bannerads-rotator` (+ `.plain-text-and-code-ads` / `.rich-contentwbads` / `.wbcom-imageads`; `.wbbpads-nouveau` under BP Nouveau).
 - Admin metabox: `.wb_ads_rotator-panel`, `.wb_ads_rotator-wrapper`, type toggles `.plain-text-and-code` / `.rich-content` / `.image-ad`.
 - Enable toggle: `.wb_ads_enable`. Shortcode copy: `.ads-copy` / `.shortcode-copy`.
 
-## Recent changes
-| Date | Type | Description | Files |
-|---|---|---|---|
-| 2026-07-10 | feature | Added a "Discover" tab (9 free Wbcom products, brand logos + CTAs) to the card-panel admin; registered in `get_tabs()` (group `more`) + `view_map`, added `more` group label to shell.php, copied `assets/images/ecosystem/*`, appended `.wbar-discover-*` CSS. Polish: `.wbar-btn` min-height 36→40px (tap target), `#92400e` warn text moved to `--wbar-admin-warn-text` token. readme/header: Tested up to 7.0, Requires PHP 7.4, Requires at least 5.0, 1.6.0 changelog reformatted to action-prefix house style. NOT added `Requires Plugins: buddypress` (1.6.0 is standalone; BP optional). Corrected stale OLD→NEW wrapper classification above. | includes/admin/class-buddypress-ads-rotator-settings-admin.php, includes/admin/views/{discover,shell}.php, assets/css/admin.css, assets/images/ecosystem/*, README.txt, buddypress-ads-rotator.php, CLAUDE.md |
-| 2026-06-05 | onboard | Generated audit/ manifest + reports + graph + wppqa baseline + this CLAUDE.md (no code change) | audit/*, CLAUDE.md |
+## Build and CI
+- `bin/local-ci.sh`: PHP lint, version triangulation, changelog entry, no em dashes, PHPStan (needs `composer install`).
+- `bin/build-release.sh`: runs local CI, then builds `release-zip/buddypress-ads-<version>.zip` from `git archive HEAD` minus `.distignore`, with a dev-file leak check. Commit before building.
+- User docs: `docs/website/` (lint with `node ~/.claude/skills/wbcom-documentation/bin/lint-plugin-docs.mjs .`).

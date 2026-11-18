@@ -112,3 +112,35 @@ function wb_ads_rotator_ad_code_allowed( $ad_id ) {
 	return $saved_by && user_can( $saved_by, 'unfiltered_html' );
 }
 
+
+/**
+ * Matches one script or style element, with its content.
+ *
+ * One pattern for every place that pulls an ad's code tags out of its markup or
+ * drops them: the site header output and the display-time strip for untrusted ads.
+ *
+ * @since 1.6.0
+ */
+const WB_ADS_ROTATOR_CODE_TAGS = '@<(script|style)\b[^>]*>.*?</\1\s*>@is';
+
+/**
+ * The script and style elements of an ad's code, in source order.
+ *
+ * @since 1.6.0
+ * @param string $html Ad code.
+ * @return string[] Each matched element, unchanged.
+ */
+function wb_ads_rotator_code_tags( $html ) {
+	return preg_match_all( WB_ADS_ROTATOR_CODE_TAGS, (string) $html, $matches ) ? $matches[0] : array();
+}
+
+/**
+ * An ad's code with its script and style elements (and their content) removed.
+ *
+ * @since 1.6.0
+ * @param string $html Ad code.
+ * @return string
+ */
+function wb_ads_rotator_strip_code_tags( $html ) {
+	return (string) preg_replace( WB_ADS_ROTATOR_CODE_TAGS, '', (string) $html );
+}

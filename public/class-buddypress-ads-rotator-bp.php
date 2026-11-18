@@ -63,19 +63,6 @@ class Buddypress_Ads_Rotator_BP {
 	}
 
 	/**
-	 * Check if current page is a BuddyPress activity page.
-	 *
-	 * @since 1.6.0
-	 * @return bool True if on a BP activity page.
-	 */
-	private function is_buddypress_page() {
-		if ( ! function_exists( 'bp_is_activity_directory' ) ) {
-			return false;
-		}
-		return bp_is_activity_directory() || bp_is_group() || bp_is_user_activity();
-	}
-
-	/**
 	 * Display ads before activity entry.
 	 *
 	 * @since 1.0.0
@@ -136,7 +123,6 @@ class Buddypress_Ads_Rotator_BP {
 	 * @param string $position Ads position.
 	 */
 	public function wb_ads_rotator_display_ads( $position ) {
-		global $activities_template;
 		// Bounded + cached set, filtered to the same membership the previous
 		// meta_query LIKE '%$position%' returned (meta already primed, no
 		// extra queries). The loop's exact logic — including the early
@@ -214,134 +200,16 @@ class Buddypress_Ads_Rotator_BP {
 	 * @param array $ad_type Ad type settings.
 	 */
 	private function render_ad( $ad_id, $ad_type ) {
-		switch ( $ad_type['ads_type'] ) {
-			case 'plain-text-and-code':
-				$this->public_class->wb_ads_rotator_display_plain_text_and_code_ads( $ad_id );
-				break;
-			case 'rich-content':
-				$this->public_class->wb_ads_rotator_display_rich_content_ads( $ad_id );
-				break;
-			case 'image-ad':
-				$this->public_class->wb_ads_rotator_display_image_ads( $ad_id );
-				break;
+		// Before/after entry hooks fire between the stream's <li> items, so the ad needs its own
+		// list item there: a bare <div> inside the <ul> is invalid and breaks the stream's list
+		// semantics for screen readers. Entry content and comment positions sit inside an item.
+		$markup = $this->public_class->wb_ads_rotator_render_ad( $ad_id );
+		if ( '' === $markup ) {
+			return; // Hidden for this visitor (To Whom rules): no empty list item either.
 		}
-	}
-
-	/**
-	 * Display scripts and styles in the header (BuddyPress only).
-	 *
-	 * @since 1.0.0
-	 */
-	public function wb_ads_scripts() {
-		if ( ! $this->is_buddypress_page() ) {
-			return;
+		if ( in_array( $ad_type['activity_position'] ?? '', array( 'bp_before_activity_entry', 'bp_after_activity_entry' ), true ) ) {
+			$markup = '<li class="wb-ads-activity-item">' . $markup . '</li>';
 		}
-
-		global $activities_template;
-		// Bounded + cached eligible-ad set (meta primed in one batch).
-		$wb_ads_rotator_get_ads = Buddypress_Ads_Rotator_Cache::get_ad_ids();
-
-		foreach ( $wb_ads_rotator_get_ads as $wb_ads_rotator_get_ad ) {
-			$wb_ads_rotator_type = get_post_meta( $wb_ads_rotator_get_ad, 'wb_ads_rotator_values', true );
-			if ( 'plain-text-and-code' === $wb_ads_rotator_type['ads_type'] ) {
-				$wb_ads_rotator_get_values = get_post_meta( $wb_ads_rotator_get_ad, 'wb_ads_rotator_values', true );
-				$wb_ads_rotator_enable     = get_post_meta( $wb_ads_rotator_get_ad, 'wb_ads_enable', true );
-				if ( 'disable' === $wb_ads_rotator_enable || ! wb_ads_rotator_ad_code_allowed( $wb_ads_rotator_get_ad ) ) {
-					continue;
-				}
-				$wb_ads_rotator_get_plain_text = isset( $wb_ads_rotator_get_values['plain_text_and_code'] ) ? $wb_ads_rotator_get_values['plain_text_and_code'] : '';
-				preg_match_all( '/<script\b[^>]*>(.*?)<\/script>/is', $wb_ads_rotator_get_plain_text, $scripts );
-				preg_match_all( '/<style\b[^>]*>(.*?)<\/style>/is', $wb_ads_rotator_get_plain_text, $styles );
-				if ( isset( $scripts[0] ) ) {
-					foreach ( $scripts[0] as $key => $script ) {
-						echo $script; // phpcs:ignore
-					}
-				}
-				if ( isset( $styles[0] ) ) {
-					foreach ( $styles[0] as $key => $style ) {
-						echo $style; // phpcs:ignore
-					}
-				}
-			}
-		}
-		$buddypress_ads_options = get_option( 'buddypress-ads-rotator_admin_scripts_options' );
-		$buddypress_ads_header  = ( isset( $buddypress_ads_options['header'] ) ) ? $buddypress_ads_options['header'] : '';
-		echo $buddypress_ads_header; // phpcs:ignore
-	}
-
-	/**
-	 * Display scripts and styles in the footer (BuddyPress only).
-	 *
-	 * @since 1.0.0
-	 */
-	public function wb_ads_footer_scripts() {
-		if ( ! $this->is_buddypress_page() ) {
-			return;
-		}
-
-		$buddypress_ads_options = get_option( 'buddypress-ads-rotator_admin_scripts_options' );
-		$buddypress_ads_footer  = ( isset( $buddypress_ads_options['footer'] ) ) ? $buddypress_ads_options['footer'] : '';
-		echo $buddypress_ads_footer; // phpcs:ignore
-	}
-
-	/**
-	 * Display scripts and styles in the body (BuddyPress only).
-	 *
-	 * @since 1.0.0
-	 * @param string $wb_ads_content The content.
-	 * @return string
-	 */
-	public function wb_ads_body_scripts( $wb_ads_content ) {
-		if ( ! $this->is_buddypress_page() ) {
-			return $wb_ads_content;
-		}
-
-		$buddypress_ads_options = get_option( 'buddypress-ads-rotator_admin_scripts_options' );
-		$buddypress_ads_body    = ( isset( $buddypress_ads_options['body'] ) ) ? $buddypress_ads_options['body'] : '';
-		echo wp_unslash( $buddypress_ads_body ); // phpcs:ignore
-		return $wb_ads_content;
-	}
-
-	/**
-	 * Check and display ads for BuddyPress Nouveau template.
-	 *
-	 * @since 1.0.0
-	 */
-	public function wb_ads_rotator_check_ads() {
-		// Only run on BuddyPress with Nouveau template.
-		if ( ! function_exists( 'bp_get_theme_compat_id' ) || 'nouveau' !== bp_get_theme_compat_id() ) {
-			return;
-		}
-
-		// Bounded + cached eligible-ad set (meta primed in one batch).
-		$wb_ads_rotator_get_ads = Buddypress_Ads_Rotator_Cache::get_ad_ids();
-		echo '<div id="rich-ads">';
-		foreach ( $wb_ads_rotator_get_ads as $wb_ads_rotator_get_ad ) {
-			$wb_ads_rotator_type = get_post_meta( $wb_ads_rotator_get_ad, 'wb_ads_rotator_values', true );
-			$check_ads_position  = isset( $wb_ads_rotator_type['activity_type'] ) ? $wb_ads_rotator_type['activity_type'] : '';
-			$check               = false;
-			if ( ! empty( $check_ads_position ) ) {
-				if ( bp_is_activity_directory() && in_array( 'sidewide_activity', $check_ads_position, true ) ) {
-					$check = true;
-				}
-				if ( bp_is_user_activity() && in_array( 'members_activity', $check_ads_position, true ) ) {
-					$check = true;
-				}
-				if ( function_exists( 'bp_is_group_activity' ) && bp_is_group_activity() && in_array( 'group_activity', $check_ads_position, true ) ) {
-					$check = true;
-				}
-			}
-			if ( $check ) {
-				switch ( $wb_ads_rotator_type['ads_type'] ) {
-					case 'plain-text-and-code':
-						$this->public_class->wb_ads_rotator_display_plain_text_and_code_ads( $wb_ads_rotator_get_ad );
-						break;
-					case 'rich-content':
-						$this->public_class->wb_ads_rotator_display_rich_content_ads( $wb_ads_rotator_get_ad );
-						break;
-				}
-			}
-		}
-		echo '</div>';
+		echo $markup; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Rendered by the public ad renderers, which escape their own output.
 	}
 }

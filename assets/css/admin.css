@@ -125,7 +125,7 @@
 	display: inline-block;
 	padding: 4px 10px;
 	background: var(--wbar-admin-accent);
-	color: #fff;
+	color: var(--wbar-admin-white);
 	border-radius: 999px;
 	font-size: 11px;
 	font-weight: 600;
@@ -171,12 +171,12 @@
 	height: 32px;
 	border-radius: var(--wbar-admin-radius-sm);
 	background: var(--wbar-admin-accent);
-	color: #fff;
+	color: var(--wbar-admin-white);
 	flex-shrink: 0;
 }
 
 .wbar-settings-brand-icon .dashicons {
-	color: #fff;
+	color: var(--wbar-admin-white);
 	width: 18px;
 	height: 18px;
 	font-size: 18px;
@@ -574,7 +574,7 @@
 
 .wbar-btn-primary {
 	background: var(--wbar-admin-accent);
-	color: #fff;
+	color: var(--wbar-admin-white);
 	border-color: var(--wbar-admin-accent);
 }
 
@@ -582,7 +582,7 @@
 .wbar-btn-primary:focus {
 	background: var(--wbar-admin-accent-hover);
 	border-color: var(--wbar-admin-accent-hover);
-	color: #fff;
+	color: var(--wbar-admin-white);
 }
 
 .wbar-btn-secondary {
@@ -607,7 +607,7 @@
 .wbar-btn-danger:hover,
 .wbar-btn-danger:focus {
 	background: var(--wbar-admin-danger);
-	color: #fff;
+	color: var(--wbar-admin-white);
 	border-color: var(--wbar-admin-danger);
 }
 
@@ -767,7 +767,7 @@
 
 .wbar-toast {
 	background: var(--wbar-admin-text);
-	color: #fff;
+	color: var(--wbar-admin-white);
 	padding: 12px 16px;
 	border-radius: var(--wbar-admin-radius-sm);
 	font-size: 13px;

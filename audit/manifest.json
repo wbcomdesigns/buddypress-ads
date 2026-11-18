@@ -214,10 +214,11 @@
     { "hook": "manage_wb-ads_posts_columns", "where": "includes/...:211", "callback": "Admin::wb_ads_rotator_add_disable_admin_columns" },
     { "hook": "manage_wb-ads_posts_custom_column", "where": "includes/...:212", "callback": "Admin::wb_ads_rotator_add_disable_column_content" },
     { "hook": "transition_post_status", "where": "includes/...:213", "callback": "Admin::wb_ads_rotator_update_default_value_on_ads_publish" },
-    { "hook": "wp_enqueue_scripts", "where": "includes/...:229-230", "callback": "Public::enqueue_styles / enqueue_scripts" },
-    { "hook": "the_content", "where": "includes/...:236,:255", "callback": "Public::wb_ads_display_in_content / BP::wb_ads_body_scripts" },
-    { "hook": "wp_head", "where": "includes/...:237,:253", "callback": "Public::wb_ads_display_header / BP::wb_ads_scripts" },
-    { "hook": "wp_footer", "where": "includes/...:238,:254", "callback": "Public::wb_ads_display_footer / BP::wb_ads_footer_scripts" },
+    { "hook": "wp_enqueue_scripts", "where": "includes/...:229-230", "callback": "Public::enqueue_styles (no public JS since 1.6.0)" },
+    { "hook": "the_content", "where": "includes/...:236,:255", "callback": "Public::wb_ads_display_in_content" },
+    { "hook": "wp_head", "where": "includes/...:237,:253", "callback": "Public::wb_ads_display_header" },
+    { "hook": "wp_body_open", "where": "includes/class-buddypress-ads-rotator.php", "callback": "Public::wb_ads_display_body" },
+    { "hook": "wp_footer", "where": "includes/...:238,:254", "callback": "Public::wb_ads_display_footer" },
     { "hook": "admin_notices", "where": "buddypress-ads-rotator.php:95", "callback": "wb_ads_rotator_buddypress_notice" },
     { "hook": "activated_plugin", "where": "buddypress-ads-rotator.php:117", "callback": "wb_ads_rotator_activation_redirect_settings" },
     { "hook": "bp_before_activity_entry / bp_activity_entry_content / bp_after_activity_entry / bp_before_activity_entry_comments / bp_activity_entry_comments / bp_after_activity_entry_comments / bp_before_directory_activity_content / bp_after_member_activity_post_form / bp_after_group_activity_post_form", "where": "includes/...:244-252", "callback": "BP::* (only when BuddyPress active)" }
@@ -260,11 +261,10 @@
     "enabled_when": "class_exists('BuddyPress') at load time",
     "manager": "Buddypress_Ads_Rotator_BP (public/class-buddypress-ads-rotator-bp.php), instantiated in define_public_hooks() only when BP active",
     "sub_classes": ["Buddypress_Ads_Rotator_BP"],
-    "notes": "1.6.0 made BP optional - core WordPress positions (before/after content, header, footer, shortcode) always work; BP activity-stream positions only register when BuddyPress is active. Nouveau-specific paths gated on bp_get_theme_compat_id()."
+    "notes": "1.6.0 made BP optional - core WordPress positions (before/after content, header, footer, shortcode) always work; BP activity-stream positions only register when the BuddyPress Activity component is active (bp_is_active), group options only with Groups. Nouveau-specific paths gated on bp_get_theme_compat_id()."
   },
   "frontend_assets": {
     "js": [
-      { "handle": "buddypress-ads-rotator", "path": "public/js/buddypress-ads-rotator-public.js", "deps": ["jquery"], "localized": "bp_ads_check{is_shortcode_page}" }
     ],
     "css": [
       { "handle": "buddypress-ads-rotator", "path": "public/css/buddypress-ads-rotator-public.css" }

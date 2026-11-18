@@ -6,8 +6,6 @@ parameters:
 			count: 1
 			path: admin/class-buddypress-ads-rotator-admin.php
 
-
-
 		-
 			message: '#^Parameter \#1 \$text of function esc_html expects string, int given\.$#'
 			identifier: argument.type
@@ -81,12 +79,6 @@ parameters:
 			path: includes/wb-ads-rotator-functions.php
 
 		-
-			message: '#^Offset 0 on array\{list\<string\>, list\<string\>\} in isset\(\) always exists and is not nullable\.$#'
-			identifier: isset.offset
-			count: 2
-			path: public/class-buddypress-ads-rotator-bp.php
-
-		-
 			message: '#^Property Buddypress_Ads_Rotator_BP\:\:\$plugin_name is never read, only written\.$#'
 			identifier: property.onlyWritten
 			count: 1
@@ -97,9 +89,3 @@ parameters:
 			identifier: property.onlyWritten
 			count: 1
 			path: public/class-buddypress-ads-rotator-bp.php
-
-		-
-			message: '#^Offset 0 on array\{list\<string\>, list\<string\>\} in isset\(\) always exists and is not nullable\.$#'
-			identifier: isset.offset
-			count: 2
-			path: public/class-buddypress-ads-rotator-public.php

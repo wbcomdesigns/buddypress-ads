@@ -117,19 +117,35 @@ Standalone WordPress support plus a rebuilt admin. BuddyPress is now optional.
 * Fix      - Clearing the activity ad Position field no longer breaks the activity stream. An empty value now falls back to every 3 entries.
 * Fix      - Turning off one ad no longer removes the site-wide header scripts from BuddyPress pages.
 * Fix      - Sites with more than five ads now show all of them. Older ads were silently skipped once a sixth ad was added.
-* Fix      - Iframe ads inside the activity stream now become visible. The script that moves them into place targeted class names the markup never had.
+* Fix      - Ad code now runs exactly once per ad slot on activity pages. It used to run extra times from a hidden copy and the page head, which double-counted ad impressions.
+* Fix      - Ad code in activity entries loaded with Load More now runs.
+* Fix      - Before and after entry ads in the activity stream now sit in their own list item, so they take the theme's card style in light and dark mode and keep the list valid.
+* Fix      - Ads repeated in the activity stream now have unique HTML ids.
+* Fix      - The global Body code now loads on every page right after the opening body tag. It used to load only on BuddyPress pages.
+* Fix      - Site header and site footer ads now show on BuddyPress pages too, and site header ads follow the To Whom rules.
+* Fix      - Site footer ads are no longer hidden behind a theme's fixed side panel.
+* Fix      - Shortcodes inside rich content ads no longer render out of order, twice, or not at all.
+* Fix      - Image ads keep the width and height you set, scale down on small screens, use the ad title as alt text, and open their link in a new tab marked as sponsored.
+* Fix      - Updating an ad you switched off no longer switches it back on.
+* Fix      - The ad shortcode only shows published ads. A missing or wrong ads_id shows nothing to visitors and a short hint to editors.
+* Fix      - The Device option now shows the saved choice when it is set to both.
+* Fix      - The ad editor no longer overflows on small screens, and its options have clear labels and help text.
+* Fix      - The plain text ad content filter now also runs when shortcodes are allowed.
 * Fix      - Rich content ads with the clearfix option printed the line break twice.
 * Fix      - Empty margin or font size fields no longer write broken CSS such as margin-top:px into the ad.
 * Fix      - The settings screen no longer hides WordPress core and other plugins' admin notices.
 * Fix      - The Documentation links in the settings screen opened a 404. They now open the plugin page.
 * Fix      - The three ad type options no longer share one HTML id.
 * Fix      - Every admin string, including the new settings screen, is now in the translation template.
-* Security - Added capability checks (manage_options) to the ad image, image-removal, and enable/disable AJAX handlers.
+* Security - Added capability checks to the ad image, image-removal and enable/disable AJAX handlers. They follow the ad's own edit permission, so Editors can manage ads.
 * Security - Ad settings are sanitized field by field on save. Ad code keeps script tags only for users with the unfiltered_html capability.
 * Security - Saving an ad or switching it on or off now checks that the user can edit that ad.
 * Dev      - Added the buddypress_ads_rotator_admin_capability filter for the settings screen capability.
 * Dev      - Raised the minimum PHP version to 8.1.
-* Dev      - Added bin/build-zip.sh, which builds the release zip from git without development files.
+* Dev      - Added bin/build-release.sh and .distignore, which build the release zip from git without development files, and bin/local-ci.sh.
+* Dev      - Activity stream hooks register only when the BuddyPress Activity component is on, and group activity options only when Groups is on.
+* Dev      - Removed the public JavaScript file and the hidden ad holder it copied from.
+* Dev      - Added user documentation under docs/website.
 * Dev      - Removed the legacy admin/wbcom/ wrapper and unused settings partials.
 * Dev      - Fixed all WordPress Coding Standards violations and mixed boolean operator precedence issues across all PHP files.
 

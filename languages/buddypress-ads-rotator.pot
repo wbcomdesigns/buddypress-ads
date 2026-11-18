@@ -3,13 +3,13 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Wbcom Designs - BuddyPress Ads 1.6.0\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wbcom-designs-buddypress-ads\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/buddypress-ads\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-03T11:12:23+00:00\n"
+"POT-Creation-Date: 2026-11-18T21:57:08+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: buddypress-ads-rotator\n"
@@ -117,7 +117,7 @@ msgid "To Whom"
 msgstr ""
 
 #: admin/class-buddypress-ads-rotator-admin.php:196
-#: admin/class-buddypress-ads-rotator-admin.php:960
+#: admin/class-buddypress-ads-rotator-admin.php:962
 msgid "Shortcode"
 msgstr ""
 
@@ -145,276 +145,292 @@ msgstr ""
 msgid "Ads in various image formats."
 msgstr ""
 
-#: admin/class-buddypress-ads-rotator-admin.php:284
+#: admin/class-buddypress-ads-rotator-admin.php:282
 msgid "Insert plain text or code into this field."
 msgstr ""
 
-#: admin/class-buddypress-ads-rotator-admin.php:333
+#: admin/class-buddypress-ads-rotator-admin.php:331
 msgid "Remove Image"
 msgstr ""
 
-#: admin/class-buddypress-ads-rotator-admin.php:334
+#: admin/class-buddypress-ads-rotator-admin.php:332
 msgid "Choose Image"
 msgstr ""
 
-#: admin/class-buddypress-ads-rotator-admin.php:345
+#: admin/class-buddypress-ads-rotator-admin.php:343
 msgid "URL"
 msgstr ""
 
-#: admin/class-buddypress-ads-rotator-admin.php:353
+#: admin/class-buddypress-ads-rotator-admin.php:351
 msgid "Size"
 msgstr ""
 
-#: admin/class-buddypress-ads-rotator-admin.php:358
+#: admin/class-buddypress-ads-rotator-admin.php:356
 msgid "Width"
 msgstr ""
 
-#: admin/class-buddypress-ads-rotator-admin.php:362
-#: admin/class-buddypress-ads-rotator-admin.php:371
-#: admin/class-buddypress-ads-rotator-admin.php:413
+#: admin/class-buddypress-ads-rotator-admin.php:360
+#: admin/class-buddypress-ads-rotator-admin.php:369
+#: admin/class-buddypress-ads-rotator-admin.php:411
+#: admin/class-buddypress-ads-rotator-admin.php:531
 #: admin/class-buddypress-ads-rotator-admin.php:536
 #: admin/class-buddypress-ads-rotator-admin.php:541
 #: admin/class-buddypress-ads-rotator-admin.php:546
-#: admin/class-buddypress-ads-rotator-admin.php:551
 msgid "px"
 msgstr ""
 
-#: admin/class-buddypress-ads-rotator-admin.php:367
+#: admin/class-buddypress-ads-rotator-admin.php:365
 msgid "Height"
 msgstr ""
 
-#: admin/class-buddypress-ads-rotator-admin.php:384
+#: admin/class-buddypress-ads-rotator-admin.php:382
 msgid "Allow Shortcodes"
 msgstr ""
 
-#: admin/class-buddypress-ads-rotator-admin.php:388
+#: admin/class-buddypress-ads-rotator-admin.php:386
 msgid "Execute shortcodes"
 msgstr ""
 
-#: admin/class-buddypress-ads-rotator-admin.php:396
+#: admin/class-buddypress-ads-rotator-admin.php:394
 msgid "No shortcode detected in your code."
 msgstr ""
 
-#: admin/class-buddypress-ads-rotator-admin.php:396
+#: admin/class-buddypress-ads-rotator-admin.php:394
 msgid "Uncheck this checkbox for improved performance."
 msgstr ""
 
-#: admin/class-buddypress-ads-rotator-admin.php:408
+#: admin/class-buddypress-ads-rotator-admin.php:406
 msgid "Rich Content Font Size"
 msgstr ""
 
-#: admin/class-buddypress-ads-rotator-admin.php:426
+#: admin/class-buddypress-ads-rotator-admin.php:423
 msgid "Rich Content Colors"
 msgstr ""
 
-#: admin/class-buddypress-ads-rotator-admin.php:433
+#: admin/class-buddypress-ads-rotator-admin.php:430
 msgid "Use custom colors for this ad"
 msgstr ""
 
-#: admin/class-buddypress-ads-rotator-admin.php:436
+#: admin/class-buddypress-ads-rotator-admin.php:433
 msgid "Leave this off and the ad inherits the colors of the page it sits on, so it follows the theme in both light and dark mode. Turn it on to set the ad's own colors, which are then used exactly as chosen everywhere."
 msgstr ""
 
-#: admin/class-buddypress-ads-rotator-admin.php:448
+#: admin/class-buddypress-ads-rotator-admin.php:445
 msgid "Rich Content Background Color"
 msgstr ""
 
-#: admin/class-buddypress-ads-rotator-admin.php:465
+#: admin/class-buddypress-ads-rotator-admin.php:461
 msgid "Rich Content Text Color"
 msgstr ""
 
-#: admin/class-buddypress-ads-rotator-admin.php:501
+#: admin/class-buddypress-ads-rotator-admin.php:494
 msgid "Everything connected to the ads layout and output."
 msgstr ""
 
-#: admin/class-buddypress-ads-rotator-admin.php:506
-#: admin/class-buddypress-ads-rotator-admin.php:635
-msgid "Position"
+#: admin/class-buddypress-ads-rotator-admin.php:499
+msgid "Alignment"
 msgstr ""
 
-#: admin/class-buddypress-ads-rotator-admin.php:523
-msgid "Check this if you don’t want the following elements to float around the ad. (adds a clearfix)"
+#: admin/class-buddypress-ads-rotator-admin.php:504
+#: admin/class-buddypress-ads-rotator-admin.php:544
+msgid "Left"
 msgstr ""
 
-#: admin/class-buddypress-ads-rotator-admin.php:529
+#: admin/class-buddypress-ads-rotator-admin.php:508
+msgid "Center"
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:512
+#: admin/class-buddypress-ads-rotator-admin.php:534
+msgid "Right"
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:517
+msgid "Add a line break after the ad, so the content that follows starts on its own line."
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:524
 msgid "Margin"
 msgstr ""
 
-#: admin/class-buddypress-ads-rotator-admin.php:534
+#: admin/class-buddypress-ads-rotator-admin.php:529
 msgid "Top"
 msgstr ""
 
 #: admin/class-buddypress-ads-rotator-admin.php:539
-msgid "Right"
-msgstr ""
-
-#: admin/class-buddypress-ads-rotator-admin.php:544
 msgid "Bottom"
 msgstr ""
 
-#: admin/class-buddypress-ads-rotator-admin.php:549
-msgid "Left"
+#: admin/class-buddypress-ads-rotator-admin.php:550
+msgid "Space around the ad, in pixels."
 msgstr ""
 
-#: admin/class-buddypress-ads-rotator-admin.php:555
-msgid "use this to add a margin around the ads"
-msgstr ""
-
-#: admin/class-buddypress-ads-rotator-admin.php:585
+#: admin/class-buddypress-ads-rotator-admin.php:578
 msgid "WordPress Position"
 msgstr ""
 
-#: admin/class-buddypress-ads-rotator-admin.php:589
+#: admin/class-buddypress-ads-rotator-admin.php:582
 msgid "— None (Use Shortcode Only) —"
 msgstr ""
 
-#: admin/class-buddypress-ads-rotator-admin.php:590
+#: admin/class-buddypress-ads-rotator-admin.php:583
 msgid "Before Post/Page Content"
 msgstr ""
 
-#: admin/class-buddypress-ads-rotator-admin.php:591
+#: admin/class-buddypress-ads-rotator-admin.php:584
 msgid "After Post/Page Content"
 msgstr ""
 
-#: admin/class-buddypress-ads-rotator-admin.php:592
+#: admin/class-buddypress-ads-rotator-admin.php:585
 msgid "Site Header (wp_head)"
 msgstr ""
 
-#: admin/class-buddypress-ads-rotator-admin.php:593
+#: admin/class-buddypress-ads-rotator-admin.php:586
 msgid "Site Footer (wp_footer)"
 msgstr ""
 
-#: admin/class-buddypress-ads-rotator-admin.php:596
-msgid "Choose a WordPress position to automatically display the ad on posts and pages."
+#: admin/class-buddypress-ads-rotator-admin.php:589
+msgid "Before or after content shows the ad on posts and pages. Site header and site footer show it on every page, BuddyPress pages included. Site header only outputs script and style tags, so use it for ad-network code."
 msgstr ""
 
-#: admin/class-buddypress-ads-rotator-admin.php:605
+#: admin/class-buddypress-ads-rotator-admin.php:598
 msgid "BuddyPress Activity Type"
 msgstr ""
 
+#: admin/class-buddypress-ads-rotator-admin.php:602
+msgid "Sitewide activity"
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:604
+msgid "Group activity"
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:606
+msgid "Member profile activity"
+msgstr ""
+
 #: admin/class-buddypress-ads-rotator-admin.php:609
-msgid "Sitewide Activity "
+msgid "Choose the activity streams this ad appears in. Leave it empty to keep the ad out of activity streams."
 msgstr ""
 
-#: admin/class-buddypress-ads-rotator-admin.php:610
-msgid "Group Activity"
+#: admin/class-buddypress-ads-rotator-admin.php:615
+msgid "BuddyPress Activity Position"
 msgstr ""
 
-#: admin/class-buddypress-ads-rotator-admin.php:611
-msgid "Members Activity"
-msgstr ""
-
-#: admin/class-buddypress-ads-rotator-admin.php:614
-msgid "A page with this ad on it must match all of the following conditions."
+#: admin/class-buddypress-ads-rotator-admin.php:619
+msgid "Before an activity entry"
 msgstr ""
 
 #: admin/class-buddypress-ads-rotator-admin.php:620
-msgid "BuddyPress Activity Positions"
+msgid "Inside the activity entry content"
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:621
+msgid "After an activity entry"
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:622
+msgid "Before the entry comments"
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:623
+msgid "Inside the entry comments"
 msgstr ""
 
 #: admin/class-buddypress-ads-rotator-admin.php:624
-msgid "before activity entry"
+msgid "After the entry comments"
 msgstr ""
 
-#: admin/class-buddypress-ads-rotator-admin.php:625
-msgid "activity entry content"
+#: admin/class-buddypress-ads-rotator-admin.php:630
+msgid "Show After Entry"
 msgstr ""
 
-#: admin/class-buddypress-ads-rotator-admin.php:626
-msgid "after activity entry"
-msgstr ""
-
-#: admin/class-buddypress-ads-rotator-admin.php:627
-msgid "before activity entry comments"
-msgstr ""
-
-#: admin/class-buddypress-ads-rotator-admin.php:628
-msgid "activity entry comments"
-msgstr ""
-
-#: admin/class-buddypress-ads-rotator-admin.php:629
-msgid "after activity entry comments"
+#: admin/class-buddypress-ads-rotator-admin.php:634
+msgid "Show the ad at entry number N of the stream. With Repeat on, it shows at every Nth entry."
 msgstr ""
 
 #: admin/class-buddypress-ads-rotator-admin.php:639
-msgid "Enter the value to inject after per entry"
+msgid "Repeat"
 msgstr ""
 
-#: admin/class-buddypress-ads-rotator-admin.php:644
-msgid "Repeat Position"
+#: admin/class-buddypress-ads-rotator-admin.php:643
+msgid "Repeat the ad every N entries instead of showing it once."
 msgstr ""
 
-#: admin/class-buddypress-ads-rotator-admin.php:648
-msgid "Enable this option if you want to repeat inject position"
+#: admin/class-buddypress-ads-rotator-admin.php:652
+msgid "The BuddyPress Activity Streams component is off. Turn it on in Settings > BuddyPress to display ads in activity streams."
 msgstr ""
 
-#: admin/class-buddypress-ads-rotator-admin.php:655
+#: admin/class-buddypress-ads-rotator-admin.php:654
 msgid "BuddyPress is not active. Install and activate BuddyPress to display ads in activity streams."
 msgstr ""
 
-#: admin/class-buddypress-ads-rotator-admin.php:681
+#: admin/class-buddypress-ads-rotator-admin.php:680
 msgid "Logged-In Visitor"
 msgstr ""
 
-#: admin/class-buddypress-ads-rotator-admin.php:685
+#: admin/class-buddypress-ads-rotator-admin.php:684
 msgid "Both Logged-in and Logged-out Visitor"
 msgstr ""
 
-#: admin/class-buddypress-ads-rotator-admin.php:686
+#: admin/class-buddypress-ads-rotator-admin.php:685
 msgid "Logged-in Visitor"
 msgstr ""
 
-#: admin/class-buddypress-ads-rotator-admin.php:687
+#: admin/class-buddypress-ads-rotator-admin.php:686
 msgid "Logged-out Visitor"
 msgstr ""
 
-#: admin/class-buddypress-ads-rotator-admin.php:690
-#: admin/class-buddypress-ads-rotator-admin.php:705
-msgid "Visitor conditions limit the number of users who can see your ad. There is no need to set visitor conditions if you want all users to see the ad."
+#: admin/class-buddypress-ads-rotator-admin.php:689
+msgid "Show the ad to logged-in members, logged-out visitors, or both."
 msgstr ""
 
-#: admin/class-buddypress-ads-rotator-admin.php:696
+#: admin/class-buddypress-ads-rotator-admin.php:695
 msgid "Device"
 msgstr ""
 
-#: admin/class-buddypress-ads-rotator-admin.php:700
+#: admin/class-buddypress-ads-rotator-admin.php:699
 msgid "Both Mobile and Desktop Devices"
 msgstr ""
 
-#: admin/class-buddypress-ads-rotator-admin.php:701
-msgid "Mobile(Including Tablets)"
+#: admin/class-buddypress-ads-rotator-admin.php:700
+msgid "Mobile (including tablets)"
 msgstr ""
 
-#: admin/class-buddypress-ads-rotator-admin.php:702
+#: admin/class-buddypress-ads-rotator-admin.php:701
 msgid "Desktop"
 msgstr ""
 
-#: admin/class-buddypress-ads-rotator-admin.php:730
-#: admin/class-buddypress-ads-rotator-admin.php:1006
+#: admin/class-buddypress-ads-rotator-admin.php:704
+msgid "Show the ad on mobile devices, desktops, or both. Tablets count as mobile devices."
+msgstr ""
+
+#: admin/class-buddypress-ads-rotator-admin.php:729
+#: admin/class-buddypress-ads-rotator-admin.php:1008
 msgid "Shortcode Copied!"
 msgstr ""
 
-#: admin/class-buddypress-ads-rotator-admin.php:733
-msgid "Copy and Paste this shortcode to display this ad any where."
+#: admin/class-buddypress-ads-rotator-admin.php:732
+msgid "Paste this shortcode into any post, page or widget to show this ad there."
 msgstr ""
 
-#: admin/class-buddypress-ads-rotator-admin.php:917
+#: admin/class-buddypress-ads-rotator-admin.php:919
 msgid "This ad was saved as a draft because it has no content. Add the ad content for the selected ad type, then publish."
 msgstr ""
 
-#: admin/class-buddypress-ads-rotator-admin.php:957
+#: admin/class-buddypress-ads-rotator-admin.php:959
 msgid "Ads ID"
 msgstr ""
 
-#: admin/class-buddypress-ads-rotator-admin.php:958
+#: admin/class-buddypress-ads-rotator-admin.php:960
 msgid "Ads Type"
 msgstr ""
 
-#: admin/class-buddypress-ads-rotator-admin.php:959
+#: admin/class-buddypress-ads-rotator-admin.php:961
 msgid "Enable/Disable Ads"
 msgstr ""
 
-#: admin/class-buddypress-ads-rotator-admin.php:961
+#: admin/class-buddypress-ads-rotator-admin.php:963
 msgid "Date"
 msgstr ""
 
@@ -451,28 +467,28 @@ msgstr ""
 
 #: includes/admin/class-buddypress-ads-rotator-settings-admin.php:121
 #: includes/admin/class-buddypress-ads-rotator-settings-admin.php:122
-#: includes/admin/views/shell.php:31
-#: includes/admin/views/shell.php:60
+#: includes/admin/views/layout.php:31
+#: includes/admin/views/layout.php:60
 msgid "BuddyPress Ads"
 msgstr ""
 
-#: includes/admin/class-buddypress-ads-rotator-settings-admin.php:246
+#: includes/admin/class-buddypress-ads-rotator-settings-admin.php:244
 msgid "Settings saved."
 msgstr ""
 
-#: includes/admin/class-buddypress-ads-rotator-settings-admin.php:247
+#: includes/admin/class-buddypress-ads-rotator-settings-admin.php:245
 msgid "Could not save. Please try again."
 msgstr ""
 
-#: includes/admin/class-buddypress-ads-rotator-settings-admin.php:248
+#: includes/admin/class-buddypress-ads-rotator-settings-admin.php:246
 msgid "Are you sure? This cannot be undone."
 msgstr ""
 
-#: includes/admin/class-buddypress-ads-rotator-settings-admin.php:249
+#: includes/admin/class-buddypress-ads-rotator-settings-admin.php:247
 msgid "Continue"
 msgstr ""
 
-#: includes/admin/class-buddypress-ads-rotator-settings-admin.php:250
+#: includes/admin/class-buddypress-ads-rotator-settings-admin.php:248
 msgid "Cancel"
 msgstr ""
 
@@ -662,6 +678,60 @@ msgstr ""
 msgid "Visit wbcomdesigns.com for more plugins and themes"
 msgstr ""
 
+#: includes/admin/views/layout.php:32
+msgid "Display ads across posts, pages, your site header and footer, and BuddyPress activity streams."
+msgstr ""
+
+#: includes/admin/views/layout.php:61
+msgid "Plugin"
+msgstr ""
+
+#: includes/admin/views/layout.php:64
+msgid "BuddyPress Ads navigation"
+msgstr ""
+
+#: includes/admin/views/layout.php:68
+msgid "Settings"
+msgstr ""
+
+#: includes/admin/views/layout.php:69
+msgid "Help"
+msgstr ""
+
+#: includes/admin/views/layout.php:70
+msgid "More"
+msgstr ""
+
+#: includes/admin/views/layout.php:91
+msgid "Manage Ads"
+msgstr ""
+
+#: includes/admin/views/layout.php:94
+msgid "All Ads"
+msgstr ""
+
+#: includes/admin/views/layout.php:98
+#: includes/admin/views/overview.php:145
+msgid "Add New Ad"
+msgstr ""
+
+#: includes/admin/views/layout.php:102
+msgid "Resources"
+msgstr ""
+
+#: includes/admin/views/layout.php:105
+#: includes/admin/views/welcome.php:40
+msgid "Documentation"
+msgstr ""
+
+#: includes/admin/views/layout.php:107
+msgid "(opens in a new tab)"
+msgstr ""
+
+#: includes/admin/views/layout.php:123
+msgid "Save Settings"
+msgstr ""
+
 #: includes/admin/views/overview.php:59
 msgid "Published Ads"
 msgstr ""
@@ -757,11 +827,6 @@ msgstr ""
 msgid "Quick Actions"
 msgstr ""
 
-#: includes/admin/views/overview.php:145
-#: includes/admin/views/shell.php:98
-msgid "Add New Ad"
-msgstr ""
-
 #: includes/admin/views/overview.php:149
 msgid "Manage All Ads"
 msgstr ""
@@ -792,55 +857,6 @@ msgstr ""
 
 #: includes/admin/views/settings-scripts.php:59
 msgid "Injected into the site footer (wp_footer). Good for deferred scripts."
-msgstr ""
-
-#: includes/admin/views/shell.php:32
-msgid "Display ads across posts, pages, your site header and footer, and BuddyPress activity streams."
-msgstr ""
-
-#: includes/admin/views/shell.php:61
-msgid "Plugin"
-msgstr ""
-
-#: includes/admin/views/shell.php:64
-msgid "BuddyPress Ads navigation"
-msgstr ""
-
-#: includes/admin/views/shell.php:68
-msgid "Settings"
-msgstr ""
-
-#: includes/admin/views/shell.php:69
-msgid "Help"
-msgstr ""
-
-#: includes/admin/views/shell.php:70
-msgid "More"
-msgstr ""
-
-#: includes/admin/views/shell.php:91
-msgid "Manage Ads"
-msgstr ""
-
-#: includes/admin/views/shell.php:94
-msgid "All Ads"
-msgstr ""
-
-#: includes/admin/views/shell.php:102
-msgid "Resources"
-msgstr ""
-
-#: includes/admin/views/shell.php:105
-#: includes/admin/views/welcome.php:40
-msgid "Documentation"
-msgstr ""
-
-#: includes/admin/views/shell.php:107
-msgid "(opens in a new tab)"
-msgstr ""
-
-#: includes/admin/views/shell.php:123
-msgid "Save Settings"
 msgstr ""
 
 #: includes/admin/views/welcome.php:19
@@ -895,10 +911,10 @@ msgstr ""
 msgid "Send Feedback"
 msgstr ""
 
-#: public/class-buddypress-ads-rotator-public.php:609
-msgid "Please Enter the ads_id parameter value"
+#: public/class-buddypress-ads-rotator-public.php:434
+msgid "No published ad matches this ads_id."
 msgstr ""
 
-#: public/class-buddypress-ads-rotator-public.php:639
-msgid "Nothing ads found"
+#: public/class-buddypress-ads-rotator-public.php:435
+msgid "Add the ads_id attribute to show an ad, for example [ads-shortcode ads_id=12]."
 msgstr ""

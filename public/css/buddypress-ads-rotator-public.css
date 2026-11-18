@@ -1,14 +1,35 @@
 /**
- * All of the CSS for your public-facing functionality should be
- * included in this file.
+ * BuddyPress Ads front end.
+ *
+ * Ads inherit the page's colours (light and dark) unless the owner set custom colours on
+ * the ad, and never grow wider than the column they sit in.
  */
-.wb-bannerads-rotator.rich-contentwbads {
-  padding: 10px 15px;
-  border-radius: 0 !important;
-  line-height: normal;
-  overflow: hidden;
+.wb-bannerads-rotator {
+	max-width: 100%;
+	overflow-wrap: anywhere;
 }
 
-#rich-ads {
-  display: none;
+.wb-bannerads-rotator img,
+.wb-bannerads-rotator iframe {
+	max-width: 100%;
+}
+
+.wb-bannerads-rotator.rich-contentwbads {
+	padding: 10px 15px;
+	line-height: normal;
+	overflow: hidden;
+}
+
+/* The list item a before/after-entry stream ad sits in: a plain slot, not an activity card. */
+.wb-ads-activity-item {
+	list-style: none;
+}
+
+/* Site Footer ads print straight into <body>; keep them in a centred, padded strip so a
+   theme's fixed side panel or full-bleed footer never covers them. */
+.wb-ads-site-footer {
+	box-sizing: border-box;
+	max-width: 1200px;
+	margin-inline: auto;
+	padding-inline: 16px;
 }
