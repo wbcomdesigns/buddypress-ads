@@ -10,6 +10,10 @@
  * @package    Buddypress_Ads_Rotator
  * @subpackage Buddypress_Ads_Rotator/public/partials
  */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 ?>
 
 <!-- This file should primarily consist of HTML with a little bit of PHP. -->

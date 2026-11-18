@@ -9,6 +9,10 @@
  * @subpackage Buddypress_Ads_Rotator/includes
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Register all actions and filters for the plugin.
  *
@@ -147,7 +151,6 @@ class Buddypress_Ads_Rotator_Loader {
 		);
 
 		return $hooks;
-
 	}
 
 	/**
@@ -168,7 +171,5 @@ class Buddypress_Ads_Rotator_Loader {
 		foreach ( $this->shortcodes as $hook ) {
 				add_shortcode( $hook['hook'], array( $hook['component'], $hook['callback'] ) );
 		}
-
 	}
-
 }

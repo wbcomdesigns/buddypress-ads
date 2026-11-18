@@ -12,6 +12,10 @@
  * @subpackage Buddypress_Ads_Rotator/includes
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * The core plugin class.
  *
@@ -57,6 +61,18 @@ class Buddypress_Ads_Rotator {
 	protected $version;
 
 	/**
+	 * The public-facing renderer, reused by the BuddyPress integration.
+	 *
+	 * Held on the instance because the BuddyPress hooks are registered later, on
+	 * bp_loaded, rather than inside define_public_hooks().
+	 *
+	 * @since    1.6.0
+	 * @access   protected
+	 * @var      Buddypress_Ads_Rotator_Public    $plugin_public    Public renderer.
+	 */
+	protected $plugin_public;
+
+	/**
 	 * Define the core functionality of the plugin.
 	 *
 	 * Set the plugin name and the plugin version that can be used throughout the plugin.
@@ -77,7 +93,6 @@ class Buddypress_Ads_Rotator {
 		$this->set_locale();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
-
 	}
 
 	/**
@@ -88,9 +103,9 @@ class Buddypress_Ads_Rotator {
 	 */
 	public function define_constants() {
 		$this->define( 'BUDDYPRESS_ADS_ROTATOR_FILE', __FILE__ );
-		$this->define( 'BUDDYPRESS_ADS_ROTATOR_URL', plugin_dir_url( dirname( __FILE__ ) ) );
-		$this->define( 'BUDDYPRESS_ADS_ROTATOR_PATH', plugin_dir_path( dirname( __FILE__ ) ) );
-		$this->define( 'BUDDYPRESS_ADS_ROTATOR_DIR', trailingslashit( dirname( __FILE__ ) ) );
+		$this->define( 'BUDDYPRESS_ADS_ROTATOR_URL', plugin_dir_url( __DIR__ ) );
+		$this->define( 'BUDDYPRESS_ADS_ROTATOR_PATH', plugin_dir_path( __DIR__ ) );
+		$this->define( 'BUDDYPRESS_ADS_ROTATOR_DIR', trailingslashit( __DIR__ ) );
 	}
 
 	/**
@@ -131,32 +146,53 @@ class Buddypress_Ads_Rotator {
 		 * The class responsible for orchestrating the actions and filters of the
 		 * core plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-buddypress-ads-rotator-loader.php';
+		// Shared helpers used by both the admin and the public side.
+		require_once plugin_dir_path( __DIR__ ) . 'includes/wb-ads-rotator-functions.php';
+
+		require_once plugin_dir_path( __DIR__ ) . 'includes/class-buddypress-ads-rotator-loader.php';
 
 		/**
 		 * The class responsible for defining internationalization functionality
 		 * of the plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-buddypress-ads-rotator-i18n.php';
+		require_once plugin_dir_path( __DIR__ ) . 'includes/class-buddypress-ads-rotator-i18n.php';
+
+		/**
+		 * The class responsible for the front-end eligible-ad query, batched
+		 * meta priming, transient cache, and cache invalidation.
+		 */
+		require_once plugin_dir_path( __DIR__ ) . 'includes/class-buddypress-ads-rotator-cache.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-buddypress-ads-rotator-admin.php';
+		require_once plugin_dir_path( __DIR__ ) . 'admin/class-buddypress-ads-rotator-admin.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
 		 * side of the site.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-buddypress-ads-rotator-public.php';
+		require_once plugin_dir_path( __DIR__ ) . 'public/class-buddypress-ads-rotator-public.php';
+
+		/*
+		 * The BuddyPress class is NOT required here.
+		 *
+		 * This file runs while the plugin file is being included, which is before
+		 * plugins_loaded. Whether class_exists( 'BuddyPress' ) is true at this point
+		 * depends purely on the order of the active_plugins option, so requiring it
+		 * here silently skipped the whole BuddyPress integration whenever this plugin
+		 * happened to load first. It is loaded on bp_loaded instead - see
+		 * load_buddypress_integration().
+		 */
 
 		/**
-		* The class responsible add wrapper of admin settings.
-		*/
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/wbcom/wbcom-admin-settings.php';
+		 * The class responsible for the card-panel settings admin page
+		 * (Overview / Scripts / Welcome / FAQ). Replaces the legacy
+		 * admin/wbcom/ wrapper as of 1.6.0.
+		 */
+		require_once plugin_dir_path( __DIR__ ) . 'includes/admin/class-buddypress-ads-rotator-settings-admin.php';
 
 		$this->loader = new Buddypress_Ads_Rotator_Loader();
-
 	}
 
 	/**
@@ -173,7 +209,6 @@ class Buddypress_Ads_Rotator {
 		$plugin_i18n = new Buddypress_Ads_Rotator_i18n();
 
 		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
-
 	}
 
 	/**
@@ -185,17 +220,27 @@ class Buddypress_Ads_Rotator {
 	 */
 	private function define_admin_hooks() {
 
+		// Legacy admin service class — retained for the wb-ads CPT, its
+		// metaboxes, list columns, save handler, and metabox AJAX. Its
+		// settings-page UI (menu + Settings-API tabs + notice suppression)
+		// is no longer wired; Buddypress_Ads_Rotator_Settings_Admin owns
+		// that surface as of 1.6.0. See the wbcom-wrapper-migration
+		// playbook Part 3.
 		$plugin_admin = new Buddypress_Ads_Rotator_Admin( $this->get_plugin_name(), $this->get_version() );
 
+		// CPT-screen assets only (the metabox UI). The settings page has
+		// its own card-panel CSS/JS.
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 
-		$this->loader->add_action( 'admin_menu', $plugin_admin, 'wb_ads_rotator_add_submenu_page_admin_settings' );
-		$this->loader->add_action( 'admin_init', $plugin_admin, 'wb_ads_rotator_init_plugin_settings' );
-
 		$this->loader->add_action( 'init', $plugin_admin, 'wb_ads_rotator_add_cpt' );
+		$this->loader->add_filter( 'rest_request_before_callbacks', $plugin_admin, 'wb_ads_rotator_restrict_rest', 10, 3 );
 		$this->loader->add_action( 'add_meta_boxes', $plugin_admin, 'wb_ads_rotator_add_metaboxes' );
 		$this->loader->add_action( 'save_post', $plugin_admin, 'wb_ads_rotator_save_post_meta' );
+
+		// An ad with no content renders an empty container, so keep it out of publish.
+		$this->loader->add_filter( 'wp_insert_post_data', $plugin_admin, 'wb_ads_rotator_block_empty_publish', 10, 2 );
+		$this->loader->add_action( 'admin_notices', $plugin_admin, 'wb_ads_rotator_empty_ad_notice' );
 		$this->loader->add_action( 'wp_ajax_wb_ads_rotator_image', $plugin_admin, 'wb_ads_rotator_image' );
 		$this->loader->add_action( 'wp_ajax_wb_ads_rotator_remove_image', $plugin_admin, 'wb_ads_remove_uploaded_image' );
 
@@ -203,7 +248,16 @@ class Buddypress_Ads_Rotator {
 		$this->loader->add_action( 'manage_wb-ads_posts_custom_column', $plugin_admin, 'wb_ads_rotator_add_disable_column_content', 10, 2 );
 		$this->loader->add_action( 'transition_post_status', $plugin_admin, 'wb_ads_rotator_update_default_value_on_ads_publish', 10, 3 );
 		$this->loader->add_action( 'wp_ajax_wb_ads_rotator_enable', $plugin_admin, 'wb_ads_rotator_ajax_enable_callback' );
-		$this->loader->add_action( 'admin_init', $plugin_admin, 'wbcom_hide_all_admin_notices_from_setting_page' );
+
+		// Invalidate the cached front-end ad-ID set whenever an ad is
+		// created/updated/deleted. The enable/disable AJAX toggle clears
+		// it directly inside wb_ads_rotator_ajax_enable_callback().
+		$this->loader->add_action( 'save_post_wb-ads', 'Buddypress_Ads_Rotator_Cache', 'invalidate' );
+		$this->loader->add_action( 'deleted_post', 'Buddypress_Ads_Rotator_Cache', 'invalidate', 10, 2 );
+
+		// Card-panel settings admin (Overview / Scripts / Welcome / FAQ).
+		$settings_admin = new Buddypress_Ads_Rotator_Settings_Admin();
+		$settings_admin->register();
 	}
 
 	/**
@@ -218,22 +272,55 @@ class Buddypress_Ads_Rotator {
 		$plugin_public = new Buddypress_Ads_Rotator_Public( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 
-		$this->loader->add_action( 'bp_before_activity_entry', $plugin_public, 'wb_ads_display_before_activity_entry' );
-		$this->loader->add_action( 'bp_activity_entry_content', $plugin_public, 'wb_ads_display_activity_entry_content' );
-		$this->loader->add_action( 'bp_after_activity_entry', $plugin_public, 'wb_ads_display_after_activity_entry' );
-		$this->loader->add_action( 'bp_before_activity_entry_comments', $plugin_public, 'wb_ads_display_before_activity_entry_comments' );
-		$this->loader->add_action( 'bp_activity_entry_comments', $plugin_public, 'wb_ads_display_activity_entry_comments' );
-		$this->loader->add_action( 'bp_after_activity_entry_comments', $plugin_public, 'wb_ads_display_after_activity_entry_comments' );
-
+		// Register shortcode - works everywhere.
 		$this->loader->add_shortcode( 'ads-shortcode', $plugin_public, 'wb_ads_rotator_shortcode_ads' );
-		$this->loader->add_action( 'bp_before_directory_activity_content', $plugin_public, 'wb_ads_rotator_check_ads' );
-		$this->loader->add_action( 'bp_after_member_activity_post_form', $plugin_public, 'wb_ads_rotator_check_ads' );
-		$this->loader->add_action( 'bp_after_group_activity_post_form', $plugin_public, 'wb_ads_rotator_check_ads' );
-		$this->loader->add_action( 'wp_head', $plugin_public, 'wb_ads_scripts' );
-		$this->loader->add_action( 'wp_footer', $plugin_public, 'wb_ads_footer_scripts' );
-		$this->loader->add_filter( 'the_content', $plugin_public, 'wb_ads_body_scripts' );		
+
+		// WordPress native ad positions - always available.
+		$this->loader->add_filter( 'the_content', $plugin_public, 'wb_ads_display_in_content' );
+		$this->loader->add_action( 'wp_head', $plugin_public, 'wb_ads_display_header' );
+		$this->loader->add_action( 'wp_body_open', $plugin_public, 'wb_ads_display_body' );
+		$this->loader->add_action( 'wp_footer', $plugin_public, 'wb_ads_display_footer' );
+
+		/*
+		 * BuddyPress hooks are registered on bp_loaded, not here.
+		 *
+		 * BuddyPress fires bp_loaded from plugins_loaded (bp-core-actions.php:33), so
+		 * it always runs after every plugin file is included, whatever order they load
+		 * in. Testing class_exists( 'BuddyPress' ) at this point would be a race with
+		 * the active_plugins order. bp_loaded only fires when BuddyPress is active, so
+		 * it doubles as the "is BuddyPress here" test.
+		 */
+		$this->plugin_public = $plugin_public;
+		add_action( 'bp_loaded', array( $this, 'load_buddypress_integration' ) );
+	}
+
+	/**
+	 * Load the BuddyPress integration and register its activity stream hooks.
+	 *
+	 * Runs on bp_loaded, so BuddyPress is guaranteed to be present and loaded.
+	 * Hooks are registered directly rather than through the loader, because the
+	 * loader has already run by the time this fires.
+	 *
+	 * @since 1.6.0
+	 */
+	public function load_buddypress_integration() {
+		// Every BuddyPress placement lives in the activity stream; with Activity Streams
+		// switched off there is nothing to hook (bp_loaded runs after components are set up).
+		if ( ! bp_is_active( 'activity' ) ) {
+			return;
+		}
+
+		require_once plugin_dir_path( __DIR__ ) . 'public/class-buddypress-ads-rotator-bp.php';
+
+		$plugin_bp = new Buddypress_Ads_Rotator_BP( $this->get_plugin_name(), $this->get_version(), $this->plugin_public );
+
+		add_action( 'bp_before_activity_entry', array( $plugin_bp, 'wb_ads_display_before_activity_entry' ) );
+		add_action( 'bp_activity_entry_content', array( $plugin_bp, 'wb_ads_display_activity_entry_content' ) );
+		add_action( 'bp_after_activity_entry', array( $plugin_bp, 'wb_ads_display_after_activity_entry' ) );
+		add_action( 'bp_before_activity_entry_comments', array( $plugin_bp, 'wb_ads_display_before_activity_entry_comments' ) );
+		add_action( 'bp_activity_entry_comments', array( $plugin_bp, 'wb_ads_display_activity_entry_comments' ) );
+		add_action( 'bp_after_activity_entry_comments', array( $plugin_bp, 'wb_ads_display_after_activity_entry_comments' ) );
 	}
 
 	/**
@@ -275,5 +362,4 @@ class Buddypress_Ads_Rotator {
 	public function get_version() {
 		return $this->version;
 	}
-
 }

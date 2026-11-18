@@ -123,8 +123,6 @@
         $("#wb-ads-preview-images").attr("src", response);
         $(".wb_ads_rotator_image").attr("value", "");
         $("#wb_ads_image_id").attr("value", "0");
-        $("#wb_ads_image_width").attr("value", "");
-        $("#wb_ads_image_height").attr("value", "");
       });
     });
     /**
@@ -167,26 +165,26 @@
             if (0 === index) {
               // place first attachment in field
               $("#wb_ads_image_id").val(attachment.id);
-              $(
-                '.wb_ads_rotator-input input[name="wb_ads_rotator[size][width]"]'
-              ).val(attachment.width);
-              $(
-                '.wb_ads_rotator-input input[name="wb_ads_rotator[size][height]"]'
-              ).val(attachment.height);
-              // update image preview
-              var new_image =
-                '<img width="' +
-                attachment.width +
-                '" height="' +
-                attachment.height +
-                '" title="' +
-                attachment.title +
-                '" alt="' +
-                attachment.alt +
-                '" src="' +
-                attachment.url +
-                '" id="wb-ads-preview-images"/>';
-              $("#wb-ads-preview-image").html(new_image);
+              // Keep a size the owner typed; only fill empty fields with the image's own size.
+              var $w = $('.wb_ads_rotator-input input[name="wb_ads_rotator[size][width]"]');
+              var $h = $('.wb_ads_rotator-input input[name="wb_ads_rotator[size][height]"]');
+              if (!parseInt($w.val(), 10) && !parseInt($h.val(), 10)) {
+                $w.val(attachment.width);
+                $h.val(attachment.height);
+              }
+              // Update the preview. Attachment fields are user-controlled, so set them as
+              // attributes, never as HTML.
+              $("#wb-ads-preview-image")
+                .empty()
+                .append(
+                  $("<img>", { id: "wb-ads-preview-images" }).attr({
+                    width: attachment.width,
+                    height: attachment.height,
+                    title: attachment.title,
+                    alt: attachment.alt,
+                    src: attachment.url,
+                  })
+                );
               $(".wb_ads_rotator_image").attr("value", attachment.url);
               $("#wb_ads_rotator_remove_image").attr(
                 "data-img-id",

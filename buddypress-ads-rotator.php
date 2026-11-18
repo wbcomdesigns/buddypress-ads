@@ -14,8 +14,10 @@
  * @wordpress-plugin
  * Plugin Name:       Wbcom Designs - BuddyPress Ads
  * Plugin URI:        https://wbcomdesigns.com/downloads/buddypress-ads/
- * Description:       Integrate your BuddyPress community to provide a smooth customer experience and increase site engagement.
- * Version:           1.5.5
+ * Description:       Display ads on your WordPress site with support for posts, pages, header, footer, and BuddyPress activity streams. Works as standalone WordPress or with BuddyPress.
+ * Version:           1.6.0
+ * Requires at least: 6.9
+ * Requires PHP:      8.1
  * Author:            Wbcom Designs
  * Author URI:        https://wbcomdesigns.com
  * License:           GPL-2.0+
@@ -34,7 +36,7 @@ if ( ! defined( 'WPINC' ) ) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'BUDDYPRESS_ADS_ROTATOR_VERSION', '1.5.5' );
+define( 'BUDDYPRESS_ADS_ROTATOR_VERSION', '1.6.0' );
 
 /**
  * The code that runs during plugin activation.
@@ -65,46 +67,34 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-buddypress-ads-rotator.php
 
 
 /**
- * This Function checks the required plugin.
- */
-function wb_ads_rotator_check_required_plugin() {
-
-	if ( ! class_exists( 'BuddyPress' ) ) {
-		add_action( 'admin_notices', 'wb_ads_rotator_admin_notice' );
-		add_action( 'admin_init', 'wb_ads_rotator_existing_checkin_plugin' );
-	} else {
-		register_activation_hook( __FILE__, 'activate_buddypress_ads_rotator' );
-	}
-}
-add_action( 'plugins_loaded', 'wb_ads_rotator_check_required_plugin' );
-/**
- * Display required plugin admin notice.
- */
-function wb_ads_rotator_admin_notice() {
-	$wb_ads_rotator_plugin = __( 'BuddyPress Ads', 'buddypress-ads-rotator' );
-	$buddypress_plugin     = __( 'BuddyPress', 'buddypress-ads-rotator' );
-	echo '<div class="error"><p>'
-	/* translators: %1$s: BuddyPress Ads ;  %2$s: BuddyPress*/
-	. sprintf( esc_html__( '%1$s is ineffective as it requires %2$s to be installed and active.', 'buddypress-ads-rotator' ), '<strong>' . esc_attr( $wb_ads_rotator_plugin ) . '</strong>', '<strong>' . esc_attr( $buddypress_plugin ) . '</strong>' )
-	. '</p></div>';
-	if ( null !== filter_input( INPUT_GET, 'activate' ) ) {
-		$activate = filter_input( INPUT_GET, 'activate' );
-		unset( $activate );
-	}
-}
-
-/**
- * Function to remove wb ads rotator plugin if already exist.
+ * Check if BuddyPress is active.
  *
- * @since 1.0.0
+ * @since 1.6.0
+ * @return bool
  */
-function wb_ads_rotator_existing_checkin_plugin() {
-	$wb_ads_rotator_plugin = plugin_dir_path( __DIR__ ) . 'buddypress-ads-rotator/buddypress-ads-rotator';
-	// Check to see if plugin is already active.
-	if ( is_plugin_active( plugin_basename( __FILE__ ) ) ) {
-		deactivate_plugins( plugin_basename( __FILE__ ) );
+function wb_ads_rotator_is_buddypress_active() {
+	return class_exists( 'BuddyPress' );
+}
+
+/**
+ * Display admin notice when BuddyPress is not active (informational only).
+ *
+ * @since 1.6.0
+ */
+function wb_ads_rotator_buddypress_notice() {
+	// Only show on plugin settings page.
+	$screen = get_current_screen();
+	if ( ! $screen || false === strpos( $screen->id, 'buddypress-ads-rotator' ) ) {
+		return;
+	}
+
+	if ( ! wb_ads_rotator_is_buddypress_active() ) {
+		echo '<div class="notice notice-info"><p>'
+		. esc_html__( 'BuddyPress is not active. BuddyPress activity stream ad positions are disabled. The plugin will work with WordPress posts, pages, and shortcodes.', 'buddypress-ads-rotator' )
+		. '</p></div>';
 	}
 }
+add_action( 'admin_notices', 'wb_ads_rotator_buddypress_notice' );
 
 /**
  * Redirect to plugin settings page after activated.
@@ -114,15 +104,14 @@ function wb_ads_rotator_existing_checkin_plugin() {
  * @param string $plugin Path to the plugin file relative to the plugins directory.
  */
 function wb_ads_rotator_activation_redirect_settings( $plugin ) {
-
-	if ( plugin_basename( __FILE__ ) === $plugin && class_exists( 'BuddyPress' ) ) {
-		if ( isset( $_REQUEST['action'] ) && $_REQUEST['action']  == 'activate' && isset( $_REQUEST['plugin'] ) && $_REQUEST['plugin'] == $plugin) { //phpcs:ignore
+	if ( plugin_basename( __FILE__ ) === $plugin ) {
+		if ( isset( $_REQUEST['action'] ) && $_REQUEST['action'] == 'activate' && isset( $_REQUEST['plugin'] ) && $_REQUEST['plugin'] == $plugin ) { //phpcs:ignore
 			wp_safe_redirect( admin_url( 'admin.php?page=buddypress-ads-rotator-settings' ) );
 			exit;
 		}
 	}
-	if ( $plugin == $_REQUEST['plugin'] && class_exists( 'Buddypress' ) ) {
-		if ( isset( $_REQUEST['action'] ) && $_REQUEST['action']  == 'activate-plugin' && isset( $_REQUEST['plugin'] ) && $_REQUEST['plugin'] == $plugin) { //phpcs:ignore		
+	if ( isset( $_REQUEST['plugin'] ) && $plugin == $_REQUEST['plugin'] ) {
+		if ( isset( $_REQUEST['action'] ) && $_REQUEST['action'] == 'activate-plugin' && isset( $_REQUEST['plugin'] ) && $_REQUEST['plugin'] == $plugin ) { //phpcs:ignore
 			set_transient( '_wb_ads_rotator_is_new_install', true, 30 );
 		}
 	}

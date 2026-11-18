@@ -1,0 +1,13 @@
+{
+  "product": "BuddyPress Ads",
+  "productType": "plugin",
+  "shortId": "bpads",
+  "sections": [
+    { "name": "Getting Started", "folder": "getting-started", "description": "Install the plugin and publish your first ad." },
+    { "name": "Features", "folder": "features", "description": "Ad types, where ads can appear and who sees them." },
+    { "name": "Settings", "folder": "settings", "description": "Every option on the ad editor and the plugin settings screen." },
+    { "name": "Developer Guide", "folder": "developer-guide", "description": "Filters, actions and CSS hooks for extending the plugin." },
+    { "name": "FAQ", "folder": "faq", "description": "Short answers to common questions." },
+    { "name": "Troubleshooting", "folder": "troubleshooting", "description": "Fixes for ads that do not show or show in the wrong place." }
+  ]
+}

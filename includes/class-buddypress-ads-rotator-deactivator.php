@@ -29,7 +29,5 @@ class Buddypress_Ads_Rotator_Deactivator {
 	 * @since    1.0.0
 	 */
 	public static function deactivate() {
-
 	}
-
 }
