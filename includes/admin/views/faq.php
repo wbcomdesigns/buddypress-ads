@@ -17,7 +17,7 @@ defined( 'ABSPATH' ) || exit;
 $wbar_faqs = array(
 	array(
 		'q' => __( 'Does this plugin require BuddyPress?', 'buddypress-ads-rotator' ),
-		'a' => __( 'No. Since version 1.6.0 BuddyPress is optional. Ads work on WordPress posts, pages, the site header and footer, and through the shortcode. When BuddyPress is active you also get activity-stream ad positions.', 'buddypress-ads-rotator' ),
+		'a' => __( 'No. Since version 1.6.0 BuddyPress is optional. Ads work on WordPress posts, pages, the site header and footer, and through the shortcode. When BuddyPress is active with the Activity component on, you also get activity stream ad positions.', 'buddypress-ads-rotator' ),
 	),
 	array(
 		'q' => __( 'What do I do after activating the plugin?', 'buddypress-ads-rotator' ),
@@ -25,7 +25,7 @@ $wbar_faqs = array(
 	),
 	array(
 		'q' => __( 'Where can the ads be displayed?', 'buddypress-ads-rotator' ),
-		'a' => __( 'On WordPress posts and pages (before/after content), in the site header and footer, anywhere via the shortcode, and -- when BuddyPress is active -- across the sitewide, group, and member activity streams.', 'buddypress-ads-rotator' ),
+		'a' => __( 'On WordPress posts and pages (before/after content), in the site header and footer, anywhere via the shortcode, and, when BuddyPress is active with the Activity component on, in the sitewide, group and member profile activity streams.', 'buddypress-ads-rotator' ),
 	),
 	array(
 		'q' => __( 'Can I hide a specific ad?', 'buddypress-ads-rotator' ),
@@ -41,7 +41,7 @@ $wbar_faqs = array(
 	),
 	array(
 		'q' => __( 'Can I control the ad layout?', 'buddypress-ads-rotator' ),
-		'a' => __( 'Yes. You can set the position (left, center, right), margins on all four sides, and a custom container ID and CSS class for each ad.', 'buddypress-ads-rotator' ),
+		'a' => __( 'Yes. You can set the alignment (left, center or right), the margin on each side, and, for rich content ads, the font size and custom colors. Every ad also carries the CSS class wbcomads-{ad ID} for your own styles.', 'buddypress-ads-rotator' ),
 	),
 );
 ?>

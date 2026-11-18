@@ -14,4 +14,4 @@ Build the ad in the WordPress editor: text, links, images and shortcodes. Shortc
 
 ## Image Ad
 
-Choose an image from the media library and set the link it opens. When you set both width and height, the image keeps that size and crops to fit, and it scales down on narrow screens. The link opens in a new tab and is marked as sponsored for search engines. The ad title is used as the image alt text.
+Choose an image from the media library and set the link it opens. If the size fields are empty, choosing an image fills them with the image's own size. If you already typed a size, choosing or removing an image keeps it. When you set both width and height, the image keeps that size and crops to fit, and it scales down on narrow screens. The link opens in a new tab and is marked as sponsored for search engines. The ad title is used as the image alt text.

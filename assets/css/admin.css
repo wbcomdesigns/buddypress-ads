@@ -969,6 +969,7 @@
 
 	.wbar-settings-sidebar {
 		width: 100%;
+		box-sizing: border-box;
 		position: static;
 		top: auto;
 	}
@@ -1010,6 +1011,7 @@
 	.wbar-card .form-table td {
 		display: block;
 		width: 100%;
+		box-sizing: border-box;
 		padding: 8px 16px;
 	}
 

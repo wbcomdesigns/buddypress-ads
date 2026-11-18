@@ -42,7 +42,8 @@ $wbar_enabled_query = new WP_Query(
 
 $wbar_enabled = (int) $wbar_enabled_query->found_posts;
 
-$wbar_bp_active = class_exists( 'BuddyPress' );
+$wbar_bp_active  = class_exists( 'BuddyPress' );
+$wbar_bp_streams = $wbar_bp_active && bp_is_active( 'activity' );
 
 // Global scripts/styles status.
 $wbar_header_on = ! empty( $settings['header'] );
@@ -77,9 +78,13 @@ $wbar_scripts_url = $page_url . '&tab=scripts';
 		</p>
 		<p class="wbar-stat__trend">
 			<?php
-			echo $wbar_bp_active
-				? esc_html__( 'Activity-stream ad positions available', 'buddypress-ads-rotator' )
-				: esc_html__( 'WordPress positions only', 'buddypress-ads-rotator' );
+			if ( $wbar_bp_streams ) {
+				esc_html_e( 'Activity stream ad positions available', 'buddypress-ads-rotator' );
+			} elseif ( $wbar_bp_active ) {
+				esc_html_e( 'Activity component is off: WordPress positions only', 'buddypress-ads-rotator' );
+			} else {
+				esc_html_e( 'WordPress positions only', 'buddypress-ads-rotator' );
+			}
 			?>
 		</p>
 	</div>

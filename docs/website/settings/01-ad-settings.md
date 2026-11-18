@@ -15,7 +15,7 @@ Plain Text and Code, Rich Content or Image Ad. See [Ad Types](../features/01-ad-
 | Editor (rich) | The ad content. |
 | Font Size (rich) | Text size in pixels. |
 | Use custom colors (rich) | Off: the ad uses the page's colors and follows the theme in light and dark mode. On: the background and text colors you pick are used everywhere. |
-| Image, URL, Size (image) | The banner, the link it opens, and its width and height in pixels. |
+| Image, URL, Size (image) | The banner, the link it opens, and its width and height in pixels. A size you type is kept when you change the image. |
 | Alignment | Left, center or right alignment of the ad. |
 | Line break after the ad | Adds a line break after the ad so following content starts on its own line. |
 | Margin | Space around the ad, in pixels, for each side. |

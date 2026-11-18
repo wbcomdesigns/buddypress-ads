@@ -17,7 +17,7 @@ defined( 'ABSPATH' ) || exit;
 <div class="wbar-card">
 	<div class="wbar-card__head">
 		<p class="wbar-card__title"><?php esc_html_e( 'Welcome to BuddyPress Ads', 'buddypress-ads-rotator' ); ?></p>
-		<p class="wbar-card__desc"><?php esc_html_e( 'Display ads on your WordPress site -- on posts and pages, in the site header and footer, and across BuddyPress activity streams when BuddyPress is active. Create each ad from the WB Ads menu, choose where it appears, and you are done.', 'buddypress-ads-rotator' ); ?></p>
+		<p class="wbar-card__desc"><?php esc_html_e( 'Display ads on your WordPress site: on posts and pages, in the site header and footer, and across BuddyPress activity streams when BuddyPress is active. Create each ad from the WB Ads menu, choose where it appears, and you are done.', 'buddypress-ads-rotator' ); ?></p>
 	</div>
 	<div class="wbar-card__body">
 		<div class="wbar-action-row">
@@ -38,7 +38,7 @@ defined( 'ABSPATH' ) || exit;
 		<div class="wbar-resource-grid">
 			<div class="wbar-resource">
 				<h3><span class="dashicons dashicons-book" aria-hidden="true"></span><?php esc_html_e( 'Documentation', 'buddypress-ads-rotator' ); ?></h3>
-				<p><?php esc_html_e( 'A complete guide covering every aspect of BuddyPress Ads. Most answers live here.', 'buddypress-ads-rotator' ); ?></p>
+				<p><?php esc_html_e( 'The BuddyPress Ads plugin page, with feature details and documentation.', 'buddypress-ads-rotator' ); ?></p>
 				<a href="https://wbcomdesigns.com/downloads/buddypress-ads/" class="wbar-btn wbar-btn-secondary" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Read Documentation', 'buddypress-ads-rotator' ); ?></a>
 			</div>
 			<div class="wbar-resource">

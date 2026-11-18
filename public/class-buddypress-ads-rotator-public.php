@@ -269,7 +269,7 @@ class Buddypress_Ads_Rotator_Public {
 	 * @param string   $style   Extra inline style placed before alignment and margins.
 	 */
 	private function wb_ads_rotator_open( $ad_id, $values, $classes, $align, $style = '' ) {
-		$id = ! empty( $values['container_id'] ) ? $values['container_id'] : 'wbcomads-' . $ad_id;
+		$id = 'wbcomads-' . $ad_id;
 		// A repeating stream ad prints once per matching entry, and Load More adds entries over
 		// AJAX, so inside the activity loop the id carries the entry's id to stay unique. The
 		// wbcomads-<ad> class is on every copy for styling one ad wherever it shows.

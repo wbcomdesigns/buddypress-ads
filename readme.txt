@@ -131,6 +131,11 @@ Standalone WordPress support plus a rebuilt admin. BuddyPress is now optional.
 * Fix      - The Device option now shows the saved choice when it is set to both.
 * Fix      - The ad editor no longer overflows on small screens, and its options have clear labels and help text.
 * Fix      - The plain text ad content filter now also runs when shortcodes are allowed.
+* Fix      - Choosing a new image for an image ad keeps the width and height you typed. Empty size fields take the image's own size.
+* Fix      - Removing an ad image no longer clears the size fields.
+* Fix      - The Overview tab now says when the BuddyPress Activity component is off instead of listing activity positions as available.
+* Fix      - The FAQ no longer mentions container ID and CSS class fields that do not exist, and the Welcome tab describes the documentation link accurately.
+* Fix      - The settings screen no longer scrolls sideways on phones.
 * Fix      - Rich content ads with the clearfix option printed the line break twice.
 * Fix      - Empty margin or font size fields no longer write broken CSS such as margin-top:px into the ad.
 * Fix      - The settings screen no longer hides WordPress core and other plugins' admin notices.
