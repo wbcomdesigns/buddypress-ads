@@ -359,7 +359,7 @@ class Buddypress_Ads_Rotator_Public {
 		// Embed code (an ad network snippet, an iframe, a video) is left unwrapped: wpautop() would
 		// put it in a <p> and add <br> between its tags.
 		$content = apply_filters( 'wb_ads_rotator_rich_content_ads_content', $content );
-		if ( ! preg_match( '/<(script|iframe|style|ins|video|audio|object|embed)\b/i', $content ) ) {
+		if ( ! wb_ads_rotator_has_embed( $content ) ) {
 			$content = wpautop( $content );
 		}
 		$content = wp_kses( $content, $this->wb_ads_allowed_html() );

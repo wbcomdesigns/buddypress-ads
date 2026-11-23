@@ -144,3 +144,17 @@ function wb_ads_rotator_code_tags( $html ) {
 function wb_ads_rotator_strip_code_tags( $html ) {
 	return (string) preg_replace( WB_ADS_ROTATOR_CODE_TAGS, '', (string) $html );
 }
+
+/**
+ * Whether ad markup holds embed code: an ad network snippet, an iframe or a media player.
+ *
+ * Shared by the empty-ad publish guard (embed code is content) and the rich content
+ * render (embed code is not wrapped in paragraphs), so both agree on what an embed is.
+ *
+ * @since 1.6.0
+ * @param string $html Ad markup.
+ * @return bool
+ */
+function wb_ads_rotator_has_embed( $html ) {
+	return (bool) preg_match( '/<(script|iframe|style|ins|video|audio|object|embed)\b/i', (string) $html );
+}

@@ -861,11 +861,13 @@ class Buddypress_Ads_Rotator_Admin {
 
 			case 'rich-content':
 				$content = isset( $values['rich_content'] ) ? $values['rich_content'] : '';
-				// Media-only rich content is legitimate, so keep anything embedded.
-				if ( preg_match( '/<(img|iframe|video|embed|object|svg)\b/i', $content ) ) {
+				// Media-only or embed-only rich content (an AdSense snippet, an iframe) is legitimate.
+				if ( wb_ads_rotator_has_embed( $content ) || preg_match( '/<(img|svg)\b/i', $content ) ) {
 					return false;
 				}
-				return '' === trim( wp_strip_all_tags( $content ) );
+				// Blank, whitespace and &nbsp; from the visual editor count as empty.
+				$text = html_entity_decode( wp_strip_all_tags( $content ), ENT_QUOTES, 'UTF-8' );
+				return '' === trim( str_replace( "\xC2\xA0", ' ', $text ) );
 
 			case 'plain-text-and-code':
 			default:

@@ -129,6 +129,7 @@ Standalone WordPress support plus a rebuilt admin. BuddyPress is now optional.
 * Fix      - Choosing or removing the picture on an image ad no longer replaces or clears its click-through URL.
 * Fix      - Rich Content ads without embed code keep their paragraphs, line breaks, tables, horizontal lines and new-tab links, as shown in the editor.
 * Fix      - Rich Content AdSense ads keep their ad slot, so they display instead of rendering empty.
+* Fix      - A Rich Content ad that holds only ad network code, such as the AdSense snippet, can be published instead of being kept as an empty draft.
 * Fix      - Updating an ad you switched off no longer switches it back on.
 * Fix      - The ad shortcode only shows published ads. A missing or wrong ads_id shows nothing to visitors and a short hint to editors.
 * Fix      - The Device option now shows the saved choice when it is set to both.
