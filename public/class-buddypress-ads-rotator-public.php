@@ -354,16 +354,17 @@ class Buddypress_Ads_Rotator_Public {
 
 		$this->wb_ads_rotator_open( $wb_ads_rotator_get_ad, $values, $classes, $this->wb_ads_rotator_align( $values, '-webkit-' ), $style );
 		// Paragraphs as the editor shows them (it saves without <p>, like a post), then the
-		// author's markup filtered, new-tab links given rel="noopener", and shortcodes run
-		// where they stand so each renders once, in place, with its own output intact.
+		// author's markup filtered, and shortcodes run where they stand so each renders once,
+		// in place, with its own output intact. target="_blank" links keep their target;
+		// browsers apply noopener to them by default.
 		// Embed code (an ad network snippet, an iframe, a video) is left unwrapped: wpautop() would
 		// put it in a <p> and add <br> between its tags.
 		$content = apply_filters( 'wb_ads_rotator_rich_content_ads_content', $content );
-		if ( ! preg_match( '/<(script|iframe|style|ins|video|audio|object|embed)\b/i', $content ) ) {
+		if ( ! wb_ads_rotator_has_embed( $content ) ) {
 			$content = wpautop( $content );
 		}
 		$content = wp_kses( $content, $this->wb_ads_allowed_html() );
-		echo do_shortcode( shortcode_unautop( wp_targeted_link_rel( $content ) ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- kses-filtered above; shortcode output is the shortcode's own.
+		echo do_shortcode( shortcode_unautop( $content ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- kses-filtered above; shortcode output is the shortcode's own.
 		$this->wb_ads_rotator_close( $values );
 	}
 
