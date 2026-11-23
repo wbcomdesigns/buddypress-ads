@@ -356,7 +356,13 @@ class Buddypress_Ads_Rotator_Public {
 		// Paragraphs as the editor shows them (it saves without <p>, like a post), then the
 		// author's markup filtered, new-tab links given rel="noopener", and shortcodes run
 		// where they stand so each renders once, in place, with its own output intact.
-		$content = wp_kses( wpautop( apply_filters( 'wb_ads_rotator_rich_content_ads_content', $content ) ), $this->wb_ads_allowed_html() );
+		// Embed code (an ad network snippet, an iframe, a video) is left unwrapped: wpautop() would
+		// put it in a <p> and add <br> between its tags.
+		$content = apply_filters( 'wb_ads_rotator_rich_content_ads_content', $content );
+		if ( ! preg_match( '/<(script|iframe|style|ins|video|audio|object|embed)\b/i', $content ) ) {
+			$content = wpautop( $content );
+		}
+		$content = wp_kses( $content, $this->wb_ads_allowed_html() );
 		echo do_shortcode( shortcode_unautop( wp_targeted_link_rel( $content ) ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- kses-filtered above; shortcode output is the shortcode's own.
 		$this->wb_ads_rotator_close( $values );
 	}
