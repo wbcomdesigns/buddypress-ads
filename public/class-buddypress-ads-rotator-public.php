@@ -353,9 +353,11 @@ class Buddypress_Ads_Rotator_Public {
 			: array( 'wb-bannerads-rotator', 'rich-contentwbads' );
 
 		$this->wb_ads_rotator_open( $wb_ads_rotator_get_ad, $values, $classes, $this->wb_ads_rotator_align( $values, '-webkit-' ), $style );
-		// Filter the author's markup first, then run its shortcodes where they stand, so each
-		// shortcode renders once, in place, with its own output left intact.
-		echo do_shortcode( wp_kses( apply_filters( 'wb_ads_rotator_rich_content_ads_content', $content ), $this->wb_ads_allowed_html() ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- kses-filtered above; shortcode output is the shortcode's own.
+		// Paragraphs as the editor shows them (it saves without <p>, like a post), then the
+		// author's markup filtered, new-tab links given rel="noopener", and shortcodes run
+		// where they stand so each renders once, in place, with its own output intact.
+		$content = wp_kses( wpautop( apply_filters( 'wb_ads_rotator_rich_content_ads_content', $content ) ), $this->wb_ads_allowed_html() );
+		echo do_shortcode( shortcode_unautop( wp_targeted_link_rel( $content ) ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- kses-filtered above; shortcode output is the shortcode's own.
 		$this->wb_ads_rotator_close( $values );
 	}
 
@@ -468,150 +470,24 @@ class Buddypress_Ads_Rotator_Public {
 	}
 
 	/**
-	 * Allowed HTML.
+	 * Allowed HTML for rich content ads.
+	 *
+	 * Everything the post editor allows (paragraphs, line breaks, tables, link targets),
+	 * plus the script, iframe and style embeds rich ads have always accepted.
+	 *
+	 * @since 1.6.0
+	 * @return array
 	 */
 	public function wb_ads_allowed_html() {
+		$embed = array_fill_keys( array( 'type', 'id', 'src', 'width', 'height', 'scrolling', 'frameborder', 'allowtransparency', 'allow', 'allowfullscreen' ), array() );
 
-		$allowed_tags = array(
-			'a'          => array(
-				'class' => array(),
-				'href'  => array(),
-				'rel'   => array(),
-				'title' => array(),
-				'style' => array(),
-			),
-			'abbr'       => array(
-				'title' => array(),
-				'style' => array(),
-			),
-			'b'          => array(
-				'style' => array(),
-			),
-			'blockquote' => array(
-				'cite'  => array(),
-				'style' => array(),
-			),
-			'cite'       => array(
-				'title' => array(),
-				'style' => array(),
-			),
-			'code'       => array(
-				'style' => array(),
-			),
-			'del'        => array(
-				'datetime' => array(),
-				'title'    => array(),
-				'style'    => array(),
-			),
-			'dd'         => array(
-				'style' => array(),
-			),
-			'div'        => array(
-				'class' => array(),
-				'title' => array(),
-				'style' => array(),
-			),
-			'dl'         => array(
-				'style' => array(),
-			),
-			'dt'         => array(
-				'style' => array(),
-			),
-			'em'         => array(
-				'style' => array(),
-			),
-			'h1'         => array(
-				'style' => array(),
-			),
-			'h2'         => array(
-				'style' => array(),
-			),
-			'h3'         => array(
-				'style' => array(),
-			),
-			'h4'         => array(
-				'style' => array(),
-			),
-			'h5'         => array(
-				'style' => array(),
-			),
-			'h6'         => array(
-				'style' => array(),
-			),
-			'i'          => array(
-				'style' => array(),
-			),
-			'img'        => array(
-				'alt'    => array(),
-				'class'  => array(),
-				'height' => array(),
-				'src'    => array(),
-				'width'  => array(),
-				'style'  => array(),
-			),
-			'li'         => array(
-				'class' => array(),
-				'style' => array(),
-			),
-			'ol'         => array(
-				'class' => array(),
-				'style' => array(),
-			),
-			'p'          => array(
-				'class' => array(),
-				'style' => array(),
-			),
-			'q'          => array(
-				'cite'  => array(),
-				'title' => array(),
-				'style' => array(),
-			),
-			'span'       => array(
-				'class' => array(),
-				'title' => array(),
-				'style' => array(),
-			),
-			'strike'     => array(
-				'style' => array(),
-			),
-			'strong'     => array(
-				'style' => array(),
-			),
-			'ul'         => array(
-				'class' => array(),
-				'style' => array(),
-			),
-			'script'     => array(
-				'type'              => array(),
-				'id'                => array(),
-				'src'               => array(),
-				'width'             => array(),
-				'height'            => array(),
-				'scrolling'         => array(),
-				'frameborder'       => array(),
-				'allowtransparency' => array(),
-				'allow'             => array(),
-				'allowfullscreen'   => array(),
-			),
-			'iframe'     => array(
-				'type'              => array(),
-				'id'                => array(),
-				'src'               => array(),
-				'width'             => array(),
-				'height'            => array(),
-				'scrolling'         => array(),
-				'frameborder'       => array(),
-				'allowtransparency' => array(),
-				'allow'             => array(),
-				'allowfullscreen'   => array(),
-			),
-			'style'      => array(
-				'type'   => array(),
-				'media'  => array(),
-				'scoped' => array(),
-			),
+		return array_merge(
+			wp_kses_allowed_html( 'post' ),
+			array(
+				'script' => $embed,
+				'iframe' => $embed,
+				'style'  => array_fill_keys( array( 'type', 'media', 'scoped' ), array() ),
+			)
 		);
-
-		return $allowed_tags;
 	}
 }

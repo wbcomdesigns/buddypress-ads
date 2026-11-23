@@ -120,9 +120,9 @@
         nonce: ajax.nonce,
       };
       $.post(ajaxurl, data, function (response) {
+        // Only the image changes; the click-through URL is the advertiser's link and stays.
         $("#wb-ads-preview-images").attr("src", response);
-        $(".wb_ads_rotator_image").attr("value", "");
-        $("#wb_ads_image_id").attr("value", "0");
+        $("#wb_ads_image_id").val("0");
       });
     });
     /**
@@ -185,7 +185,6 @@
                     src: attachment.url,
                   })
                 );
-              $(".wb_ads_rotator_image").attr("value", attachment.url);
               $("#wb_ads_rotator_remove_image").attr(
                 "data-img-id",
                 attachment.id
